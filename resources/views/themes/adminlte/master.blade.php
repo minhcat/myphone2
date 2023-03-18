@@ -1,53 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+    <title>MyPhone - Admin</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     @include('themes.adminlte.style')
+    @yield('style')
 </head>
-<body>
-    <h1>Master Page</h1>
+<!--
+BODY TAG OPTIONS:
+=================
+Apply one or more of the following classes to get the
+desired effect
+|---------------------------------------------------------|
+| SKINS         | skin-blue                               |
+|               | skin-black                              |
+|               | skin-purple                             |
+|               | skin-yellow                             |
+|               | skin-red                                |
+|               | skin-green                              |
+|---------------------------------------------------------|
+|LAYOUT OPTIONS | fixed                                   |
+|               | layout-boxed                            |
+|               | layout-top-nav                          |
+|               | sidebar-collapse                        |
+|               | sidebar-mini                            |
+|---------------------------------------------------------|
+-->
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
 
-    <!-- jQuery 3 -->
-    <script src="{{ asset('themes/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="{{ asset('themes/adminlte/vendor/jquery-ui/jquery-ui.js') }}"></script>
-    <script>
-    $.widget.bridge('uibutton', $.ui.button);
-    </script>
-    <!-- Bootstrap 3.3.7 -->
-    <script src="{{ asset('themes/adminlte/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <!-- Select2 -->
-    <script src="{{ asset('themes/adminlte/vendor/select2/dist/js/select2.full.min.js') }}"></script>
-    <!-- Morris.js charts -->
-    <script src="{{ asset('themes/adminlte/vendor/raphael/raphael.min.js') }}"></script>
-    <script src="{{ asset('themes/adminlte/vendor/morris.js/morris.min.js') }}"></script>
-    <!-- Sparkline -->
-    <script src="{{ asset('themes/adminlte/vendor/jquery-sparkline/dist/jquery.sparkline.min.js') }}"></script>
-    <!-- jvectormap -->
-    <script src="{{ asset('themes/adminlte/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
-    <script src="{{ asset('themes/adminlte/plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
-    <!-- jQuery Knob Chart -->
-    <script src="{{ asset('themes/adminlte/vendor/jquery-knob/dist/jquery.knob.min.js') }}"></script>
-    <!-- Bootstrap WYSIHTML5 -->
-    <script src="{{ asset('themes/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
-    <!-- Slimscroll -->
-    <script src="{{ asset('themes/adminlte/vendor/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
-    <!-- daterangepicker -->
-    <script src="{{ asset('themes/adminlte/vendor/moment/min/moment.min.js') }}"></script>
-    <script src="{{ asset('themes/adminlte/vendor/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-    <!-- datepicker -->
-    <script src="{{ asset('themes/adminlte/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('themes/adminlte/dist/js/adminlte.js') }}"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="{{ asset('themes/adminlte/dist/js/pages/dashboard.js') }}"></script>
+  @include('themes.adminlte.header')
+  @include('themes.adminlte.sidebar')
 
-    <!-- Optionally, you can add Slimscroll and FastClick plugins.
-        Both of these plugins are recommended to enhance the
-        user experience. -->
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        @yield('title-page')
+        @yield('small-info')
+      </h1>
+      @yield('breakcumb')
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+      <!-- Alert -->
+      <div class="mp-alert">
+        @if (session('success'))
+        <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <h4>Success</h4>
+          <p>{{ session('success') }}</p>
+        </div>
+        @endif
+      </div>
+      <!-- /.alert -->
+      @yield('content')
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  @include('themes.adminlte.footer')
+
+  <!-- Add the sidebar's background. This div must be placed
+  immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+@include('themes.adminlte.script')
+@yield('script')
 </body>
 </html>
