@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ asset('themes/adminlte/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('themes/adminlte/vendor/bootstrap/dist/css/bootstrap.css') }}">
 <!-- Font Awesome -->
 <link rel="stylesheet" href="{{ asset('themes/adminlte/vendor/font-awesome/css/font-awesome.min.css') }}">
 <!-- Ionicons -->
@@ -10,7 +10,7 @@
 <!-- Select2 -->
 <link rel="stylesheet" href="{{ asset('themes/adminlte/vendor/select2/dist/css/select2.min.css') }}">
 <!-- Theme style -->
-<link rel="stylesheet" href="{{ asset('themes/adminlte/dist/css/AdminLTE.min.css') }}">
+<link rel="stylesheet" href="{{ asset('themes/adminlte/dist/css/AdminLTE.css') }}">
 <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
     page. However, you can choose any other skin. Make sure you
     apply the skin class to the body tag so the changes take effect. -->

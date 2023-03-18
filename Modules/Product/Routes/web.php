@@ -11,6 +11,10 @@
 |
 */
 
-Route::prefix('product')->group(function() {
-    Route::get('/', 'ProductController@index');
+use Illuminate\Support\Facades\Route;
+
+Route::prefix('admin')->group(function() {
+    Route::prefix('products')->group(function() {
+        Route::get('/', 'ProductController@index');
+    });
 });

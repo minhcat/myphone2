@@ -14,3 +14,36 @@ input[type=file] {
 .category-container .child {
     padding-left: 1.5rem;
 }
+
+.btn-icon {
+    width: 40px;
+    height: 36px;
+}
+
+.box-header {
+    padding: 10px 20px;
+}
+.box-body {
+    padding: 20px;
+}
+
+.table-header label {
+    font-weight: normal;
+}
+.table-header label select {
+    display: inline-block;
+    width: 60px;
+}
+
+.filter {
+    text-align: right;
+}
+.filter label input {
+    width: auto;
+    display: inline-block;
+}
+
+.pagination {
+    margin-top: 0;
+    margin-bottom: 0;
+}
