@@ -1,0 +1,16 @@
+.mp-alert {
+    /* padding: 15px; */
+    padding-bottom: 0;
+}
+
+.box .box-body.with-border {
+    border-top: 1px solid #f4f4f4;
+}
+
+input[type=file] {
+    display: none;
+}
+
+.category-container .child {
+    padding-left: 1.5rem;
+}
