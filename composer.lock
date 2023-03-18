@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7ae5ceeec794d9f74545144a1fb49cc1",
+    "content-hash": "123914dd8b6fe1ce2e324960be71abeb",
     "packages": [
         {
             "name": "brick/math",
@@ -2110,30 +2110,30 @@
         },
         {
             "name": "nwidart/laravel-modules",
-            "version": "v9.0.6",
+            "version": "v10.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nWidart/laravel-modules.git",
-                "reference": "a31b003b9e1dd100d2bcf7da7e036a758d33986d"
+                "reference": "35e514f13cb8ae8dce093e9794785fea27319d81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nWidart/laravel-modules/zipball/a31b003b9e1dd100d2bcf7da7e036a758d33986d",
-                "reference": "a31b003b9e1dd100d2bcf7da7e036a758d33986d",
+                "url": "https://api.github.com/repos/nWidart/laravel-modules/zipball/35e514f13cb8ae8dce093e9794785fea27319d81",
+                "reference": "35e514f13cb8ae8dce093e9794785fea27319d81",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "php": ">=8.0"
+                "php": ">=8.1"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.6",
-                "laravel/framework": "^9.21",
-                "mockery/mockery": "^1.4",
-                "orchestra/testbench": "^7.0",
+                "laravel/framework": "^10.0",
+                "mockery/mockery": "^1.5",
+                "orchestra/testbench": "^8.0",
                 "phpstan/phpstan": "^1.4",
-                "phpunit/phpunit": "^9.5",
-                "spatie/phpunit-snapshot-assertions": "^4.2"
+                "phpunit/phpunit": "^10.0",
+                "spatie/phpunit-snapshot-assertions": "^5.0"
             },
             "type": "library",
             "extra": {
@@ -2146,7 +2146,7 @@
                     }
                 },
                 "branch-alias": {
-                    "dev-master": "9.0-dev"
+                    "dev-master": "10.0-dev"
                 }
             },
             "autoload": {
@@ -2179,7 +2179,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nWidart/laravel-modules/issues",
-                "source": "https://github.com/nWidart/laravel-modules/tree/v9.0.6"
+                "source": "https://github.com/nWidart/laravel-modules/tree/v10.0.0"
             },
             "funding": [
                 {
@@ -2187,7 +2187,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-10-28T11:50:28+00:00"
+            "time": "2023-02-16T11:08:15+00:00"
         },
         {
             "name": "phpoption/phpoption",
