@@ -26,6 +26,9 @@ input[type=file] {
 .box-body {
     padding: 20px;
 }
+.box-footer {
+    padding: 10px 20px;
+}
 
 .table-header label {
     font-weight: normal;
@@ -46,4 +49,15 @@ input[type=file] {
 .pagination {
     margin-top: 0;
     margin-bottom: 0;
+}
+
+.field-group {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.field-group:first-child {
+    padding-top: 0;
+}
+.field-group:not(:first-child) {
+    border-top: 1px solid #eee;
 }

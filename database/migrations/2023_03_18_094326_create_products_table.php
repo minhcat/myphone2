@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('description')->default('');
             $table->float('price')->default(0);
             $table->integer('brand_id')->unsigned()->nullable();
+            $table->boolean('has_attribute')->default(false);
             $table->timestamps();
         });
     }
