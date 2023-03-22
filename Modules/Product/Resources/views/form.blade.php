@@ -34,8 +34,9 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="">Name</label>
+                                <label for="">Name <span class="text-red">(*)</span></label>
                                 <input type="text" class="form-control" placeholder="input name">
+                                <span class="help-block hidden">Name is require</span>
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -55,8 +56,9 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="">Price</label>
+                                <label for="">Price <span class="text-red">(*)</span></label>
                                 <input type="text" class="form-control" placeholder="input price">
+                                <span class="help-block hidden">Price is require</span>
                             </div>
                         </div>
                         <div class="col-lg-6">
