@@ -24,7 +24,7 @@ input[type=file] {
     padding: 10px 20px;
 }
 .box-body {
-    padding: 20px;
+    padding: 10px 20px;
 }
 .box-footer {
     padding: 10px 20px;
@@ -60,4 +60,18 @@ input[type=file] {
 }
 .field-group:not(:first-child) {
     border-top: 1px solid #eee;
+}
+
+.list-child {
+    margin-left: 20px;
+}
+
+
+/* Widget styles */
+.box-category .box-body .box-content {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid #f4f4f4;
+    padding: 0 10px;
 }

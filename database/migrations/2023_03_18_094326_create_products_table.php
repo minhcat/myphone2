@@ -18,8 +18,9 @@ return new class extends Migration
             $table->string('name')->default('');
             $table->string('slug')->default('');
             $table->string('sku')->default('');
-            $table->text('description')->default('');
             $table->float('price')->default(0);
+            $table->text('description')->default('');
+            $table->string('note')->default('');
             $table->integer('brand_id')->unsigned()->nullable();
             $table->boolean('has_attribute')->default(false);
             $table->timestamps();
