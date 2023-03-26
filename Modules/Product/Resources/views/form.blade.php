@@ -3,14 +3,14 @@
 @section('title-page', 'Products')
 
 @section('small-info')
-<small>Product Detail</small>
+<small>Add Product</small>
 @endsection
 
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
     <li><a href="#">Product</a></li>
-    <li class="active">Detail</li>
+    <li class="active">Create</li>
 </ol>
 @endsection
 
@@ -27,7 +27,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="">SKU</label>
-                                <input type="text" class="form-control" value="SP23-0010" disabled>
+                                <input type="text" class="form-control" value="PR23-0010" disabled>
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -47,7 +47,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="">Name <span class="text-red">(*)</span></label>
+                                <label for="">Name <span class="text-red">*</span></label>
                                 <input type="text" class="form-control" placeholder="input name">
                                 <span class="help-block hidden">Name is require</span>
                             </div>
@@ -56,7 +56,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="">Price <span class="text-red">(*)</span></label>
+                                <label for="">Price <span class="text-red">*</span></label>
                                 <input type="text" class="form-control" placeholder="input price">
                                 <span class="help-block hidden">Price is require</span>
                             </div>
@@ -88,10 +88,10 @@
     </div>
     <div class="col-lg-3">
         <div class="box box-primary box-category">
-            <div class="box-header">
+            <div class="box-header with-border">
                 <div class="box-title">Categories</div>
             </div>
-            <div class="box-body p-5 pt-0">
+            <div class="box-body px-0 pr-0">
                 <p class="mb-3 hidden">Check product categories</p>
                 <div class="box-content">
                     <ul class="form-group">
@@ -115,6 +115,7 @@
                     </ul>
                 </div>
             </div>
+            <div class="box-footer p-5"></div>
         </div>
         <div class="box box-primary">
             <div class="box-header with-border">

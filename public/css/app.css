@@ -1,11 +1,17 @@
+:root {
+    --light-gray: #f4f4f4;
+    --normal-gray: #eee;
+    --dark-gray: #ccc;
+}
+
 a, abbr, acronym, address, applet, article, aside, audio, 
 b, big, blockquote, body, canvas, caption, center, cite, 
 code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, 
 figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, 
 hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, 
 nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, 
-strike, strong, sub, summary, sup, 
-table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, 
+time, tr, tt, u, ul, var, video {
     margin: 0;
     padding: 0;
 }
@@ -71,11 +77,13 @@ input[type=file] {
     padding-top: 0;
 }
 .field-group:not(:first-child) {
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--normal-gray);
 }
 
 .list-child {
     margin-left: 20px;
+    margin-top: -5px;
+    margin-bottom: -5px;
 }
 
 
@@ -84,6 +92,16 @@ input[type=file] {
     max-height: 200px;
     overflow-y: auto;
     overflow-x: hidden;
-    border: 1px solid #f4f4f4;
-    padding: 0 10px;
+    /* border: 1px solid #f4f4f4; */
+    /* padding: 0 10px; */
+}
+
+.box-category .box-body .box-content::-webkit-scrollbar {
+    width: 15px;
+    background-color: transparent;
+}
+
+.box-category .box-body .box-content::-webkit-scrollbar-thumb {
+    /* width: 10px; */
+    background-color: var(--dark-gray);
 }
