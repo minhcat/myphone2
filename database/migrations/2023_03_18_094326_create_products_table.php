@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name')->default('');
             $table->string('slug')->default('');
-            $table->string('sku')->default('');
-            $table->float('price')->default(0);
+            $table->string('sku_prefix')->default('');
+            $table->string('sku_number')->default('');
+            $table->float('price', 12, 2)->default(0);
             $table->text('description')->default('');
             $table->string('note')->default('');
             $table->integer('brand_id')->unsigned()->nullable();
