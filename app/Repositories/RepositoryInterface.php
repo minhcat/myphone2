@@ -10,6 +10,8 @@ interface RepositoryInterface
 
     public function find($id);
 
+    public function count();
+
     public function create($data);
 
     public function update($id, $data);

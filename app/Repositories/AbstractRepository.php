@@ -23,6 +23,11 @@ abstract class AbstractRepository implements RepositoryInterface
         return $this->model->find($id);
     }
 
+    public function count()
+    {
+        return $this->model->count();
+    }
+
     public function create($data)
     {
         return $this->model->create($data);
