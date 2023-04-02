@@ -23,9 +23,12 @@ abstract class AbstractRepository implements RepositoryInterface
         return $this->model->skip($skip)->take($take)->get();
     }
 
-    public function paginate($take = self::TAKE_DEFAULT)
+    public function paginate($take = self::TAKE_DEFAULT, $search = null)
     {
-        return $this->model->paginate($take);
+        if (is_null($search)) {
+            return $this->model->paginate($take);
+        }
+        return $this->model->where('name', 'LIKE', "%$search%")->paginate($take);
     }
 
     public function find($id)
