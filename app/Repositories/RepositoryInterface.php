@@ -8,6 +8,8 @@ interface RepositoryInterface
 {
     public function get();
 
+    public function paginate();
+
     public function find($id);
 
     public function count();

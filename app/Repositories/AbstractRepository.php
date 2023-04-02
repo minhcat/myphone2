@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 abstract class AbstractRepository implements RepositoryInterface
 {
+    /** @var \Illuminate\Database\Eloquent\Model */
     protected $model;
 
     public function __construct()
@@ -16,6 +17,11 @@ abstract class AbstractRepository implements RepositoryInterface
     public function get($skip = 0, $take = 5)
     {
         return $this->model->skip($skip)->take($take)->get();
+    }
+
+    public function paginate()
+    {
+        return $this->model->paginate();
     }
 
     public function find($id)
