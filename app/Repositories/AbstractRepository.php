@@ -4,6 +4,10 @@ namespace App\Repositories;
 
 abstract class AbstractRepository implements RepositoryInterface
 {
+    const TAKE_DEFAULT = 5;
+    const PAGE_DEFAULT = 1;
+    const SKIP_DEFAULT = 0;
+
     /** @var \Illuminate\Database\Eloquent\Model */
     protected $model;
 
@@ -14,14 +18,14 @@ abstract class AbstractRepository implements RepositoryInterface
 
     abstract function getModel();
 
-    public function get($skip = 0, $take = 5)
+    public function get($skip = self::SKIP_DEFAULT, $take = self::TAKE_DEFAULT)
     {
         return $this->model->skip($skip)->take($take)->get();
     }
 
-    public function paginate()
+    public function paginate($take = self::TAKE_DEFAULT)
     {
-        return $this->model->paginate();
+        return $this->model->paginate($take);
     }
 
     public function find($id)
