@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function() {
     Route::prefix('products')->group(function() {
-        Route::get('/', 'ProductController@index');
-        Route::get('/create', 'ProductController@create');
-        Route::get('/{id}', 'ProductController@show');
+        Route::get('/', 'ProductController@index')->name('product.index');
+        Route::get('/create', 'ProductController@create')->name('product.create');
+        Route::get('/{id}', 'ProductController@show')->name('product.show');
     });
 });

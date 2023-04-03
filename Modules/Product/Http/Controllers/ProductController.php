@@ -2,19 +2,40 @@
 
 namespace Modules\Product\Http\Controllers;
 
+use App\Repositories\AbstractRepository;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Product\Repositories\ProductRepository;
 
 class ProductController extends Controller
 {
+    /** @var \App\Repositories\AbstractRepository */
+    protected $repository;
+
+    /**
+     * Create a new Product controller instance.
+     */
+    public function __construct()
+    {
+        $this->repository = new ProductRepository();
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('product::index');
+        $search   = $request->input('search');
+        $take     = $request->input('take') ?? AbstractRepository::TAKE_DEFAULT;
+        $page     = $request->input('page') ?? AbstractRepository::PAGE_DEFAULT;
+        $products = $this->repository->paginate($take, $search);
+        $total    = $products->total();
+        $start    = ($page - 1) * $take + 1;
+        $end      = min($page * $take, $products->total());
+
+        return view('product::index', compact('products', 'total', 'take', 'page', 'start', 'end'));
     }
 
     /**

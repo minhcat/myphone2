@@ -3,7 +3,7 @@
 @section('title-page', 'Products')
 
 @section('small-info')
-<small>List of products (500)</small>
+<small>List of products ({{ $total }})</small>
 @endsection
 
 @section('breakcumb')
@@ -30,10 +30,9 @@
                                 <label for="length">
                                     Show 
                                     <select name="length" id="length" class="form-control input-sm">
-                                        <option value="5">5</option>
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
+                                        @foreach ([5, 10, 25, 50] as $value)
+                                            <option value="{{ $value }}" {{ $take == $value ? 'selected' : '' }}>{{ $value }}</option>
+                                        @endforeach
                                     </select> 
                                     entries
                                 </label>
@@ -65,94 +64,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><a href="#">Iphone 14 promax</a></td>
-                                <td>Apple</td>
-                                <td>smartphone</td>
-                                <td>new, modern, usa</td>
-                                <td>25,000,000</td>
-                                <td>18-03-2023</td>
-                                <td>18-03-2023</td>
-                                <td>
-                                    <button class="btn btn-icon btn-primary"><i class="fa fa-edit"></i></button>
-                                    <button class="btn btn-icon btn-danger"><i class="fa fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><a href="#">Samsung Galaxy S10 Pro</a></td>
-                                <td>Samsung</td>
-                                <td>smartphone</td>
-                                <td>new, modern, korea</td>
-                                <td>24,000,000</td>
-                                <td>18-03-2023</td>
-                                <td>18-03-2023</td>
-                                <td>
-                                    <button class="btn btn-icon btn-primary"><i class="fa fa-edit"></i></button>
-                                    <button class="btn btn-icon btn-danger"><i class="fa fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><a href="#">Redmi Note 11 Pro</a></td>
-                                <td>Xiaomi</td>
-                                <td>smartphone</td>
-                                <td>new, modern, china</td>
-                                <td>23,000,000</td>
-                                <td>18-03-2023</td>
-                                <td>18-03-2023</td>
-                                <td>
-                                    <button class="btn btn-icon btn-primary"><i class="fa fa-edit"></i></button>
-                                    <button class="btn btn-icon btn-danger"><i class="fa fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td><a href="#">Oppo Reno 8 Pro</a></td>
-                                <td>Oppo</td>
-                                <td>smartphone</td>
-                                <td>new, modern, china</td>
-                                <td>22,000,000</td>
-                                <td>18-03-2023</td>
-                                <td>18-03-2023</td>
-                                <td>
-                                    <button class="btn btn-icon btn-primary"><i class="fa fa-edit"></i></button>
-                                    <button class="btn btn-icon btn-danger"><i class="fa fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td><a href="#">Vsmart Joy 4</a></td>
-                                <td>Vsmart</td>
-                                <td>smartphone</td>
-                                <td>new, modern, vietnam</td>
-                                <td>20,000,000</td>
-                                <td>18-03-2023</td>
-                                <td>18-03-2023</td>
-                                <td>
-                                    <button class="btn btn-icon btn-primary"><i class="fa fa-edit"></i></button>
-                                    <button class="btn btn-icon btn-danger"><i class="fa fa-trash"></i></button>
-                                </td>
-                            </tr>
+                            @foreach ($products as $product)
+                                <tr>
+                                    <td>{{ $product->id }}</td>
+                                    <td><a href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a></td>
+                                    <td>Apple</td>
+                                    <td>smartphone</td>
+                                    <td>new, modern, usa</td>
+                                    <td>{{ $product->price }}</td>
+                                    <td>{{ $product->created_at->format('d-m-Y') }}</td>
+                                    <td>{{ $product->updated_at->format('d-m-Y') }}</td>
+                                    <td>
+                                        <button class="btn btn-icon btn-primary"><i class="fa fa-edit"></i></button>
+                                        <button class="btn btn-icon btn-danger"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
                 <div class="table-footer mt-3">
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="table-info">Showing 1 to 5 of 500 entries</div>
+                            <div class="table-info">Showing {{ $start }} to {{ $end }} of {{ $total }} entries</div>
                         </div>
                         <div class="col-lg-6">
-                            <ul class="pagination pagination-sm pull-right">
-                                <li><a href="#"><<</a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">...</a></li>
-                                <li><a href="#">10</a></li>
-                                <li><a href="#">>></a></li>
-                            </ul>
+                            {{ $products->links('themes.adminlte.paginate') }}
                         </div>
                     </div>
                 </div>
