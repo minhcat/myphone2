@@ -78,6 +78,6 @@ desired effect
 <!-- ./wrapper -->
 
 @include('themes.adminlte.script')
-@yield('script')
+@stack('script')
 </body>
 </html>

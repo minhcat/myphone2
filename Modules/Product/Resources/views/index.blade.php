@@ -42,7 +42,7 @@
                             <div class="filter">
                                 <label for="search">
                                     Search:
-                                    <input type="text" class="form-control input-sm" name="search">
+                                    <input type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('product.index') }}">
                                 </label>
                             </div>
                         </div>
@@ -89,7 +89,7 @@
                             <div class="table-info">Showing {{ $start }} to {{ $end }} of {{ $total }} entries</div>
                         </div>
                         <div class="col-lg-6">
-                            {{ $products->links('themes.adminlte.paginate') }}
+                            {{ $products->appends($_GET)->links('themes.adminlte.paginate') }}
                         </div>
                     </div>
                 </div>
@@ -98,3 +98,17 @@
     </div>
 </div>
 @endsection
+
+@push('script')
+<script>
+    $(function() {
+        $('.filter input').keypress(function(e) {
+            if (e.which == 13) {
+                let value = $(this).val().trim();
+                let url = $(this).data('url') + '?search=' + value;
+                window.location.href = url;
+            }
+        })
+    })
+</script>
+@endpush
