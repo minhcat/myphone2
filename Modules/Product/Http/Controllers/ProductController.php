@@ -64,7 +64,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return view('product::detail');
+        $product = $this->repository->find($id);
+
+        return view('product::detail', compact('product'));
     }
 
     /**
