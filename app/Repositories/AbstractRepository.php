@@ -43,6 +43,8 @@ abstract class AbstractRepository implements RepositoryInterface
 
     public function create($data)
     {
+        $data = $this->convertDataCreate($data);
+
         return $this->model->create($data);
     }
 
@@ -54,5 +56,10 @@ abstract class AbstractRepository implements RepositoryInterface
     public function delete($id)
     {
         return $this->model->whereId($id)->delete();
+    }
+
+    protected function convertDataCreate($data)
+    {
+        return $data;
     }
 }

@@ -44,7 +44,12 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product::form');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('product.store'),
+            'method'    => 'POST',
+        ];
+        return view('product::create', compact('form'));
     }
 
     /**
@@ -54,7 +59,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->repository->create($request->all());
+
+        return redirect()->route('product.index')->with('success', 'create new product successfully');
     }
 
     /**

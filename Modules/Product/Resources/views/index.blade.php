@@ -20,7 +20,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <button class="btn btn-primary pull-right">New Product</button>
+                <a href="{{ route('product.create') }}" class="btn btn-primary pull-right">New Product</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -72,8 +72,8 @@
                                     <td>smartphone</td>
                                     <td>new, modern, usa</td>
                                     <td>{{ $product->price }}</td>
-                                    <td>{{ $product->created_at->format('d-m-Y') }}</td>
-                                    <td>{{ $product->updated_at->format('d-m-Y') }}</td>
+                                    <td>{{ $product->created_at }}</td>
+                                    <td>{{ $product->updated_at }}</td>
                                     <td>
                                         <button class="btn btn-icon btn-primary"><i class="fa fa-edit"></i></button>
                                         <button class="btn btn-icon btn-danger"><i class="fa fa-trash"></i></button>

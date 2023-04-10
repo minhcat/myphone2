@@ -1,45 +1,29 @@
-@extends('product::layouts.master')
-
-@section('title-page', 'Products')
-
-@section('small-info')
-<small>Add Product</small>
-@endsection
-
-@section('breakcumb')
-<ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="#">Product</a></li>
-    <li class="active">Create</li>
-</ol>
-@endsection
-
-@section('content')
 <div class="row">
     <div class="col-lg-9">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <div class="box-title">Create</div>
+                <div class="box-title">{{ $form['title'] }}</div>
             </div>
-            <div class="box-body">
-                <form action="">
+            <form action="{{ $form['url'] }}" method="{{ $form['method'] }}">
+                @csrf
+                <div class="box-body">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="">SKU</label>
-                                <input type="text" class="form-control" value="PR23-0010" disabled>
+                                <input type="text" class="form-control" value="PRO-0010" disabled>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="">Brand</label>
-                                <select class="form-control" aria-placeholder="not select">
+                                <select class="form-control" aria-placeholder="not select" name="brand_id">
                                     <option disabled selected>-- choose brand --</option>
-                                    <option>Apple</option>
-                                    <option>Samsung</option>
-                                    <option>Xiao</option>
-                                    <option>OPPO</option>
-                                    <option>Vsmart</option>
+                                    <option value="1">Apple</option>
+                                    <option value="2">Samsung</option>
+                                    <option value="3">Xiaomi</option>
+                                    <option value="4">OPPO</option>
+                                    <option value="5">Vsmart</option>
                                 </select>
                             </div>
                         </div>
@@ -48,7 +32,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Name <span class="text-red">*</span></label>
-                                <input type="text" class="form-control" placeholder="input name">
+                                <input type="text" class="form-control" placeholder="input name" name="name">
                                 <span class="help-block hidden">Name is require</span>
                             </div>
                         </div>
@@ -57,7 +41,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Price <span class="text-red">*</span></label>
-                                <input type="text" class="form-control" placeholder="input price">
+                                <input type="text" class="form-control" placeholder="input price" name="price">
                                 <span class="help-block hidden">Price is require</span>
                             </div>
                         </div>
@@ -66,7 +50,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Description</label>
-                                <textarea class="form-control" rows="4"></textarea>
+                                <textarea class="form-control" name="description" rows="4"></textarea>
                             </div>
                         </div>
                     </div>
@@ -74,16 +58,16 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Note <span class="fa fa-fw fa-question-circle" data-toggle="tooltip" title="Admin Note"></span></label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" name="note">
                             </div>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="box-footer">
-                <button class="btn btn-default">Back</button>
-                <button class="btn btn-primary">Save</button>
-            </div>
+                </div>
+                <div class="box-footer">
+                    <button class="btn btn-default">Back</button>
+                    <button class="btn btn-primary">Save</button>
+                </div>
+            </form>
         </div>
     </div>
     <div class="col-lg-3">
@@ -115,7 +99,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="box-footer p-5"></div>
+            <div class="box-footer p-4"></div>
         </div>
         <div class="box box-primary">
             <div class="box-header with-border">
@@ -144,4 +128,3 @@
         </div>
     </div>
 </div>
-@endsection

@@ -10,7 +10,18 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'name',
+        'slug',
+        'sku_prefix',
+        'sku_number',
+        'price',
+        'description',
+        'note',
+        'brand_id',
+        'created_at',
+        'updated_at',
+    ];
 
     public function getSkuAttribute()
     {
