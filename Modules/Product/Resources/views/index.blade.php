@@ -71,11 +71,11 @@
                                     <td>Apple</td>
                                     <td>smartphone</td>
                                     <td>new, modern, usa</td>
-                                    <td>{{ $product->price }}</td>
+                                    <td>{{ $product->price_format }} vnđ</td>
                                     <td>{{ $product->created_at }}</td>
                                     <td>{{ $product->updated_at }}</td>
                                     <td>
-                                        <button class="btn btn-icon btn-primary"><i class="fa fa-edit"></i></button>
+                                        <a class="btn btn-icon btn-primary" href="{{ route('product.edit', $product->id) }}"><i class="fa fa-edit"></i></a>
                                         <button class="btn btn-icon btn-danger"><i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>

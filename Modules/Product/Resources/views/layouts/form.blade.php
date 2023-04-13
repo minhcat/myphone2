@@ -1,11 +1,15 @@
+@php
+    $product = isset($product) ? $product : new Modules\Product\Entities\Product;
+@endphp
 <div class="row">
     <div class="col-lg-9">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">{{ $form['title'] }}</div>
             </div>
-            <form action="{{ $form['url'] }}" method="{{ $form['method'] }}">
+            <form action="{{ $form['url'] }}" method="{{ $form['method'] == 'GET' ? 'GET' : 'POST' }}">
                 @csrf
+                @method($form['method'])
                 <div class="box-body">
                     <div class="row">
                         <div class="col-lg-6">
@@ -19,11 +23,11 @@
                                 <label for="">Brand</label>
                                 <select class="form-control" aria-placeholder="not select" name="brand_id">
                                     <option disabled selected>-- choose brand --</option>
-                                    <option value="1">Apple</option>
-                                    <option value="2">Samsung</option>
-                                    <option value="3">Xiaomi</option>
-                                    <option value="4">OPPO</option>
-                                    <option value="5">Vsmart</option>
+                                    <option value="1" {{ $product->brand_id == 1 ? 'selected' : '' }}>Apple</option>
+                                    <option value="2" {{ $product->brand_id == 2 ? 'selected' : '' }}>Samsung</option>
+                                    <option value="3" {{ $product->brand_id == 3 ? 'selected' : '' }}>Xiaomi</option>
+                                    <option value="4" {{ $product->brand_id == 4 ? 'selected' : '' }}>OPPO</option>
+                                    <option value="5" {{ $product->brand_id == 5 ? 'selected' : '' }}>Vsmart</option>
                                 </select>
                             </div>
                         </div>
@@ -32,7 +36,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Name <span class="text-red">*</span></label>
-                                <input type="text" class="form-control" placeholder="input name" name="name">
+                                <input type="text" class="form-control" placeholder="input name" name="name" value="{{ $product->name ?? '' }}">
                                 <span class="help-block hidden">Name is require</span>
                             </div>
                         </div>
@@ -41,7 +45,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Price <span class="text-red">*</span></label>
-                                <input type="text" class="form-control" placeholder="input price" name="price">
+                                <input type="text" class="form-control" placeholder="input price" name="price" value="{{ $product->price ?? '' }}">
                                 <span class="help-block hidden">Price is require</span>
                             </div>
                         </div>
@@ -50,7 +54,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Description</label>
-                                <textarea class="form-control" name="description" rows="4"></textarea>
+                                <textarea class="form-control" name="description" rows="4">{{ $product->description }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -58,14 +62,14 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Note <span class="fa fa-fw fa-question-circle" data-toggle="tooltip" title="Admin Note"></span></label>
-                                <input type="text" class="form-control" name="note">
+                                <input type="text" class="form-control" name="note" value="{{ $product->note }}">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="box-footer">
-                    <button class="btn btn-default">Back</button>
-                    <button class="btn btn-primary">Save</button>
+                    <a href="{{ route('product.index') }}" class="btn btn-default">Back</a>
+                    <button class="btn btn-primary" type="submit">Save</button>
                 </div>
             </form>
         </div>

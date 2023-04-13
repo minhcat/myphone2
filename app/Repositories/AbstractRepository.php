@@ -50,6 +50,8 @@ abstract class AbstractRepository implements RepositoryInterface
 
     public function update($id, $data)
     {
+        $data = $this->convertDataUpdate($data);
+
         return $this->model->whereId($id)->update($data);
     }
 
@@ -59,6 +61,11 @@ abstract class AbstractRepository implements RepositoryInterface
     }
 
     protected function convertDataCreate($data)
+    {
+        return $data;
+    }
+
+    protected function convertDataUpdate($data)
     {
         return $data;
     }

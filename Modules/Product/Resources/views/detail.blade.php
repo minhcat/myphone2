@@ -78,7 +78,7 @@
                             <p><strong>Price</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ $product->price }}</p>
+                            <p>{{ $product->price_format }} vnđ</p>
                         </div>
                     </div>
                 </div>

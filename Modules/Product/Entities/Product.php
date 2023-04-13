@@ -40,11 +40,9 @@ class Product extends Model
         }
     }
 
-    protected function price() : Attribute
+    public function getPriceFormatAttribute()
     {
-        return Attribute::make(
-            get: fn ($value) => number_format($value) . ' vnđ'
-        );
+        return number_format($this->price);
     }
 
     protected function createdAt() : Attribute

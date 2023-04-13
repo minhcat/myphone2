@@ -49,6 +49,7 @@ class ProductController extends Controller
             'url'       => route('product.store'),
             'method'    => 'POST',
         ];
+
         return view('product::create', compact('form'));
     }
 
@@ -83,7 +84,15 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return view('product::edit');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('product.update', $id),
+            'method'    => 'PUT',
+        ];
+
+        $product = $this->repository->find($id);
+
+        return view('product::edit', compact('form', 'product'));
     }
 
     /**
@@ -94,7 +103,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->repository->update($id, $request->all());
+
+        return redirect()->route('product.index')->with('success', 'update product successfully');
     }
 
     /**
