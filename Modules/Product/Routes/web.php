@@ -13,13 +13,14 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->group(function() {
+Route::prefix('admin')->name('product.')->group(function() {
     Route::prefix('products')->group(function() {
-        Route::get('/', 'ProductController@index')->name('product.index');
-        Route::get('/create', 'ProductController@create')->name('product.create');
-        Route::get('/{id}', 'ProductController@show')->name('product.show');
-        Route::get('/{id}/edit', 'ProductController@edit')->name('product.edit');
-        Route::post('/', 'ProductController@store')->name('product.store');
-        Route::put('/{id}', 'ProductController@update')->name('product.update');
+        Route::get('/', 'ProductController@index')->name('index');
+        Route::get('/create', 'ProductController@create')->name('create');
+        Route::get('/{id}', 'ProductController@show')->name('show');
+        Route::get('/{id}/edit', 'ProductController@edit')->name('edit');
+        Route::post('/', 'ProductController@store')->name('store');
+        Route::put('/{id}', 'ProductController@update')->name('update');
+        Route::delete('/{id}', 'ProductController@destroy')->name('delete');
     });
 });

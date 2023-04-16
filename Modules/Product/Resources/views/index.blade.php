@@ -76,7 +76,7 @@
                                     <td>{{ $product->updated_at }}</td>
                                     <td>
                                         <a class="btn btn-icon btn-primary" href="{{ route('product.edit', $product->id) }}"><i class="fa fa-edit"></i></a>
-                                        <button class="btn btn-icon btn-danger"><i class="fa fa-trash"></i></button>
+                                        <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-product-delete" data-id="{{ $product->id }}"><i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -97,6 +97,24 @@
         </div>
     </div>
 </div>
+
+@include('product::layouts.modal', [
+    'modal'             => [
+        'id'            => 'modal-product-delete',
+        'title'         => 'Delete Product',
+        'message'       => 'Are you sure to delete this product!',
+        'form'          => [
+            'url'       => route('product.delete', ':id'),
+            'method'    => 'DELETE',
+            'inputs'    => []
+        ],
+        'buttons'       => [
+            'primary'   => [
+                'text'  => 'Delete'
+            ]
+        ],
+    ]
+])
 @endsection
 
 @push('script')
@@ -108,6 +126,16 @@
                 let url = $(this).data('url') + '?search=' + value;
                 window.location.href = url;
             }
+        })
+        let url_delete = $('#modal-product-delete form').attr('action');
+        $('.btn-delete').click(function() {
+            let id = $(this).data('id');
+            let url = url_delete.replace(':id', id)
+            $('#modal-product-delete form').attr('action', url);
+            console.log(url)
+        })
+        $('#modal-product-delete').on('hide.bs.modal', function() {
+            $('#modal-product-delete form').attr('action', url_delete);
         })
     })
 </script>

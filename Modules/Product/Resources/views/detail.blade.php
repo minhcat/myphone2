@@ -112,9 +112,19 @@
                         </div>
                     </div>
                 </div>
+                <div class="field-group">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <p><strong>Note</strong></p>
+                        </div>
+                        <div class="col-lg-10">
+                            <p>{{ $product->note }}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="box-footer">
-                <button class="btn btn-default">Back</button>
+                <a href="{{ route('product.index') }}" class="btn btn-default">Back</a>
                 <a href="{{ route('product.edit', $product->id) }}" class="btn btn-primary">Edit</a>
             </div>
         </div>

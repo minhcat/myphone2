@@ -11,14 +11,14 @@ use Modules\Product\Repositories\ProductRepository;
 class ProductController extends Controller
 {
     /** @var \App\Repositories\AbstractRepository */
-    protected $repository;
+    protected $productRepository;
 
     /**
      * Create a new Product controller instance.
      */
     public function __construct()
     {
-        $this->repository = new ProductRepository();
+        $this->productRepository = new ProductRepository();
     }
 
     /**
@@ -30,7 +30,7 @@ class ProductController extends Controller
         $search   = $request->input('search');
         $take     = $request->input('take') ?? AbstractRepository::TAKE_DEFAULT;
         $page     = $request->input('page') ?? AbstractRepository::PAGE_DEFAULT;
-        $products = $this->repository->paginate($take, $search);
+        $products = $this->productRepository->paginate($take, $search);
         $total    = $products->total();
         $start    = ($page - 1) * $take + 1;
         $end      = min($page * $take, $products->total());
@@ -60,7 +60,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $this->repository->create($request->all());
+        $this->productRepository->create($request->all());
 
         return redirect()->route('product.index')->with('success', 'create new product successfully');
     }
@@ -72,7 +72,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = $this->repository->find($id);
+        $product = $this->productRepository->find($id);
 
         return view('product::detail', compact('product'));
     }
@@ -90,7 +90,7 @@ class ProductController extends Controller
             'method'    => 'PUT',
         ];
 
-        $product = $this->repository->find($id);
+        $product = $this->productRepository->find($id);
 
         return view('product::edit', compact('form', 'product'));
     }
@@ -103,7 +103,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->repository->update($id, $request->all());
+        $this->productRepository->update($id, $request->all());
 
         return redirect()->route('product.index')->with('success', 'update product successfully');
     }
@@ -115,6 +115,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->productRepository->delete($id);
+
+        return redirect()->route('product.index')->with('success', 'delete product successfully');
     }
 }
