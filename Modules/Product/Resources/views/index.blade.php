@@ -25,24 +25,11 @@
             <div class="box-body">
                 <div class="table-header">
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="length">
-                                <label for="length">
-                                    Show 
-                                    <select name="length" id="length" class="form-control input-sm">
-                                        @foreach ([5, 10, 25, 50] as $value)
-                                            <option value="{{ $value }}" {{ $take == $value ? 'selected' : '' }}>{{ $value }}</option>
-                                        @endforeach
-                                    </select> 
-                                    entries
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="filter">
                                 <label for="search">
                                     Search:
-                                    <input type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('product.index') }}">
+                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('product.index') }}">
                                 </label>
                             </div>
                         </div>
@@ -85,10 +72,7 @@
                 </div>
                 <div class="table-footer mt-3">
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="table-info">Showing {{ $start }} to {{ $end }} of {{ $total }} entries</div>
-                        </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             {{ $products->appends($_GET)->links('themes.adminlte.paginate') }}
                         </div>
                     </div>

@@ -57,7 +57,7 @@ input[type=file] {
 }
 
 .filter {
-    text-align: right;
+    text-align: left;
 }
 .filter label input {
     width: auto;
