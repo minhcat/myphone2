@@ -3,7 +3,7 @@
 @section('title-page', 'Products')
 
 @section('small-info')
-<small>List of products ({{ $total }})</small>
+<small>List of products ({{ $products->total() }})</small>
 @endsection
 
 @section('breakcumb')

@@ -29,9 +29,8 @@ class ProductController extends Controller
     {
         $search   = $request->input('search');
         $products = $this->productRepository->paginate(AbstractRepository::TAKE_DEFAULT, $search);
-        $total    = $products->total();
 
-        return view('product::index', compact('products', 'total'));
+        return view('product::index', compact('products'));
     }
 
     /**
