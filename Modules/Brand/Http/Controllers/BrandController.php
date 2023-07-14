@@ -23,7 +23,8 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('brand::create');
+        $form = ['title' => 'Create'];
+        return view('brand::create', compact('form'));
     }
 
     /**
@@ -53,7 +54,8 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        return view('brand::edit');
+        $form = ['title' => 'Edit'];
+        return view('brand::edit', compact('form'));
     }
 
     /**

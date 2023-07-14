@@ -2,14 +2,14 @@
     <div class="col-lg-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <div class="box-title">Create</div>
+                <div class="box-title">{{ $form['title'] }}</div>
             </div>
             <form action="">
                 <div class="box-body">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="">Name</label>
+                                <label for="">Name <span class="text-red">*</span></label>
                                 <input type="text" class="form-control">
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="">Note</label>
+                                <label for="">Note <span class="fa fa-fw fa-question-circle" data-toggle="tooltip" title="Admin Note"></span></label>
                                 <input type="text" class="form-control">
                             </div>
                         </div>
