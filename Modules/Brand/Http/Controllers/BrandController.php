@@ -5,9 +5,21 @@ namespace Modules\Brand\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Brand\Repositories\BrandRepository;
 
 class BrandController extends Controller
 {
+    /** @var \App\Repositories\AbstractRepository */
+    protected $brandRepository;
+
+    /**
+     * Create new Brand Controller instance.
+     */
+    public function __construct()
+    {
+        $this->brandRepository = new BrandRepository;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
