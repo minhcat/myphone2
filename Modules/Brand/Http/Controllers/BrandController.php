@@ -44,7 +44,7 @@ class BrandController extends Controller
      */
     public function show($id)
     {
-        return view('brand::show');
+        return view('brand::detail');
     }
 
     /**

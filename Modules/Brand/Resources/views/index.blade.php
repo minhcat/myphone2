@@ -20,7 +20,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="#" class="btn btn-primary pull-right">New Brand</a>
+                <a href="{{ route('brand.create') }}" class="btn btn-primary pull-right">New Brand</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -50,7 +50,7 @@
                         <tbody>
                             <tr>
                                 <td>1</td>
-                                <td><a href="#">Samsung</a></td>
+                                <td><a href="{{ route('brand.edit', 1) }}">Samsung</a></td>
                                 <td><a href="#">Minh Cat</a></td>
                                 <td>12/07/2023</td>
                                 <td>12/07/2023</td>
@@ -61,7 +61,7 @@
                             </tr>
                             <tr>
                                 <td>2</td>
-                                <td><a href="#">Apple</a></td>
+                                <td><a href="{{ route('brand.edit', 1) }}">Apple</a></td>
                                 <td><a href="#">Minh Cat</a></td>
                                 <td>12/07/2023</td>
                                 <td>12/07/2023</td>
@@ -72,7 +72,7 @@
                             </tr>
                             <tr>
                                 <td>3</td>
-                                <td><a href="#">Xiaomi</a></td>
+                                <td><a href="{{ route('brand.edit', 1) }}">Xiaomi</a></td>
                                 <td><a href="#">Minh Cat</a></td>
                                 <td>12/07/2023</td>
                                 <td>12/07/2023</td>
@@ -83,7 +83,7 @@
                             </tr>
                             <tr>
                                 <td>4</td>
-                                <td><a href="#">OPPO</a></td>
+                                <td><a href="{{ route('brand.edit', 1) }}">OPPO</a></td>
                                 <td><a href="#">Minh Cat</a></td>
                                 <td>12/07/2023</td>
                                 <td>12/07/2023</td>
