@@ -3,7 +3,7 @@
 @section('title-page', 'Brands')
 
 @section('small-info')
-<small>List of brands (30)</small>
+<small>List of brands ({{ $brands->total() }})</small>
 @endsection
 
 @section('breakcumb')
@@ -29,7 +29,7 @@
                             <div class="filter" style="text-align: left">
                                 <label for="search">
                                     Search:
-                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('product.index') }}">
+                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('brand.index') }}">
                                 </label>
                             </div>
                         </div>
@@ -41,6 +41,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
+                                <th>Country</th>
                                 <th>Author</th>
                                 <th>Create At</th>
                                 <th>Updated At</th>
@@ -48,78 +49,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><a href="{{ route('brand.edit', 1) }}">Samsung</a></td>
-                                <td><a href="#">Minh Cat</a></td>
-                                <td>12/07/2023</td>
-                                <td>12/07/2023</td>
-                                <td>
-                                    <a class="btn btn-icon btn-primary" href="#"><i class="fa fa-edit"></i></a>
-                                    <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-product-delete" data-id="1"><i class="fa fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><a href="{{ route('brand.edit', 1) }}">Apple</a></td>
-                                <td><a href="#">Minh Cat</a></td>
-                                <td>12/07/2023</td>
-                                <td>12/07/2023</td>
-                                <td>
-                                    <a class="btn btn-icon btn-primary" href="#"><i class="fa fa-edit"></i></a>
-                                    <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-product-delete" data-id="1"><i class="fa fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><a href="{{ route('brand.edit', 1) }}">Xiaomi</a></td>
-                                <td><a href="#">Minh Cat</a></td>
-                                <td>12/07/2023</td>
-                                <td>12/07/2023</td>
-                                <td>
-                                    <a class="btn btn-icon btn-primary" href="#"><i class="fa fa-edit"></i></a>
-                                    <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-product-delete" data-id="1"><i class="fa fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td><a href="{{ route('brand.edit', 1) }}">OPPO</a></td>
-                                <td><a href="#">Minh Cat</a></td>
-                                <td>12/07/2023</td>
-                                <td>12/07/2023</td>
-                                <td>
-                                    <a class="btn btn-icon btn-primary" href="#"><i class="fa fa-edit"></i></a>
-                                    <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-product-delete" data-id="1"><i class="fa fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td><a href="#">Vsmart</a></td>
-                                <td><a href="#">Minh Cat</a></td>
-                                <td>12/07/2023</td>
-                                <td>12/07/2023</td>
-                                <td>
-                                    <a class="btn btn-icon btn-primary" href="#"><i class="fa fa-edit"></i></a>
-                                    <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-product-delete" data-id="1"><i class="fa fa-trash"></i></button>
-                                </td>
-                            </tr>
+                            @foreach($brands as $brand)                                
+                                <tr>
+                                    <td>{{ $brand->id }}</td>
+                                    <td><a href="{{ route('brand.show', $brand->id) }}">{{ $brand->name }}</a></td>
+                                    <td>{{ $brand->country }}</td>
+                                    <td><a href="#">Minh Cat</a></td>
+                                    <td>{{ $brand->created_at->format('H:i:s d/m/Y') }}</td>
+                                    <td>{{ $brand->updated_at->format('H:i:s d/m/Y') }}</td>
+                                    <td>
+                                        <a class="btn btn-icon btn-primary" href="{{ route('brand.edit', $brand->id) }}"><i class="fa fa-edit"></i></a>
+                                        <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-product-delete" data-id="1"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
                 <div class="table-footer mt-3">
                     <div class="row">
                         <div class="col-lg-12">
-                            <ul class="pagination pagination-sm mb-0 pull-right">
-                                <li class="disabled"><span><<</span></li>
-                                <li class="disabled"><span><</span></li>
-                                <li class="active"><span>1</span></li>
-                                <li><span>2</span></li>
-                                <li><span>3</span></li>
-                                <li class="disabled"><span><i class="fa fa-ellipsis-h"></i></span></li>
-                                <li><span>10</span></li>
-                                <li><span>></span></li>
-                                <li><span>>></span></li>
-                            </ul>
+                            {{ $brands->appends($_GET)->links('themes.adminlte.paginate') }}
                         </div>
                     </div>
                 </div>
