@@ -92,6 +92,8 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->brandRepository->delete($id);
+
+        return redirect()->route('brand.index')->with('success', 'delete brand successfully');
     }
 }

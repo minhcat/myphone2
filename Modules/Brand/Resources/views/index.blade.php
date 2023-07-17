@@ -59,7 +59,7 @@
                                     <td>{{ $brand->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>
                                         <a class="btn btn-icon btn-primary" href="{{ route('brand.edit', $brand->id) }}"><i class="fa fa-edit"></i></a>
-                                        <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-product-delete" data-id="1"><i class="fa fa-trash"></i></button>
+                                        <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-brand-delete" data-id="{{ $brand->id }}"><i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -77,4 +77,47 @@
         </div>
     </div>
 </div>
+
+@include('brand::layouts.modal', [
+    'modal'             => [
+        'id'            => 'modal-brand-delete',
+        'title'         => 'Delete Brand',
+        'message'       => 'Are you sure to delete this brand!',
+        'form'          => [
+            'url'       => route('brand.delete', ':id'),
+            'method'    => 'DELETE',
+            'inputs'    => []
+        ],
+        'buttons'       => [
+            'primary'   => [
+                'text'  => 'Delete'
+            ]
+        ],
+    ]
+])
+
 @endsection
+
+@push('script')
+<script>
+    $(function() {
+        $('.filter input').keypress(function(e) {
+            if (e.which == 13) {
+                let value = $(this).val().trim();
+                let url = $(this).data('url') + '?search=' + value;
+                window.location.href = url;
+            }
+        })
+        let url_delete = $('#modal-brand-delete form').attr('action');
+        $('.btn-delete').click(function() {
+            let id = $(this).data('id');
+            let url = url_delete.replace(':id', id)
+            $('#modal-brand-delete form').attr('action', url);
+            console.log(url)
+        })
+        $('#modal-brand-delete').on('hide.bs.modal', function() {
+            $('#modal-brand-delete form').attr('action', url_delete);
+        })
+    })
+</script>
+@endpush
