@@ -39,7 +39,11 @@ class BrandController extends Controller
      */
     public function create()
     {
-        $form = ['title' => 'Create'];
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('brand.store'),
+            'method'    => 'POST',
+        ];
         return view('brand::create', compact('form'));
     }
 
@@ -50,7 +54,9 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->brandRepository->create($request->all());
+
+        return redirect()->route('brand.index')->with('success', 'create new brand successfully');
     }
 
     /**
