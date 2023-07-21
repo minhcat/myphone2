@@ -20,6 +20,7 @@ Route::prefix('admin')->group(function() {
         Route::post('/', 'BrandController@store')->name('store');
         Route::get('/{id}', 'BrandController@show')->name('show');
         Route::get('/{id}/edit', 'BrandController@edit')->name('edit');
+        Route::put('/{id}', 'BrandController@update')->name('update');
         Route::delete('/{id}', 'BrandController@destroy')->name('delete');
     });
 });

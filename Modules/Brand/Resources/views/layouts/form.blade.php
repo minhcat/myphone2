@@ -1,3 +1,6 @@
+@php
+    $brand = isset($brand) ? $brand : new Modules\Brand\Entities\Brand;
+@endphp
 <div class="row">
     <div class="col-lg-12">
         <div class="box box-primary">
@@ -14,7 +17,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Name <span class="text-red">*</span></label>
-                                <input type="text" class="form-control" name="name">
+                                <input type="text" class="form-control" name="name" value="{{ $brand->name }}">
                             </div>
                         </div>
                     </div>
@@ -24,11 +27,11 @@
                                 <label for="">Country</label>
                                 <select class="form-control" aria-placeholder="not select" name="country">
                                     <option disabled selected>-- choose country --</option>
-                                    <option value="usa">USA</option>
-                                    <option value="japan">Japan</option>
-                                    <option value="korea">Korea</option>
-                                    <option value="china">China</option>
-                                    <option value="vietnam">Vietnam</option>
+                                    <option value="usa"     {{ $brand->country == 'usa' ? 'selected' : '' }}>USA</option>
+                                    <option value="japan"   {{ $brand->country == 'japan' ? 'selected' : '' }}>Japan</option>
+                                    <option value="korea"   {{ $brand->country == 'korea' ? 'selected' : '' }}>Korea</option>
+                                    <option value="china"   {{ $brand->country == 'china' ? 'selected' : '' }}>China</option>
+                                    <option value="vietnam" {{ $brand->country == 'vietnam' ? 'selected' : '' }}>Vietnam</option>
                                 </select>
                             </div>
                         </div>
@@ -37,7 +40,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Description</label>
-                                <textarea class="form-control" rows="4" name="description"></textarea>
+                                <textarea class="form-control" rows="4" name="description">{{ $brand->description }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -45,7 +48,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Note <span class="fa fa-fw fa-question-circle" data-toggle="tooltip" title="Admin Note"></span></label>
-                                <input type="text" class="form-control" name="note">
+                                <input type="text" class="form-control" name="note" value="{{ $brand->note }}">
                             </div>
                         </div>
                     </div>

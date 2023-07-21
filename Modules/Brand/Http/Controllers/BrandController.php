@@ -76,8 +76,15 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        $form = ['title' => 'Edit'];
-        return view('brand::edit', compact('form'));
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('brand.update', $id),
+            'method'    => 'PUT',
+        ];
+
+        $brand = $this->brandRepository->find($id);
+
+        return view('brand::edit', compact('form', 'brand'));
     }
 
     /**
@@ -88,7 +95,9 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->brandRepository->update($id, $request->all());
+
+        return redirect()->route('brand.index')->with('success', 'update brand successfully');
     }
 
     /**
