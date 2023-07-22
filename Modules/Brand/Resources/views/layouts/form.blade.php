@@ -55,7 +55,7 @@
                     <input type="hidden" name="author_id" value="{{ Auth::check() ? Auth::user()->id : 0 }}">
                 </div>
                 <div class="box-footer">
-                    <a href="" class="btn btn-default">Back</a>
+                    <a href="{{ route('brand.index') }}" class="btn btn-default">Back</a>
                     <button class="btn btn-primary" type="submit">Save</button>
                 </div>
             </form>

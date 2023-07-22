@@ -28,7 +28,7 @@
                             <p><strong>Name</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>Apple</p>
+                            <p>{{ $brand->name }}</p>
                         </div>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                             <p><strong>Country</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>United State</p>
+                            <p>{{ $brand->country }}</p>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                             <p><strong>Description</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus doloribus facere totam a possimus ullam fugit. Repellat asperiores eius ipsam eligendi. Obcaecati laboriosam ratione asperiores et, earum rem cumque assumenda.</p>
+                            <p>{{ $brand->description }}</p>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                             <p><strong>Created At</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>15/07/2023</p>
+                            <p>{{ $brand->created_at->format('H:i:s d/m/Y') }}</p>
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                             <p><strong>Updated At</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>15/07/2023</p>
+                            <p>{{ $brand->updated_at->format('H:i:s d/m/Y') }}</p>
                         </div>
                     </div>
                 </div>
@@ -78,14 +78,14 @@
                             <p><strong>Note</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, fugit!</p>
+                            <p>{{ $brand->note }}</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="box-footer">
                 <a href="{{ route('brand.index') }}" class="btn btn-default">Back</a>
-                <a href="{{ route('brand.edit', 1) }}" class="btn btn-primary">Edit</a>
+                <a href="{{ route('brand.edit', $brand->id) }}" class="btn btn-primary">Edit</a>
             </div>
         </div>
     </div>

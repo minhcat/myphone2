@@ -54,6 +54,10 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name'  => 'required',
+        ]);
+
         $this->brandRepository->create($request->all());
 
         return redirect()->route('brand.index')->with('success', 'create new brand successfully');
@@ -66,7 +70,9 @@ class BrandController extends Controller
      */
     public function show($id)
     {
-        return view('brand::detail');
+        $brand = $this->brandRepository->find($id);
+
+        return view('brand::detail', compact('brand'));
     }
 
     /**
@@ -95,6 +101,10 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name'  => 'required',
+        ]);
+
         $this->brandRepository->update($id, $request->all());
 
         return redirect()->route('brand.index')->with('success', 'update brand successfully');
