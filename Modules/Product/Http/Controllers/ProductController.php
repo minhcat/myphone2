@@ -55,6 +55,11 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name'      => 'required',
+            'price'     => 'required|numberic'
+        ]);
+
         $this->productRepository->create($request->all());
 
         return redirect()->route('product.index')->with('success', 'create new product successfully');
@@ -98,6 +103,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name'      => 'required',
+            'price'     => 'required|numberic'
+        ]);
+
         $this->productRepository->update($id, $request->all());
 
         return redirect()->route('product.index')->with('success', 'update product successfully');
