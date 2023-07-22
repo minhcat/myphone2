@@ -55,11 +55,20 @@ desired effect
       <!-- Alert -->
       <div class="mp-alert">
         @if (session('success'))
-        <div class="alert alert-success">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-          <h4>Success</h4>
-          <p>{{ session('success') }}</p>
-        </div>
+          <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4>Success</h4>
+            <p>{{ session('success') }}</p>
+          </div>
+        @endif
+        @if(session('errors'))
+          <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4>Error</h4>
+            @foreach(get_messages(session('errors')) as $message)
+              <p>{{ $message }}</p>
+            @endforeach
+          </div>
         @endif
       </div>
       <!-- /.alert -->
