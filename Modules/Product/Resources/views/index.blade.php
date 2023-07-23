@@ -59,8 +59,8 @@
                                     <td>smartphone</td>
                                     <td>new, modern, usa</td>
                                     <td>{{ $product->price_format }} vnđ</td>
-                                    <td>{{ $product->created_at }}</td>
-                                    <td>{{ $product->updated_at }}</td>
+                                    <td>{{ $product->created_at->format('H:i:s d/m/Y') }}</td>
+                                    <td>{{ $product->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>
                                         <a class="btn btn-icon btn-primary" href="{{ route('product.edit', $product->id) }}"><i class="fa fa-edit"></i></a>
                                         <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-product-delete" data-id="{{ $product->id }}"><i class="fa fa-trash"></i></button>

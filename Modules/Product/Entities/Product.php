@@ -44,18 +44,4 @@ class Product extends Model
     {
         return number_format($this->price);
     }
-
-    protected function createdAt() : Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => date('H:i:s d/m/Y', strtotime($value))
-        );
-    }
-
-    protected function updatedAt() : Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => date('H:i:s d/m/Y', strtotime($value))
-        );
-    }
 }
