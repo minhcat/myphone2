@@ -55,7 +55,7 @@
                                 <tr>
                                     <td>{{ $product->id }}</td>
                                     <td><a href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a></td>
-                                    <td>Apple</td>
+                                    <td>{{ $product->brand->name }}</td>
                                     <td>smartphone</td>
                                     <td>new, modern, usa</td>
                                     <td>{{ $product->price_format }} vnđ</td>
