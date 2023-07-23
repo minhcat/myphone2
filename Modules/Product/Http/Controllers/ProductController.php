@@ -28,14 +28,9 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $search   = $request->input('search');
-        $take     = $request->input('take') ?? AbstractRepository::TAKE_DEFAULT;
-        $page     = $request->input('page') ?? AbstractRepository::PAGE_DEFAULT;
-        $products = $this->productRepository->paginate($take, $search);
-        $total    = $products->total();
-        $start    = ($page - 1) * $take + 1;
-        $end      = min($page * $take, $products->total());
+        $products = $this->productRepository->paginate(AbstractRepository::TAKE_DEFAULT, $search);
 
-        return view('product::index', compact('products', 'total', 'take', 'page', 'start', 'end'));
+        return view('product::index', compact('products'));
     }
 
     /**
@@ -60,6 +55,11 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name'      => 'required',
+            'price'     => 'required|numberic'
+        ]);
+
         $this->productRepository->create($request->all());
 
         return redirect()->route('product.index')->with('success', 'create new product successfully');
@@ -103,6 +103,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name'      => 'required',
+            'price'     => 'required|numberic'
+        ]);
+
         $this->productRepository->update($id, $request->all());
 
         return redirect()->route('product.index')->with('success', 'update product successfully');
