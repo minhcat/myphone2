@@ -28,14 +28,9 @@ class ExampleController extends Controller
     public function index(Request $request)
     {
         $search   = $request->input('search');
-        $take     = $request->input('take') ?? AbstractRepository::TAKE_DEFAULT;
-        $page     = $request->input('page') ?? AbstractRepository::PAGE_DEFAULT;
-        $examples = $this->exampleRepository->paginate($take, $search);
-        $total    = $examples->total();
-        $start    = ($page - 1) * $take + 1;
-        $end      = min($page * $take, $examples->total());
+        $examples = $this->exampleRepository->paginate(AbstractRepository::TAKE_DEFAULT, $search);
 
-        return view('example::index', compact('examples', 'total', 'take', 'page', 'start', 'end'));
+        return view('example::index', compact('examples'));
     }
 
     /**
@@ -60,6 +55,10 @@ class ExampleController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name'  => 'required'
+        ]);
+
         $this->exampleRepository->create($request->all());
 
         return redirect()->route('example.index')->with('success', 'create new example successfully');
@@ -103,6 +102,10 @@ class ExampleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name'  => 'required'
+        ]);
+
         $this->exampleRepository->update($id, $request->all());
 
         return redirect()->route('example.index')->with('success', 'update example successfully');

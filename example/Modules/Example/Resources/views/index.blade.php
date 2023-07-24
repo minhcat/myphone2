@@ -25,20 +25,7 @@
             <div class="box-body">
                 <div class="table-header">
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="length">
-                                <label for="length">
-                                    Show 
-                                    <select name="length" id="length" class="form-control input-sm">
-                                        @foreach ([5, 10, 25, 50] as $value)
-                                            <option value="{{ $value }}" {{ $take == $value ? 'selected' : '' }}>{{ $value }}</option>
-                                        @endforeach
-                                    </select> 
-                                    entries
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="filter">
                                 <label for="search">
                                     Search:
@@ -54,9 +41,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Number</th>
                                 <th>Description</th>
-                                <th>Status</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 <th>Action</th>
@@ -66,9 +51,7 @@
                             <tr>
                                 <td>1</td>
                                 <td><a href="#">Example 1</a></td>
-                                <td>100</td>
                                 <td>example description 1</td>
-                                <td><span class="badge text-bg-primary">active</span></td>
                                 <td>25-04-2023</td>
                                 <td>25-04-2023</td>
                                 <td>
@@ -79,9 +62,7 @@
                             <tr>
                                 <td>2</td>
                                 <td><a href="#">Example 2</a></td>
-                                <td>100</td>
                                 <td>example description 2</td>
-                                <td><span class="badge text-bg-primary">active</span></td>
                                 <td>25-04-2023</td>
                                 <td>25-04-2023</td>
                                 <td>
@@ -94,10 +75,7 @@
                 </div>
                 <div class="table-footer mt-3">
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="table-info">Showing 1 to 10 of 100 entries</div>
-                        </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <ul class="pagination pagination-sm mb-0 pull-right">
                                 <li class="disabled"><span><<</span></li>
 			                    <li class="disabled"><span><</span></li>
@@ -117,13 +95,13 @@
     </div>
 </div>
 
-@include('product::layouts.modal', [
+@include('example::layouts.modal', [
     'modal'             => [
-        'id'            => 'modal-product-delete',
-        'title'         => 'Delete Product',
-        'message'       => 'Are you sure to delete this product!',
+        'id'            => 'modal-example-delete',
+        'title'         => 'Delete Example',
+        'message'       => 'Are you sure to delete this example!',
         'form'          => [
-            'url'       => route('product.delete', ':id'),
+            'url'       => route('example.delete', ':id'),
             'method'    => 'DELETE',
             'inputs'    => []
         ],
@@ -146,15 +124,15 @@
                 window.location.href = url;
             }
         })
-        let url_delete = $('#modal-product-delete form').attr('action');
+        let url_delete = $('#modal-example-delete form').attr('action');
         $('.btn-delete').click(function() {
             let id = $(this).data('id');
             let url = url_delete.replace(':id', id)
-            $('#modal-product-delete form').attr('action', url);
+            $('#modal-example-delete form').attr('action', url);
             console.log(url)
         })
-        $('#modal-product-delete').on('hide.bs.modal', function() {
-            $('#modal-product-delete form').attr('action', url_delete);
+        $('#modal-example-delete').on('hide.bs.modal', function() {
+            $('#modal-example-delete form').attr('action', url_delete);
         })
     })
 </script>

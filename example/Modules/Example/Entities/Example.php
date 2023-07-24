@@ -12,31 +12,9 @@ class Example extends Model
 
     protected $fillable = [
         'name',
-        'slug',
-        'number',
         'description',
-        'status',
         'note',
         'created_at',
         'updated_at',
     ];
-
-    public function getNumberFormatAttribute()
-    {
-        return number_format($this->number);
-    }
-
-    protected function createdAt() : Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => date('H:i:s d/m/Y', strtotime($value))
-        );
-    }
-
-    protected function updatedAt() : Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => date('H:i:s d/m/Y', strtotime($value))
-        );
-    }
 }
