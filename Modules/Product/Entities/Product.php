@@ -5,6 +5,7 @@ namespace Modules\Product\Entities;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Brand\Entities\Brand;
 
 class Product extends Model
 {
@@ -23,21 +24,14 @@ class Product extends Model
         'updated_at',
     ];
 
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
     public function getSkuAttribute()
     {
         return $this->sku_prefix . '-' . $this->sku_number;
-    }
-
-    public function getBrandAttribute()
-    {
-        switch ($this->brand_id) {
-            case 1: return 'Apple';
-            case 2: return 'Samsung';
-            case 3: return 'Xiaomi';
-            case 4: return 'OPPO';
-            case 5: return 'Vivo';
-            default: return '';
-        }
     }
 
     public function getPriceFormatAttribute()
