@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('firstname')->after('name');
+            $table->string('lastname')->after('firstname');
+            $table->tinyInteger('gender')->default(0)->after('lastname');
+            $table->string('job')->nullable()->after('gender');
+            $table->boolean('is_admin')->default(false)->after('remember_token');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('firstname');
+            $table->dropColumn('lastname');
+            $table->dropColumn('job');
+            $table->dropColumn('gender');
+            $table->dropColumn('is_admin');
+        });
+    }
+};
