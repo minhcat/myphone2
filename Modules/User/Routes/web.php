@@ -11,6 +11,16 @@
 |
 */
 
-Route::prefix('user')->group(function() {
-    Route::get('/', 'UserController@index');
+use Illuminate\Support\Facades\Route;
+
+Route::prefix('admin')->name('user.')->group(function() {
+    Route::prefix('users')->group(function() {
+        Route::get('/', 'UserController@index')->name('index');
+        Route::get('/create', 'UserController@create')->name('create');
+        Route::get('/{id}', 'UserController@show')->name('show');
+        Route::get('/{id}/edit', 'UserController@edit')->name('edit');
+        Route::post('/', 'UserController@store')->name('store');
+        Route::put('/{id}', 'UserController@update')->name('update');
+        Route::delete('/{id}', 'UserController@destroy')->name('delete');
+    });
 });
