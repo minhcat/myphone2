@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
 
         $data = [
             [
-                'name'          => 'minhcat',
+                'account'          => 'minhcat',
                 'firstname'     => 'Minh',
                 'lastname'      => 'Cat',
                 'gender'        => Gender::MALE,
@@ -32,7 +32,7 @@ class UserSeeder extends Seeder
                 'updated_at'    => now()->format('Y-m-d H:i:s'),
             ],
             [
-                'name'          => 'binhnguyen',
+                'account'          => 'binhnguyen',
                 'firstname'     => 'Nguyen Van',
                 'lastname'      => 'Binh',
                 'gender'        => Gender::MALE,
@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
                 'updated_at'    => now()->format('Y-m-d H:i:s'),
             ],
             [
-                'name'          => 'yenle',
+                'account'          => 'yenle',
                 'firstname'     => 'Le Thi',
                 'lastname'      => 'Yen',
                 'gender'        => Gender::FEMALE,
@@ -56,7 +56,7 @@ class UserSeeder extends Seeder
                 'updated_at'    => now()->format('Y-m-d H:i:s'),
             ],
             [
-                'name'          => 'thanhtran',
+                'account'          => 'thanhtran',
                 'firstname'     => 'Tran Minh',
                 'lastname'      => 'Thanh',
                 'gender'        => Gender::MALE,
@@ -68,7 +68,7 @@ class UserSeeder extends Seeder
                 'updated_at'    => now()->format('Y-m-d H:i:s'),
             ],
             [
-                'name'          => 'quypham',
+                'account'          => 'quypham',
                 'firstname'     => 'Pham Ngoc',
                 'lastname'      => 'Quy',
                 'gender'        => Gender::OTHER,
