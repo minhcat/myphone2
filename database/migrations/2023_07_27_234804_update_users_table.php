@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->renameColumn('name', 'account');
             $table->string('firstname')->after('name');
             $table->string('lastname')->after('firstname');
             $table->tinyInteger('gender')->default(0)->after('lastname');
@@ -30,6 +31,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->renameColumn('account', 'name');
             $table->dropColumn('firstname');
             $table->dropColumn('lastname');
             $table->dropColumn('job');
