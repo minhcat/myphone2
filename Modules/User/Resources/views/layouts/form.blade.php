@@ -4,8 +4,9 @@
             <div class="box-header with-border">
                 <div class="box-title">Title</div>
             </div>
-            <form action="#" method="GET">
+            <form action="{{ $form['url'] }}" method="{{ $form['method'] == 'GET' ? 'GET' : 'POST' }}">
                 @csrf
+                @method($form['method'])
                 <div class="box-body">
                     <div class="row">
                         <div class="col-lg-12">

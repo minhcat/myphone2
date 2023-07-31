@@ -23,7 +23,13 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('user.store'),
+            'method'    => 'POST',
+        ];
+
+        return view('user::create', compact('form'));
     }
 
     /**
@@ -43,7 +49,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return view('user::show');
+        return view('user::detail');
     }
 
     /**
@@ -53,7 +59,13 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('user::edit');
+        $form = [
+            'title'     => 'Update',
+            'url'       => route('user.update', $id),
+            'method'    => 'PUT',
+        ];
+
+        return view('user::edit', compact('form'));
     }
 
     /**
