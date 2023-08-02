@@ -3,7 +3,7 @@
 @section('title-page', 'Users')
 
 @section('small-info')
-<small>List of users (100)</small>
+<small>List of users ({{ $users->total() }})</small>
 @endsection
 
 @section('breakcumb')
@@ -20,7 +20,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="#" class="btn btn-primary pull-right">New Example</a>
+                <a href="{{ route('user.create') }}" class="btn btn-primary pull-right">New User</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -29,7 +29,7 @@
                             <div class="filter">
                                 <label for="search">
                                     Search:
-                                    <input type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('product.index') }}">
+                                    <input type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('user.index') }}">
                                 </label>
                             </div>
                         </div>
@@ -51,51 +51,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><a href="#">minhcat</a></td>
-                                <td>Minh Cát</td>
-                                <td>male</td>
-                                <td>web developer</td>
-                                <td>minhcat@myphone.com</td>
-                                <td>25-04-2023</td>
-                                <td>25-04-2023</td>
-                                <td>
-                                    <a class="btn btn-icon btn-primary" href="#"><i class="fa fa-edit"></i></a>
-                                    <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-product-delete" data-id="1"><i class="fa fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><a href="#">minhcat</a></td>
-                                <td>Minh Cát</td>
-                                <td>male</td>
-                                <td>web developer</td>
-                                <td>minhcat@myphone.com</td>
-                                <td>25-04-2023</td>
-                                <td>25-04-2023</td>
-                                <td>
-                                    <a class="btn btn-icon btn-primary" href="#"><i class="fa fa-edit"></i></a>
-                                    <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-product-delete" data-id="1"><i class="fa fa-trash"></i></button>
-                                </td>
-                            </tr>
+                            @foreach($users as $user)
+                                <tr>
+                                    <td>{{ $user->id }}</td>
+                                    <td><a href="{{ route('user.show', $user->id) }}">{{ $user->account }}</a></td>
+                                    <td>{{ $user->fullname }}</td>
+                                    <td>{{ App\Enums\Gender::getDescription($user->gender) }}</td>
+                                    <td>{{ $user->job }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->created_at->format('d-m-Y') }}</td>
+                                    <td>{{ $user->updated_at->format('d-m-Y') }}</td>
+                                    <td>
+                                        <a class="btn btn-icon btn-primary" href="{{ route('user.edit', $user->id) }}"><i class="fa fa-edit"></i></a>
+                                        <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-product-delete" data-id="{{ $user->id }}"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
                 <div class="table-footer mt-3">
                     <div class="row">
                         <div class="col-lg-12">
-                            <ul class="pagination pagination-sm mb-0 pull-right">
-                                <li class="disabled"><span><<</span></li>
-			                    <li class="disabled"><span><</span></li>
-                                <li class="active"><span>1</span></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li class="disabled"><span>></span></li>
-			                    <li class="disabled"><span>>></span></li>
-                            </ul>
+                            {{ $users->appends($_GET)->links('themes.adminlte.paginate') }}
                         </div>
                     </div>
                 </div>

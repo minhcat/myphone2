@@ -2,19 +2,34 @@
 
 namespace Modules\User\Http\Controllers;
 
+use App\Repositories\AbstractRepository;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\User\Repositories\UserRepository;
 
 class UserController extends Controller
 {
+    /** @var \App\Repositories\AbstractRepository */
+    protected $userRepository;
+
+    /**
+     * Create a new Product controller instance.
+     */
+    public function __construct()
+    {
+        $this->userRepository = new UserRepository();
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('user::index');
+        $users = $this->userRepository->paginate(AbstractRepository::TAKE_DEFAULT, $request->input('search'), 'account');
+
+        return view('user::index', compact('users'));
     }
 
     /**

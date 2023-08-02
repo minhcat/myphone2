@@ -21,4 +21,9 @@ class User extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function getFullnameAttribute()
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
 }
