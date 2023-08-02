@@ -20,6 +20,7 @@ return new class extends Migration
             $table->tinyInteger('gender')->default(0)->after('lastname');
             $table->string('job')->nullable()->after('gender');
             $table->boolean('is_admin')->default(false)->after('remember_token');
+            $table->string('password')->nullable()->change();
         });
     }
 
@@ -37,6 +38,7 @@ return new class extends Migration
             $table->dropColumn('job');
             $table->dropColumn('gender');
             $table->dropColumn('is_admin');
+            $table->string('password')->nullable(false)->change();
         });
     }
 };

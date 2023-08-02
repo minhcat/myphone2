@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
 
         $data = [
             [
-                'account'          => 'minhcat',
+                'account'       => 'minhcat',
                 'firstname'     => 'Minh',
                 'lastname'      => 'Cat',
                 'gender'        => Gender::MALE,
