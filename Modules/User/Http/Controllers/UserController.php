@@ -54,7 +54,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'account'       => 'required|unique:users',
+            'firstname'     => 'required',
+            'lastname'      => 'required',
+            'email'         => 'required|email|unique:users'
+        ]);
+
+        $this->userRepository->create($request->all());
+
+        return redirect()->route('user.index')->with('success', 'create new user successfully');
     }
 
     /**
@@ -80,7 +89,9 @@ class UserController extends Controller
             'method'    => 'PUT',
         ];
 
-        return view('user::edit', compact('form'));
+        $user = $this->userRepository->find($id);
+
+        return view('user::edit', compact('form', 'user'));
     }
 
     /**
@@ -91,7 +102,16 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'account'       => 'required|unique:users,account,'.$id,
+            'firstname'     => 'required',
+            'lastname'      => 'required',
+            'email'         => 'required|email|unique:users,email,'.$id
+        ]);
+
+        $this->userRepository->update($id, $request->all());
+
+        return redirect()->route('user.index')->with('success', 'update user successfully');
     }
 
     /**
