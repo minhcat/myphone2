@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('admin');
 });
 
 Route::get('/admin', function () {
     return view('themes.adminlte.master');
-});
+})->name('admin');
