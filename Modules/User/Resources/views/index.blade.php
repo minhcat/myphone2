@@ -8,7 +8,7 @@
 
 @section('breakcumb')
 <ol class="breadcrumb">
-    <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
+    <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
     <li><a href="{{ route('user.index') }}">User</a></li>
     <li class="active">Index</li>
 </ol>
@@ -63,7 +63,7 @@
                                     <td>{{ $user->updated_at->format('d-m-Y') }}</td>
                                     <td>
                                         <a class="btn btn-icon btn-primary" href="{{ route('user.edit', $user->id) }}"><i class="fa fa-edit"></i></a>
-                                        <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-product-delete" data-id="{{ $user->id }}"><i class="fa fa-trash"></i></button>
+                                        <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-user-delete" data-id="{{ $user->id }}"><i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -85,7 +85,7 @@
 @include('user::layouts.modal', [
     'modal'             => [
         'id'            => 'modal-user-delete',
-        'title'         => 'Delete Example',
+        'title'         => 'Delete User',
         'message'       => 'Are you sure to delete this user!',
         'form'          => [
             'url'       => route('user.delete', ':id'),

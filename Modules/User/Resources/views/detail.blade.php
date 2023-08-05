@@ -28,7 +28,7 @@
                             <p><strong>Account</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p></p>
+                            <p>{{ $user->account }}</p>
                         </div>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                             <p><strong>Fullname</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p></p>
+                            <p>{{ $user->fullname }}</p>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                             <p><strong>Gender</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p></p>
+                            <p>{{ App\Enums\Gender::getDescription($user->gender) }}</p>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                             <p><strong>Job</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p></p>
+                            <p>{{ $user->job }}</p>
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                             <p><strong>Email</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p></p>
+                            <p>{{ $user->email }}</p>
                         </div>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                             <p><strong>Admin</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p></p>
+                            <p>{{ $user->is_admin ? 'true' : 'false' }}</p>
                         </div>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
                             <p><strong>Created At</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>24/07/2023</p>
+                            <p>{{ $user->created_at->format('d-m-Y') }}</p>
                         </div>
                     </div>
                 </div>
@@ -98,14 +98,14 @@
                             <p><strong>Updated At</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>24/07/2023</p>
+                            <p>{{ $user->updated_at->format('d-m-Y') }}</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="box-footer">
-                <a href="#" class="btn btn-default">Back</a>
-                <a href="#" class="btn btn-primary">Edit</a>
+                <a href="{{ route('user.index') }}" class="btn btn-default">Back</a>
+                <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary">Edit</a>
             </div>
         </div>
     </div>

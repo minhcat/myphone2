@@ -73,7 +73,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return view('user::detail');
+        $user = $this->userRepository->find($id);
+
+        return view('user::detail', compact('user'));
     }
 
     /**
@@ -121,6 +123,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->userRepository->delete($id);
+
+        return redirect()->route('user.index')->with('success', 'delete user successfully');
     }
 }
