@@ -45,6 +45,7 @@
                                 <th>Category</th>
                                 <th>Tag</th>
                                 <th>Price</th>
+                                <th>Author</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 <th>Action</th>
@@ -59,6 +60,7 @@
                                     <td>smartphone</td>
                                     <td>new, modern, usa</td>
                                     <td>{{ $product->price_format }} vnđ</td>
+                                    <td><a href="{{ route('user.show', $product->user->id) }}">{{ $product->user->fullname }}</a></td>
                                     <td>{{ $product->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $product->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>
