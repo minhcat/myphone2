@@ -4,6 +4,7 @@ namespace Modules\Brand\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\User\Entities\User;
 
 class Brand extends Model
 {
@@ -18,4 +19,9 @@ class Brand extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'author_id');
+    }
 }
