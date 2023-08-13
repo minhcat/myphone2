@@ -1,6 +1,6 @@
-@extends('product::layouts.master')
+@extends('example::layouts.master')
 
-@section('title-page', 'Products')
+@section('title-page', 'Examples')
 
 @section('small-info')
 <small>Example Detail</small>
