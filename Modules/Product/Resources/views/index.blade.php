@@ -118,7 +118,7 @@
             let id = $(this).data('id');
             let url = url_delete.replace(':id', id)
             $('#modal-product-delete form').attr('action', url);
-            console.log(url)
+            console.log(url)    // todo: remove
         })
         $('#modal-product-delete').on('hide.bs.modal', function() {
             $('#modal-product-delete form').attr('action', url_delete);

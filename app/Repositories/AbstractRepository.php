@@ -23,6 +23,7 @@ abstract class AbstractRepository implements RepositoryInterface
         return $this->model->skip($skip)->take($take)->get();
     }
 
+    // todo: replace take and search
     public function paginate($take = self::TAKE_DEFAULT, $search = null, $field = null)
     {
         if (is_null($search)) {
