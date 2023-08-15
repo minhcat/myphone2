@@ -11,6 +11,16 @@
 |
 */
 
-Route::prefix('attribute')->group(function() {
-    Route::get('/', 'AttributeController@index');
+use Illuminate\Support\Facades\Route;
+
+Route::prefix('admin')->group(function() {
+    Route::prefix('attributes')->name('attribute.')->group(function() {
+        Route::get('/', 'AttributeController@index')->name('index');
+        Route::get('/create', 'AttributeController@create')->name('create');
+        Route::get('/{id}', 'AttributeController@show')->name('show');
+        Route::get('/{id}/edit', 'AttributeController@edit')->name('edit');
+        Route::post('/', 'AttributeController@store')->name('store');
+        Route::post('/{id}', 'AttributeController@update')->name('update');
+        Route::post('/{id}', 'AttributeController@destroy')->name('delete');
+    });
 });

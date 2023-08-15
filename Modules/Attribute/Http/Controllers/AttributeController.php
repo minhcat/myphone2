@@ -2,19 +2,35 @@
 
 namespace Modules\Attribute\Http\Controllers;
 
+use App\Repositories\AbstractRepository;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Attribute\Repositories\AttributeRepository;
 
 class AttributeController extends Controller
 {
+    /** @var \App\Repositories\AbstractRepository */
+    protected $attributeRepository;
+
+    /**
+     * Create a new Attribute controller instance.
+     */
+    public function __construct()
+    {
+        $this->attributeRepository = new AttributeRepository();
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('attribute::index');
+        $search = $request->input('search');
+        $attributes = $this->attributeRepository->paginate(AbstractRepository::TAKE_DEFAULT, $search);
+
+        return view('attribute::index', compact('attributes'));
     }
 
     /**
