@@ -44,6 +44,7 @@ class BrandController extends Controller
             'url'       => route('brand.store'),
             'method'    => 'POST',
         ];
+
         return view('brand::create', compact('form'));
     }
 
