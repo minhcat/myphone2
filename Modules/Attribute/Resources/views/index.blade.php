@@ -55,7 +55,7 @@
                                     <td>{{ $attribute->id }}</td>
                                     <td><a href="{{ route('attribute.show', $attribute->id) }}">{{ $attribute->name }}</a></td>
                                     <td>{{ Str::limit($attribute->description, 90, '...') }}</td>
-                                    <td><a href="{{ route('user.show', $attribute->user->id) }}">{{ $attribute->user->fullname }}</a></td>
+                                    <td>@if (!is_null($attribute->user)) <a href="{{ route('user.show', $attribute->user->id) }}">{{ $attribute->user->fullname }}</a>@endif</td>
                                     <td><a href="">options</a></td>
                                     <td>{{ $attribute->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $attribute->updated_at->format('H:i:s d/m/Y') }}</td>

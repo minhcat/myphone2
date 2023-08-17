@@ -39,7 +39,13 @@ class AttributeController extends Controller
      */
     public function create()
     {
-        return view('attribute::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('attribute.store'),
+            'method'    => 'POST',
+        ];
+
+        return view('attribute::create', compact('form'));
     }
 
     /**
@@ -49,7 +55,13 @@ class AttributeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'  => 'required',
+        ]);
+
+        $this->attributeRepository->create($request->all());
+
+        return redirect()->route('attribute.index')->with('success', 'create new attribute successfully');
     }
 
     /**
