@@ -20,7 +20,7 @@ Route::prefix('admin')->group(function() {
         Route::get('/{id}', 'AttributeController@show')->name('show');
         Route::get('/{id}/edit', 'AttributeController@edit')->name('edit');
         Route::post('/', 'AttributeController@store')->name('store');
-        Route::post('/{id}', 'AttributeController@update')->name('update');
-        Route::post('/{id}', 'AttributeController@destroy')->name('delete');
+        Route::put('/{id}', 'AttributeController@update')->name('update');
+        Route::delete('/{id}', 'AttributeController@destroy')->name('delete');
     });
 });

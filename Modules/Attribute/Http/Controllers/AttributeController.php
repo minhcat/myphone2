@@ -81,7 +81,15 @@ class AttributeController extends Controller
      */
     public function edit($id)
     {
-        return view('attribute::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('attribute.update', $id),
+            'method'    => 'PUT',
+        ];
+
+        $attribute = $this->attributeRepository->find($id);
+
+        return view('attribute::edit', compact('form', 'attribute'));
     }
 
     /**
@@ -92,7 +100,13 @@ class AttributeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'  => 'required',
+        ]);
+
+        $this->attributeRepository->update($id, $request->all());
+
+        return redirect()->route('attribute.index')->with('success', 'update attribute successfully');
     }
 
     /**
