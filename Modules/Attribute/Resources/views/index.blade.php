@@ -43,9 +43,9 @@
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Author</th>
-                                <th>List</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
+                                <th>List</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -56,9 +56,9 @@
                                     <td><a href="{{ route('attribute.show', $attribute->id) }}">{{ $attribute->name }}</a></td>
                                     <td>{{ Str::limit($attribute->description, 90, '...') }}</td>
                                     <td>@if (!is_null($attribute->user)) <a href="{{ route('user.show', $attribute->user->id) }}">{{ $attribute->user->fullname }}</a>@endif</td>
-                                    <td><a href="">options</a></td>
                                     <td>{{ $attribute->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $attribute->updated_at->format('H:i:s d/m/Y') }}</td>
+                                    <td><a href="">options</a></td>
                                     <td>
                                         <a class="btn btn-icon btn-primary" href="{{ route('attribute.edit', $attribute->id) }}"><i class="fa fa-edit"></i></a>
                                         <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-product-delete" data-id="{{ $attribute->id }}"><i class="fa fa-trash"></i></button>
