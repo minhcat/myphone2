@@ -61,7 +61,7 @@
                                     <td><a href="">options</a></td>
                                     <td>
                                         <a class="btn btn-icon btn-primary" href="{{ route('attribute.edit', $attribute->id) }}"><i class="fa fa-edit"></i></a>
-                                        <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-product-delete" data-id="{{ $attribute->id }}"><i class="fa fa-trash"></i></button>
+                                        <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-attribute-delete" data-id="{{ $attribute->id }}"><i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
                             @endforeach

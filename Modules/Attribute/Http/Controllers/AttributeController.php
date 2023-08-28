@@ -116,6 +116,8 @@ class AttributeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->attributeRepository->delete($id);
+
+        return redirect()->route('attribute.index')->with('success', 'delete attribute successfully');
     }
 }
