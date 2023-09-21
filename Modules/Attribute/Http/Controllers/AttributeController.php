@@ -71,7 +71,9 @@ class AttributeController extends Controller
      */
     public function show($id)
     {
-        return view('attribute::show');
+        $attribute = $this->attributeRepository->find($id);
+
+        return view('attribute::detail', compact('attribute'));
     }
 
     /**
