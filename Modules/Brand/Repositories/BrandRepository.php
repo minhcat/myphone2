@@ -12,6 +12,13 @@ class BrandRepository extends AbstractRepository
         return new Brand();
     }
 
+    protected function convertDataCreate($data)
+    {
+        $data['author_id'] = 1; // todo: use Auth
+
+        return $data;
+    }
+
     protected function convertDataUpdate($data)
     {
         unset($data['_token']);
