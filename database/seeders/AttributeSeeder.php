@@ -44,5 +44,74 @@ class AttributeSeeder extends Seeder
                 'updated_at'    => now()->format('Y-m-d H:i:s'),
             ],
         ]);
+
+        DB::table('options')->truncate();
+
+        DB::table('options')->insert([
+            [
+                'value'         => 'red',
+                'description'   => Lorem::paragraph(1),
+                'attribute_id'  => 1,
+                'author_id'     => 1,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'value'         => 'blue',
+                'description'   => Lorem::paragraph(1),
+                'attribute_id'  => 1,
+                'author_id'     => 1,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'value'         => 'black',
+                'description'   => Lorem::paragraph(1),
+                'attribute_id'  => 1,
+                'author_id'     => 1,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'value'         => 'classic',
+                'description'   => Lorem::paragraph(1),
+                'attribute_id'  => 2,
+                'author_id'     => 2,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'value'         => 'modern',
+                'description'   => Lorem::paragraph(1),
+                'attribute_id'  => 2,
+                'author_id'     => 2,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'value'         => 'mini',
+                'description'   => Lorem::paragraph(1),
+                'attribute_id'  => 3,
+                'author_id'     => 3,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'value'         => 'normal',
+                'description'   => Lorem::paragraph(1),
+                'attribute_id'  => 3,
+                'author_id'     => 3,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'value'         => 'large',
+                'description'   => Lorem::paragraph(1),
+                'attribute_id'  => 3,
+                'author_id'     => 3,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s')
+            ],
+        ]);
     }
 }
