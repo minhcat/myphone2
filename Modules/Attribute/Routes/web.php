@@ -15,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function() {
     Route::prefix('attributes')->name('attribute.')->group(function() {
+        Route::prefix('/{attribute_id}/options')->name('option.')->group(function() {
+            Route::get('/', 'OptionController@index')->name('index');
+            Route::get('/create', 'OptionController@create')->name('create');
+            Route::get('/{id}', 'OptionController@show')->name('show');
+            Route::get('/{id}/edit', 'OptionController@edit')->name('edit');
+            Route::delete('/{id}', 'OptionController@destroy')->name('delete');
+        });
+
         Route::get('/', 'AttributeController@index')->name('index');
         Route::get('/create', 'AttributeController@create')->name('create');
         Route::get('/{id}', 'AttributeController@show')->name('show');

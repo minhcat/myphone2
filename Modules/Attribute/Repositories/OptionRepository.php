@@ -28,4 +28,15 @@ class OptionRepository extends AbstractRepository
 
         return $data;
     }
+
+    public function paginateByAttributeId($attributeId, $take = self::TAKE_DEFAULT, $search = null, $field = 'value')
+    {
+        if (is_null($search)) {
+            return $this->model->where('attribute_id', $attributeId)->paginate($take);
+        }
+        if (!is_null($field)) {
+            return $this->model->where('attribute_id', $attributeId)->where($field, 'LIKE', "%$search%")->paginate($take);
+        }
+        return $this->model->where('attribute_id', $attributeId)->where('name', 'LIKE', "%$search%")->paginate($take);
+    }
 }
