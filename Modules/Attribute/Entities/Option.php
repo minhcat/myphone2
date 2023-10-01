@@ -10,7 +10,7 @@ class Option extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = ['value', 'description', 'author_id', 'attribute_id'];
 
     public function user()
     {

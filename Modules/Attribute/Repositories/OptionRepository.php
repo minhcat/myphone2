@@ -3,7 +3,6 @@
 namespace Modules\Attribute\Repositories;
 
 use App\Repositories\AbstractRepository;
-use Modules\Attribute\Entities\Attribute;
 use Modules\Attribute\Entities\Option;
 
 class OptionRepository extends AbstractRepository
@@ -13,14 +12,16 @@ class OptionRepository extends AbstractRepository
         return new Option();
     }
 
-    protected function convertDataCreate($data)
+    protected function convertDataCreate($data, $more = [])
     {
-        $data['author_id'] = 1; // todo: use Auth
+        foreach ($more as $name => $field) {
+            $data[$name] = $field;
+        }
 
         return $data;
     }
 
-    protected function convertDataUpdate($data)
+    protected function convertDataUpdate($data, $more = [])
     {
         unset($data['_token']);
         unset($data['_method']);

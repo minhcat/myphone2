@@ -37,9 +37,15 @@ class OptionController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function create($attribute_id)
     {
-        return view('attribute::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('attribute.option.store', $attribute_id),
+            'method'    => 'POST',
+        ];
+
+        return view('attribute::options.create', compact('form', 'attribute_id'));
     }
 
     /**
@@ -47,9 +53,15 @@ class OptionController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(Request $request, $attribute_id)
     {
-        //
+        $request->validate([
+            'value' => 'required|unique:options'
+        ]);
+
+        $this->optionRepository->create($request->all(), ['attribute_id' => $attribute_id]);
+
+        return redirect()->route('attribute.option.index', $attribute_id)->with('success', 'create new option successfully');
     }
 
     /**

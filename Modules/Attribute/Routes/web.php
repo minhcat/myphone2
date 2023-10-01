@@ -20,6 +20,7 @@ Route::prefix('admin')->group(function() {
             Route::get('/create', 'OptionController@create')->name('create');
             Route::get('/{id}', 'OptionController@show')->name('show');
             Route::get('/{id}/edit', 'OptionController@edit')->name('edit');
+            Route::post('/', 'OptionController@store')->name('store');
             Route::delete('/{id}', 'OptionController@destroy')->name('delete');
         });
 
