@@ -79,9 +79,17 @@ class OptionController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit($attribute_id, $id)
     {
-        return view('attribute::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('attribute.option.update', ['attribute_id' => $attribute_id, 'id' => $id]),
+            'method'    => 'PUT',
+        ];
+
+        $option = $this->optionRepository->find($id);
+
+        return view('attribute::options.edit', compact('form', 'option'));
     }
 
     /**
@@ -90,9 +98,15 @@ class OptionController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $attribute_id, $id)
     {
-        //
+        $request->validate([
+            'value' => 'required|unique:options,value,'.$id
+        ]);
+
+        $this->optionRepository->update($id, $request->all(), ['attribute_id' => $attribute_id]);
+
+        return redirect()->route('attribute.option.index', $attribute_id)->with('success', 'update option successfully');
     }
 
     /**
@@ -100,8 +114,10 @@ class OptionController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($attribute_id, $id)
     {
-        //
+        $this->optionRepository->delete($id);
+
+        return redirect()->route('attribute.option.index', $attribute_id)->with('success', 'delete option successfully');
     }
 }

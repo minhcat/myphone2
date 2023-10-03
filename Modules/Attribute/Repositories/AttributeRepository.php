@@ -12,14 +12,14 @@ class AttributeRepository extends AbstractRepository
         return new Attribute();
     }
 
-    protected function convertDataCreate($data)
+    protected function convertDataCreate($data, $more = [])
     {
         $data['author_id'] = 1; // todo: use Auth
 
         return $data;
     }
 
-    protected function convertDataUpdate($data)
+    protected function convertDataUpdate($data, $more = [])
     {
         unset($data['_token']);
         unset($data['_method']);

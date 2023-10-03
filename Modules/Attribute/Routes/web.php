@@ -21,6 +21,7 @@ Route::prefix('admin')->group(function() {
             Route::get('/{id}', 'OptionController@show')->name('show');
             Route::get('/{id}/edit', 'OptionController@edit')->name('edit');
             Route::post('/', 'OptionController@store')->name('store');
+            Route::put('/{id}', 'OptionController@update')->name('update');
             Route::delete('/{id}', 'OptionController@destroy')->name('delete');
         });
 
