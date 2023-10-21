@@ -69,9 +69,11 @@ class OptionController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show($attribute_id, $id)
     {
-        return view('attribute::show');
+        $option = $this->optionRepository->find($id);
+
+        return view('attribute::options.detail', compact('option', 'attribute_id'));
     }
 
     /**
