@@ -89,7 +89,7 @@ class OptionController extends Controller
 
         $option = $this->optionRepository->find($id);
 
-        return view('attribute::options.edit', compact('form', 'option'));
+        return view('attribute::options.edit', compact('form', 'option', 'attribute_id'));
     }
 
     /**
