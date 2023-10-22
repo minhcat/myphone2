@@ -12,7 +12,7 @@ class BrandRepository extends AbstractRepository
         return new Brand();
     }
 
-    protected function convertDataUpdate($data)
+    protected function convertDataUpdate($data, $more = [])
     {
         unset($data['_token']);
         unset($data['_method']);

@@ -12,7 +12,7 @@ class UserRepository extends AbstractRepository
         return new User();
     }
 
-    protected function convertDataUpdate($data)
+    protected function convertDataUpdate($data, $more = [])
     {
         unset($data['_token']);
         unset($data['_method']);

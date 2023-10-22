@@ -13,7 +13,7 @@ class ProductRepository extends AbstractRepository
         return new Product();
     }
 
-    protected function convertDataCreate($data)
+    protected function convertDataCreate($data, $more = [])
     {
         if (!isset($data['slug'])) {
             $data['slug'] = Str::slug($data['name'], '-');
@@ -31,7 +31,7 @@ class ProductRepository extends AbstractRepository
         return parent::convertDataCreate($data);
     }
 
-    protected function convertDataUpdate($data)
+    protected function convertDataUpdate($data, $more = [])
     {
         unset($data['_token']);
         unset($data['_method']);
