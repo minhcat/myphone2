@@ -45,16 +45,16 @@ abstract class AbstractRepository implements RepositoryInterface
         return $this->model->count();
     }
 
-    public function create($data)
+    public function create($data, $more = [])
     {
-        $data = $this->convertDataCreate($data);
+        $data = $this->convertDataCreate($data, $more);
 
         return $this->model->create($data);
     }
 
-    public function update($id, $data)
+    public function update($id, $data, $more = [])
     {
-        $data = $this->convertDataUpdate($data);
+        $data = $this->convertDataUpdate($data, $more);
 
         return $this->model->whereId($id)->update($data);
     }
@@ -64,12 +64,12 @@ abstract class AbstractRepository implements RepositoryInterface
         return $this->model->whereId($id)->delete();
     }
 
-    protected function convertDataCreate($data)
+    protected function convertDataCreate($data, $more = [])
     {
         return $data;
     }
 
-    protected function convertDataUpdate($data)
+    protected function convertDataUpdate($data, $more = [])
     {
         return $data;
     }
