@@ -7,11 +7,15 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Attribute\Repositories\AttributeRepository;
+use Modules\Attribute\Repositories\OptionRepository;
 
 class AttributeController extends Controller
 {
-    /** @var \App\Repositories\AbstractRepository */
+    /** @var \Modules\Attribute\Repositories\AttributeRepository */
     protected $attributeRepository;
+
+    /** @var \Modules\Attribute\Repositories\OptionRepository */
+    protected $optionRepository;
 
     /**
      * Create a new Attribute controller instance.
@@ -19,6 +23,7 @@ class AttributeController extends Controller
     public function __construct()
     {
         $this->attributeRepository = new AttributeRepository();
+        $this->optionRepository = new OptionRepository();
     }
 
     /**
@@ -119,6 +124,8 @@ class AttributeController extends Controller
     public function destroy($id)
     {
         $this->attributeRepository->delete($id);
+
+        $this->optionRepository->deleteByAttributeId($id);
 
         return redirect()->route('attribute.index')->with('success', 'delete attribute successfully');
     }

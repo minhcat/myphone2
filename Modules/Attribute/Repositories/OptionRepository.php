@@ -40,4 +40,9 @@ class OptionRepository extends AbstractRepository
         }
         return $this->model->where('attribute_id', $attributeId)->where('name', 'LIKE', "%$search%")->paginate($take);
     }
+
+    public function deleteByAttributeId($attributeId)
+    {
+        return $this->model->where('attribute_id', $attributeId)->delete();
+    }
 }
