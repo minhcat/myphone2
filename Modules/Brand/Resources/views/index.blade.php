@@ -54,7 +54,11 @@
                                     <td>{{ $brand->id }}</td>
                                     <td><a href="{{ route('brand.show', $brand->id) }}">{{ $brand->name }}</a></td>
                                     <td>{{ $brand->country }}</td>
+                                    @if ($brand->user)
                                     <td><a href="{{ route('user.show', $brand->user->id) }}">{{ $brand->user->fullname }}</a></td>
+                                    @else
+                                    <td></td>
+                                    @endif
                                     <td>{{ $brand->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $brand->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>

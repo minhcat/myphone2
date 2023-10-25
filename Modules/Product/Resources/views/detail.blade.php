@@ -48,7 +48,7 @@
                             <p><strong>Brand</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ $product->brand }}</p>
+                            <p>{{ optional($product->brand)->name }}</p>
                         </div>
                     </div>
                 </div>

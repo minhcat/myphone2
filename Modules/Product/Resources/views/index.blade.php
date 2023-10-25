@@ -56,11 +56,15 @@
                                 <tr>
                                     <td>{{ $product->id }}</td>
                                     <td><a href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a></td>
-                                    <td>{{ $product->brand->name }}</td>
+                                    <td>{{ optional($product->brand)->name }}</td>
                                     <td>smartphone</td>
                                     <td>new, modern, usa</td>
                                     <td>{{ $product->price_format }} vnđ</td>
+                                    @if ($product->user)
                                     <td><a href="{{ route('user.show', $product->user->id) }}">{{ $product->user->fullname }}</a></td>
+                                    @else
+                                    <td></td>
+                                    @endif
                                     <td>{{ $product->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $product->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>

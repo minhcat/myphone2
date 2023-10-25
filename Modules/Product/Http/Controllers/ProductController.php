@@ -57,7 +57,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'name'      => 'required',
-            'price'     => 'required|numberic'
+            'price'     => 'required|numeric'
         ]);
 
         $this->productRepository->create($request->all());
@@ -105,7 +105,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'name'      => 'required',
-            'price'     => 'required|numberic'
+            'price'     => 'required|numeric'
         ]);
 
         $this->productRepository->update($id, $request->all());
