@@ -43,11 +43,11 @@
                                 <th>Name</th>
                                 <th>Brand</th>
                                 <th>Category</th>
-                                <th>Tag</th>
                                 <th>Price</th>
                                 <th>Author</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
+                                <th>Variation</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -58,7 +58,6 @@
                                     <td><a href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a></td>
                                     <td>{{ optional($product->brand)->name }}</td>
                                     <td>smartphone</td>
-                                    <td>new, modern, usa</td>
                                     <td>{{ $product->price_format }} vnđ</td>
                                     @if ($product->user)
                                     <td><a href="{{ route('user.show', $product->user->id) }}">{{ $product->user->fullname }}</a></td>
@@ -67,6 +66,7 @@
                                     @endif
                                     <td>{{ $product->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $product->updated_at->format('H:i:s d/m/Y') }}</td>
+                                    <td><a href="#">list</a></td>
                                     <td>
                                         <a class="btn btn-icon btn-primary" href="{{ route('product.edit', $product->id) }}"><i class="fa fa-edit"></i></a>
                                         <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-product-delete" data-id="{{ $product->id }}"><i class="fa fa-trash"></i></button>
