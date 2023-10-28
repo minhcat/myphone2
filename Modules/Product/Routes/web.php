@@ -15,6 +15,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function() {
     Route::prefix('products')->name('product.')->group(function() {
+        Route::prefix('/{product_id}/variations')->name('variation.')->group(function() {
+            Route::get('/', 'VariationController@index')->name('index');
+            Route::get('/create', 'VariationController@create')->name('create');
+            Route::get('/{id}', 'VariationController@show')->name('show');
+            Route::get('/{id}/edit', 'VariationController@edit')->name('edit');
+            Route::post('/', 'VariationController@store')->name('store');
+            Route::put('/{id}', 'VariationController@update')->name('update');
+            Route::delete('/{id}', 'VariationController@destroy')->name('delete');
+        });
+
         Route::get('/', 'ProductController@index')->name('index');
         Route::get('/create', 'ProductController@create')->name('create');
         Route::get('/{id}', 'ProductController@show')->name('show');

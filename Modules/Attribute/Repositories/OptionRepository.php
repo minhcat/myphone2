@@ -30,7 +30,7 @@ class OptionRepository extends AbstractRepository
         return $data;
     }
 
-    public function paginateByAttributeId($attributeId, $take = self::TAKE_DEFAULT, $search = null, $field = 'value')
+    public function paginateByAttributeId($attributeId, $take = self::TAKE_DEFAULT, $search = null, $field = 'value') // fix: change 'value' to null
     {
         if (is_null($search)) {
             return $this->model->where('attribute_id', $attributeId)->paginate($take);
@@ -38,7 +38,7 @@ class OptionRepository extends AbstractRepository
         if (!is_null($field)) {
             return $this->model->where('attribute_id', $attributeId)->where($field, 'LIKE', "%$search%")->paginate($take);
         }
-        return $this->model->where('attribute_id', $attributeId)->where('name', 'LIKE', "%$search%")->paginate($take);
+        return $this->model->where('attribute_id', $attributeId)->where('name', 'LIKE', "%$search%")->paginate($take);  // fix: change 'name' to 'value'
     }
 
     public function deleteByAttributeId($attributeId)

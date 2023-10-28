@@ -10,7 +10,7 @@ use Modules\Product\Repositories\ProductRepository;
 
 class ProductController extends Controller
 {
-    /** @var \App\Repositories\AbstractRepository */
+    /** @var \Modules\Product\Repositories\ProductRepository */
     protected $productRepository;
 
     /**
