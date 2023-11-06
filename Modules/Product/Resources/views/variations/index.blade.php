@@ -20,7 +20,7 @@
     <div class="col-lg-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <div class="box-title">List</div>
+                <div class="box-title">{{ $product_name }}</div>
                 <a href="{{ route('product.variation.create', $product_id) }}" class="btn btn-primary pull-right">New Variation</a>
             </div>
             <div class="box-body">
@@ -41,7 +41,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
+                                <th>Attribute</th>
+                                <th>Price</th>
                                 <th>Description</th>
                                 <th>Action</th>
                             </tr>
@@ -50,7 +51,8 @@
                             @foreach ($variations as $variation)
                                 <tr>
                                     <td>{{ $variation->id }}</td>
-                                    <td><a href="{{ route('product.variation.show', ['product_id' => $product_id, 'id' => $variation->id]) }}">{{ $variation->name }}</a></td>
+                                    <td><a href="{{ route('product.variation.show', ['product_id' => $product_id, 'id' => $variation->id]) }}">{{ $variation->attribute }}</a></td>
+                                    <td>{{ $variation->price }}</td>
                                     <td>{{ Str::limit($variation->description, 60, '...') }}</td>
                                     <td>
                                         <a class="btn btn-icon btn-primary" href="{{ route('product.variation.edit', ['product_id' => $product_id, 'id' => $variation->id]) }}"><i class="fa fa-edit"></i></a>

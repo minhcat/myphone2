@@ -6,12 +6,20 @@ use App\Repositories\AbstractRepository;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Product\Repositories\ProductRepository;
 use Modules\Product\Repositories\VariationRepository;
+use Modules\Attribute\Repositories\AttributeRepository;
 
 class VariationController extends Controller
 {
     /** @var \Modules\Product\Repositories\VariationRepository */
     protected $variationRepository;
+
+    /** @var \Modules\Product\Repositories\ProductRepository */
+    protected $productRepository;
+
+    /** @var \Modules\Attribute\Repositories\AttributeRepository */
+    protected $attributeRepository;
 
     /**
      * Create a new Variation controller instance.
@@ -19,6 +27,8 @@ class VariationController extends Controller
     public function __construct()
     {
         $this->variationRepository = new VariationRepository();
+        $this->productRepository = new ProductRepository();
+        $this->attributeRepository = new AttributeRepository();
     }
 
     /**
@@ -29,17 +39,26 @@ class VariationController extends Controller
     {
         $search = $request->input('search');
         $variations = $this->variationRepository->paginateByProductId($product_id, AbstractRepository::TAKE_DEFAULT, $search);
+        $product = $this->productRepository->find($product_id);
+        $product_name = $product->name ?: '';
 
-        return view('product::variations.index', compact('variations', 'product_id'));
+        return view('product::variations.index', compact('variations', 'product_id', 'product_name'));
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function create(Request $request, $product_id)
     {
-        return view('product::create');
+        $attributes = $this->attributeRepository->all();
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('product.variation.store', $product_id),
+            'method'    => 'POST'
+        ];
+
+        return view('product::variations.create', compact('form', 'product_id', 'attributes'));
     }
 
     /**

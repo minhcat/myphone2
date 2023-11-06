@@ -18,6 +18,11 @@ abstract class AbstractRepository implements RepositoryInterface
 
     abstract function getModel();
 
+    public function all()
+    {
+        return $this->model->all();
+    }
+
     public function get($skip = self::SKIP_DEFAULT, $take = self::TAKE_DEFAULT)
     {
         return $this->model->skip($skip)->take($take)->get();
