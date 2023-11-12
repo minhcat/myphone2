@@ -66,9 +66,16 @@ class VariationController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(Request $request, $product_id)
     {
-        //
+        $request->validate([
+            'attribute' => 'required',
+            'price'     => 'required|numeric'
+        ]);
+
+        $this->variationRepository->create($request->all());
+
+        return redirect()->route('product.variation.index', $product_id)->with('success', 'create new variation successfully');
     }
 
     /**

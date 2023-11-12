@@ -16,8 +16,16 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="value">Name <span class="text-red">*</span></label>
-                                <input type="text" class="form-control" name="value" value="{{ $variation->name }}">
+                                <label for="attribute">Attribute <span class="text-red">*</span></label>
+                                <input id="attribute" type="text" class="form-control" name="attribute" value="{{ $variation->attribute }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="attribute">Price <span class="text-red">*</span></label>
+                                <input id="attribute" type="number" class="form-control" name="price" value="{{ $variation->price }}">
                             </div>
                         </div>
                     </div>
@@ -25,19 +33,19 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea class="form-control" rows="4" name="description">{{ $variation->description }}</textarea>
+                                <textarea id="description" class="form-control" rows="4" name="description">{{ $variation->description }}</textarea>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            @foreach($attributes as $attribute)
+                            @foreach($attributes as $key => $attribute)
                                 <div class="form-group">
                                     <label class="full-width">{{ $attribute->name }}</label>
                                     @foreach($attribute->options as $option)
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="option[0][]" id="" value="">{{ $option->value }}
+                                                <input type="radio" name="option[{{ $key }}]" id="" value="{{ $option->id }}">{{ $option->value }}
                                             </label>
                                         </div>
                                     @endforeach
@@ -45,6 +53,8 @@
                             @endforeach
                         </div>
                     </div>
+
+                    <input type="hidden" name="product_id" value="{{ $product_id }}">
                 </div>
                 <div class="box-footer">
                     <a href="{{ route('product.variation.index', $product_id) }}" class="btn btn-default">Back</a>

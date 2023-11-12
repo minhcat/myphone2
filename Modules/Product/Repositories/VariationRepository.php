@@ -22,4 +22,12 @@ class VariationRepository extends AbstractRepository
         }
         return $this->model->where('product_id', $product_id)->where('name', 'LIKE', "%$search%")->paginate($take);
     }
+
+    public function create($data, $more = [])
+    {
+        $variation = parent::create($data, $more);
+        $variation->options()->sync($data['option']);
+
+        return $variation;
+    }
 }
