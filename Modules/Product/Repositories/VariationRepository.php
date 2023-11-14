@@ -30,4 +30,12 @@ class VariationRepository extends AbstractRepository
 
         return $variation;
     }
+
+    public function update($id, $data, $more = [])
+    {
+        $variation = parent::update($id, $data, $more);
+        $variation->options()->sync($data['option']);
+
+        return $variation;
+    }
 }

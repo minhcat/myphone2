@@ -45,7 +45,7 @@
                                     @foreach($attribute->options as $option)
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="option[{{ $key }}]" id="" value="{{ $option->id }}">{{ $option->value }}
+                                                <input type="radio" name="option[{{ $key }}]" id="" value="{{ $option->id }}" {{ in_array($option->id, Arr::pluck($variation->options, 'id')) ? 'checked' : '' }}>{{ $option->value }}
                                             </label>
                                         </div>
                                     @endforeach
@@ -55,6 +55,7 @@
                     </div>
 
                     <input type="hidden" name="product_id" value="{{ $product_id }}">
+                    <input type="hidden" name="id" value="{{ $variation->id }}">
                 </div>
                 <div class="box-footer">
                     <a href="{{ route('product.variation.index', $product_id) }}" class="btn btn-default">Back</a>

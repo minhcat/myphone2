@@ -51,12 +51,12 @@ class VariationController extends Controller
      */
     public function create(Request $request, $product_id)
     {
-        $attributes = $this->attributeRepository->all();
         $form = [
             'title'     => 'Create',
             'url'       => route('product.variation.store', $product_id),
             'method'    => 'POST'
         ];
+        $attributes = $this->attributeRepository->all();
 
         return view('product::variations.create', compact('form', 'product_id', 'attributes'));
     }
@@ -93,9 +93,17 @@ class VariationController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit($product_id, $id)
     {
-        return view('product::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('product.variation.update', ['product_id' => $product_id, 'id' => $id]),
+            'method'    => 'PUT'
+        ];
+        $variation = $this->variationRepository->find($id);
+        $attributes = $this->attributeRepository->all();
+
+        return view('product::variations.edit', compact('form', 'variation', 'attributes', 'product_id'));
     }
 
     /**
@@ -104,9 +112,16 @@ class VariationController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $product_id, $id)
     {
-        //
+        $request->validate([
+            'attribute' => 'required',
+            'price'     => 'required|numeric'
+        ]);
+
+        $this->variationRepository->update($id, $request->all());
+
+        return redirect()->route('product.variation.index', $product_id)->with('success', 'create new variation successfully');
     }
 
     /**

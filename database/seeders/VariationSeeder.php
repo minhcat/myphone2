@@ -17,6 +17,7 @@ class VariationSeeder extends Seeder
     public function run()
     {
         DB::table('variations')->truncate();
+        DB::table('option_variation')->truncate();
 
         DB::table('variations')->insert([
             [
