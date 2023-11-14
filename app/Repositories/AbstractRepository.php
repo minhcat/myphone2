@@ -61,7 +61,11 @@ abstract class AbstractRepository implements RepositoryInterface
     {
         $data = $this->convertDataUpdate($data, $more);
 
-        return $this->model->whereId($id)->update($data);
+        $model = $this->model->find($id);
+
+        $model->update($data);
+
+        return $model;
     }
 
     public function delete($id)
