@@ -41,8 +41,9 @@ class VariationController extends Controller
         $variations = $this->variationRepository->paginateByProductId($product_id, AbstractRepository::TAKE_DEFAULT, $search);
         $product = $this->productRepository->find($product_id);
         $product_name = $product->name ?: '';
+        $attributes = $this->attributeRepository->all();
 
-        return view('product::variations.index', compact('variations', 'product_id', 'product_name'));
+        return view('product::variations.index', compact('variations', 'attributes', 'product_id', 'product_name'));
     }
 
     /**

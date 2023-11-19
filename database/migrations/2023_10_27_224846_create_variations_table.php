@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('variations', function (Blueprint $table) {
             $table->id();
+            $table->string('code');
             $table->integer('product_id')->unsigned();
-            $table->string('attribute');
             $table->integer('price');
             $table->text('description');
         });

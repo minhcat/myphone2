@@ -41,19 +41,29 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Attribute</th>
+                                <th>Code</th>
                                 <th>Price</th>
-                                <th>Description</th>
-                                <th>Action</th>
+                                @foreach($attributes as $attribute)
+                                    <th>{{ $attribute->name }}</th>
+                                @endforeach
+                                <th style="width: 100px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($variations as $variation)
                                 <tr>
                                     <td>{{ $variation->id }}</td>
-                                    <td><a href="{{ route('product.variation.show', ['product_id' => $product_id, 'id' => $variation->id]) }}">{{ $variation->attribute }}</a></td>
+                                    <td><a href="{{ route('product.variation.show', ['product_id' => $product_id, 'id' => $variation->id]) }}">{{ $variation->code }}</a></td>
                                     <td>{{ $variation->price }}</td>
-                                    <td>{{ Str::limit($variation->description, 60, '...') }}</td>
+                                    @foreach($attributes as $attribute)
+                                        <td>
+                                            @foreach($variation->options as $option)
+                                                @if ($option->attribute_id == $attribute->id)
+                                                    {{ $option->value }}
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                    @endforeach
                                     <td>
                                         <a class="btn btn-icon btn-primary" href="{{ route('product.variation.edit', ['product_id' => $product_id, 'id' => $variation->id]) }}"><i class="fa fa-edit"></i></a>
                                         <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-variation-delete" data-id="{{ $variation->id }}"><i class="fa fa-trash"></i></button>
