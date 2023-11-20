@@ -16,8 +16,8 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="attribute">Attribute <span class="text-red">*</span></label>
-                                <input id="attribute" type="text" class="form-control" name="attribute" value="{{ $variation->attribute }}">
+                                <label for="code">Code</label>
+                                <input id="code" type="text" class="form-control" name="code" value="#1111" disabled>
                             </div>
                         </div>
                     </div>

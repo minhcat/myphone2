@@ -1,4 +1,4 @@
-@extends('product::layouts.master')
+@extends('product::products.layouts.master')
 
 @section('title-page', 'Products')
 
@@ -88,7 +88,7 @@
     </div>
 </div>
 
-@include('product::layouts.modal', [
+@include('product::products.layouts.modal', [
     'modal'             => [
         'id'            => 'modal-product-delete',
         'title'         => 'Delete Product',
