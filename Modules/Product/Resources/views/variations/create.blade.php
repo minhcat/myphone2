@@ -1,4 +1,4 @@
-@extends('product::layouts.master')
+@extends('product::variations.layouts.master')
 
 @section('title-page', 'Variations')
 
@@ -16,5 +16,5 @@
 @endsection
 
 @section('content')
-    @include('product::variations.form')
+    @include('product::variations.layouts.form')
 @endsection

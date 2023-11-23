@@ -10,7 +10,7 @@ class Variation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['attribute', 'price', 'description', 'product_id'];
+    protected $fillable = ['code', 'price', 'description', 'product_id'];
 
     public $timestamps = false;
 

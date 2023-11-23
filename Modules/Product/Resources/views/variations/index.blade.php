@@ -1,4 +1,4 @@
-@extends('product::layouts.master')
+@extends('product::variations.layouts.master')
 
 @section('title-page', 'Variation')
 
@@ -85,7 +85,7 @@
     </div>
 </div>
 
-@include('product::layouts.modal', [
+@include('product::variations.layouts.modal', [
     'modal'             => [
         'id'            => 'modal-variation-delete',
         'title'         => 'Delete Variation',

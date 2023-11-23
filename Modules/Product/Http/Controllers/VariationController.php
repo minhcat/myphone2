@@ -70,7 +70,7 @@ class VariationController extends Controller
     public function store(Request $request, $product_id)
     {
         $request->validate([
-            'attribute' => 'required',
+            'code'      => 'required|unique:variations',
             'price'     => 'required|numeric'
         ]);
 
@@ -116,7 +116,7 @@ class VariationController extends Controller
     public function update(Request $request, $product_id, $id)
     {
         $request->validate([
-            'attribute' => 'required',
+            'code'      => 'required|unique:variations,code,'.$id,
             'price'     => 'required|numeric'
         ]);
 

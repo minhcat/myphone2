@@ -17,7 +17,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="code">Code</label>
-                                <input id="code" type="text" class="form-control" name="code" value="#1111" disabled>
+                                <input id="code" type="text" class="form-control" name="code" value="{{ is_null($variation->code) ? '#'.$product_id.'000' : $variation->code }}" readonly>
                             </div>
                         </div>
                     </div>
@@ -45,10 +45,28 @@
                                     @foreach($attribute->options as $option)
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="option[{{ $key }}]" id="" value="{{ $option->id }}" {{ in_array($option->id, Arr::pluck($variation->options, 'id')) ? 'checked' : '' }}>{{ $option->value }}
+                                                <input 
+                                                    type="radio"
+                                                    name="option[{{ $key }}]"
+                                                    class="option a{{ $key }}"
+                                                    value="{{ $option->id }}"
+                                                    {{ in_array($option->id, Arr::pluck($variation->options, 'id')) ? 'checked' : '' }}>
+                                                {{ $option->value }}
                                             </label>
                                         </div>
                                     @endforeach
+                                    <div class="radio">
+                                        <label>
+                                            <input 
+                                                type="radio"
+                                                name="option[{{ $key }}]"
+                                                class="option a{{ $key }}"
+                                                value="0"
+                                                {{ count(array_diff(Arr::pluck($variation->options, 'id'), array_diff(Arr::pluck($variation->options, 'id'), Arr::pluck($attribute->options, 'id')))) == 0 ? 'checked' : '' }}
+                                                >
+                                            none
+                                        </label>
+                                    </div>
                                 </div>
                             @endforeach
                         </div>
@@ -65,3 +83,27 @@
         </div>
     </div>
 </div>
+
+@push('script')
+<script>
+    $(function() {
+        $('input.option').change(function() {
+            let order = $(this).data('order')
+            let product_id = $('input[name=product_id]').val()
+            let code = '#' + product_id
+            let length = {{ count($attributes) }}
+            for (let i = 0; i < length; i++) {
+                let val = 0
+                $('input.option.a' + i).each(function() {
+                    if ($(this).is(':checked')) {
+                        val = $(this).val()
+                        return false
+                    }
+                })
+                code += val
+            }
+            $('input#code').val(code)
+        })
+    })
+</script>
+@endpush
