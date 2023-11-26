@@ -84,9 +84,13 @@ class VariationController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show($product_id, $id)
     {
-        return view('product::show');
+        $variation = $this->variationRepository->find($id);
+
+        $attributes = $this->attributeRepository->all();
+
+        return view('product::variations.detail', compact('variation', 'attributes', 'product_id'));
     }
 
     /**
@@ -130,8 +134,10 @@ class VariationController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($product_id, $id)
     {
-        //
+        $this->variationRepository->delete($id);
+
+        return redirect()->route('product.variation.index', $product_id)->with('success', 'delete variation successfully');
     }
 }
