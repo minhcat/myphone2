@@ -35,10 +35,9 @@ class VariationController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index(Request $request, $product_id)
+    public function index($product_id)
     {
-        $search = $request->input('search');
-        $variations = $this->variationRepository->paginateByProductId($product_id, AbstractRepository::TAKE_DEFAULT, $search);
+        $variations = $this->variationRepository->paginateByProductId($product_id, AbstractRepository::TAKE_DEFAULT);
         $product = $this->productRepository->find($product_id);
         $product_name = $product->name ?: '';
         $attributes = $this->attributeRepository->all();

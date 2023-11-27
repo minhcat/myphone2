@@ -24,18 +24,6 @@
                 <a href="{{ route('product.variation.create', $product_id) }}" class="btn btn-primary pull-right">New Variation</a>
             </div>
             <div class="box-body">
-                <div class="table-header">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="filter">
-                                <label for="search">
-                                    Search:
-                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('product.variation.index', $product_id) }}">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="table-body">
                     <table class="table table-bordered table-striped mt-3">
                         <thead>
@@ -107,13 +95,6 @@
 @push('script')
 <script>
     $(function() {
-        $('.filter input').keypress(function(e) {
-            if (e.which == 13) {
-                let value = $(this).val().trim();
-                let url = $(this).data('url') + '?search=' + value;
-                window.location.href = url;
-            }
-        })
         let url_delete = $('#modal-variation-delete form').attr('action');
         $('.btn-delete').click(function() {
             let id = $(this).data('id');

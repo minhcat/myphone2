@@ -12,7 +12,7 @@ class VariationRepository extends AbstractRepository
         return new Variation();
     }
 
-    public function paginateByProductId($product_id, $take = self::TAKE_DEFAULT, $search = null, $field = 'value')
+    public function paginateByProductId($product_id, $take = self::TAKE_DEFAULT, $search = null, $field = 'code')
     {
         if (is_null($search)) {
             return $this->model->where('product_id', $product_id)->paginate($take);
