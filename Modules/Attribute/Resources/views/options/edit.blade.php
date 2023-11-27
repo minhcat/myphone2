@@ -1,4 +1,4 @@
-@extends('attribute::layouts.master')
+@extends('attribute::options.layouts.master')
 
 @section('title-page', 'Options')
 
@@ -16,5 +16,5 @@
 @endsection
 
 @section('content')
-    @include('attribute::options.form')
+    @include('attribute::options.layouts.form')
 @endsection

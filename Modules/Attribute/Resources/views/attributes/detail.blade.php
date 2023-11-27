@@ -1,4 +1,4 @@
-@extends('attribute::layouts.master')
+@extends('attribute::attributes.layouts.master')
 
 @section('title-page', 'Attributes')
 

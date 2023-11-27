@@ -1,4 +1,4 @@
-@extends('attribute::layouts.master')
+@extends('attribute::attributes.layouts.master')
 
 @section('title-page', 'Attribute')
 
@@ -80,7 +80,7 @@
     </div>
 </div>
 
-@include('attribute::layouts.modal', [
+@include('attribute::attributes.layouts.modal', [
     'modal'             => [
         'id'            => 'modal-attribute-delete',
         'title'         => 'Delete Attribute',
