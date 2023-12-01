@@ -22,6 +22,7 @@
             <div class="box-header with-border">
                 <div class="box-title">List</div>
                 <a href="{{ route('attribute.option.create', $attributeId) }}" class="btn btn-primary pull-right">New Option</a>
+                <a href="{{ route('attribute.index') }}" class="btn btn-default pull-right mr-1">Back</a>
             </div>
             <div class="box-body">
                 <div class="table-header">

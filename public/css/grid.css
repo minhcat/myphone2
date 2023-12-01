@@ -277,6 +277,38 @@
   margin-left: 30px !important;
 }
 
+.mr-0 {
+  margin-right: 0 !important;
+}
+
+.mr-1 {
+  margin-right: 2.5px !important;
+}
+
+.mr-2 {
+  margin-right: 5px !important;
+}
+
+.mr-3 {
+  margin-right: 10px !important;
+}
+
+.mr-4 {
+  margin-right: 15px !important;
+}
+
+.mr-5 {
+  margin-right: 20px !important;
+}
+
+.mr-6 {
+  margin-right: 25px !important;
+}
+
+.mr-7 {
+  margin-right: 30px !important;
+}
+
 .w-full {
   width: 100%;
 }
