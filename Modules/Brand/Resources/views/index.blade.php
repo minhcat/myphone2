@@ -8,8 +8,8 @@
 
 @section('breakcumb')
 <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="#">Brand</a></li>
+    <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
+    <li><a href="{{ route('brand.index') }}">Brand</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection

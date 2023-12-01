@@ -8,9 +8,9 @@
 
 @section('breakcumb')
 <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="#">Product</a></li>
-    <li><a href="#">Variation</a></li>
+    <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
+    <li><a href="{{ route('product.index') }}">Product</a></li>
+    <li><a href="{{ route('product.variation.index', $product_id) }}">Variation</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -22,6 +22,7 @@
             <div class="box-header with-border">
                 <div class="box-title">{{ $product_name }}</div>
                 <a href="{{ route('product.variation.create', $product_id) }}" class="btn btn-primary pull-right">New Variation</a>
+                <a href="{{ route('product.index') }}" class="btn btn-default pull-right mr-1">Back</a>
             </div>
             <div class="box-body">
                 <div class="table-body">

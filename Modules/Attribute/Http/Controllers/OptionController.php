@@ -25,12 +25,12 @@ class OptionController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index(Request $request, $attributeId)
+    public function index(Request $request, $attribute_id)
     {
         $search = $request->input('search');
-        $options = $this->optionRepository->paginateByAttributeId($attributeId, AbstractRepository::TAKE_DEFAULT, $search);
+        $options = $this->optionRepository->paginateByAttributeId($attribute_id, AbstractRepository::TAKE_DEFAULT, $search);
 
-        return view('attribute::options.index', compact('options', 'attributeId'));
+        return view('attribute::options.index', compact('options', 'attribute_id'));
     }
 
     /**
