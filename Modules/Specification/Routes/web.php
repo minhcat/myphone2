@@ -11,6 +11,16 @@
 |
 */
 
-Route::prefix('specification')->group(function() {
-    Route::get('/', 'SpecificationController@index');
+use Illuminate\Support\Facades\Route;
+
+Route::prefix('admin')->group(function() {
+    Route::prefix('specifications')->name('specification.')->group(function() {
+        Route::get('/', 'SpecificationController@index')->name('index');
+        Route::get('/create', 'SpecificationController@create')->name('create');
+        Route::get('/{id}', 'SpecificationController@show')->name('show');
+        Route::get('/{id}/edit', 'SpecificationController@edit')->name('edit');
+        Route::post('/', 'SpecificationController@store')->name('store');
+        Route::put('/{id}', 'SpecificationController@update')->name('update');
+        Route::delete('/{id}', 'SpecificationController@destroy')->name('delete');
+    });
 });

@@ -2,19 +2,35 @@
 
 namespace Modules\Specification\Http\Controllers;
 
+use App\Repositories\AbstractRepository;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Specification\Repositories\SpecificationRepository;
 
 class SpecificationController extends Controller
 {
+    /** @var \Modules\Specification\Repositories\SpecificationRepository */
+    protected $specificationRepository;
+
+    /**
+     * Create a new Specification controller instance.
+     */
+    public function __construct()
+    {
+        $this->specificationRepository = new SpecificationRepository();
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('specification::index');
+        $search = $request->input('search');
+        $specifications = $this->specificationRepository->paginate(AbstractRepository::TAKE_DEFAULT, $search);
+
+        return view('specification::specifications.index', compact('specifications'));
     }
 
     /**

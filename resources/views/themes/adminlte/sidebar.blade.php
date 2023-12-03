@@ -29,7 +29,7 @@
       <ul class="treeview-menu">
         <li><a href="{{ route('product.index') }}">Product</a></li>
         <li><a href="{{ route('attribute.index') }}">Attribute</a></li>
-        <li><a href="#">Specification</a></li>
+        <li><a href="{{ route('specification.index') }}">Specification</a></li>
         <li><a href="{{ route('brand.index') }}">Brand</a></li>
       </ul>
     </li>
