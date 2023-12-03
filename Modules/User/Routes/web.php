@@ -13,8 +13,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->name('user.')->group(function() {
-    Route::prefix('users')->group(function() {
+Route::prefix('admin')->group(function() {
+    Route::prefix('users')->name('user.')->group(function() {
         Route::get('/', 'UserController@index')->name('index');
         Route::get('/create', 'UserController@create')->name('create');
         Route::get('/{id}', 'UserController@show')->name('show');
