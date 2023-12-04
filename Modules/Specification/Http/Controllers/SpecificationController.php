@@ -39,7 +39,13 @@ class SpecificationController extends Controller
      */
     public function create()
     {
-        return view('specification::create');
+        $form = [
+            'url'       => route('specification.store'),
+            'method'    => 'POST',
+            'title'     => 'Create'
+        ];
+
+        return view('specification::specifications.create', compact('form'));
     }
 
     /**
@@ -49,7 +55,13 @@ class SpecificationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'  => 'required|unique:specifications'
+        ]);
+
+        $this->specificationRepository->create($request->all());
+
+        return redirect()->route('specification.index')->with('success', 'Create new Specification succcessfully.');
     }
 
     /**
@@ -69,7 +81,15 @@ class SpecificationController extends Controller
      */
     public function edit($id)
     {
-        return view('specification::edit');
+        $form = [
+            'url'       => route('specification.update', $id),
+            'method'    => 'PUT',
+            'title'     => 'Update'
+        ];
+
+        $specification = $this->specificationRepository->find($id);
+
+        return view('specification::specifications.edit', compact('form', 'specification'));
     }
 
     /**
@@ -80,7 +100,13 @@ class SpecificationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'      => 'required:unique:specifications.name.'.$id,
+        ]);
+
+        $this->specificationRepository->update($id, $request->all());
+
+        return redirect()->route('specification.index')->with('success', 'Update specification successfully.');
     }
 
     /**
