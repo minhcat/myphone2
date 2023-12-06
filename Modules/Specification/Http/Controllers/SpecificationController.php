@@ -71,7 +71,9 @@ class SpecificationController extends Controller
      */
     public function show($id)
     {
-        return view('specification::show');
+        $specification = $this->specificationRepository->find($id);
+
+        return view('specification::specifications.detail', compact('specification'));
     }
 
     /**
@@ -116,6 +118,8 @@ class SpecificationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->specificationRepository->delete($id);
+
+        return redirect()->route('specification.index')->with('success', 'Delete specification successfully.');
     }
 }
