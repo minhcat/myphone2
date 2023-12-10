@@ -37,9 +37,15 @@ class InformationController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function create($specification_id)
     {
-        return view('specification::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('specification.information.store', $specification_id),
+            'method'    => 'POST',
+        ];
+
+        return view('specification::informations.create', compact('form', 'specification_id'));
     }
 
     /**
@@ -47,9 +53,15 @@ class InformationController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(Request $request, $specification_id)
     {
-        //
+        $request->validate([
+            'value'     => 'required'
+        ]);
+
+        $this->informationRepository->create($request->all(), ['specification_id' => $specification_id]);
+
+        return redirect()->route('specification.information.index', $specification_id)->with('success', 'Create new Information successfully');
     }
 
     /**
@@ -67,9 +79,17 @@ class InformationController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit($specification_id, $id)
     {
-        return view('specification::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('specification.information.update', ['specification_id' => $specification_id, 'id' => $id]),
+            'method'    => 'PUT',
+        ];
+
+        $information = $this->informationRepository->find($id);
+
+        return view('specification::informations.edit', compact('form', 'information', 'specification_id'));
     }
 
     /**
@@ -78,9 +98,15 @@ class InformationController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $specification_id, $id)
     {
-        //
+        $request->validate([
+            'value'     => 'required',
+        ]);
+
+        $this->informationRepository->update($id, $request->all(), ['specification_id' => $specification_id]);
+
+        return redirect()->route('specification.information.index', $specification_id)->with('success', 'Edit Information successfully.');
     }
 
     /**

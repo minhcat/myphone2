@@ -22,4 +22,13 @@ class InformationRepository extends AbstractRepository
         }
         return $this->model->where('specification_id', $specification_id)->where('value', 'LIKE', "%$search%")->paginate($take);
     }
+
+    protected function convertDataCreate($data, $more = [])
+    {
+        foreach ($more as $name => $field) {
+            $data[$name] = $field;
+        }
+
+        return $data;
+    }
 }
