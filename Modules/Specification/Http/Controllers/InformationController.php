@@ -69,9 +69,11 @@ class InformationController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show($specification_id, $id)
     {
-        return view('specification::show');
+        $information = $this->informationRepository->find($id);
+
+        return view('specification::informations.detail', compact('information', 'specification_id'));
     }
 
     /**
@@ -114,8 +116,10 @@ class InformationController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($specification_id, $id)
     {
-        //
+        $this->informationRepository->delete($id);
+
+        return redirect()->route('specification.information.index', $specification_id)->with('success', 'Delete Information successfully');
     }
 }
