@@ -2,7 +2,6 @@
 
 namespace Modules\Product\Http\Controllers;
 
-use App\Repositories\AbstractRepository;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -37,7 +36,7 @@ class VariationController extends Controller
      */
     public function index($product_id)
     {
-        $variations = $this->variationRepository->paginateByProductId($product_id, AbstractRepository::TAKE_DEFAULT);
+        $variations = $this->variationRepository->paginateByProductId($product_id);
         $product = $this->productRepository->find($product_id);
         $product_name = $product->name ?: '';
         $attributes = $this->attributeRepository->all();

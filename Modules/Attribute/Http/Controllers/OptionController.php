@@ -28,7 +28,7 @@ class OptionController extends Controller
     public function index(Request $request, $attribute_id)
     {
         $search = $request->input('search');
-        $options = $this->optionRepository->paginateByAttributeId($attribute_id, AbstractRepository::TAKE_DEFAULT, $search);
+        $options = $this->optionRepository->paginateByAttributeId($attribute_id, $search);
 
         return view('attribute::options.index', compact('options', 'attribute_id'));
     }

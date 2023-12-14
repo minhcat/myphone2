@@ -11,6 +11,8 @@ abstract class AbstractRepository implements RepositoryInterface
     /** @var \Illuminate\Database\Eloquent\Model */
     protected $model;
 
+    protected $searchFieldName = 'name';
+
     public function __construct()
     {
         $this->model = $this->getModel();
@@ -29,7 +31,7 @@ abstract class AbstractRepository implements RepositoryInterface
     }
 
     // todo: replace take and search
-    public function paginate($take = self::TAKE_DEFAULT, $search = null, $field = null)
+    public function paginate($search = null, $take = self::TAKE_DEFAULT, $field = null)
     {
         if (is_null($search)) {
             return $this->model->paginate($take);
@@ -37,7 +39,7 @@ abstract class AbstractRepository implements RepositoryInterface
         if (!is_null($field)) {
             return $this->model->where($field, 'LIKE', "%$search%")->paginate($take);
         }
-        return $this->model->where('name', 'LIKE', "%$search%")->paginate($take);
+        return $this->model->where($this->searchFieldName, 'LIKE', "%$search%")->paginate($take);
     }
 
     public function find($id)

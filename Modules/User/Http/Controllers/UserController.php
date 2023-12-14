@@ -27,7 +27,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = $this->userRepository->paginate(AbstractRepository::TAKE_DEFAULT, $request->input('search'), 'account');
+        $search   = $request->input('search');
+        $users = $this->userRepository->paginate($search);
 
         return view('user::index', compact('users'));
     }

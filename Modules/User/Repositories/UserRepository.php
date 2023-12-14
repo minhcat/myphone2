@@ -7,6 +7,8 @@ use Modules\User\Entities\User;
 
 class UserRepository extends AbstractRepository
 {
+    protected $searchFieldName = 'account';
+
     function getModel()
     {
         return new User();

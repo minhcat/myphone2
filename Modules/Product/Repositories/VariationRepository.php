@@ -7,12 +7,14 @@ use Modules\Product\Entities\Variation;
 
 class VariationRepository extends AbstractRepository
 {
+    protected $searchFieldName = 'code';
+
     function getModel()
     {
         return new Variation();
     }
 
-    public function paginateByProductId($product_id, $take = self::TAKE_DEFAULT, $search = null, $field = 'code')
+    public function paginateByProductId($product_id, $search = null, $take = self::TAKE_DEFAULT, $field = null)
     {
         if (is_null($search)) {
             return $this->model->where('product_id', $product_id)->paginate($take);
@@ -20,7 +22,7 @@ class VariationRepository extends AbstractRepository
         if (!is_null($field)) {
             return $this->model->where('product_id', $product_id)->where($field, 'LIKE', "%$search%")->paginate($take);
         }
-        return $this->model->where('product_id', $product_id)->where('name', 'LIKE', "%$search%")->paginate($take);
+        return $this->model->where('product_id', $product_id)->where($this->searchFieldName, 'LIKE', "%$search%")->paginate($take);
     }
 
     public function create($data, $more = [])

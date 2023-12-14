@@ -2,7 +2,6 @@
 
 namespace Modules\Specification\Http\Controllers;
 
-use App\Repositories\AbstractRepository;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -28,7 +27,7 @@ class InformationController extends Controller
     public function index(Request $request, $specification_id)
     {
         $search = $request->input('search');
-        $informations = $this->informationRepository->paginateBySpecificationId($specification_id, AbstractRepository::TAKE_DEFAULT, $search);
+        $informations = $this->informationRepository->paginateBySpecificationId($specification_id, $search);
 
         return view('specification::informations.index', compact('informations', 'specification_id'));
     }

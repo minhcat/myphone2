@@ -33,7 +33,7 @@ class AttributeController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-        $attributes = $this->attributeRepository->paginate(AbstractRepository::TAKE_DEFAULT, $search);
+        $attributes = $this->attributeRepository->paginate($search);
 
         return view('attribute::attributes.index', compact('attributes'));
     }

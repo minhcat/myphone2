@@ -2,7 +2,6 @@
 
 namespace Modules\Brand\Http\Controllers;
 
-use App\Repositories\AbstractRepository;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -28,7 +27,7 @@ class BrandController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-        $brands = $this->brandRepository->paginate(AbstractRepository::TAKE_DEFAULT, $search);
+        $brands = $this->brandRepository->paginate($search);
 
         return view('brand::index', compact('brands'));
     }

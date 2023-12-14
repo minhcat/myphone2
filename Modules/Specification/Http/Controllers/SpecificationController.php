@@ -2,7 +2,6 @@
 
 namespace Modules\Specification\Http\Controllers;
 
-use App\Repositories\AbstractRepository;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -28,7 +27,7 @@ class SpecificationController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-        $specifications = $this->specificationRepository->paginate(AbstractRepository::TAKE_DEFAULT, $search);
+        $specifications = $this->specificationRepository->paginate($search);
 
         return view('specification::specifications.index', compact('specifications'));
     }

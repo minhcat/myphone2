@@ -2,7 +2,6 @@
 
 namespace Modules\Product\Http\Controllers;
 
-use App\Repositories\AbstractRepository;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -28,7 +27,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $search   = $request->input('search');
-        $products = $this->productRepository->paginate(AbstractRepository::TAKE_DEFAULT, $search);
+        $products = $this->productRepository->paginate($search);
 
         return view('product::products.index', compact('products'));
     }

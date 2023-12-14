@@ -7,6 +7,8 @@ use Modules\Attribute\Entities\Option;
 
 class OptionRepository extends AbstractRepository
 {
+    protected $searchFieldName = 'value';
+
     function getModel()
     {
         return new Option();
@@ -30,7 +32,7 @@ class OptionRepository extends AbstractRepository
         return $data;
     }
 
-    public function paginateByAttributeId($attributeId, $take = self::TAKE_DEFAULT, $search = null, $field = 'value') // fix: change 'value' to null
+    public function paginateByAttributeId($attributeId, $search = null, $take = self::TAKE_DEFAULT, $field = null) // fix: change 'value' to null
     {
         if (is_null($search)) {
             return $this->model->where('attribute_id', $attributeId)->paginate($take);
@@ -38,7 +40,7 @@ class OptionRepository extends AbstractRepository
         if (!is_null($field)) {
             return $this->model->where('attribute_id', $attributeId)->where($field, 'LIKE', "%$search%")->paginate($take);
         }
-        return $this->model->where('attribute_id', $attributeId)->where('name', 'LIKE', "%$search%")->paginate($take);  // fix: change 'name' to 'value'
+        return $this->model->where('attribute_id', $attributeId)->where($this->searchFieldName, 'LIKE', "%$search%")->paginate($take);  // fix: change 'name' to 'value'
     }
 
     public function deleteByAttributeId($attributeId)
