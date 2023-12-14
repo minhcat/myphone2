@@ -77,11 +77,19 @@ abstract class AbstractRepository implements RepositoryInterface
 
     protected function convertDataCreate($data, $more = [])
     {
+        foreach ($more as $name => $field) {
+            $data[$name] = $field;
+        }
+
         return $data;
     }
 
     protected function convertDataUpdate($data, $more = [])
     {
+        foreach ($more as $name => $field) {
+            $data[$name] = $field;
+        }
+
         return $data;
     }
 }

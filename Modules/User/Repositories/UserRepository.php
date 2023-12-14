@@ -18,16 +18,13 @@ class UserRepository extends AbstractRepository
     {
         $data['is_admin'] = isset($data['is_admin']) && $data['is_admin'] == 'on';
 
-        return $data;
+        return parent::convertDataCreate($data, $more);
     }
 
     protected function convertDataUpdate($data, $more = [])
     {
-        unset($data['_token']);
-        unset($data['_method']);
-
         $data['is_admin'] = isset($data['is_admin']) && $data['is_admin'] == 'on';
 
-        return $data;
+        return parent::convertDataUpdate($data, $more);
     }
 }

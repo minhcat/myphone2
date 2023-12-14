@@ -16,19 +16,15 @@ class AttributeRepository extends AbstractRepository
     {
         $data['author_id'] = 1; // todo: use Auth
 
-        return $data;
+        return parent::convertDataCreate($data, $more);
     }
 
     protected function convertDataUpdate($data, $more = [])
     {
-        unset($data['_token']);
-        unset($data['_method']);
-        unset($data['author_id']);
-
         if (!isset($data['note']) || !$data['note']) {
             $data['note'] = '';
         }
 
-        return $data;
+        return parent::convertDataUpdate($data, $more);
     }
 }

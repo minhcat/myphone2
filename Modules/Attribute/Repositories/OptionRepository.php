@@ -14,24 +14,6 @@ class OptionRepository extends AbstractRepository
         return new Option();
     }
 
-    protected function convertDataCreate($data, $more = [])
-    {
-        foreach ($more as $name => $field) {
-            $data[$name] = $field;
-        }
-
-        return $data;
-    }
-
-    protected function convertDataUpdate($data, $more = [])
-    {
-        unset($data['_token']);
-        unset($data['_method']);
-        unset($data['author_id']);
-
-        return $data;
-    }
-
     public function paginateByAttributeId($attributeId, $search = null, $take = self::TAKE_DEFAULT, $field = null) // fix: change 'value' to null
     {
         if (is_null($search)) {
