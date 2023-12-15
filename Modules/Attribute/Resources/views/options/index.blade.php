@@ -43,7 +43,6 @@
                             <tr>
                                 <th>#</th>
                                 <th>Value</th>
-                                <th>Description</th>
                                 <th>Author</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
@@ -55,7 +54,6 @@
                                 <tr>
                                     <td>{{ $option->id }}</td>
                                     <td><a href="{{ route('attribute.option.show', ['attribute_id' => $attribute_id, 'id' => $option->id]) }}">{{ $option->value }}</a></td>
-                                    <td>{{ Str::limit($option->description, 60, '...') }}</td>
                                     <td>@if (!is_null($option->user)) <a href="{{ route('user.show', $option->user->id) }}">{{ $option->user->fullname }}</a>@endif</td>
                                     <td>{{ $option->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $option->updated_at->format('H:i:s d/m/Y') }}</td>
