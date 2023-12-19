@@ -40,8 +40,9 @@ class VariationController extends Controller
         $product = $this->productRepository->find($product_id);
         $product_name = $product->name ?: '';
         $attributes = $this->attributeRepository->all();
+        $menu = ['group' => 'product', 'active' => 'product'];
 
-        return view('product::variations.index', compact('variations', 'attributes', 'product_id', 'product_name'));
+        return view('product::variations.index', compact('variations', 'attributes', 'product_id', 'product_name', 'menu'));
     }
 
     /**
@@ -55,9 +56,15 @@ class VariationController extends Controller
             'url'       => route('product.variation.store', $product_id),
             'method'    => 'POST'
         ];
+        $menu = [
+            'group' => 'product',
+            'active' => 'product'
+        ];
+
         $attributes = $this->attributeRepository->all();
 
-        return view('product::variations.create', compact('form', 'product_id', 'attributes'));
+
+        return view('product::variations.create', compact('form', 'product_id', 'attributes', 'menu'));
     }
 
     /**
@@ -88,7 +95,9 @@ class VariationController extends Controller
 
         $attributes = $this->attributeRepository->all();
 
-        return view('product::variations.detail', compact('variation', 'attributes', 'product_id'));
+        $menu = ['group' => 'product', 'active' => 'product'];
+
+        return view('product::variations.detail', compact('variation', 'attributes', 'product_id', 'menu'));
     }
 
     /**
@@ -103,10 +112,14 @@ class VariationController extends Controller
             'url'       => route('product.variation.update', ['product_id' => $product_id, 'id' => $id]),
             'method'    => 'PUT'
         ];
+        $menu = [
+            'group' => 'product',
+            'active' => 'product'
+        ];
         $variation = $this->variationRepository->find($id);
         $attributes = $this->attributeRepository->all();
 
-        return view('product::variations.edit', compact('form', 'variation', 'attributes', 'product_id'));
+        return view('product::variations.edit', compact('form', 'variation', 'attributes', 'product_id', 'menu'));
     }
 
     /**

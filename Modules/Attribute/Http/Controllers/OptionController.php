@@ -29,8 +29,9 @@ class OptionController extends Controller
     {
         $search = $request->input('search');
         $options = $this->optionRepository->paginateByAttributeId($attribute_id, $search);
+        $menu = ['group' => 'product', 'active' => 'attribute'];
 
-        return view('attribute::options.index', compact('options', 'attribute_id'));
+        return view('attribute::options.index', compact('options', 'attribute_id', 'menu'));
     }
 
     /**
@@ -44,8 +45,12 @@ class OptionController extends Controller
             'url'       => route('attribute.option.store', $attribute_id),
             'method'    => 'POST',
         ];
+        $menu = [
+            'group' => 'product',
+            'active' => 'attribute'
+        ];
 
-        return view('attribute::options.create', compact('form', 'attribute_id'));
+        return view('attribute::options.create', compact('form', 'attribute_id', 'menu'));
     }
 
     /**
@@ -72,8 +77,9 @@ class OptionController extends Controller
     public function show($attribute_id, $id)
     {
         $option = $this->optionRepository->find($id);
+        $menu = ['group' => 'product', 'active' => 'attribute'];
 
-        return view('attribute::options.detail', compact('option', 'attribute_id'));
+        return view('attribute::options.detail', compact('option', 'attribute_id', 'menu'));
     }
 
     /**
@@ -88,10 +94,14 @@ class OptionController extends Controller
             'url'       => route('attribute.option.update', ['attribute_id' => $attribute_id, 'id' => $id]),
             'method'    => 'PUT',
         ];
+        $menu = [
+            'group' => 'product',
+            'active' => 'attribute'
+        ];
 
         $option = $this->optionRepository->find($id);
 
-        return view('attribute::options.edit', compact('form', 'option', 'attribute_id'));
+        return view('attribute::options.edit', compact('form', 'option', 'attribute_id', 'menu'));
     }
 
     /**

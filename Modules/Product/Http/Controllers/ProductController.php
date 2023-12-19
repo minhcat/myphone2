@@ -28,8 +28,9 @@ class ProductController extends Controller
     {
         $search   = $request->input('search');
         $products = $this->productRepository->paginate($search);
+        $menu = ['group' => 'product', 'active' => 'product'];
 
-        return view('product::products.index', compact('products'));
+        return view('product::products.index', compact('products', 'menu'));
     }
 
     /**
@@ -43,8 +44,12 @@ class ProductController extends Controller
             'url'       => route('product.store'),
             'method'    => 'POST',
         ];
+        $menu = [
+            'group' => 'product',
+            'active' => 'product'
+        ];
 
-        return view('product::products.create', compact('form'));
+        return view('product::products.create', compact('form', 'menu'));
     }
 
     /**
@@ -72,8 +77,9 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = $this->productRepository->find($id);
+        $menu = ['group' => 'product', 'active' => 'product'];
 
-        return view('product::products.detail', compact('product'));
+        return view('product::products.detail', compact('product', 'menu'));
     }
 
     /**
@@ -88,10 +94,14 @@ class ProductController extends Controller
             'url'       => route('product.update', $id),
             'method'    => 'PUT',
         ];
+        $menu = [
+            'group' => 'product',
+            'active' => 'product'
+        ];
 
         $product = $this->productRepository->find($id);
 
-        return view('product::products.edit', compact('form', 'product'));
+        return view('product::products.edit', compact('form', 'product', 'menu'));
     }
 
     /**

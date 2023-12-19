@@ -1,3 +1,7 @@
+@php
+  $menu = isset($menu) ? $menu : ['group' => '', 'active' => ''];
+@endphp
+
 <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
 
@@ -20,17 +24,17 @@
   <ul class="sidebar-menu" data-widget="tree">
     <li class="header">CONTENT</li>
     <!-- Optionally, you can add icons to the links -->
-    <li class="treeview">
+    <li class="treeview {{ $menu['group'] == 'product' ? 'menu-open' : '' }}">
       <a href="#"><i class="fa fa-laptop"></i> <span>Product</span>
         <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
         </span>
       </a>
-      <ul class="treeview-menu">
-        <li><a href="{{ route('product.index') }}">Product</a></li>
-        <li><a href="{{ route('attribute.index') }}">Attribute</a></li>
-        <li><a href="{{ route('specification.index') }}">Specification</a></li>
-        <li><a href="{{ route('brand.index') }}">Brand</a></li>
+      <ul class="treeview-menu" {!! isset($menu['group']) && $menu['group'] == 'product' ? 'style="display: block"' : '' !!}>
+        <li class="{{ isset($menu['active']) && $menu['active'] == 'product' ? 'active' : '' }}"><a href="{{ route('product.index') }}">Product</a></li>
+        <li class="{{ isset($menu['active']) && $menu['active'] == 'attribute' ? 'active' : '' }}"><a href="{{ route('attribute.index') }}">Attribute</a></li>
+        <li class="{{ isset($menu['active']) && $menu['active'] == 'specification' ? 'active' : '' }}"><a href="{{ route('specification.index') }}">Specification</a></li>
+        <li class="{{ isset($menu['active']) && $menu['active'] == 'brand' ? 'active' : '' }}"><a href="{{ route('brand.index') }}">Brand</a></li>
       </ul>
     </li>
     <li class="treeview">
@@ -82,14 +86,14 @@
     </li>
 
     <li class="header">SYSTEM</li>
-    <li class="treeview">
+    <li class="treeview {{ isset($menu['group']) && $menu['group'] == 'user' ? 'menu-open' : '' }}">
       <a href="#"><i class="fa fa-user"></i> <span>User</span>
         <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
         </span>
       </a>
-      <ul class="treeview-menu">
-        <li><a href="{{ route('user.index') }}">User</a></li>
+      <ul class="treeview-menu" {!! isset($menu['group']) && $menu['group'] == 'user' ? 'style="display: block"' : '' !!}>
+        <li class="{{ isset($menu['active']) && $menu['active'] == 'user' ? 'active' : '' }}"><a href="{{ route('user.index') }}">User</a></li>
         <li><a href="#">Role</a></li>
         <li><a href="#">Permission</a></li>
       </ul>

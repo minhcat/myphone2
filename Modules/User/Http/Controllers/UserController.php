@@ -29,8 +29,9 @@ class UserController extends Controller
     {
         $search   = $request->input('search');
         $users = $this->userRepository->paginate($search);
+        $menu = ['group' => 'user', 'active' => 'user'];
 
-        return view('user::index', compact('users'));
+        return view('user::index', compact('users', 'menu'));
     }
 
     /**
@@ -44,8 +45,12 @@ class UserController extends Controller
             'url'       => route('user.store'),
             'method'    => 'POST',
         ];
+        $menu = [
+            'group' => 'user',
+            'active' => 'user'
+        ];
 
-        return view('user::create', compact('form'));
+        return view('user::create', compact('form', 'menu'));
     }
 
     /**
@@ -75,8 +80,9 @@ class UserController extends Controller
     public function show($id)
     {
         $user = $this->userRepository->find($id);
+        $menu = ['group' => 'user', 'active' => 'user'];
 
-        return view('user::detail', compact('user'));
+        return view('user::detail', compact('user', 'menu'));
     }
 
     /**
@@ -91,10 +97,14 @@ class UserController extends Controller
             'url'       => route('user.update', $id),
             'method'    => 'PUT',
         ];
+        $menu = [
+            'group' => 'user',
+            'active' => 'user'
+        ];
 
         $user = $this->userRepository->find($id);
 
-        return view('user::edit', compact('form', 'user'));
+        return view('user::edit', compact('form', 'user', 'menu'));
     }
 
     /**

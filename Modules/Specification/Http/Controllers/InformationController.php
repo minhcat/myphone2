@@ -28,8 +28,9 @@ class InformationController extends Controller
     {
         $search = $request->input('search');
         $informations = $this->informationRepository->paginateBySpecificationId($specification_id, $search);
+        $menu = ['group' => 'product', 'active' => 'specification'];
 
-        return view('specification::informations.index', compact('informations', 'specification_id'));
+        return view('specification::informations.index', compact('informations', 'specification_id', 'menu'));
     }
 
     /**
@@ -43,8 +44,12 @@ class InformationController extends Controller
             'url'       => route('specification.information.store', $specification_id),
             'method'    => 'POST',
         ];
+        $menu = [
+            'group' => 'product',
+            'active' => 'specification'
+        ];
 
-        return view('specification::informations.create', compact('form', 'specification_id'));
+        return view('specification::informations.create', compact('form', 'specification_id', 'menu'));
     }
 
     /**
@@ -71,8 +76,9 @@ class InformationController extends Controller
     public function show($specification_id, $id)
     {
         $information = $this->informationRepository->find($id);
+        $menu = ['group' => 'product', 'active' => 'specification'];
 
-        return view('specification::informations.detail', compact('information', 'specification_id'));
+        return view('specification::informations.detail', compact('information', 'specification_id', 'menu'));
     }
 
     /**
@@ -87,10 +93,14 @@ class InformationController extends Controller
             'url'       => route('specification.information.update', ['specification_id' => $specification_id, 'id' => $id]),
             'method'    => 'PUT',
         ];
+        $menu = [
+            'group' => 'product',
+            'active' => 'specification'
+        ];
 
         $information = $this->informationRepository->find($id);
 
-        return view('specification::informations.edit', compact('form', 'information', 'specification_id'));
+        return view('specification::informations.edit', compact('form', 'information', 'specification_id', 'menu'));
     }
 
     /**

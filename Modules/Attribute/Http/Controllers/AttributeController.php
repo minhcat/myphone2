@@ -34,8 +34,9 @@ class AttributeController extends Controller
     {
         $search = $request->input('search');
         $attributes = $this->attributeRepository->paginate($search);
+        $menu = ['group' => 'product', 'active' => 'attribute'];
 
-        return view('attribute::attributes.index', compact('attributes'));
+        return view('attribute::attributes.index', compact('attributes', 'menu'));
     }
 
     /**
@@ -49,8 +50,12 @@ class AttributeController extends Controller
             'url'       => route('attribute.store'),
             'method'    => 'POST',
         ];
+        $menu = [
+            'group' => 'product',
+            'active' => 'attribute'
+        ];
 
-        return view('attribute::attributes.create', compact('form'));
+        return view('attribute::attributes.create', compact('form', 'menu'));
     }
 
     /**
@@ -77,8 +82,9 @@ class AttributeController extends Controller
     public function show($id)
     {
         $attribute = $this->attributeRepository->find($id);
+        $menu = ['group' => 'product', 'active' => 'attribute'];
 
-        return view('attribute::attributes.detail', compact('attribute'));
+        return view('attribute::attributes.detail', compact('attribute', 'menu'));
     }
 
     /**
@@ -93,10 +99,14 @@ class AttributeController extends Controller
             'url'       => route('attribute.update', $id),
             'method'    => 'PUT',
         ];
+        $menu = [
+            'group' => 'product',
+            'active' => 'attribute'
+        ];
 
         $attribute = $this->attributeRepository->find($id);
 
-        return view('attribute::attributes.edit', compact('form', 'attribute'));
+        return view('attribute::attributes.edit', compact('form', 'attribute', 'menu'));
     }
 
     /**

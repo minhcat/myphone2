@@ -28,8 +28,9 @@ class SpecificationController extends Controller
     {
         $search = $request->input('search');
         $specifications = $this->specificationRepository->paginate($search);
+        $menu = ['group' => 'product', 'active' => 'specification'];
 
-        return view('specification::specifications.index', compact('specifications'));
+        return view('specification::specifications.index', compact('specifications', 'menu'));
     }
 
     /**
@@ -43,8 +44,12 @@ class SpecificationController extends Controller
             'method'    => 'POST',
             'title'     => 'Create'
         ];
+        $menu = [
+            'group' => 'product',
+            'active' => 'specification'
+        ];
 
-        return view('specification::specifications.create', compact('form'));
+        return view('specification::specifications.create', compact('form', 'menu'));
     }
 
     /**
@@ -71,8 +76,9 @@ class SpecificationController extends Controller
     public function show($id)
     {
         $specification = $this->specificationRepository->find($id);
+        $menu = ['group' => 'product', 'active' => 'specification'];
 
-        return view('specification::specifications.detail', compact('specification'));
+        return view('specification::specifications.detail', compact('specification', 'menu'));
     }
 
     /**
@@ -87,10 +93,14 @@ class SpecificationController extends Controller
             'method'    => 'PUT',
             'title'     => 'Update'
         ];
+        $menu = [
+            'group' => 'product',
+            'active' => 'specification'
+        ];
 
         $specification = $this->specificationRepository->find($id);
 
-        return view('specification::specifications.edit', compact('form', 'specification'));
+        return view('specification::specifications.edit', compact('form', 'specification', 'menu'));
     }
 
     /**
