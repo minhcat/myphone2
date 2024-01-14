@@ -25,6 +25,13 @@ Route::prefix('admin')->group(function() {
             Route::delete('/{id}', 'VariationController@destroy')->name('delete');
         });
 
+        Route::prefix('{product_id}/details')->name('detail.')->group(function() {
+            Route::get('/', 'DetailController@index')->name('index');
+            Route::get('/edit', 'DetailController@edit')->name('edit');
+            Route::post('/', 'DetailController@store')->name('store');
+            Route::delete('/{id}', 'DetailController@destroy')->name('delete');
+        });
+
         Route::get('/', 'ProductController@index')->name('index');
         Route::get('/create', 'ProductController@create')->name('create');
         Route::get('/{id}', 'ProductController@show')->name('show');

@@ -11,4 +11,9 @@ class DetailRepository extends AbstractRepository
     {
         return new Detail();
     }
+
+    public function findByProductId($id)
+    {
+        return $this->model->where('product_id', $id)->get();
+    }
 }
