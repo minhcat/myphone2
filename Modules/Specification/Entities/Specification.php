@@ -16,4 +16,9 @@ class Specification extends Model
     {
         return $this->belongsTo(User::class, 'author_id');
     }
+
+    public function informations()
+    {
+        return $this->hasMany(Information::class);
+    }
 }

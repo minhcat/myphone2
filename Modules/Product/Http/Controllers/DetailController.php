@@ -71,9 +71,21 @@ class DetailController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit($product_id)
     {
-        return view('product::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('product.detail.store', $product_id),
+            'method'    => 'POST',
+        ];
+        $menu = [
+            'group' => 'product',
+            'active' => 'product'
+        ];
+        $details = $this->detailRepository->findByProductId($product_id);
+        $specifications = $this->specificationRepository->all();
+
+        return view('product::details.edit', compact('details', 'specifications', 'form', 'menu'));
     }
 
     /**
