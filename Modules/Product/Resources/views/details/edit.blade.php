@@ -60,6 +60,7 @@
                                             </label>
                                         </div>
                                     @endforeach
+                                    <input type="hidden" name="specification[{{ $key }}]" value="{{ $specification->id }}">
                                 </div>
                             </div>
                         </div>

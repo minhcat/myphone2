@@ -28,7 +28,7 @@ Route::prefix('admin')->group(function() {
         Route::prefix('{product_id}/details')->name('detail.')->group(function() {
             Route::get('/', 'DetailController@index')->name('index');
             Route::get('/edit', 'DetailController@edit')->name('edit');
-            Route::post('/', 'DetailController@store')->name('store');
+            Route::post('/', 'DetailController@update')->name('update');
             Route::delete('/{id}', 'DetailController@destroy')->name('delete');
         });
 

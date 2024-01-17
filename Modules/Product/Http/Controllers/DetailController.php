@@ -38,35 +38,6 @@ class DetailController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('product::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('product::show');
-    }
-
-    /**
      * Show the form for editing the specified resource.
      * @param int $id
      * @return Renderable
@@ -75,7 +46,7 @@ class DetailController extends Controller
     {
         $form = [
             'title'     => 'Edit',
-            'url'       => route('product.detail.store', $product_id),
+            'url'       => route('product.detail.update', $product_id),
             'method'    => 'POST',
         ];
         $menu = [
@@ -94,18 +65,10 @@ class DetailController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $product_id)
     {
-        //
-    }
+        $this->detailRepository->updateWithProductId($product_id, $request->all());
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect()->route('product.detail.index', $product_id)->with('success', 'update data successfully');
     }
 }
