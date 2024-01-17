@@ -40,8 +40,8 @@
                 @endforeach
             </div>
             <div class="box-footer">
-                <a href="" class="btn btn-default">Back</a>
-                <a href="" class="btn btn-primary">Edit</a>
+                <a href="{{ route('product.index') }}" class="btn btn-default">Back</a>
+                <a href="{{ route('product.detail.edit', $product_id) }}" class="btn btn-primary">Edit</a>
             </div>
         </div>
     </div>
