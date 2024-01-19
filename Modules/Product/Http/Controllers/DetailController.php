@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Product\Repositories\DetailRepository;
+use Modules\Product\Repositories\ProductRepository;
 use Modules\Specification\Repositories\SpecificationRepository;
 
 class DetailController extends Controller
@@ -16,6 +17,9 @@ class DetailController extends Controller
     /** @var \Modules\Specification\Repositories\SpecificationRepository */
     protected $specificationRepository;
 
+    /** @var \Modules\Product\Repositories\ProductRepository */
+    protected $productRepository;
+
     /**
      * Create a new Detail controller instance.
      */
@@ -23,6 +27,7 @@ class DetailController extends Controller
     {
         $this->detailRepository = new DetailRepository();
         $this->specificationRepository = new SpecificationRepository();
+        $this->productRepository = new ProductRepository();
     }
 
     /**
@@ -53,10 +58,11 @@ class DetailController extends Controller
             'group' => 'product',
             'active' => 'product'
         ];
+        $product_name = optional($this->productRepository->find($product_id))->name;
         $details = $this->detailRepository->findByProductId($product_id);
         $specifications = $this->specificationRepository->all();
 
-        return view('product::details.edit', compact('details', 'specifications', 'form', 'menu'));
+        return view('product::details.edit', compact('details', 'specifications', 'product_name', 'form', 'menu'));
     }
 
     /**

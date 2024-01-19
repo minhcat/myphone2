@@ -33,7 +33,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Product Name</label>
-                                <input type="text" class="form-control" value="{{ $details[0]->product->name ?? '' }}" disabled>
+                                <input type="text" class="form-control" value="{{ $product_name }}" disabled>
                             </div>
                         </div>
                     </div>
