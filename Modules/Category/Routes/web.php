@@ -11,6 +11,16 @@
 |
 */
 
-Route::prefix('category')->group(function() {
-    Route::get('/', 'CategoryController@index');
+use Illuminate\Support\Facades\Route;
+
+Route::prefix('admin')->group(function() {
+    Route::prefix('categories')->name('category.')->group(function() {
+        Route::get('/', 'CategoryController@index')->name('index');
+        Route::get('/create', 'CategoryController@create')->name('create');
+        Route::post('/', 'CategoryController@store')->name('store');
+        Route::get('/{id}', 'CategoryController@show')->name('show');
+        Route::get('/{id}/edit', 'CategoryController@edit')->name('edit');
+        Route::put('/{id}', 'CategoryController@update')->name('update');
+        Route::delete('/{id}', 'CategoryController@destroy')->name('delete');
+    });
 });

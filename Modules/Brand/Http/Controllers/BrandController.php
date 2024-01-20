@@ -9,7 +9,7 @@ use Modules\Brand\Repositories\BrandRepository;
 
 class BrandController extends Controller
 {
-    /** @var \App\Repositories\AbstractRepository */
+    /** @var \App\Repositories\AbstractRepository */ // todo: change comment
     protected $brandRepository;
 
     /**

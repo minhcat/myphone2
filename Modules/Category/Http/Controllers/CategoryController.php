@@ -5,16 +5,32 @@ namespace Modules\Category\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Category\Repositories\CategoryRepository;
 
 class CategoryController extends Controller
 {
+    /** @var \Modules\Category\Repositories\CategoryRepository */
+    protected $categoryRepository;
+
+    /**
+     * Create new Brand Controller instance.
+     */
+    public function __construct()
+    {
+        $this->categoryRepository = new CategoryRepository;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('category::index');
+        $search = $request->input('search');
+        $categories = $this->categoryRepository->paginate($search);
+        $menu = ['group' => 'category', 'active' => 'category'];
+
+        return view('category::index', compact('categories', 'menu'));
     }
 
     /**
