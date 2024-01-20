@@ -43,9 +43,9 @@
           <i class="fa fa-angle-left pull-right"></i>
         </span>
       </a>
-      <ul class="treeview-menu">
-        <li><a href="#">Category</a></li>
-        <li><a href="#">Tag</a></li>
+      <ul class="treeview-menu" {!! isset($menu['group']) && $menu['group'] == 'category' ? 'style="display: block"' : '' !!}>
+        <li class="{{ isset($menu['active']) && $menu['active'] == 'category' ? 'active' : '' }}"><a href="{{ route('category.index') }}">Category</a></li>
+        <li class="{{ isset($menu['active']) && $menu['active'] == 'tag' ? 'active' : '' }}"><a href="#">Tag</a></li>
       </ul>
     </li>
     <li class="treeview">
