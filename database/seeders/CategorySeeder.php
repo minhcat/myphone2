@@ -26,6 +26,8 @@ class CategorySeeder extends Seeder
                 'note'          => null,
                 'parent_id'     => null,
                 'author_id'     => 1,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s'),
             ],
             [
                 'name'          => 'smartphone',
@@ -33,6 +35,8 @@ class CategorySeeder extends Seeder
                 'note'          => null,
                 'parent_id'     => 1,
                 'author_id'     => 1,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s'),
             ],
             [
                 'name'          => 'cellphone',
@@ -40,6 +44,8 @@ class CategorySeeder extends Seeder
                 'note'          => null,
                 'parent_id'     => 1,
                 'author_id'     => 1,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s'),
             ],
             [
                 'name'          => 'laptop',
@@ -47,6 +53,8 @@ class CategorySeeder extends Seeder
                 'note'          => null,
                 'parent_id'     => null,
                 'author_id'     => 1,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s'),
             ],
             [
                 'name'          => 'tablet',
@@ -54,6 +62,8 @@ class CategorySeeder extends Seeder
                 'note'          => null,
                 'parent_id'     => 1,
                 'author_id'     => 1,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s'),
             ],
         ]);
 
