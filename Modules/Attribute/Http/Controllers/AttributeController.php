@@ -51,8 +51,8 @@ class AttributeController extends Controller
             'method'    => 'POST',
         ];
         $menu = [
-            'group' => 'product',
-            'active' => 'attribute'
+            'group'     => 'product',
+            'active'    => 'attribute'
         ];
 
         return view('attribute::attributes.create', compact('form', 'menu'));
@@ -100,8 +100,8 @@ class AttributeController extends Controller
             'method'    => 'PUT',
         ];
         $menu = [
-            'group' => 'product',
-            'active' => 'attribute'
+            'group'     => 'product',
+            'active'    => 'attribute'
         ];
 
         $attribute = $this->attributeRepository->find($id);

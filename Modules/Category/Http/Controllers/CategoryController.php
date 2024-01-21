@@ -39,7 +39,16 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('category::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('category.store'),
+            'method'    => 'POST',
+        ];
+        $menu = [
+            'group'     => 'category',
+            'active'    => 'category'
+        ];
+        return view('category::create', compact('form', 'menu'));
     }
 
     /**
@@ -49,7 +58,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'  => 'required|unique:categories'
+        ]);
+
+        $this->categoryRepository->create($request->all());
+
+        return redirect()->route('category.index')->with('success', 'create new category successfully');
     }
 
     /**
@@ -69,7 +84,19 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        return view('category::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('category.update', $id),
+            'method'    => 'PUT'
+        ];
+        $menu = [
+            'group'     => 'category',
+            'active'    => 'category'
+        ];
+
+        $category = $this->categoryRepository->find($id);
+
+        return view('category::edit', compact('form', 'menu', 'category'));
     }
 
     /**
@@ -80,7 +107,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'  => 'required|unique:categories,name,'.$id
+        ]);
+
+        $this->categoryRepository->update($id, $request->all());
+
+        return redirect()->route('category.index')->with('success', 'update categories successfully');
     }
 
     /**
