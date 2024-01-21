@@ -41,6 +41,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
+                                <th>Parent</th>
                                 <th>Author</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
@@ -52,6 +53,7 @@
                                 <tr>
                                     <td>{{ $category->id }}</td>
                                     <td><a href="{{ route('category.show', $category->id) }}">{{ $category->name }}</a></td>
+                                    <td><a href="{{ route('category.show', $category->id) }}">{{ optional($category->parent)->name }}</a></td>
                                     <td>@if (!is_null($category->user)) <a href="{{ route('user.show', $category->user->id) }}">{{ $category->user->fullname }}</a>@endif</td>
                                     <td>{{ $category->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $category->updated_at->format('H:i:s d/m/Y') }}</td>

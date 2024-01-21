@@ -24,4 +24,9 @@ class Category extends Model
     {
         return $this->belongsTo(User::class, 'author_id');
     }
+
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_id');
+    }
 }
