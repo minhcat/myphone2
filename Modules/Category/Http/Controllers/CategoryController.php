@@ -74,7 +74,10 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        return view('category::show');
+        $category = $this->categoryRepository->find($id);
+        $menu = ['group' => 'category', 'active' => 'category'];
+
+        return view('category::detail', compact('category', 'menu'));
     }
 
     /**
@@ -113,7 +116,7 @@ class CategoryController extends Controller
 
         $this->categoryRepository->update($id, $request->all());
 
-        return redirect()->route('category.index')->with('success', 'update categories successfully');
+        return redirect()->route('category.index')->with('success', 'update category successfully');
     }
 
     /**
@@ -123,6 +126,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->categoryRepository->delete($id);
+
+        return redirect()->route('category.index')->with('success', 'delete category successfully');
     }
 }

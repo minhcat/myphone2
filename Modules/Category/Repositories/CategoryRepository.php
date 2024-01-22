@@ -11,4 +11,11 @@ class CategoryRepository extends AbstractRepository
     {
         return new Category();
     }
+
+    public function delete($id)
+    {
+        $this->model->where('parent_id', $id)->update(['parent_id' => null]);
+
+        return parent::delete($id);
+    }
 }
