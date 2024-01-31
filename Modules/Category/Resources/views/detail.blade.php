@@ -65,6 +65,16 @@
                 <div class="field-group">
                     <div class="row">
                         <div class="col-lg-2">
+                            <p><strong>Order</strong></p>
+                        </div>
+                        <div class="col-lg-10">
+                            <p>{{ $category->order }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <div class="row">
+                        <div class="col-lg-2">
                             <p><strong>Created At</strong></p>
                         </div>
                         <div class="col-lg-10">

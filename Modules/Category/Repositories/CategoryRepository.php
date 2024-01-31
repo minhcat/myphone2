@@ -21,13 +21,14 @@ class CategoryRepository extends AbstractRepository
 
     public function getParents()
     {
-        return $this->model->whereNull('parent_id')->get();
+        return $this->model->whereNull('parent_id')->orderBy('order')->get();
     }
 
     public function order($categories, $parent_id = null)
     {
-        foreach ($categories as $cate) {
+        foreach ($categories as $index => $cate) {
             $category = $this->model->find($cate->id);
+            $category->order = $index + 1;
             $category->parent_id = $parent_id;
             $category->save();
 

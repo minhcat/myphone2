@@ -14,6 +14,7 @@ class Category extends Model
         'name',
         'description',
         'parent_id',
+        'order',
         'note',
         'author_id',
         'created_at',
