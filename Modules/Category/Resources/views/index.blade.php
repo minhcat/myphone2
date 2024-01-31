@@ -21,6 +21,7 @@
             <div class="box-header with-border">
                 <div class="box-title">List</div>
                 <a href="{{ route('category.create') }}" class="btn btn-primary pull-right">New Category</a>
+                <a href="{{ route('category.builder') }}" class="btn btn-success pull-right mr-2">Builder</a>
             </div>
             <div class="box-body">
                 <div class="table-header">

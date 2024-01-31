@@ -18,4 +18,22 @@ class CategoryRepository extends AbstractRepository
 
         return parent::delete($id);
     }
+
+    public function getParents()
+    {
+        return $this->model->whereNull('parent_id')->get();
+    }
+
+    public function order($categories, $parent_id = null)
+    {
+        foreach ($categories as $cate) {
+            $category = $this->model->find($cate->id);
+            $category->parent_id = $parent_id;
+            $category->save();
+
+            if (isset($cate->children)) {
+                $this->order($cate->children, $cate->id);
+            }
+        }
+    }
 }

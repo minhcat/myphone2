@@ -130,4 +130,37 @@ class CategoryController extends Controller
 
         return redirect()->route('category.index')->with('success', 'delete category successfully');
     }
+
+    /**
+     * Show the system for editing the specified resource.
+     * @param int $id
+     * @return Renderable
+     */
+    public function builder()
+    {
+        $categories = $this->categoryRepository->getParents();
+
+        return view('category::builder', compact('categories'));
+    }
+
+    /**
+     * Update the specified resource.
+     * @param int $id
+     * @return Renderable
+     */
+    public function build(Request $request) 
+    {
+        $request->validate([
+            'categories'    => 'required',
+        ]);
+
+        $categories = json_decode($request->input('categories'));
+
+        $this->categoryRepository->order($categories);
+
+        return response()->json([
+            'type'      => 'Success',
+            'message'   => 'buid categories successfully'   
+        ]);
+    }
 }
