@@ -4,5 +4,6 @@
     "User": true,
     "Attribute": true,
     "Specification": true,
-    "Category": true
+    "Category": true,
+    "Tag": true
 }
