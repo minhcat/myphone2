@@ -5,16 +5,32 @@ namespace Modules\Tag\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Tag\Repositories\TagRepository;
 
 class TagController extends Controller
 {
+    /** @var \Modules\Specification\Repositories\InformationRepository */
+    protected $tagRepository;
+
+    /**
+     * Create a new Information controller instance.
+     */
+    public function __construct()
+    {
+        $this->tagRepository = new TagRepository();
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('tag::index');
+        $search = $request->input('search');
+        $tags = $this->tagRepository->paginate($search);
+        $menu = ['group' => 'category', 'active' => 'tag'];
+
+        return view('tag::index', compact('tags', 'menu'));
     }
 
     /**
