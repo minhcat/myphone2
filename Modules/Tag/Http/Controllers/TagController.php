@@ -39,7 +39,17 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('tag::create');
+        $form = [
+            'url'       => route('tag.store'),
+            'method'    => 'POST',
+            'title'     => 'Create'
+        ];
+        $menu = [
+            'group'     => 'category',
+            'active'    => 'tag'
+        ];
+
+        return view('tag::create', compact('form', 'menu'));
     }
 
     /**
@@ -49,7 +59,13 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'  => 'required',
+        ]);
+
+        $this->tagRepository->create($request->all());
+
+        return redirect()->route('tag.index')->with('success', 'Create new tag successfully');
     }
 
     /**
@@ -69,7 +85,18 @@ class TagController extends Controller
      */
     public function edit($id)
     {
-        return view('tag::edit');
+        $form = [
+            'url'       => route('tag.update', $id),
+            'method'    => 'PUT',
+            'title'     => 'Edit'
+        ];
+        $menu = [
+            'group'     => 'category',
+            'active'    => 'tag'
+        ];
+        $tag = $this->tagRepository->find($id);
+
+        return view('tag::edit', compact('tag', 'form', 'menu'));
     }
 
     /**
@@ -80,7 +107,13 @@ class TagController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'  => 'required'
+        ]);
+
+        $this->tagRepository->update($id, $request->all());
+
+        return redirect()->route('tag.index')->with('success', 'Edit tag successfully');
     }
 
     /**
