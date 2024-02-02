@@ -75,7 +75,10 @@ class TagController extends Controller
      */
     public function show($id)
     {
-        return view('tag::show');
+        $tag = $this->tagRepository->find($id);
+        $menu = ['group' => 'category', 'active' => 'tag'];
+
+        return view('tag::detail', compact('tag', 'menu'));
     }
 
     /**
@@ -123,6 +126,8 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->tagRepository->delete($id);
+
+        return redirect()->route('tag.index')->with('success', 'Delete tag successfully');
     }
 }
