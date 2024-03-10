@@ -5,12 +5,20 @@ namespace Modules\Product\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Category\Repositories\CategoryRepository;
 use Modules\Product\Repositories\ProductRepository;
+use Modules\Tag\Repositories\TagRepository;
 
 class ProductController extends Controller
 {
     /** @var \Modules\Product\Repositories\ProductRepository */
     protected $productRepository;
+
+    /** @var \Modules\Category\Repositories\CategoryRepository */
+    protected $categoryRepository;
+
+    /** @var \Modules\Tag\Repositories\TagRepository */
+    protected $tagRepository;
 
     /**
      * Create a new Product controller instance.
@@ -18,6 +26,8 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->productRepository = new ProductRepository();
+        $this->categoryRepository = new CategoryRepository();
+        $this->tagRepository = new TagRepository();
     }
 
     /**
@@ -39,6 +49,9 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $categories = $this->categoryRepository->getParents();
+        $tags = $this->tagRepository->all();
+
         $form = [
             'title'     => 'Create',
             'url'       => route('product.store'),
@@ -49,7 +62,7 @@ class ProductController extends Controller
             'active' => 'product'
         ];
 
-        return view('product::products.create', compact('form', 'menu'));
+        return view('product::products.create', compact('categories', 'tags', 'form', 'menu'));
     }
 
     /**
@@ -89,6 +102,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        $categories = $this->categoryRepository->getParents();
+        $tags = $this->tagRepository->all();
+
         $form = [
             'title'     => 'Create',
             'url'       => route('product.update', $id),
@@ -101,7 +117,7 @@ class ProductController extends Controller
 
         $product = $this->productRepository->find($id);
 
-        return view('product::products.edit', compact('form', 'product', 'menu'));
+        return view('product::products.edit', compact('form', 'product', 'categories', 'tags', 'menu'));
     }
 
     /**

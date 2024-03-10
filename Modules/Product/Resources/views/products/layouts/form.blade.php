@@ -83,23 +83,7 @@
                 <p class="mb-3 hidden">Check product categories</p>
                 <div class="box-content">
                     <ul class="form-group">
-                        <li class="checkbox"><label for="cate_1"><input type="checkbox"> Category 1</label></li>
-                        <li class="checkbox"><label for="cate_2"><input type="checkbox"> Category 2</label></li>
-                        <li class="checkbox">
-                            <label for="cate_3"><input type="checkbox"> Category 3</label>
-                            <ul class="form-group list-child">
-                                <li class="checkbox"><label for="cate_31"><input type="checkbox"> Category 31</label></li>
-                                <li class="checkbox">
-                                    <label for="cate_32"><input type="checkbox"> Category 32</label>
-                                    <ul class="form-group list-child">
-                                        <li class="checkbox"><label for="cate_31"><input type="checkbox"> Category 321</label></li>
-                                        <li class="checkbox"><label for="cate_32"><input type="checkbox"> Category 322</label></li>
-                                    </ul>
-                                </li>
-                                <li class="checkbox"><label for="cate_31"><input type="checkbox"> Category 33</label></li>
-                            </ul>
-                        </li>
-                        <li class="checkbox"><label for="cate_2"><input type="checkbox"> Category 4</label></li>
+                        @include('product::products.layouts.nestable', ['items' => $categories])
                     </ul>
                 </div>
             </div>
@@ -111,8 +95,10 @@
             </div>
             <div class="box-body p-5">
                 <div class="group">
-                    <div class="badge">tag1</div>
-                    <div class="badge">tag2 lorem</div>
+                    @foreach($tags as $tag)
+                        <div class="badge">{{ $tag->name }}</div>
+                    @endforeach
+                    {{-- <div class="badge">tag2 lorem</div>
                     <div class="badge bg-blue">tag3 lorem</div>
                     <div class="badge">tag4</div>
                     <div class="badge">tag5</div>
@@ -126,7 +112,7 @@
                     <div class="badge">tag13</div>
                     <div class="badge">tag14</div>
                     <div class="badge">tag15</div>
-                    <div class="badge">tag16</div>
+                    <div class="badge">tag16</div> --}}
                 </div>
             </div>
         </div>
