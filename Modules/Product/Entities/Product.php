@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Brand\Entities\Brand;
+use Modules\Category\Entities\Category;
 use Modules\User\Entities\User;
 
 class Product extends Model
@@ -33,6 +34,11 @@ class Product extends Model
     public function user() 
     {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
     }
 
     public function getSkuAttribute()

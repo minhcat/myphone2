@@ -2,14 +2,14 @@
     $product = isset($product) ? $product : new Modules\Product\Entities\Product;
 @endphp
 <div class="row">
-    <div class="col-lg-9">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <div class="box-title">{{ $form['title'] }}</div>
-            </div>
-            <form action="{{ $form['url'] }}" method="{{ $form['method'] == 'GET' ? 'GET' : 'POST' }}">
-                @csrf
-                @method($form['method'])
+    <form action="{{ $form['url'] }}" method="{{ $form['method'] == 'GET' ? 'GET' : 'POST' }}">
+        @csrf
+        @method($form['method'])
+        <div class="col-lg-9">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <div class="box-title">{{ $form['title'] }}</div>
+                </div>
                 <div class="box-body">
                     <div class="row">
                         <div class="col-lg-6">
@@ -71,50 +71,50 @@
                     <a href="{{ route('product.index') }}" class="btn btn-default">Back</a>
                     <button class="btn btn-primary" type="submit">Save</button>
                 </div>
-            </form>
-        </div>
-    </div>
-    <div class="col-lg-3">
-        <div class="box box-primary box-category">
-            <div class="box-header with-border">
-                <div class="box-title">Categories</div>
             </div>
-            <div class="box-body px-0 pr-0">
-                <p class="mb-3 hidden">Check product categories</p>
-                <div class="box-content">
-                    <ul class="form-group">
-                        @include('product::products.layouts.nestable', ['items' => $categories])
-                    </ul>
+        </div>
+        <div class="col-lg-3">
+            <div class="box box-primary box-category">
+                <div class="box-header with-border">
+                    <div class="box-title">Categories</div>
+                </div>
+                <div class="box-body px-0 pr-0">
+                    <p class="mb-3 hidden">Check product categories</p>
+                    <div class="box-content">
+                        <ul class="form-group">
+                            @include('product::products.layouts.nestable', ['items' => $categories, 'checked_list' => $product->categories->pluck('id')->toArray()])
+                        </ul>
+                    </div>
+                </div>
+                <div class="box-footer p-4"></div>
+            </div>
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <div class="box-title">Tags</div>
+                </div>
+                <div class="box-body p-5">
+                    <div class="group">
+                        @foreach($tags as $tag)
+                            <div class="badge">{{ $tag->name }}</div>
+                        @endforeach
+                        {{-- <div class="badge">tag2 lorem</div>
+                        <div class="badge bg-blue">tag3 lorem</div>
+                        <div class="badge">tag4</div>
+                        <div class="badge">tag5</div>
+                        <div class="badge">tag6</div>
+                        <div class="badge">tag7</div>
+                        <div class="badge bg-blue">tag8 lorem</div>
+                        <div class="badge">tag9</div>
+                        <div class="badge bg-blue">tag10 lorem</div>
+                        <div class="badge">tag11 lorem</div>
+                        <div class="badge">tag12</div>
+                        <div class="badge">tag13</div>
+                        <div class="badge">tag14</div>
+                        <div class="badge">tag15</div>
+                        <div class="badge">tag16</div> --}}
+                    </div>
                 </div>
             </div>
-            <div class="box-footer p-4"></div>
         </div>
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <div class="box-title">Tags</div>
-            </div>
-            <div class="box-body p-5">
-                <div class="group">
-                    @foreach($tags as $tag)
-                        <div class="badge">{{ $tag->name }}</div>
-                    @endforeach
-                    {{-- <div class="badge">tag2 lorem</div>
-                    <div class="badge bg-blue">tag3 lorem</div>
-                    <div class="badge">tag4</div>
-                    <div class="badge">tag5</div>
-                    <div class="badge">tag6</div>
-                    <div class="badge">tag7</div>
-                    <div class="badge bg-blue">tag8 lorem</div>
-                    <div class="badge">tag9</div>
-                    <div class="badge bg-blue">tag10 lorem</div>
-                    <div class="badge">tag11 lorem</div>
-                    <div class="badge">tag12</div>
-                    <div class="badge">tag13</div>
-                    <div class="badge">tag14</div>
-                    <div class="badge">tag15</div>
-                    <div class="badge">tag16</div> --}}
-                </div>
-            </div>
-        </div>
-    </div>
+    </form>
 </div>
