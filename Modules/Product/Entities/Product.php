@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Brand\Entities\Brand;
 use Modules\Category\Entities\Category;
+use Modules\Tag\Entities\Tag;
 use Modules\User\Entities\User;
 
 class Product extends Model
@@ -39,6 +40,11 @@ class Product extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
     }
 
     public function getSkuAttribute()

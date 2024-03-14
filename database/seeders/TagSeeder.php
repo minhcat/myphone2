@@ -55,5 +55,24 @@ class TagSeeder extends Seeder
                 'updated_at'    => now()->format('Y-m-d H:i:s'),
             ],
         ]);
+
+        DB::table('product_tag')->insert([
+            [
+                'product_id'    => 1,
+                'tag_id'        => 1,
+            ],
+            [
+                'product_id'    => 1,
+                'tag_id'        => 2,
+            ],
+            [
+                'product_id'    => 1,
+                'tag_id'        => 3,
+            ],
+            [
+                'product_id'    => 2,
+                'tag_id'        => 1,
+            ],
+        ]);
     }
 }
