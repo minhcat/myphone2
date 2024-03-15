@@ -29,7 +29,18 @@ class ProductRepository extends AbstractRepository
         }
 
         // categories
-        $data['categories'] = array_keys($data['categories']);
+        if (!isset($data['categories'])) {
+            $data['categories'] = [];
+        } else {
+            $data['categories'] = array_keys($data['categories']);
+        }
+
+        // tags
+        if (!isset($data['tags'])) {
+            $data['tags'] = [];
+        } else {
+            $data['tags'] = json_decode($data['tags']);
+        }
 
         return parent::convertDataCreate($data, $more);
     }
@@ -41,7 +52,18 @@ class ProductRepository extends AbstractRepository
         }
 
         // categories
-        $data['categories'] = array_keys($data['categories']);
+        if (!isset($data['categories'])) {
+            $data['categories'] = [];
+        } else {
+            $data['categories'] = array_keys($data['categories']);
+        }
+
+        // tags
+        if (!isset($data['tags'])) {
+            $data['tags'] = [];
+        } else {
+            $data['tags'] = json_decode($data['tags']);
+        }
 
         return parent::convertDataUpdate($data, $more);
     }
@@ -50,9 +72,11 @@ class ProductRepository extends AbstractRepository
     {
         $data = $this->convertDataCreate($data, $more);
 
-        $model = parent::create($data, $more);
+        $model = $this->model->create($data);
 
         $model->categories()->sync($data['categories']);
+
+        $model->tags()->sync($data['tags']);
 
         return $model;
     }
@@ -67,7 +91,9 @@ class ProductRepository extends AbstractRepository
 
         $model->update($data);
 
-        $model->categories()->attach($data['categories']);
+        $model->categories()->sync($data['categories']);
+
+        $model->tags()->sync($data['tags']);
 
         return $model;
     }

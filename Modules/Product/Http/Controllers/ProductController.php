@@ -5,6 +5,7 @@ namespace Modules\Product\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Brand\Repositories\BrandRepository;
 use Modules\Category\Repositories\CategoryRepository;
 use Modules\Product\Repositories\ProductRepository;
 use Modules\Tag\Repositories\TagRepository;
@@ -13,6 +14,9 @@ class ProductController extends Controller
 {
     /** @var \Modules\Product\Repositories\ProductRepository */
     protected $productRepository;
+
+    /** @var \Modules\Brand\Repositories\BrandRepository */
+    protected $brandRepository;
 
     /** @var \Modules\Category\Repositories\CategoryRepository */
     protected $categoryRepository;
@@ -28,6 +32,7 @@ class ProductController extends Controller
         $this->productRepository = new ProductRepository();
         $this->categoryRepository = new CategoryRepository();
         $this->tagRepository = new TagRepository();
+        $this->brandRepository = new BrandRepository();
     }
 
     /**
@@ -51,6 +56,7 @@ class ProductController extends Controller
     {
         $categories = $this->categoryRepository->getParents();
         $tags = $this->tagRepository->all();
+        $brands = $this->brandRepository->all();
 
         $form = [
             'title'     => 'Create',
@@ -62,7 +68,7 @@ class ProductController extends Controller
             'active' => 'product'
         ];
 
-        return view('product::products.create', compact('categories', 'tags', 'form', 'menu'));
+        return view('product::products.create', compact('categories', 'tags', 'brands', 'form', 'menu'));
     }
 
     /**
@@ -104,6 +110,7 @@ class ProductController extends Controller
     {
         $categories = $this->categoryRepository->getParents();
         $tags = $this->tagRepository->all();
+        $brands = $this->brandRepository->all();
 
         $form = [
             'title'     => 'Create',
@@ -117,7 +124,7 @@ class ProductController extends Controller
 
         $product = $this->productRepository->find($id);
 
-        return view('product::products.edit', compact('form', 'product', 'categories', 'tags', 'menu'));
+        return view('product::products.edit', compact('form', 'product', 'categories', 'tags', 'brands', 'menu'));
     }
 
     /**
