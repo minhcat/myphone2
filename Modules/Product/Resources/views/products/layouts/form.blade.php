@@ -12,13 +12,7 @@
                 </div>
                 <div class="box-body">
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="sku">SKU</label>
-                                <input id="sku" type="text" class="form-control" name="sku" value="PRO-0010" disabled>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="brand_id">Brand</label>
                                 <select id="brand_id" class="form-control" aria-placeholder="not select" name="brand_id">
