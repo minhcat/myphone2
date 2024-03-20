@@ -2,6 +2,10 @@
 
 @section('title-page', 'Products')
 
+@section('style')
+<link rel="stylesheet" href="{{ asset('modules/product/app.css') }}">
+@endsection
+
 @section('small-info')
 <small>Add Product</small>
 @endsection
