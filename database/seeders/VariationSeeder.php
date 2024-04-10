@@ -65,11 +65,11 @@ class VariationSeeder extends Seeder
                 'variation_id'  => 1
             ],
             [
-                'option_id'     => 4,
+                'option_id'     => 5,
                 'variation_id'  => 1
             ],
             [
-                'option_id'     => 8,
+                'option_id'     => 9,
                 'variation_id'  => 1
             ],
             // blue/morden/large
@@ -78,20 +78,20 @@ class VariationSeeder extends Seeder
                 'variation_id'  => 2
             ],
             [
-                'option_id'     => 5,
+                'option_id'     => 6,
                 'variation_id'  => 2
             ],
             [
-                'option_id'     => 8,
+                'option_id'     => 9,
                 'variation_id'  => 2
             ],
             // classic/mini
             [
-                'option_id'     => 4,
+                'option_id'     => 5,
                 'variation_id'  => 3
             ],
             [
-                'option_id'     => 6,
+                'option_id'     => 7,
                 'variation_id'  => 3
             ],
 
@@ -101,11 +101,11 @@ class VariationSeeder extends Seeder
                 'variation_id'  => 4
             ],
             [
-                'option_id'     => 4,
+                'option_id'     => 5,
                 'variation_id'  => 4
             ],
             [
-                'option_id'     => 8,
+                'option_id'     => 9,
                 'variation_id'  => 4
             ],
             // blue/morden/large
@@ -114,20 +114,20 @@ class VariationSeeder extends Seeder
                 'variation_id'  => 5
             ],
             [
-                'option_id'     => 5,
+                'option_id'     => 6,
                 'variation_id'  => 5
             ],
             [
-                'option_id'     => 8,
+                'option_id'     => 9,
                 'variation_id'  => 5
             ],
             // classic/mini
             [
-                'option_id'     => 4,
+                'option_id'     => 5,
                 'variation_id'  => 6
             ],
             [
-                'option_id'     => 6,
+                'option_id'     => 7,
                 'variation_id'  => 6
             ],
         ]);

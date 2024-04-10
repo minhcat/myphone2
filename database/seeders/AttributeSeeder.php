@@ -73,6 +73,14 @@ class AttributeSeeder extends Seeder
                 'updated_at'    => now()->format('Y-m-d H:i:s')
             ],
             [
+                'value'         => 'white',
+                'description'   => Lorem::paragraph(1),
+                'attribute_id'  => 1,
+                'author_id'     => 1,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s')
+            ],
+            [
                 'value'         => 'classic',
                 'description'   => Lorem::paragraph(1),
                 'attribute_id'  => 2,

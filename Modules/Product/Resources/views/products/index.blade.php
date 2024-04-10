@@ -45,8 +45,8 @@
                                 <th>Category</th>
                                 <th>Price</th>
                                 <th>Author</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
+                                {{-- <th>Created At</th> --}}
+                                {{-- <th>Updated At</th> --}}
                                 <th>Variation</th>
                                 <th>Detail</th>
                                 <th>Action</th>
@@ -58,15 +58,23 @@
                                     <td>{{ $product->id }}</td>
                                     <td><a href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a></td>
                                     <td>{{ optional($product->brand)->name }}</td>
-                                    <td>smartphone</td>
+                                    <td>
+                                        @foreach($product->categories as $category)
+                                            @if ($loop->first)
+                                                {{ $category->name }}
+                                            @else
+                                                , {{ $category->name }}
+                                            @endif
+                                        @endforeach
+                                    </td>
                                     <td>{{ $product->price_format }} vnđ</td>
                                     @if ($product->user)
                                     <td><a href="{{ route('user.show', $product->user->id) }}">{{ $product->user->fullname }}</a></td>
                                     @else
                                     <td></td>
                                     @endif
-                                    <td>{{ $product->created_at->format('H:i:s d/m/Y') }}</td>
-                                    <td>{{ $product->updated_at->format('H:i:s d/m/Y') }}</td>
+                                    {{-- <td>{{ $product->created_at->format('H:i:s d/m/Y') }}</td> --}}
+                                    {{-- <td>{{ $product->updated_at->format('H:i:s d/m/Y') }}</td> --}}
                                     <td><a href="{{ route('product.variation.index', $product->id) }}">list</a></td>
                                     <td><a href="{{ route('product.detail.index', $product->id) }}">view</a></td>
                                     <td>

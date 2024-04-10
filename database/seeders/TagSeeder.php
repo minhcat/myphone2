@@ -34,6 +34,13 @@ class TagSeeder extends Seeder
                 'updated_at'    => now()->format('Y-m-d H:i:s'),
             ],
             [
+                'name'          => 'classic',
+                'description'   => Lorem::paragraph(3),
+                'author_id'     => 1,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s'),
+            ],
+            [
                 'name'          => 'sales',
                 'description'   => Lorem::paragraph(3),
                 'author_id'     => 1,
@@ -49,6 +56,34 @@ class TagSeeder extends Seeder
             ],
             [
                 'name'          => 'cheap',
+                'description'   => Lorem::paragraph(3),
+                'author_id'     => 1,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'name'          => 'expensive',
+                'description'   => Lorem::paragraph(3),
+                'author_id'     => 1,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'name'          => 'high-end',
+                'description'   => Lorem::paragraph(3),
+                'author_id'     => 1,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'name'          => 'mid-range',
+                'description'   => Lorem::paragraph(3),
+                'author_id'     => 1,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'name'          => 'lightweight',
                 'description'   => Lorem::paragraph(3),
                 'author_id'     => 1,
                 'created_at'    => now()->format('Y-m-d H:i:s'),
