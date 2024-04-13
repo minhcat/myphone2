@@ -73,12 +73,14 @@
       </ul>
     </li>
     <li class="treeview">
-      <a href="#"><i class="fa fa-map-marker"></i> <span>Address</span>
+      <a href="#"><i class="fa fa-truck"></i> <span>Transport</span>
         <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
         </span>
       </a>
       <ul class="treeview-menu">
+        <li><a href="#">Transporter</a></li>
+        <li><a href="#">Area</a></li>
         <li><a href="#">City</a></li>
         <li><a href="#">County</a></li>
         <li><a href="#">Ward</a></li>
