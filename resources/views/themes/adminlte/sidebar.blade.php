@@ -54,10 +54,10 @@
           <i class="fa fa-angle-left pull-right"></i>
         </span>
       </a>
-      <ul class="treeview-menu">
-        <li><a href="#">Cart</a></li>
-        <li><a href="#">Order</a></li>
-        <li><a href="#">Invoice</a></li>
+      <ul class="treeview-menu" {!! isset($menu['group']) && $menu['group'] == 'invoice' ? 'style="display: block"' : '' !!}>
+        <li class="{{ isset($menu['active']) && $menu['active'] == 'cart' ? 'active' : '' }}"><a href="#">Cart</a></li>
+        <li class="{{ isset($menu['active']) && $menu['active'] == 'order' ? 'active' : '' }}"><a href="#">Order</a></li>
+        <li class="{{ isset($menu['active']) && $menu['active'] == 'invoice' ? 'active' : '' }}"><a href="#">Invoice</a></li>
       </ul>
     </li>
     <li class="treeview">

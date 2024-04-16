@@ -9,7 +9,7 @@ use Modules\Tag\Repositories\TagRepository;
 
 class TagController extends Controller
 {
-    /** @var \Modules\Specification\Repositories\InformationRepository */
+    /** @var \Modules\Specification\Repositories\InformationRepository */   // todo: update true repository
     protected $tagRepository;
 
     /**
