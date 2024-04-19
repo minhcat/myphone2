@@ -20,7 +20,6 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('cart.create') }}" class="btn btn-primary pull-right">New Cart</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -47,7 +46,6 @@
                                 <th>Detail</th> 
                                 <th>Quantity</th> 
                                 <th>Total</th> 
-                                <th style="width: 100px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -65,10 +63,6 @@
                                     <td><a href="">detail</a></td>
                                     <td>3</td>
                                     <td>1000</td>
-                                    <td>
-                                        <a class="btn btn-icon btn-primary" href="{{ route('cart.edit', $cart->id) }}"><i class="fa fa-edit"></i></a>
-                                        <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-cart-delete" data-id="{{ $cart->id }}"><i class="fa fa-trash"></i></button>
-                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -85,24 +79,6 @@
         </div>
     </div>
 </div>
-
-@include('cart::carts.layouts.modal', [
-    'modal'             => [
-        'id'            => 'modal-cart-delete',
-        'title'         => 'Delete Cart',
-        'message'       => 'Are you sure to delete this cart!',
-        'form'          => [
-            'url'       => route('cart.delete', ':id'),
-            'method'    => 'DELETE',
-            'inputs'    => []
-        ],
-        'buttons'       => [
-            'primary'   => [
-                'text'  => 'Delete'
-            ]
-        ],
-    ]
-])
 @endsection
 
 @push('script')
@@ -114,16 +90,6 @@
                 let url = $(this).data('url') + '?search=' + value;
                 window.location.href = url;
             }
-        })
-        let url_delete = $('#modal-cart-delete form').attr('action');
-        $('.btn-delete').click(function() {
-            let id = $(this).data('id');
-            let url = url_delete.replace(':id', id)
-            $('#modal-cart-delete form').attr('action', url);
-            console.log(url)    // todo: remove
-        })
-        $('#modal-cart-delete').on('hide.bs.modal', function() {
-            $('#modal-cart-delete form').attr('action', url_delete);
         })
     })
 </script>
