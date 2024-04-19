@@ -55,7 +55,7 @@
         </span>
       </a>
       <ul class="treeview-menu" {!! isset($menu['group']) && $menu['group'] == 'invoice' ? 'style="display: block"' : '' !!}>
-        <li class="{{ isset($menu['active']) && $menu['active'] == 'cart' ? 'active' : '' }}"><a href="#">Cart</a></li>
+        <li class="{{ isset($menu['active']) && $menu['active'] == 'cart' ? 'active' : '' }}"><a href="{{ route('cart.index') }}">Cart</a></li>
         <li class="{{ isset($menu['active']) && $menu['active'] == 'order' ? 'active' : '' }}"><a href="#">Order</a></li>
         <li class="{{ isset($menu['active']) && $menu['active'] == 'invoice' ? 'active' : '' }}"><a href="#">Invoice</a></li>
       </ul>
