@@ -60,7 +60,7 @@
                                     @endif
                                     <td>{{ $cart->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $cart->updated_at->format('H:i:s d/m/Y') }}</td>
-                                    <td><a href="">detail</a></td>
+                                    <td><a href="{{ route('cart.detail.index', $cart->id) }}">detail</a></td>
                                     <td>3</td>
                                     <td>1000</td>
                                 </tr>

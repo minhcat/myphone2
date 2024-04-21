@@ -42,7 +42,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Product</th>
-                                <th>Quantity</th> 
+                                <th>Quantity</th>
                                 <th>Price</th>
                                 <th>Total</th>
                                 <th style="width: 100px">Action</th>
@@ -76,6 +76,27 @@
         </div>
     </div>
 </div>
+
+@include('cart::details.layouts.modal', [
+    'modal'             => [
+        'id'            => 'modal-cart-detail-delete',
+        'title'         => 'Delete Cart Detail',
+        'message'       => 'Are you sure to delete this detail!',
+        'form'          => [
+            'url'       => route('cart.detail.delete', [
+                'cart_id'   => $cart_id,
+                'id'        => ':id'
+            ]),
+            'method'    => 'DELETE',
+            'inputs'    => []
+        ],
+        'buttons'       => [
+            'primary'   => [
+                'text'  => 'Delete'
+            ]
+        ],
+    ]
+])
 @endsection
 
 @push('script')
@@ -87,6 +108,15 @@
                 let url = $(this).data('url') + '?search=' + value;
                 window.location.href = url;
             }
+        })
+        let url_delete = $('#modal-cart-detail-delete form').attr('action');
+        $('.btn-delete').click(function() {
+            let id = $(this).data('id');
+            let url = url_delete.replace(':id', id)
+            $('#modal-cart-detail-delete form').attr('action', url);
+        })
+        $('#modal-cart-detail-delete').on('hide.bs.modal', function() {
+            $('#modal-cart-detail-delete form').attr('action', url_delete);
         })
     })
 </script>

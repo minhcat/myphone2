@@ -22,4 +22,9 @@ class CartDetailRepository extends AbstractRepository
         }
         return $this->model->where('cart_id', $cart_id)->where($this->searchFieldName, 'LIKE', "%$search%")->paginate($take);
     }
+
+    public function findWhere($where = [])
+    {
+        return $this->model->where($where)->first();
+    }
 }

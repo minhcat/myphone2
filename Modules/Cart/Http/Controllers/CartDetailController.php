@@ -6,11 +6,15 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Cart\Repositories\CartDetailRepository;
+use Modules\Product\Repositories\ProductRepository;
 
 class CartDetailController extends Controller
 {
-    /** @var \Module\Cart\Repositories\CartDeailRepository */
+    /** @var \Modules\Cart\Repositories\CartDetailRepository */
     protected $cartDetailRepository;
+
+    /** @var \Modules\Product\Repositories\ProductRepository */
+    protected $productRepository;
 
     /**
      * Create new Cart Controller instance.
@@ -18,6 +22,7 @@ class CartDetailController extends Controller
     public function __construct()
     {
         $this->cartDetailRepository = new CartDetailRepository;
+        $this->productRepository = new ProductRepository;
     }
 
     /**
@@ -37,9 +42,20 @@ class CartDetailController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function create($cart_id)
     {
-        return view('cart::create');
+        $products = $this->productRepository->all();
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('cart.detail.store', $cart_id),
+            'method'    => 'POST',
+        ];
+        $menu = [
+            'group' => 'invoice',
+            'active' => 'cart'
+        ];
+
+        return view('cart::details.create', compact('products', 'form', 'menu', 'cart_id'));
     }
 
     /**
@@ -47,9 +63,27 @@ class CartDetailController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(Request $request, $cart_id)
     {
-        //
+        $request->validate([
+            'product_id'    => 'required',
+            'quantity'      => 'required|numeric'
+        ]);
+        $product = $this->productRepository->find($request->input('product_id'));
+
+        $cart_detail = $this->cartDetailRepository->findWhere(['cart_id' => $cart_id, 'product_id' => $product->id]);
+
+        if (!is_null($cart_detail)) {
+            $quantity = $cart_detail->quantity + intval($request->input('quantity'));
+
+            $this->cartDetailRepository->update($cart_detail->id, ['quantity' => $quantity]);
+
+            return redirect()->route('cart.detail.index', $cart_id)->with('success', 'Create new cart detail successfully');
+        }
+
+        $this->cartDetailRepository->create($request->all(), ['cart_id' => $cart_id, 'price' => $product->price ?: 0]);
+
+        return redirect()->route('cart.detail.index', $cart_id)->with('success', 'Create new cart detail successfully');
     }
 
     /**
@@ -67,9 +101,21 @@ class CartDetailController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit($cart_id, $id)
     {
-        return view('cart::edit');
+        $products = $this->productRepository->all();
+        $form = [
+            'title'     => 'Update',
+            'url'       => route('cart.detail.update', ['cart_id' => $cart_id, 'id' => $id]),
+            'method'    => 'PUT',
+        ];
+        $menu = [
+            'group' => 'invoice',
+            'active' => 'cart'
+        ];
+        $detail = $this->cartDetailRepository->find($id);
+
+        return view('cart::details.edit', compact('form', 'menu', 'products', 'detail', 'cart_id'));
     }
 
     /**
@@ -78,9 +124,27 @@ class CartDetailController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $cart_id, $id)
     {
-        //
+        $request->validate([
+            'product_id'    => 'required',
+            'quantity'      => 'required|numeric'
+        ]);
+        $product = $this->productRepository->find($request->input('product_id'));
+
+        $cart_detail = $this->cartDetailRepository->findWhere(['cart_id' => $cart_id, 'product_id' => $product->id]);
+
+        if (!is_null($cart_detail)) {
+            $this->cartDetailRepository->update($cart_detail->id, ['quantity' => intval($request->input('quantity'))]);
+
+            return redirect()->route('cart.detail.index', $cart_id)->with('success', 'Update cart detail successfully');
+        }
+
+        $this->cartDetailRepository->create($request->all(), ['cart_id' => $cart_id, 'price' => $product->price]);
+
+        $this->cartDetailRepository->delete($id);
+
+        return redirect()->route('cart.detail.index', $cart_id)->with('success', 'Update cart detail successfully');
     }
 
     /**

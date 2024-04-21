@@ -12,6 +12,8 @@ class CartDetail extends Model
 
     protected $fillable = ['cart_id', 'product_id', 'price', 'quantity'];
 
+    public $timestamps = false;
+
     public function cart()
     {
         return $this->belongsTo(Cart::class);
