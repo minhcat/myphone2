@@ -87,16 +87,6 @@ class CartDetailController extends Controller
     }
 
     /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('cart::show');
-    }
-
-    /**
      * Show the form for editing the specified resource.
      * @param int $id
      * @return Renderable
@@ -152,8 +142,10 @@ class CartDetailController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($cart_id, $id)
     {
-        //
+        $this->cartDetailRepository->delete($id);
+
+        return redirect()->route('cart.detail.index', $cart_id)->with('success', 'Delete Information successfully');
     }
 }
