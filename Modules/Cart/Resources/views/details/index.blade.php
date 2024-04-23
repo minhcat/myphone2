@@ -24,18 +24,6 @@
                 <a href="{{ route('cart.detail.create', $cart_id) }}" class="btn btn-primary pull-right">New Detail</a>
             </div>
             <div class="box-body">
-                <div class="table-header">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="filter">
-                                <label for="search">
-                                    Search:
-                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('cart.index') }}">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="table-body">
                     <table class="table table-bordered table-striped mt-3">
                         <thead>
