@@ -18,7 +18,7 @@
                             <div class="form-group">
                                 <label for="">Product</label>
                                 <select class="form-control" name="product_id" id="product_id">
-                                    <option selected disabled hidden>-- select product --</option>
+                                    <option selected disabled hidden data-price="0">-- select product --</option>
                                     @foreach($products as $product)
                                         @if ($detail->product_id == $product->id)
                                             <option selected value="{{ $product->id }}" data-price="{{ $product->price }}">{{ $product->name }}</option>
