@@ -72,7 +72,9 @@ abstract class AbstractRepository implements RepositoryInterface
 
     public function delete($id)
     {
-        return $this->model->whereId($id)->delete();
+        $model = $this->model->find($id);
+
+        return $model->delete();
     }
 
     protected function convertDataCreate($data, $more = [])
