@@ -2,6 +2,7 @@
 
 namespace Modules\Cart\Entities;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\User\Entities\User;
@@ -17,8 +18,38 @@ class Cart extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function detail()
+    public function details()
     {
         return $this->hasMany(CartDetail::class);
+    }
+
+    public function quantity() : Attribute
+    {
+        return Attribute::make(
+            get: function (mixed $value, array $attributes) {
+                $cart = $this->find($attributes['id']);
+                $details = $cart->details;
+                $quantity = 0;
+                foreach ($details as $detail) {
+                    $quantity += $detail->quantity;
+                }
+                return $quantity;
+            },
+        );
+    }
+
+    public function total() : Attribute
+    {
+        return Attribute::make(
+            get: function (mixed $value, array $attributes) {
+                $cart = $this->find($attributes['id']);
+                $details = $cart->details;
+                $total = 0;
+                foreach ($details as $detail) {
+                    $total += $detail->quantity * $detail->price;
+                }
+                return number_format($total);
+            },
+        );
     }
 }
