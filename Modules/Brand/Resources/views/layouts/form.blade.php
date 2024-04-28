@@ -52,7 +52,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="author_id" value="{{ Auth::check() ? Auth::user()->id : 0 }}">
+                    <input type="hidden" name="author_id" value="{{ Auth::check() ? Auth::user()->id : 1 }}">
                 </div>
                 <div class="box-footer">
                     <a href="{{ route('brand.index') }}" class="btn btn-default">Back</a>
