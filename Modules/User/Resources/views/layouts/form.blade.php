@@ -23,6 +23,14 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
+                                <label for="">Email <span class="text-red">*</span></label>
+                                <input type="text" class="form-control" placeholder="input email" name="email" value="{{ $user->email }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
                                 <label for="">Firstname <span class="text-red">*</span></label>
                                 <input type="text" class="form-control" placeholder="input firstname" name="firstname" value="{{ $user->firstname }}">
                                 <span class="help-block hidden">Firstname is require</span>
@@ -68,14 +76,6 @@
                             <div class="form-group">
                                 <label for="">Job</label>
                                 <input type="text" class="form-control" placeholder="input job" name="job" value="{{ $user->job }}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label for="">Email</label>
-                                <input type="text" class="form-control" placeholder="input email" name="email" value="{{ $user->email }}">
                             </div>
                         </div>
                     </div>
