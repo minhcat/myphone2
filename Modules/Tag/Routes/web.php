@@ -12,15 +12,16 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use Modules\Tag\Http\Controllers\TagController;
 
 Route::prefix('admin')->group(function() {
     Route::prefix('tags')->name('tag.')->group(function() {
-        Route::get('/', 'TagController@index')->name('index');
-        Route::get('/create', 'TagController@create')->name('create');
-        Route::get('/{id}', 'TagController@show')->name('show');
-        Route::get('/{id}/edit', 'TagController@edit')->name('edit');
-        Route::post('/', 'TagController@store')->name('store');
-        Route::put('/{id}', 'TagController@update')->name('update');
-        Route::delete('/{id}', 'TagController@destroy')->name('delete');
+        Route::get('/', [TagController::class, 'index'])->name('index');
+        Route::get('/create', [TagController::class, 'create'])->name('create');
+        Route::get('/{id}', [TagController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [TagController::class, 'edit'])->name('edit');
+        Route::post('/', [TagController::class, 'store'])->name('store');
+        Route::put('/{id}', [TagController::class, 'update'])->name('update');
+        Route::delete('/{id}', [TagController::class, 'destroy'])->name('delete');
     });
 });

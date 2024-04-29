@@ -12,19 +12,21 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use Modules\Cart\Http\Controllers\CartController;
+use Modules\Cart\Http\Controllers\CartDetailController;
 
 Route::prefix('admin')->group(function() {
     Route::prefix('carts')->name('cart.')->group(function() {
         Route::prefix('/{cart_id}/details')->name('detail.')->group(function() {
-            Route::get('/', 'CartDetailController@index')->name('index');
-            Route::get('/create', 'CartDetailController@create')->name('create');
-            Route::get('/{id}/edit', 'CartDetailController@edit')->name('edit');
-            Route::post('/', 'CartDetailController@store')->name('store');
-            Route::put('/{id}', 'CartDetailController@update')->name('update');
-            Route::delete('/{id}', 'CartDetailController@destroy')->name('delete');
+            Route::get('/', [CartDetailController::class, 'index'])->name('index');
+            Route::get('/create', [CartDetailController::class, 'create'])->name('create');
+            Route::get('/{id}/edit', [CartDetailController::class, 'edit'])->name('edit');
+            Route::post('/', [CartDetailController::class, 'store'])->name('store');
+            Route::put('/{id}', [CartDetailController::class, 'update'])->name('update');
+            Route::delete('/{id}', [CartDetailController::class, 'destroy'])->name('delete');
         });
 
-        Route::get('/', 'CartController@index')->name('index');
-        Route::get('/{id}', 'CartController@show')->name('show');
+        Route::get('/', [CartController::class, 'index'])->name('index');
+        Route::get('/{id}', [CartController::class, 'show'])->name('show');
     });
 });

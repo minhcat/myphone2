@@ -12,25 +12,27 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use Modules\Attribute\Http\Controllers\AttributeController;
+use Modules\Attribute\Http\Controllers\OptionController;
 
 Route::prefix('admin')->group(function() {
     Route::prefix('attributes')->name('attribute.')->group(function() {
         Route::prefix('/{attribute_id}/options')->name('option.')->group(function() {
-            Route::get('/', 'OptionController@index')->name('index');
-            Route::get('/create', 'OptionController@create')->name('create');
-            Route::get('/{id}', 'OptionController@show')->name('show');
-            Route::get('/{id}/edit', 'OptionController@edit')->name('edit');
-            Route::post('/', 'OptionController@store')->name('store');
-            Route::put('/{id}', 'OptionController@update')->name('update');
-            Route::delete('/{id}', 'OptionController@destroy')->name('delete');
+            Route::get('/', [OptionController::class, 'index'])->name('index');
+            Route::get('/create', [OptionController::class, 'create'])->name('create');
+            Route::get('/{id}', [OptionController::class, 'show'])->name('show');
+            Route::get('/{id}/edit', [OptionController::class, 'edit'])->name('edit');
+            Route::post('/', [OptionController::class, 'store'])->name('store');
+            Route::put('/{id}', [OptionController::class, 'update'])->name('update');
+            Route::delete('/{id}', [OptionController::class, 'destroy'])->name('delete');
         });
 
-        Route::get('/', 'AttributeController@index')->name('index');
-        Route::get('/create', 'AttributeController@create')->name('create');
-        Route::get('/{id}', 'AttributeController@show')->name('show');
-        Route::get('/{id}/edit', 'AttributeController@edit')->name('edit');
-        Route::post('/', 'AttributeController@store')->name('store');
-        Route::put('/{id}', 'AttributeController@update')->name('update');
-        Route::delete('/{id}', 'AttributeController@destroy')->name('delete');
+        Route::get('/', [AttributeController::class, 'index'])->name('index');
+        Route::get('/create', [AttributeController::class, 'create'])->name('create');
+        Route::get('/{id}', [AttributeController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [AttributeController::class, 'edit'])->name('edit');
+        Route::post('/', [AttributeController::class, 'store'])->name('store');
+        Route::put('/{id}', [AttributeController::class, 'update'])->name('update');
+        Route::delete('/{id}', [AttributeController::class, 'destroy'])->name('delete');
     });
 });
