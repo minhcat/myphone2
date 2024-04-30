@@ -18,6 +18,8 @@ class BrandController extends Controller
     public function __construct()
     {
         $this->brandRepository = new BrandRepository;
+
+        view()->share('menu', ['group' => 'product', 'active' => 'brand']);
     }
 
     /**
@@ -28,9 +30,8 @@ class BrandController extends Controller
     {
         $search = $request->input('search');
         $brands = $this->brandRepository->paginate($search);
-        $menu = ['group' => 'product', 'active' => 'brand'];
 
-        return view('brand::index', compact('brands', 'menu'));
+        return view('brand::index', compact('brands'));
     }
 
     /**
@@ -44,12 +45,8 @@ class BrandController extends Controller
             'url'       => route('brand.store'),
             'method'    => 'POST',
         ];
-        $menu = [
-            'group' => 'product',
-            'active' => 'brand'
-        ];
 
-        return view('brand::create', compact('form', 'menu'));
+        return view('brand::create', compact('form'));
     }
 
     /**
@@ -76,9 +73,8 @@ class BrandController extends Controller
     public function show($id)
     {
         $brand = $this->brandRepository->find($id);
-        $menu = ['group' => 'product', 'active' => 'brand'];
 
-        return view('brand::detail', compact('brand', 'menu'));
+        return view('brand::detail', compact('brand'));
     }
 
     /**
@@ -93,14 +89,10 @@ class BrandController extends Controller
             'url'       => route('brand.update', $id),
             'method'    => 'PUT',
         ];
-        $menu = [
-            'group' => 'product',
-            'active' => 'brand'
-        ];
 
         $brand = $this->brandRepository->find($id);
 
-        return view('brand::edit', compact('form', 'brand', 'menu'));
+        return view('brand::edit', compact('form', 'brand'));
     }
 
     /**

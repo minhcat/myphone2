@@ -28,6 +28,8 @@ class VariationController extends Controller
         $this->variationRepository = new VariationRepository();
         $this->productRepository = new ProductRepository();
         $this->attributeRepository = new AttributeRepository();
+
+        view()->share('menu', ['group' => 'product', 'active' => 'product']);
     }
 
     /**
@@ -40,9 +42,8 @@ class VariationController extends Controller
         $product = $this->productRepository->find($product_id);
         $product_name = $product->name ?: '';
         $attributes = $this->attributeRepository->all();
-        $menu = ['group' => 'product', 'active' => 'product'];
 
-        return view('product::variations.index', compact('variations', 'attributes', 'product_id', 'product_name', 'menu'));
+        return view('product::variations.index', compact('variations', 'attributes', 'product_id', 'product_name'));
     }
 
     /**
@@ -56,15 +57,11 @@ class VariationController extends Controller
             'url'       => route('product.variation.store', $product_id),
             'method'    => 'POST'
         ];
-        $menu = [
-            'group' => 'product',
-            'active' => 'product'
-        ];
 
         $attributes = $this->attributeRepository->all();
 
 
-        return view('product::variations.create', compact('form', 'product_id', 'attributes', 'menu'));
+        return view('product::variations.create', compact('form', 'product_id', 'attributes'));
     }
 
     /**
@@ -95,9 +92,7 @@ class VariationController extends Controller
 
         $attributes = $this->attributeRepository->all();
 
-        $menu = ['group' => 'product', 'active' => 'product'];
-
-        return view('product::variations.detail', compact('variation', 'attributes', 'product_id', 'menu'));
+        return view('product::variations.detail', compact('variation', 'attributes', 'product_id'));
     }
 
     /**
@@ -112,14 +107,10 @@ class VariationController extends Controller
             'url'       => route('product.variation.update', ['product_id' => $product_id, 'id' => $id]),
             'method'    => 'PUT'
         ];
-        $menu = [
-            'group' => 'product',
-            'active' => 'product'
-        ];
         $variation = $this->variationRepository->find($id);
         $attributes = $this->attributeRepository->all();
 
-        return view('product::variations.edit', compact('form', 'variation', 'attributes', 'product_id', 'menu'));
+        return view('product::variations.edit', compact('form', 'variation', 'attributes', 'product_id'));
     }
 
     /**

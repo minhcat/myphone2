@@ -24,6 +24,8 @@ class AttributeController extends Controller
     {
         $this->attributeRepository = new AttributeRepository();
         $this->optionRepository = new OptionRepository();
+
+        view()->share('menu', ['group' => 'product', 'active' => 'attribute']);
     }
 
     /**
@@ -34,9 +36,8 @@ class AttributeController extends Controller
     {
         $search = $request->input('search');
         $attributes = $this->attributeRepository->paginate($search);
-        $menu = ['group' => 'product', 'active' => 'attribute'];
 
-        return view('attribute::attributes.index', compact('attributes', 'menu'));
+        return view('attribute::attributes.index', compact('attributes'));
     }
 
     /**
@@ -50,12 +51,8 @@ class AttributeController extends Controller
             'url'       => route('attribute.store'),
             'method'    => 'POST',
         ];
-        $menu = [
-            'group'     => 'product',
-            'active'    => 'attribute'
-        ];
 
-        return view('attribute::attributes.create', compact('form', 'menu'));
+        return view('attribute::attributes.create', compact('form'));
     }
 
     /**
@@ -82,9 +79,8 @@ class AttributeController extends Controller
     public function show($id)
     {
         $attribute = $this->attributeRepository->find($id);
-        $menu = ['group' => 'product', 'active' => 'attribute'];
 
-        return view('attribute::attributes.detail', compact('attribute', 'menu'));
+        return view('attribute::attributes.detail', compact('attribute'));
     }
 
     /**
@@ -99,14 +95,10 @@ class AttributeController extends Controller
             'url'       => route('attribute.update', $id),
             'method'    => 'PUT',
         ];
-        $menu = [
-            'group'     => 'product',
-            'active'    => 'attribute'
-        ];
 
         $attribute = $this->attributeRepository->find($id);
 
-        return view('attribute::attributes.edit', compact('form', 'attribute', 'menu'));
+        return view('attribute::attributes.edit', compact('form', 'attribute'));
     }
 
     /**

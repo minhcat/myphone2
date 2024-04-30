@@ -18,6 +18,8 @@ class TagController extends Controller
     public function __construct()
     {
         $this->tagRepository = new TagRepository();
+
+        view()->share('menu', ['group' => 'category', 'active' => 'tag']);
     }
 
     /**
@@ -28,9 +30,8 @@ class TagController extends Controller
     {
         $search = $request->input('search');
         $tags = $this->tagRepository->paginate($search);
-        $menu = ['group' => 'category', 'active' => 'tag'];
 
-        return view('tag::index', compact('tags', 'menu'));
+        return view('tag::index', compact('tags'));
     }
 
     /**
@@ -44,12 +45,8 @@ class TagController extends Controller
             'method'    => 'POST',
             'title'     => 'Create'
         ];
-        $menu = [
-            'group'     => 'category',
-            'active'    => 'tag'
-        ];
 
-        return view('tag::create', compact('form', 'menu'));
+        return view('tag::create', compact('form'));
     }
 
     /**
@@ -76,9 +73,8 @@ class TagController extends Controller
     public function show($id)
     {
         $tag = $this->tagRepository->find($id);
-        $menu = ['group' => 'category', 'active' => 'tag'];
 
-        return view('tag::detail', compact('tag', 'menu'));
+        return view('tag::detail', compact('tag'));
     }
 
     /**
@@ -93,13 +89,9 @@ class TagController extends Controller
             'method'    => 'PUT',
             'title'     => 'Edit'
         ];
-        $menu = [
-            'group'     => 'category',
-            'active'    => 'tag'
-        ];
         $tag = $this->tagRepository->find($id);
 
-        return view('tag::edit', compact('tag', 'form', 'menu'));
+        return view('tag::edit', compact('tag', 'form'));
     }
 
     /**

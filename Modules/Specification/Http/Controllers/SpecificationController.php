@@ -18,6 +18,8 @@ class SpecificationController extends Controller
     public function __construct()
     {
         $this->specificationRepository = new SpecificationRepository();
+
+        view()->share('menu', ['group' => 'product', 'active' => 'specification']);
     }
 
     /**
@@ -28,9 +30,8 @@ class SpecificationController extends Controller
     {
         $search = $request->input('search');
         $specifications = $this->specificationRepository->paginate($search);
-        $menu = ['group' => 'product', 'active' => 'specification'];
 
-        return view('specification::specifications.index', compact('specifications', 'menu'));
+        return view('specification::specifications.index', compact('specifications'));
     }
 
     /**
@@ -44,12 +45,8 @@ class SpecificationController extends Controller
             'method'    => 'POST',
             'title'     => 'Create'
         ];
-        $menu = [
-            'group' => 'product',
-            'active' => 'specification'
-        ];
 
-        return view('specification::specifications.create', compact('form', 'menu'));
+        return view('specification::specifications.create', compact('form'));
     }
 
     /**
@@ -76,9 +73,8 @@ class SpecificationController extends Controller
     public function show($id)
     {
         $specification = $this->specificationRepository->find($id);
-        $menu = ['group' => 'product', 'active' => 'specification'];
 
-        return view('specification::specifications.detail', compact('specification', 'menu'));
+        return view('specification::specifications.detail', compact('specification'));
     }
 
     /**
@@ -93,14 +89,10 @@ class SpecificationController extends Controller
             'method'    => 'PUT',
             'title'     => 'Update'
         ];
-        $menu = [
-            'group' => 'product',
-            'active' => 'specification'
-        ];
 
         $specification = $this->specificationRepository->find($id);
 
-        return view('specification::specifications.edit', compact('form', 'specification', 'menu'));
+        return view('specification::specifications.edit', compact('form', 'specification'));
     }
 
     /**

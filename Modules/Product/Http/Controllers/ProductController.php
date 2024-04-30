@@ -33,6 +33,8 @@ class ProductController extends Controller
         $this->categoryRepository = new CategoryRepository();
         $this->tagRepository = new TagRepository();
         $this->brandRepository = new BrandRepository();
+
+        view()->share('menu', ['group' => 'product', 'active' => 'product']);
     }
 
     /**
@@ -43,9 +45,8 @@ class ProductController extends Controller
     {
         $search   = $request->input('search');
         $products = $this->productRepository->paginate($search);
-        $menu = ['group' => 'product', 'active' => 'product'];
 
-        return view('product::products.index', compact('products', 'menu'));
+        return view('product::products.index', compact('products'));
     }
 
     /**
@@ -63,12 +64,8 @@ class ProductController extends Controller
             'url'       => route('product.store'),
             'method'    => 'POST',
         ];
-        $menu = [
-            'group' => 'product',
-            'active' => 'product'
-        ];
 
-        return view('product::products.create', compact('categories', 'tags', 'brands', 'form', 'menu'));
+        return view('product::products.create', compact('categories', 'tags', 'brands', 'form'));
     }
 
     /**
@@ -96,9 +93,8 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = $this->productRepository->find($id);
-        $menu = ['group' => 'product', 'active' => 'product'];
 
-        return view('product::products.detail', compact('product', 'menu'));
+        return view('product::products.detail', compact('product'));
     }
 
     /**
@@ -117,14 +113,10 @@ class ProductController extends Controller
             'url'       => route('product.update', $id),
             'method'    => 'PUT',
         ];
-        $menu = [
-            'group' => 'product',
-            'active' => 'product'
-        ];
 
         $product = $this->productRepository->find($id);
 
-        return view('product::products.edit', compact('form', 'product', 'categories', 'tags', 'brands', 'menu'));
+        return view('product::products.edit', compact('form', 'product', 'categories', 'tags', 'brands'));
     }
 
     /**

@@ -18,6 +18,8 @@ class CategoryController extends Controller
     public function __construct()
     {
         $this->categoryRepository = new CategoryRepository;
+
+        view()->share('menu', ['group' => 'category', 'active' => 'category']);
     }
 
     /**
@@ -28,9 +30,8 @@ class CategoryController extends Controller
     {
         $search = $request->input('search');
         $categories = $this->categoryRepository->paginate($search);
-        $menu = ['group' => 'category', 'active' => 'category'];
 
-        return view('category::index', compact('categories', 'menu'));
+        return view('category::index', compact('categories'));
     }
 
     /**
@@ -44,11 +45,8 @@ class CategoryController extends Controller
             'url'       => route('category.store'),
             'method'    => 'POST',
         ];
-        $menu = [
-            'group'     => 'category',
-            'active'    => 'category'
-        ];
-        return view('category::create', compact('form', 'menu'));
+
+        return view('category::create', compact('form'));
     }
 
     /**
@@ -75,9 +73,8 @@ class CategoryController extends Controller
     public function show($id)
     {
         $category = $this->categoryRepository->find($id);
-        $menu = ['group' => 'category', 'active' => 'category'];
 
-        return view('category::detail', compact('category', 'menu'));
+        return view('category::detail', compact('category'));
     }
 
     /**
@@ -92,14 +89,10 @@ class CategoryController extends Controller
             'url'       => route('category.update', $id),
             'method'    => 'PUT'
         ];
-        $menu = [
-            'group'     => 'category',
-            'active'    => 'category'
-        ];
 
         $category = $this->categoryRepository->find($id);
 
-        return view('category::edit', compact('form', 'menu', 'category'));
+        return view('category::edit', compact('form', 'category'));
     }
 
     /**

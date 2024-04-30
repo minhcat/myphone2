@@ -28,6 +28,8 @@ class DetailController extends Controller
         $this->detailRepository = new DetailRepository();
         $this->specificationRepository = new SpecificationRepository();
         $this->productRepository = new ProductRepository();
+
+        view()->share('menu', ['group' => 'product', 'active' => 'product']);
     }
 
     /**
@@ -54,15 +56,11 @@ class DetailController extends Controller
             'url'       => route('product.detail.update', $product_id),
             'method'    => 'POST',
         ];
-        $menu = [
-            'group' => 'product',
-            'active' => 'product'
-        ];
         $product_name = optional($this->productRepository->find($product_id))->name;
         $details = $this->detailRepository->findByProductId($product_id);
         $specifications = $this->specificationRepository->all();
 
-        return view('product::details.edit', compact('details', 'specifications', 'product_name', 'form', 'menu'));
+        return view('product::details.edit', compact('details', 'specifications', 'product_name', 'form'));
     }
 
     /**

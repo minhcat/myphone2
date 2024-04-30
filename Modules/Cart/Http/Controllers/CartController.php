@@ -18,6 +18,8 @@ class CartController extends Controller
     public function __construct()
     {
         $this->cartRepository = new CartRepository;
+
+        view()->share('menu', ['group' => 'invoice', 'active' => 'cart']);
     }
 
     /**
@@ -28,9 +30,8 @@ class CartController extends Controller
     {
         $search = $request->input('search');
         $carts  = $this->cartRepository->paginate($search);
-        $menu = ['group' => 'invoice', 'active' => 'cart'];
 
-        return view('cart::carts.index', compact('carts', 'menu'));
+        return view('cart::carts.index', compact('carts'));
     }
 
     /**
@@ -41,8 +42,7 @@ class CartController extends Controller
     public function show($id)
     {
         $cart = $this->cartRepository->find($id);
-        $menu = ['group' => 'invoice', 'active' => 'cart'];
 
-        return view('cart::carts.detail', compact('cart', 'menu'));
+        return view('cart::carts.detail', compact('cart'));
     }
 }

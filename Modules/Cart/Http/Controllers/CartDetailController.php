@@ -23,6 +23,8 @@ class CartDetailController extends Controller
     {
         $this->cartDetailRepository = new CartDetailRepository;
         $this->productRepository = new ProductRepository;
+
+        view()->share('menu', ['group' => 'invoice', 'active' => 'cart']);
     }
 
     /**
@@ -33,9 +35,8 @@ class CartDetailController extends Controller
     {
         $search = $request->input('search');
         $details = $this->cartDetailRepository->paginateByCartId($cart_id, $search);
-        $menu = ['group' => 'invoice', 'active' => 'cart'];
 
-        return view('cart::details.index', compact('details', 'menu', 'cart_id'));
+        return view('cart::details.index', compact('details', 'cart_id'));
     }
 
     /**
@@ -50,12 +51,8 @@ class CartDetailController extends Controller
             'url'       => route('cart.detail.store', $cart_id),
             'method'    => 'POST',
         ];
-        $menu = [
-            'group' => 'invoice',
-            'active' => 'cart'
-        ];
 
-        return view('cart::details.create', compact('products', 'form', 'menu', 'cart_id'));
+        return view('cart::details.create', compact('products', 'form', 'cart_id'));
     }
 
     /**
@@ -99,13 +96,9 @@ class CartDetailController extends Controller
             'url'       => route('cart.detail.update', ['cart_id' => $cart_id, 'id' => $id]),
             'method'    => 'PUT',
         ];
-        $menu = [
-            'group' => 'invoice',
-            'active' => 'cart'
-        ];
         $detail = $this->cartDetailRepository->find($id);
 
-        return view('cart::details.edit', compact('form', 'menu', 'products', 'detail', 'cart_id'));
+        return view('cart::details.edit', compact('form', 'products', 'detail', 'cart_id'));
     }
 
     /**
