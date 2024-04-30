@@ -1,4 +1,1 @@
-remove menu in controller module
-update route to new rule [controller, method]
-remove gitkeep module
-user email require in form
+make form login logout
