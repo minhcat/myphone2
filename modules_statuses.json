@@ -6,5 +6,6 @@
     "Specification": true,
     "Category": true,
     "Tag": true,
-    "Cart": true
+    "Cart": true,
+    "Order": true
 }
