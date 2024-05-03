@@ -18,10 +18,7 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->integer('user_id')->unsigned();
             $table->integer('address_id')->unsigned()->nullable();
-            $table->boolean('is_pending')->default(true);
-            $table->boolean('is_approved')->default(false);
-            $table->boolean('is_shipping')->default(false);
-            $table->boolean('is_completed')->default(false);
+            $table->integer('status')->unsigned()->default(0);
             $table->string('note')->default('');
             $table->timestamps();
         });
