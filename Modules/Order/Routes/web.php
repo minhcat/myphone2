@@ -11,6 +11,12 @@
 |
 */
 
-Route::prefix('order')->group(function() {
-    Route::get('/', 'OrderController@index');
+use Illuminate\Support\Facades\Route;
+use Modules\Order\Http\Controllers\OrderController;
+
+Route::prefix('admin')->group(function() {
+    Route::prefix('orders')->name('order.')->group(function() {
+        Route::get('/', [OrderController::class, 'index'])->name('index');
+        Route::get('/{id}', [OrderController::class, 'show'])->name('show');
+    });
 });

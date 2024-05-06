@@ -109,3 +109,15 @@ input[type=file] {
 .full-width {
     width: 100%;
 }
+
+.w75 {
+    width: 75px !important;
+}
+
+.w85 {
+    width: 85px !important;
+}
+
+.w100 {
+    width: 100px !important;
+}

@@ -5,35 +5,31 @@ namespace Modules\Order\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Order\Repositories\OrderRepository;
 
 class OrderController extends Controller
 {
+    /** @var Modules\Order\Repositories\OrderRepository */
+    protected $orderRepository;
+
+    /**
+     * Create new Order Controller instance.
+     */
+    public function __construct()
+    {
+        $this->orderRepository = new OrderRepository;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('order::index');
-    }
+        $search = $request->input('search');
+        $orders = $this->orderRepository->paginate($search);
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('order::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
+        return view('order::order.index', compact('orders'));
     }
 
     /**
@@ -44,27 +40,6 @@ class OrderController extends Controller
     public function show($id)
     {
         return view('order::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('order::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**
