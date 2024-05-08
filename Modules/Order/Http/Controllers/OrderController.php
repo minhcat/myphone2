@@ -9,7 +9,7 @@ use Modules\Order\Repositories\OrderRepository;
 
 class OrderController extends Controller
 {
-    /** @var Modules\Order\Repositories\OrderRepository */
+    /** @var \Modules\Order\Repositories\OrderRepository */
     protected $orderRepository;
 
     /**
@@ -18,6 +18,8 @@ class OrderController extends Controller
     public function __construct()
     {
         $this->orderRepository = new OrderRepository;
+
+        view()->share('menu', ['group' => 'invoice', 'active' => 'order']);
     }
 
     /**
@@ -39,7 +41,9 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        return view('order::show');
+        $order = $this->orderRepository->find($id);
+
+        return view('order::order.detail', compact('order'));
     }
 
     /**
