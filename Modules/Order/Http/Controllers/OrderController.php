@@ -47,12 +47,31 @@ class OrderController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     * @param Request $request
+     * @param int $id
+     * @return Renderable
+     */
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'status'  => 'required'
+        ]);
+
+        $this->orderRepository->update($id, $request->all());
+
+        return redirect()->route('order.index')->with('success', 'Update order status successfully');
+    }
+
+    /**
      * Remove the specified resource from storage.
      * @param int $id
      * @return Renderable
      */
     public function destroy($id)
     {
-        //
+        $this->orderRepository->delete($id);
+
+        return redirect()->route('order.index')->with('success', 'Delete order successfully');
     }
 }

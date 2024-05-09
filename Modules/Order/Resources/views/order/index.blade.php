@@ -47,7 +47,7 @@
                                 <th>Quantity</th>
                                 <th>Total</th>
                                 <th>Status</th>
-                                <th style="width: 100px">Action</th>
+                                <th style="width: 200px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,7 +67,7 @@
                                     <td>0</td>
                                     <td>{!! generate_label_orderstatus($order->status) !!}</td>
                                     <td>
-                                        {!! generate_button_orderstatus($order->status) !!}
+                                        {!! generate_button_orderstatus($order->status, $order->id) !!}
                                     </td>
                                 </tr>
                             @endforeach
@@ -85,6 +85,47 @@
         </div>
     </div>
 </div>
+
+@include('order::order.layouts.modal', [
+    'modal'             => [
+        'id'            => 'modal-order-delete',
+        'title'         => 'Delete Order',
+        'message'       => 'Are you sure to delete this order!',
+        'form'          => [
+            'url'       => route('order.delete', ':id'),
+            'method'    => 'DELETE',
+            'inputs'    => []
+        ],
+        'buttons'       => [
+            'primary'   => [
+                'text'  => 'Delete'
+            ]
+        ],
+    ]
+])
+
+@include('order::order.layouts.modal', [
+    'modal'                 => [
+        'id'                => 'modal-order-update',
+        'title'             => 'Update Order',
+        'message'           => 'Are you sure to update status this order!',
+        'form'              => [
+            'url'           => route('order.update', ':id'),
+            'method'        => 'PUT',
+            'inputs'        => [
+                [
+                    'name'  => 'status',
+                    'value' => ':status'
+                ]
+            ]
+        ],
+        'buttons'           => [
+            'primary'       => [
+                'text'      => 'Update'
+            ]
+        ],
+    ]
+])
 @endsection
 
 @push('script')
@@ -96,6 +137,26 @@
                 let url = $(this).data('url') + '?search=' + value;
                 window.location.href = url;
             }
+        })
+        let url_delete = $('#modal-order-delete form').attr('action');
+        $('.btn-delete').click(function() {
+            let id = $(this).data('id');
+            let url = url_delete.replace(':id', id)
+            $('#modal-order-delete form').attr('action', url);
+        })
+        $('#modal-order-delete').on('hide.bs.modal', function() {
+            $('#modal-order-delete form').attr('action', url_delete);
+        })
+        let url_update = $('#modal-order-update form').attr('action');
+        $('.btn-update').click(function() {
+            let id = $(this).data('id');
+            let url = url_update.replace(':id', id)
+            let status = $(this).data('status');
+            $('#modal-order-update form').attr('action', url);
+            $('#modal-order-update form input[name="status"]').val(status);
+        })
+        $('#modal-order-update').on('hide.bs.modal', function() {
+            $('#modal-order-update form').attr('action', url_update);
         })
     })
 </script>

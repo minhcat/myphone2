@@ -33,19 +33,37 @@ if (!function_exists('generate_label_orderstatus')) {
 }
 
 if (!function_exists('generate_button_orderstatus')) {
-    function generate_button_orderstatus($status) {
+    function generate_button_orderstatus($status, $order_id = 0) {
         $btnname = '';
+        $icon = '';
+        $sts = '';
         switch ($status) {
-            case OrderStatus::PENDING: $btnname = 'approve'; break;
-            case OrderStatus::APPROVED: $btnname = 'ship'; break;
-            case OrderStatus::SHIPPING: $btnname = 'complete'; break;
-            case OrderStatus::COMPLETED: $btnname = 'delete'; break;
-            case OrderStatus::CANCELLED: $btnname = 'delete'; break;
+            case OrderStatus::PENDING:
+                $btnname = 'Approve';
+                $icon = 'thumbs-up';
+                $sts = '2';
+                break;
+            case OrderStatus::APPROVED:
+                $btnname = 'Ship';
+                $icon = 'truck';
+                $sts = '3';
+                break;
+            case OrderStatus::SHIPPING:
+                $btnname = 'Complete';
+                $icon = 'check-circle';
+                $sts = '4';
+                break;
+            case OrderStatus::COMPLETED:
+                $btnname = 'Delete';
+                break;
+            case OrderStatus::CANCELLED:
+                $btnname = 'Delete';
+                break;
         }
         $label = OrderStatus::getLabel($status + 1);
         if ($status == OrderStatus::COMPLETED || $status == OrderStatus::CANCELLED) {
-            $label = 'danger';
+            return '<button class="btn btn-danger btn-delete w100" data-toggle="modal" data-target="#modal-order-delete" data-id="'.$order_id.'"><i class="fa fa-trash"></i> '.$btnname.'</button>';
         }
-        return '<button class="btn btn-'.$label.' w85">'.$btnname.'</button>';
+        return '<button class="btn btn-'.$label.' btn-update w100" data-toggle="modal" data-target="#modal-order-update" data-id="'.$order_id.'" data-status="'.$sts.'"><i class="fa fa-'.$icon.'"></i> '.$btnname.'</button> <button class="btn btn-default btn-update" data-toggle="modal" data-target="#modal-order-update" data-id="'.$order_id.'" data-status="5"><i class="fa fa-ban"></i> Cancel</button>';
     }
 }
