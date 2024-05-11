@@ -1,2 +1,3 @@
 make form login logout
 remove request cartdetailcontroller index because search not use
+remove s (plural) in view has 2 view

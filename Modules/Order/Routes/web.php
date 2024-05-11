@@ -19,8 +19,11 @@ Route::prefix('admin')->group(function() {
     Route::prefix('orders')->name('order.')->group(function() {
         Route::prefix('/{order_id}/details')->name('detail.')->group(function() {
             Route::get('/', [OrderDetailController::class, 'index'])->name('index');
-            Route::post('/', [OrderDetailController::class, 'create'])->name('create');
-            Route::put('/{id}', [OrderDetailController::class, 'edit'])->name('edit');
+            Route::get('/create', [OrderDetailController::class, 'create'])->name('create');
+            Route::post('/', [OrderDetailController::class, 'store'])->name('store');
+            Route::get('/{id}', [OrderDetailController::class, 'edit'])->name('edit');
+            Route::put('/{id}', [OrderDetailController::class, 'update'])->name('update');
+            Route::delete(('/{id}'), [OrderDetailController::class, 'destroy'])->name('delete');
         });
 
         Route::get('/', [OrderController::class, 'index'])->name('index');

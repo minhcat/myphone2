@@ -11,6 +11,8 @@ class OrderDetail extends Model
     use HasFactory;
 
     protected $fillable = ['order_id', 'product_id', 'price', 'quantity'];
+    
+    public $timestamps = false;
 
     public function product()
     {

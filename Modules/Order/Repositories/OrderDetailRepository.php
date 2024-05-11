@@ -22,4 +22,9 @@ class OrderDetailRepository extends AbstractRepository
         }
         return $this->model->where('order_id', $order_id)->where($this->searchFieldName, 'LIKE', "%$search%")->paginate($take);
     }
+
+    public function findWhere($where = [])
+    {
+        return $this->model->where($where)->first();
+    }
 }

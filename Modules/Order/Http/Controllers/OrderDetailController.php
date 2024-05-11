@@ -6,11 +6,15 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Order\Repositories\OrderDetailRepository;
+use Modules\Product\Repositories\ProductRepository;
 
 class OrderDetailController extends Controller
 {
-    /** @var Modules\Order\Repositories\OrderDetailRepository */
+    /** @var \Modules\Order\Repositories\OrderDetailRepository */
     protected $orderDetailRepository;
+
+    /** @var \Modules\Product\Repositories\ProductRepository */
+    protected $productRepository;
 
     /**
      * Create new Order Controller instance.
@@ -18,6 +22,7 @@ class OrderDetailController extends Controller
     public function __construct()
     {
         $this->orderDetailRepository = new OrderDetailRepository;
+        $this->productRepository = new ProductRepository;
     }
 
     /**
@@ -35,9 +40,16 @@ class OrderDetailController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function create($order_id)
     {
-        return view('order::create');
+        $products = $this->productRepository->all();
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('order.detail.store', $order_id),
+            'method'    => 'POST',
+        ];
+
+        return view('order::detail.create', compact('products', 'form', 'order_id'));
     }
 
     /**
@@ -45,9 +57,28 @@ class OrderDetailController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(Request $request, $order_id)
     {
-        //
+        $request->validate([
+            'product_id'    => 'required',
+            'quantity'      => 'required|numeric'
+        ]);
+
+        $product = $this->productRepository->find($request->input('product_id'));
+
+        $detail = $this->orderDetailRepository->findWhere(['order_id' => $order_id,'product_id' => $product->id]);
+
+        if (!is_null($detail)) {
+            $quantity = $detail->quantity + intval($request->input('quantity'));
+
+            $this->orderDetailRepository->update($detail->id, ['quantity' => $quantity]);
+
+            return redirect()->route('order.detail.index', $order_id)->with('success', 'Create new order detail successfully!');
+        }
+
+        $this->orderDetailRepository->create($request->all(), ['price' => $product->price ?: 0, 'order_id' => $order_id]);
+
+        return redirect()->route('order.detail.index', $order_id)->with('success', 'Create new order detail successfully!');
     }
 
     /**
@@ -65,9 +96,17 @@ class OrderDetailController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit($order_id, $id)
     {
-        return view('order::edit');
+        $detail = $this->orderDetailRepository->find($id);
+        $products = $this->productRepository->all();
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('order.detail.update', ['order_id' => $order_id, 'id' => $id]),
+            'method'    => 'PUT'
+        ];
+
+        return view('order::detail.edit', compact('detail', 'products', 'form', 'order_id'));
     }
 
     /**
@@ -76,9 +115,27 @@ class OrderDetailController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $order_id, $id)
     {
-        //
+        $request->validate([
+            'product_id'    => 'required',
+            'quantity'      => 'required|numeric'
+        ]);
+
+        $product = $this->productRepository->find($request->input('product_id'));
+        $detail = $this->orderDetailRepository->findWhere(['product_id' => $product->id, 'order_id' => $order_id]);
+
+        if (!is_null($detail)) {
+            $this->orderDetailRepository->update($detail->id, ['quantity' => intval($request->input('quantity'))]);
+
+            return redirect()->route('order.detail.index', $order_id)->with('success', 'Update order detail successfully!');
+        }
+
+        $this->orderDetailRepository->create($request->all(), ['price' => $product->price, 'order_id' => $order_id]);
+
+        $this->orderDetailRepository->delete($id);
+
+        return redirect()->route('order.detail.index', $order_id)->with('success', 'Update order detail successfully!');
     }
 
     /**
