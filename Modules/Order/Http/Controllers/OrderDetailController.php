@@ -143,8 +143,10 @@ class OrderDetailController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($order_id, $id)
     {
-        //
+        $this->orderDetailRepository->delete($id);
+
+        return redirect()->route('order.detail.index', $order_id)->with('success', 'Delete order detail successfully');
     }
 }

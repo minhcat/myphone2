@@ -68,6 +68,26 @@
         </div>
     </div>
 </div>
+@include('order::detail.layouts.modal', [
+    'modal'             => [
+        'id'            => 'modal-order-detail-delete',
+        'title'         => 'Delete Order Detail',
+        'message'       => 'Are you sure to delete this detail!',
+        'form'          => [
+            'url'       => route('order.detail.delete', [
+                'order_id'  => $order_id,
+                'id'        => ':id'
+            ]),
+            'method'    => 'DELETE',
+            'inputs'    => []
+        ],
+        'buttons'       => [
+            'primary'   => [
+                'text'  => 'Delete'
+            ]
+        ],
+    ]
+])
 @endsection
 
 @push('script')
@@ -79,6 +99,15 @@
                 let url = $(this).data('url') + '?search=' + value;
                 window.location.href = url;
             }
+        })
+        let url_delete = $('#modal-order-detail-delete form').attr('action');
+        $('.btn-delete').click(function() {
+            let id = $(this).data('id');
+            let url = url_delete.replace(':id', id)
+            $('#modal-order-detail-delete form').attr('action', url);
+        })
+        $('#modal-order-detail-delete').on('hide.bs.modal', function() {
+            $('#modal-order-detail-delete form').attr('action', url_delete);
         })
     })
 </script>
