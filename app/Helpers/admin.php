@@ -3,6 +3,7 @@
 use App\Enums\OrderStatus;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\ViewErrorBag;
+use Modules\Order\Entities\Order;
 
 if (!function_exists('flatten')) {
     function flatten(array $array) {
@@ -65,5 +66,22 @@ if (!function_exists('generate_button_orderstatus')) {
             return '<button class="btn btn-danger btn-delete w100" data-toggle="modal" data-target="#modal-order-delete" data-id="'.$order_id.'"><i class="fa fa-trash"></i> '.$btnname.'</button>';
         }
         return '<button class="btn btn-'.$label.' btn-update w100" data-toggle="modal" data-target="#modal-order-update" data-id="'.$order_id.'" data-status="'.$sts.'"><i class="fa fa-'.$icon.'"></i> '.$btnname.'</button> <button class="btn btn-default btn-update" data-toggle="modal" data-target="#modal-order-update" data-id="'.$order_id.'" data-status="5"><i class="fa fa-ban"></i> Cancel</button>';
+    }
+}
+
+if (!function_exists('check_can_edit_by_orderid')) {
+    function check_can_edit_by_orderid($order_id) {
+        $status = optional(Order::find($order_id))->status;
+        switch ($status) {
+            case OrderStatus::APPROVED:
+            case OrderStatus::SHIPPING:
+            case OrderStatus::CANCELLED:
+            case OrderStatus::COMPLETED:
+                return false;
+            case OrderStatus::PENDING:
+                return true;
+            default: 
+                return false;
+        }
     }
 }
