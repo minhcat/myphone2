@@ -28,5 +28,6 @@ Route::prefix('admin')->group(function() {
 
         Route::get('/', [CartController::class, 'index'])->name('index');
         Route::get('/{id}', [CartController::class, 'show'])->name('show');
+        Route::post('/{id}', [CartController::class, 'order'])->name('order');
     });
 });

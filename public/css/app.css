@@ -125,3 +125,43 @@ table.table-fix tr td{
 .w100 {
     width: 100px !important;
 }
+
+.modal-add-order .modal-content .modal-body .input-group {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background-color: #f4f4f4;
+}
+
+.modal-add-order .modal-content .modal-body .input-group .input-group-btn button {
+    border: none;
+    background-color: unset;
+}
+
+.modal-add-order .modal-content .modal-body .input-group .input-group-btn button:focus-visible,
+.modal-add-order .modal-content .modal-body .input-group .input-group-btn button:focus {
+    outline: 0;
+}
+
+.modal-add-order .modal-content .modal-body .input-group .input-group-btn button:active {
+    box-shadow: none;
+}
+
+.modal-add-order .modal-content .modal-body .input-group input {
+    border: none;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-radius: 0;
+}
+
+.modal-add-order .modal-content .modal-body .input-group .input-group-btn.group-product button {
+    width: 450px;
+    text-align: left;
+}
+
+.modal-add-order .modal-content .modal-body .products.products-add .input-group .input-group-btn button i.fa.fa-plus{
+    display: none;
+}
+
+.modal-add-order .modal-content .modal-body .products.products-minus .input-group .input-group-btn button i.fa.fa-minus{
+    display: none;
+}

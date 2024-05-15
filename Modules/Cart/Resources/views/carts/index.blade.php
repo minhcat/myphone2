@@ -46,7 +46,7 @@
                                 <th>Detail</th>
                                 <th>Quantity</th>
                                 <th>Total</th>
-                                <th style="width: 100px">Add Order</th>
+                                <th style="width: 100px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -65,7 +65,7 @@
                                     <td>{{ $cart->quantity }}</td>
                                     <td>{{ $cart->total }}</td>
                                     <td>
-                                        <button class="btn btn-success"><i class="fa fa-plus"></i></button>
+                                        <button class="btn btn-success" data-toggle="modal" data-target="#modal-add-order-{{ $cart->id }}"><i class="fa fa-shopping-cart"></i> Order</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -83,6 +83,11 @@
         </div>
     </div>
 </div>
+
+@foreach($carts as $cart)
+    @include('cart::carts.layouts.modal', $cart)
+@endforeach
+
 @endsection
 
 @push('script')
@@ -95,6 +100,49 @@
                 window.location.href = url;
             }
         })
+        $('.modal-add-order').on('click', '.products-minus .btn-add', function() {
+            let id = $(this).data('id');
+            let $modal = $('#modal-add-order-' + id);
+            let product_html = $(this).parent().parent();
+            $modal.find('.products-add').append(product_html);
+
+            let product_price = parseInt($(this).data('price'));
+            let product_quantity = parseInt($(this).parents('.input-group').find('input').val());
+            let total_quantity = parseInt($modal.find('span.quantity').data('quantity') ?? 0);
+            let total_price = parseInt($modal.find('span.total').data('total') ?? 0);
+
+            total_quantity += product_quantity
+            total_price += (product_price * product_quantity)
+
+            $modal.find('span.quantity').text(total_quantity)
+            $modal.find('span.quantity').data('quantity', total_quantity)
+            $modal.find('span.total').text(number_format(total_price))
+            $modal.find('span.total').data('total', total_price)
+        });
+        $('.modal-add-order').on('click', '.products-add .btn-add', function() {
+            let id = $(this).data('id');
+            let $modal = $('#modal-add-order-' + id);
+            let product_html = $(this).parent().parent();
+            $modal.find('.products-minus').append(product_html);
+
+            let product_price = parseInt($(this).data('price'));
+            let product_quantity = parseInt($(this).parents('.input-group').find('input').val());
+            let total_quantity = parseInt($modal.find('span.quantity').data('quantity') ?? 0);
+            let total_price = parseInt($modal.find('span.total').data('total') ?? 0);
+
+            total_quantity -= product_quantity
+            total_price -= (product_price * product_quantity)
+
+            $modal.find('span.quantity').text(total_quantity)
+            $modal.find('span.quantity').data('quantity', total_quantity)
+            $modal.find('span.total').text(number_format(total_price))
+            $modal.find('span.total').data('total', total_price)
+        });
+
+        $('.modal-add-order .modal-footer .btn-primary').click(function() {
+            let id = $(this).data('id');
+            $('#modal-add-order-' + id + ' .modal-body form').submit()
+        });
     })
 </script>
 @endpush

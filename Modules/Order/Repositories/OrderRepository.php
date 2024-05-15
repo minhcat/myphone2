@@ -13,4 +13,22 @@ class OrderRepository extends AbstractRepository
     {
         return new Order();
     }
+
+    public function create($data, $more = [])
+    {
+        return parent::create($data, $more);
+    }
+
+    public function convertDataCreate($data, $more = [])
+    {
+        if (!isset($data['code'])) {
+            do {
+                $code = rand(1000, 9999);
+                $order = $this->model->where('code', '#'.$code)->first();
+            } while ($order !== null);
+            $data['code'] = '#'.$code;
+        }
+
+        return parent::convertDataCreate($data, $more);
+    }
 }

@@ -189,6 +189,36 @@
   margin: 25px !important;
 }
 
+.mx-1 {
+  margin-top: 2.5px !important;
+  margin-bottom: 2.5px !important;
+}
+
+.mx-2 {
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+}
+
+.mx-3 {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+.mx-4 {
+  margin-top: 15px !important;
+  margin-bottom: 15px !important;
+}
+
+.mx-5 {
+  margin-top: 20px !important;
+  margin-bottom: 20px !important;
+}
+
+.mx-6 {
+  margin-top: 25px !important;
+  margin-bottom: 25px !important;
+}
+
 .mb-0 {
   margin-bottom: 0 !important;
 }
