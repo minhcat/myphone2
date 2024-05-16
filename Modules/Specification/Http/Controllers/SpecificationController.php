@@ -31,7 +31,7 @@ class SpecificationController extends Controller
         $search = $request->input('search');
         $specifications = $this->specificationRepository->paginate($search);
 
-        return view('specification::specifications.index', compact('specifications'));
+        return view('specification::specification.index', compact('specifications'));
     }
 
     /**
@@ -46,7 +46,7 @@ class SpecificationController extends Controller
             'title'     => 'Create'
         ];
 
-        return view('specification::specifications.create', compact('form'));
+        return view('specification::specification.create', compact('form'));
     }
 
     /**
@@ -74,7 +74,7 @@ class SpecificationController extends Controller
     {
         $specification = $this->specificationRepository->find($id);
 
-        return view('specification::specifications.detail', compact('specification'));
+        return view('specification::specification.detail', compact('specification'));
     }
 
     /**
@@ -92,7 +92,7 @@ class SpecificationController extends Controller
 
         $specification = $this->specificationRepository->find($id);
 
-        return view('specification::specifications.edit', compact('form', 'specification'));
+        return view('specification::specification.edit', compact('form', 'specification'));
     }
 
     /**

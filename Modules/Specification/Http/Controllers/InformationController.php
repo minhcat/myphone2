@@ -31,7 +31,7 @@ class InformationController extends Controller
         $search = $request->input('search');
         $informations = $this->informationRepository->paginateBySpecificationId($specification_id, $search);
 
-        return view('specification::informations.index', compact('informations', 'specification_id'));
+        return view('specification::information.index', compact('informations', 'specification_id'));
     }
 
     /**
@@ -46,7 +46,7 @@ class InformationController extends Controller
             'method'    => 'POST',
         ];
 
-        return view('specification::informations.create', compact('form', 'specification_id'));
+        return view('specification::information.create', compact('form', 'specification_id'));
     }
 
     /**
@@ -74,7 +74,7 @@ class InformationController extends Controller
     {
         $information = $this->informationRepository->find($id);
 
-        return view('specification::informations.detail', compact('information', 'specification_id'));
+        return view('specification::information.detail', compact('information', 'specification_id'));
     }
 
     /**
@@ -92,7 +92,7 @@ class InformationController extends Controller
 
         $information = $this->informationRepository->find($id);
 
-        return view('specification::informations.edit', compact('form', 'information', 'specification_id'));
+        return view('specification::information.edit', compact('form', 'information', 'specification_id'));
     }
 
     /**

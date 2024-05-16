@@ -1,4 +1,4 @@
-@extends('specification::informations.layouts.master')
+@extends('specification::information.layouts.master')
 
 @section('title-page', 'Informations')
 
@@ -81,7 +81,7 @@
     </div>
 </div>
 
-@include('specification::informations.layouts.modal', [
+@include('specification::information.layouts.modal', [
     'modal'             => [
         'id'            => 'modal-information-delete',
         'title'         => 'Delete Specification',
@@ -118,7 +118,6 @@
             let id = $(this).data('id');
             let url = url_delete.replace(':id', id)
             $('#modal-information-delete form').attr('action', url);
-            console.log(url)    // todo: remove
         })
         $('#modal-information-delete').on('hide.bs.modal', function() {
             $('#modal-information-delete form').attr('action', url_delete);
