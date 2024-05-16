@@ -47,7 +47,7 @@ class CartController extends Controller
         $search = $request->input('search');
         $carts  = $this->cartRepository->paginate($search);
 
-        return view('cart::carts.index', compact('carts'));
+        return view('cart::cart.index', compact('carts'));
     }
 
     /**
@@ -59,7 +59,7 @@ class CartController extends Controller
     {
         $cart = $this->cartRepository->find($id);
 
-        return view('cart::carts.detail', compact('cart'));
+        return view('cart::cart.detail', compact('cart'));
     }
 
     /**

@@ -1,4 +1,4 @@
-@extends('cart::details.layouts.master')
+@extends('cart::detail.layouts.master')
 
 @section('title-page', 'Details')
 
@@ -16,5 +16,5 @@
 @endsection
 
 @section('content')
-    @include('cart::details.layouts.form')
+    @include('cart::detail.layouts.form')
 @endsection

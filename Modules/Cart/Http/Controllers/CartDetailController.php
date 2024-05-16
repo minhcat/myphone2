@@ -31,12 +31,11 @@ class CartDetailController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index(Request $request, $cart_id)
+    public function index($cart_id)
     {
-        $search = $request->input('search');
-        $details = $this->cartDetailRepository->paginateByCartId($cart_id, $search);
+        $details = $this->cartDetailRepository->paginateByCartId($cart_id);
 
-        return view('cart::details.index', compact('details', 'cart_id'));
+        return view('cart::detail.index', compact('details', 'cart_id'));
     }
 
     /**
@@ -52,7 +51,7 @@ class CartDetailController extends Controller
             'method'    => 'POST',
         ];
 
-        return view('cart::details.create', compact('products', 'form', 'cart_id'));
+        return view('cart::detail.create', compact('products', 'form', 'cart_id'));
     }
 
     /**
@@ -98,7 +97,7 @@ class CartDetailController extends Controller
         ];
         $detail = $this->cartDetailRepository->find($id);
 
-        return view('cart::details.edit', compact('form', 'products', 'detail', 'cart_id'));
+        return view('cart::detail.edit', compact('form', 'products', 'detail', 'cart_id'));
     }
 
     /**

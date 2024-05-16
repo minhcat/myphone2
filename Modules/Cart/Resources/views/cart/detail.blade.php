@@ -1,4 +1,4 @@
-@extends('cart::carts.layouts.master')
+@extends('cart::cart.layouts.master')
 
 @section('title-page', 'Carts')
 

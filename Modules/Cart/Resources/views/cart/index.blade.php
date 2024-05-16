@@ -1,4 +1,4 @@
-@extends('cart::carts.layouts.master')
+@extends('cart::cart.layouts.master')
 
 @section('title-page', 'Carts')
 
@@ -85,7 +85,7 @@
 </div>
 
 @foreach($carts as $cart)
-    @include('cart::carts.layouts.modal', $cart)
+    @include('cart::cart.layouts.modal', $cart)
 @endforeach
 
 @endsection

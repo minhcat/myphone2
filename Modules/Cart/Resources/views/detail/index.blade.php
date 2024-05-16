@@ -1,4 +1,4 @@
-@extends('cart::carts.layouts.master')
+@extends('cart::cart.layouts.master')
 
 @section('title-page', 'Cart Detail')
 
@@ -65,7 +65,7 @@
     </div>
 </div>
 
-@include('cart::details.layouts.modal', [
+@include('cart::detail.layouts.modal', [
     'modal'             => [
         'id'            => 'modal-cart-detail-delete',
         'title'         => 'Delete Cart Detail',
