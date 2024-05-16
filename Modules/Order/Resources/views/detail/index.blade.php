@@ -50,8 +50,8 @@
                                     <td></td>
                                     @endif
                                     <td>{{ $detail->quantity }}</td>
-                                    <td>{{ $detail->price }}</td>
-                                    <td>{{ $detail->price * $detail->quantity }}</td>
+                                    <td>{{ number_format($detail->price) }}</td>
+                                    <td>{{ number_format($detail->price * $detail->quantity) }}</td>
                                     @if (check_can_edit_by_orderid($order_id))
                                     <td>
                                         <a class="btn btn-icon btn-primary" href="{{ route('order.detail.edit', ['order_id' => $order_id, 'id' => $detail->id]) }}"><i class="fa fa-edit"></i></a>
