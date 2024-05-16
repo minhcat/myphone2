@@ -32,7 +32,7 @@ class OptionController extends Controller
         $search = $request->input('search');
         $options = $this->optionRepository->paginateByAttributeId($attribute_id, $search);
 
-        return view('attribute::options.index', compact('options', 'attribute_id'));
+        return view('attribute::option.index', compact('options', 'attribute_id'));
     }
 
     /**
@@ -47,7 +47,7 @@ class OptionController extends Controller
             'method'    => 'POST',
         ];
 
-        return view('attribute::options.create', compact('form', 'attribute_id'));
+        return view('attribute::option.create', compact('form', 'attribute_id'));
     }
 
     /**
@@ -75,7 +75,7 @@ class OptionController extends Controller
     {
         $option = $this->optionRepository->find($id);
 
-        return view('attribute::options.detail', compact('option', 'attribute_id'));
+        return view('attribute::option.detail', compact('option', 'attribute_id'));
     }
 
     /**
@@ -93,7 +93,7 @@ class OptionController extends Controller
 
         $option = $this->optionRepository->find($id);
 
-        return view('attribute::options.edit', compact('form', 'option', 'attribute_id'));
+        return view('attribute::option.edit', compact('form', 'option', 'attribute_id'));
     }
 
     /**

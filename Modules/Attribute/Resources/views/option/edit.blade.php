@@ -1,9 +1,9 @@
-@extends('attribute::options.layouts.master')
+@extends('attribute::option.layouts.master')
 
 @section('title-page', 'Options')
 
 @section('small-info')
-<small>Add Options</small>
+<small>Edit Options</small>
 @endsection
 
 @section('breakcumb')
@@ -11,10 +11,10 @@
     <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
     <li><a href="#">Attribute</a></li>
     <li><a href="#">Option</a></li>
-    <li class="active">Create</li>
+    <li class="active">Edit</li>
 </ol>
 @endsection
 
 @section('content')
-    @include('attribute::options.layouts.form')
+    @include('attribute::option.layouts.form')
 @endsection

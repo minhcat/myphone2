@@ -1,4 +1,4 @@
-@extends('attribute::options.layouts.master')
+@extends('attribute::option.layouts.master')
 
 @section('title-page', 'Option')
 
@@ -78,7 +78,7 @@
     </div>
 </div>
 
-@include('attribute::options.layouts.modal', [
+@include('attribute::option.layouts.modal', [
     'modal'             => [
         'id'            => 'modal-option-delete',
         'title'         => 'Delete Option',

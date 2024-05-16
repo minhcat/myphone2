@@ -37,7 +37,7 @@ class AttributeController extends Controller
         $search = $request->input('search');
         $attributes = $this->attributeRepository->paginate($search);
 
-        return view('attribute::attributes.index', compact('attributes'));
+        return view('attribute::attribute.index', compact('attributes'));
     }
 
     /**
@@ -52,7 +52,7 @@ class AttributeController extends Controller
             'method'    => 'POST',
         ];
 
-        return view('attribute::attributes.create', compact('form'));
+        return view('attribute::attribute.create', compact('form'));
     }
 
     /**
@@ -80,7 +80,7 @@ class AttributeController extends Controller
     {
         $attribute = $this->attributeRepository->find($id);
 
-        return view('attribute::attributes.detail', compact('attribute'));
+        return view('attribute::attribute.detail', compact('attribute'));
     }
 
     /**
@@ -98,7 +98,7 @@ class AttributeController extends Controller
 
         $attribute = $this->attributeRepository->find($id);
 
-        return view('attribute::attributes.edit', compact('form', 'attribute'));
+        return view('attribute::attribute.edit', compact('form', 'attribute'));
     }
 
     /**

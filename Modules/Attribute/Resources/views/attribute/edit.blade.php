@@ -1,4 +1,4 @@
-@extends('attribute::attributes.layouts.master')
+@extends('attribute::attribute.layouts.master')
 
 @section('title-page', 'Attributes')
 
@@ -15,5 +15,5 @@
 @endsection
 
 @section('content')
-    @include('attribute::attributes.layouts.form')
+    @include('attribute::attribute.layouts.form')
 @endsection
