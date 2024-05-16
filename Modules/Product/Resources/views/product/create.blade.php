@@ -1,4 +1,4 @@
-@extends('product::products.layouts.master')
+@extends('product::product.layouts.master')
 
 @section('title-page', 'Products')
 
@@ -19,5 +19,5 @@
 @endsection
 
 @section('content')
-    @include('product::products.layouts.form')
+    @include('product::product.layouts.form')
 @endsection

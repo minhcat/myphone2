@@ -1,4 +1,4 @@
-@extends('product::products.layouts.master')
+@extends('product::product.layouts.master')
 
 @section('title-page', 'Products')
 
@@ -98,7 +98,7 @@
     </div>
 </div>
 
-@include('product::products.layouts.modal', [
+@include('product::product.layouts.modal', [
     'modal'             => [
         'id'            => 'modal-product-delete',
         'title'         => 'Delete Product',
@@ -132,7 +132,6 @@
             let id = $(this).data('id');
             let url = url_delete.replace(':id', id)
             $('#modal-product-delete form').attr('action', url);
-            console.log(url)    // todo: remove
         })
         $('#modal-product-delete').on('hide.bs.modal', function() {
             $('#modal-product-delete form').attr('action', url_delete);

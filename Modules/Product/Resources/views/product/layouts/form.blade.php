@@ -74,7 +74,7 @@
                     <p class="mb-3 hidden">Check product categories</p>
                     <div class="box-content">
                         <ul class="form-group">
-                            @include('product::products.layouts.nestable', ['items' => $categories, 'checked_list' => $product->categories->pluck('id')->toArray()])
+                            @include('product::product.layouts.nestable', ['items' => $categories, 'checked_list' => $product->categories->pluck('id')->toArray()])
                         </ul>
                     </div>
                 </div>
@@ -121,7 +121,6 @@
                 tags.push($(this).data('id'))
                 $('#tags').val(JSON.stringify(tags))
             }
-            console.log($('#tags').val())
         })
     })
 </script>

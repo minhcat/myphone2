@@ -41,7 +41,7 @@ class DetailController extends Controller
         $specifications = $this->specificationRepository->all();
         $details = $this->detailRepository->findByProductId($product_id);
 
-        return view('product::details.index', compact('specifications', 'details', 'product_id'));
+        return view('product::detail.index', compact('specifications', 'details', 'product_id'));
     }
 
     /**
@@ -60,7 +60,7 @@ class DetailController extends Controller
         $details = $this->detailRepository->findByProductId($product_id);
         $specifications = $this->specificationRepository->all();
 
-        return view('product::details.edit', compact('details', 'specifications', 'product_name', 'form'));
+        return view('product::detail.edit', compact('details', 'specifications', 'product_name', 'form'));
     }
 
     /**

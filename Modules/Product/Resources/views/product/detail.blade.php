@@ -1,4 +1,4 @@
-@extends('product::products.layouts.master')
+@extends('product::product.layouts.master')
 
 @section('title-page', 'Products')
 

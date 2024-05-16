@@ -46,7 +46,7 @@ class ProductController extends Controller
         $search   = $request->input('search');
         $products = $this->productRepository->paginate($search);
 
-        return view('product::products.index', compact('products'));
+        return view('product::product.index', compact('products'));
     }
 
     /**
@@ -65,7 +65,7 @@ class ProductController extends Controller
             'method'    => 'POST',
         ];
 
-        return view('product::products.create', compact('categories', 'tags', 'brands', 'form'));
+        return view('product::product.create', compact('categories', 'tags', 'brands', 'form'));
     }
 
     /**
@@ -94,7 +94,7 @@ class ProductController extends Controller
     {
         $product = $this->productRepository->find($id);
 
-        return view('product::products.detail', compact('product'));
+        return view('product::product.detail', compact('product'));
     }
 
     /**
@@ -116,7 +116,7 @@ class ProductController extends Controller
 
         $product = $this->productRepository->find($id);
 
-        return view('product::products.edit', compact('form', 'product', 'categories', 'tags', 'brands'));
+        return view('product::product.edit', compact('form', 'product', 'categories', 'tags', 'brands'));
     }
 
     /**

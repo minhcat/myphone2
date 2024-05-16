@@ -43,7 +43,7 @@ class VariationController extends Controller
         $product_name = $product->name ?: '';
         $attributes = $this->attributeRepository->all();
 
-        return view('product::variations.index', compact('variations', 'attributes', 'product_id', 'product_name'));
+        return view('product::variation.index', compact('variations', 'attributes', 'product_id', 'product_name'));
     }
 
     /**
@@ -61,7 +61,7 @@ class VariationController extends Controller
         $attributes = $this->attributeRepository->all();
 
 
-        return view('product::variations.create', compact('form', 'product_id', 'attributes'));
+        return view('product::variation.create', compact('form', 'product_id', 'attributes'));
     }
 
     /**
@@ -92,7 +92,7 @@ class VariationController extends Controller
 
         $attributes = $this->attributeRepository->all();
 
-        return view('product::variations.detail', compact('variation', 'attributes', 'product_id'));
+        return view('product::variation.detail', compact('variation', 'attributes', 'product_id'));
     }
 
     /**
@@ -110,7 +110,7 @@ class VariationController extends Controller
         $variation = $this->variationRepository->find($id);
         $attributes = $this->attributeRepository->all();
 
-        return view('product::variations.edit', compact('form', 'variation', 'attributes', 'product_id'));
+        return view('product::variation.edit', compact('form', 'variation', 'attributes', 'product_id'));
     }
 
     /**

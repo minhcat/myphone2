@@ -5,7 +5,7 @@
         </label>
         @if ($item->children()->exists())
             <ul class="form-group list-child">
-                @include('product::products.layouts.nestable', ['items' => $item->children])
+                @include('product::product.layouts.nestable', ['items' => $item->children])
             </ul>
         @endif
     </li>
