@@ -20,7 +20,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('specification.create') }}" class="btn btn-primary pull-right">New Specification</a>
+                <a href="{{ route('specification.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -45,7 +45,7 @@
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 <th>List</th>
-                                <th style="width: 100px">Action</th>
+                                <th style="width: 175px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,8 +62,8 @@
                                     <td>{{ $specification->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td><a href="{{ route('specification.information.index', $specification->id) }}">info</a></td>
                                     <td>
-                                        <a class="btn btn-icon btn-primary" href="{{ route('specification.edit', $specification->id) }}"><i class="fa fa-edit"></i></a>
-                                        <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-specification-delete" data-id="{{ $specification->id }}"><i class="fa fa-trash"></i></button>
+                                        <a class="btn btn-primary" href="{{ route('specification.edit', $specification->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-specification-delete" data-id="{{ $specification->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
                             @endforeach

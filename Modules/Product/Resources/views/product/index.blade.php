@@ -20,7 +20,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('product.create') }}" class="btn btn-primary pull-right">New Product</a>
+                <a href="{{ route('product.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -45,11 +45,9 @@
                                 <th>Category</th>
                                 <th>Price</th>
                                 <th>Author</th>
-                                {{-- <th>Created At</th> --}}
-                                {{-- <th>Updated At</th> --}}
                                 <th>Variation</th>
                                 <th>Detail</th>
-                                <th>Action</th>
+                                <th style="width: 175px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -73,13 +71,11 @@
                                     @else
                                     <td></td>
                                     @endif
-                                    {{-- <td>{{ $product->created_at->format('H:i:s d/m/Y') }}</td> --}}
-                                    {{-- <td>{{ $product->updated_at->format('H:i:s d/m/Y') }}</td> --}}
                                     <td><a href="{{ route('product.variation.index', $product->id) }}">list</a></td>
                                     <td><a href="{{ route('product.detail.index', $product->id) }}">view</a></td>
                                     <td>
-                                        <a class="btn btn-icon btn-primary" href="{{ route('product.edit', $product->id) }}"><i class="fa fa-edit"></i></a>
-                                        <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-product-delete" data-id="{{ $product->id }}"><i class="fa fa-trash"></i></button>
+                                        <a class="btn btn-primary" href="{{ route('product.edit', $product->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-product-delete" data-id="{{ $product->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
                             @endforeach

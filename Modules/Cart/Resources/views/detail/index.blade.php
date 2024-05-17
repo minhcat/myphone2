@@ -21,7 +21,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('cart.detail.create', $cart_id) }}" class="btn btn-primary pull-right">New Detail</a>
+                <a href="{{ route('cart.detail.create', $cart_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
             </div>
             <div class="box-body">
                 <div class="table-body">
@@ -33,7 +33,7 @@
                                 <th>Quantity</th>
                                 <th>Price</th>
                                 <th>Total</th>
-                                <th style="width: 100px">Action</th>
+                                <th style="width: 175px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -45,8 +45,8 @@
                                     <td>{{ $detail->price }}</td>
                                     <td>{{ $detail->price * $detail->quantity }}</td>
                                     <td>
-                                        <a class="btn btn-icon btn-primary" href="{{ route('cart.detail.edit', ['cart_id' => $cart_id, 'id' => $detail->id]) }}"><i class="fa fa-edit"></i></a>
-                                        <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-cart-detail-delete" data-id="{{ $detail->id }}"><i class="fa fa-trash"></i></button>
+                                        <a class="btn btn-primary" href="{{ route('cart.detail.edit', ['cart_id' => $cart_id, 'id' => $detail->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-cart-detail-delete" data-id="{{ $detail->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
                             @endforeach

@@ -20,7 +20,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('user.create') }}" class="btn btn-primary pull-right">New User</a>
+                <a href="{{ route('user.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -47,7 +47,7 @@
                                 <th>Email</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th>Action</th>
+                                <th style="width: 175px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,8 +62,8 @@
                                     <td>{{ $user->created_at->format('d-m-Y') }}</td>
                                     <td>{{ $user->updated_at->format('d-m-Y') }}</td>
                                     <td>
-                                        <a class="btn btn-icon btn-primary" href="{{ route('user.edit', $user->id) }}"><i class="fa fa-edit"></i></a>
-                                        <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-user-delete" data-id="{{ $user->id }}"><i class="fa fa-trash"></i></button>
+                                        <a class="btn btn-primary" href="{{ route('user.edit', $user->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-user-delete" data-id="{{ $user->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
                             @endforeach

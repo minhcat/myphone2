@@ -21,7 +21,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('specification.information.create', $specification_id) }}" class="btn btn-primary pull-right">New Information</a>
+                <a href="{{ route('specification.information.create', $specification_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -45,7 +45,7 @@
                                 <th>Author</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th style="width: 100px">Action</th>
+                                <th style="width: 175px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,8 +61,8 @@
                                     <td>{{ $information->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $information->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>
-                                        <a class="btn btn-icon btn-primary" href="{{ route('specification.information.edit', ['specification_id' => $specification_id, 'id' => $information->id]) }}"><i class="fa fa-edit"></i></a>
-                                        <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-information-delete" data-id="{{ $information->id }}"><i class="fa fa-trash"></i></button>
+                                        <a class="btn btn-primary" href="{{ route('specification.information.edit', ['specification_id' => $specification_id, 'id' => $information->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-information-delete" data-id="{{ $information->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
                             @endforeach

@@ -21,7 +21,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">{{ $product_name }}</div>
-                <a href="{{ route('product.variation.create', $product_id) }}" class="btn btn-primary pull-right">New Variation</a>
+                <a href="{{ route('product.variation.create', $product_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
                 <a href="{{ route('product.index') }}" class="btn btn-default pull-right mr-1">Back</a>
             </div>
             <div class="box-body">
@@ -35,7 +35,7 @@
                                 @foreach($attributes as $attribute)
                                     <th>{{ $attribute->name }}</th>
                                 @endforeach
-                                <th style="width: 100px">Action</th>
+                                <th style="width: 175px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,8 +54,8 @@
                                         </td>
                                     @endforeach
                                     <td>
-                                        <a class="btn btn-icon btn-primary" href="{{ route('product.variation.edit', ['product_id' => $product_id, 'id' => $variation->id]) }}"><i class="fa fa-edit"></i></a>
-                                        <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-variation-delete" data-id="{{ $variation->id }}"><i class="fa fa-trash"></i></button>
+                                        <a class="btn btn-primary" href="{{ route('product.variation.edit', ['product_id' => $product_id, 'id' => $variation->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-variation-delete" data-id="{{ $variation->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
                             @endforeach

@@ -21,8 +21,8 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('attribute.option.create', $attribute_id) }}" class="btn btn-primary pull-right">New Option</a>
-                <a href="{{ route('attribute.index') }}" class="btn btn-default pull-right mr-1">Back</a>
+                <a href="{{ route('attribute.option.create', $attribute_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                <a href="{{ route('attribute.index') }}" class="btn btn-default pull-right mr-1"><i class="fa fa-arrow-left"></i> Back</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -46,7 +46,7 @@
                                 <th>Author</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th>Action</th>
+                                <th style="width: 175px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,8 +58,8 @@
                                     <td>{{ $option->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $option->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>
-                                        <a class="btn btn-icon btn-primary" href="{{ route('attribute.option.edit', ['attribute_id' => $attribute_id, 'id' => $option->id]) }}"><i class="fa fa-edit"></i></a>
-                                        <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-option-delete" data-id="{{ $option->id }}"><i class="fa fa-trash"></i></button>
+                                        <a class="btn btn-primary" href="{{ route('attribute.option.edit', ['attribute_id' => $attribute_id, 'id' => $option->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-option-delete" data-id="{{ $option->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
                             @endforeach

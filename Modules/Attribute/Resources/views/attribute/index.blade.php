@@ -20,7 +20,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('attribute.create') }}" class="btn btn-primary pull-right">New Attribute</a>
+                <a href="{{ route('attribute.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -45,7 +45,7 @@
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 <th>List</th>
-                                <th>Action</th>
+                                <th style="width: 175px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,8 +58,8 @@
                                     <td>{{ $attribute->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td><a href="{{ route('attribute.option.index', $attribute->id) }}">options</a></td>
                                     <td>
-                                        <a class="btn btn-icon btn-primary" href="{{ route('attribute.edit', $attribute->id) }}"><i class="fa fa-edit"></i></a>
-                                        <button class="btn btn-icon btn-danger btn-delete" data-toggle="modal" data-target="#modal-attribute-delete" data-id="{{ $attribute->id }}"><i class="fa fa-trash"></i></button>
+                                        <a class="btn btn-primary" href="{{ route('attribute.edit', $attribute->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-attribute-delete" data-id="{{ $attribute->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
                             @endforeach
