@@ -5,35 +5,33 @@ namespace Modules\Invoice\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Invoice\Repositories\InvoiceRepository;
 
 class InvoiceController extends Controller
 {
+    /** @var \Modules\Invoice\Repositories\InvoiceRepository */
+    protected $invoiceRepository;
+
+    /**
+     * Create new Cart Controller instance.
+     */
+    public function __construct()
+    {
+        $this->invoiceRepository = new InvoiceRepository;
+
+        view()->share('menu', ['group' => 'invoice', 'active' => 'invoice']);
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('invoice::index');
-    }
+        $search = $request->input('search');
+        $invoices = $this->invoiceRepository->paginate($search);
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('invoice::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
+        return view('invoice::invoice.index', compact('invoices'));
     }
 
     /**
@@ -43,37 +41,8 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
-        return view('invoice::show');
-    }
+        $invoice = $this->invoiceRepository->find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('invoice::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        return view('invoice::invoice.detail', compact('invoice'));
     }
 }

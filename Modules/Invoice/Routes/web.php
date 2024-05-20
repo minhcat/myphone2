@@ -11,6 +11,12 @@
 |
 */
 
-Route::prefix('invoice')->group(function() {
-    Route::get('/', 'InvoiceController@index');
+use Illuminate\Support\Facades\Route;
+use Modules\Invoice\Http\Controllers\InvoiceController;
+
+Route::prefix('admin')->group(function() {
+    Route::prefix('invoices')->name('invoice.')->group(function() {
+        Route::get('/', [InvoiceController::class, 'index'])->name('index');
+        Route::get('/{id}', [InvoiceController::class, 'show'])->name('show');
+    });
 });

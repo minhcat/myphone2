@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->integer('user_id')->unsigned();
             $table->integer('address_id')->unsigned();
-            $table->integer('price')->unsigned();
+            $table->integer('total')->unsigned();
             $table->string('note')->default('');
             $table->timestamps();
         });
