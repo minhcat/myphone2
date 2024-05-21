@@ -56,9 +56,9 @@
                                     <td>@if (!is_null($invoice->user)) <a href="{{ route('user.show', $invoice->user->id) }}">{{ $invoice->user->fullname }}</a>@endif</td>
                                     <td>{{ $invoice->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $invoice->updated_at->format('H:i:s d/m/Y') }}</td>
-                                    <td><a href="">Detail</a></td>
-                                    <td>0</td>
-                                    <td>0</td>
+                                    <td><a href="{{ route('invoice.detail.index', $invoice->id) }}">Detail</a></td>
+                                    <td>{{ $invoice->quantity }}</td>
+                                    <td>{{ $invoice->total }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

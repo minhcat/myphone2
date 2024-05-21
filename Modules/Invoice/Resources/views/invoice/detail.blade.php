@@ -48,7 +48,7 @@
                             <p><strong>Quantity</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>0</p>
+                            <p>{{ $invoice->quantity }}</p>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                             <p><strong>Total</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>0</p>
+                            <p>{{ $invoice->total }}</p>
                         </div>
                     </div>
                 </div>
