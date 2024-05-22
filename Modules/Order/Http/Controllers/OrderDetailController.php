@@ -23,6 +23,8 @@ class OrderDetailController extends Controller
     {
         $this->orderDetailRepository = new OrderDetailRepository;
         $this->productRepository = new ProductRepository;
+
+        view()->share('menu', ['group' => 'invoice', 'active' => 'order']);
     }
 
     /**

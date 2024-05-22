@@ -12,14 +12,8 @@ class InvoiceDetailRepository extends AbstractRepository
         return new InvoiceDetail();
     }
 
-    public function paginateByInvoiceId($invoice_id, $search = null, $take = self::TAKE_DEFAULT, $field = null)
+    public function paginateByInvoiceId($invoice_id, $take = self::TAKE_DEFAULT)
     {
-        if (is_null($search)) {
-            return $this->model->where('invoice_id', $invoice_id)->paginate($take);
-        }
-        if (!is_null($field)) {
-            return $this->model->where('invoice_id', $invoice_id)->where($field, 'LIKE', "%$search%")->paginate($take);
-        }
-        return $this->model->where('invoice_id', $invoice_id)->where($this->searchFieldName, 'LIKE', "%$search%")->paginate($take);
+        return $this->model->where('invoice_id', $invoice_id)->paginate($take);
     }
 }

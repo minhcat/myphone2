@@ -12,15 +12,9 @@ class CartDetailRepository extends AbstractRepository
         return new CartDetail();
     }
 
-    public function paginateByCartId($cart_id, $search = null, $take = self::TAKE_DEFAULT, $field = null)
+    public function paginateByCartId($cart_id, $take = self::TAKE_DEFAULT)
     {
-        if (is_null($search)) {
-            return $this->model->where('cart_id', $cart_id)->paginate($take);
-        }
-        if (!is_null($field)) {
-            return $this->model->where('cart_id', $cart_id)->where($field, 'LIKE', "%$search%")->paginate($take);
-        }
-        return $this->model->where('cart_id', $cart_id)->where($this->searchFieldName, 'LIKE', "%$search%")->paginate($take);
+        return $this->model->where('cart_id', $cart_id)->paginate($take);
     }
 
     public function findWhere($where = [])
