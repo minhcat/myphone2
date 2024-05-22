@@ -48,7 +48,7 @@
                             <p><strong>Quantity</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>10</p>
+                            <p>{{ $cart->quantity }}</p>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                             <p><strong>Total</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>10,000,000</p>
+                            <p>{{ $cart->total }}</p>
                         </div>
                     </div>
                 </div>
