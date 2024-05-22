@@ -1,6 +1,2 @@
 make form login logout
 make factory user data
-remove without model in seeder
-update quantity, total order, cart
-remove search parameter in method paginate repository cart, order, invoice
-update user detail gender
