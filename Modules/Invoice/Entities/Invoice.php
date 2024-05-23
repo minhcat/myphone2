@@ -27,13 +27,7 @@ class Invoice extends Model
     {
         return Attribute::make(
             get: function (mixed $value, array $attributes) {
-                $cart = $this->find($attributes['id']);
-                $details = $cart->details;
-                $quantity = 0;
-                foreach ($details as $detail) {
-                    $quantity += $detail->quantity;
-                }
-                return $quantity;
+                return calc_quantity($this, $attributes);
             },
         );
     }
@@ -42,13 +36,7 @@ class Invoice extends Model
     {
         return Attribute::make(
             get: function (mixed $value, array $attributes) {
-                $cart = $this->find($attributes['id']);
-                $details = $cart->details;
-                $total = 0;
-                foreach ($details as $detail) {
-                    $total += $detail->quantity * $detail->price;
-                }
-                return number_format($total);
+                return calc_total($this, $attributes);
             },
         );
     }

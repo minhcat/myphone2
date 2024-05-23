@@ -12,6 +12,8 @@ class InvoiceDetail extends Model
 
     protected $fillable = ['invoice_id', 'product_id', 'price', 'quantity'];
 
+    public $timestamps = false;
+
     public function product()
     {
         return $this->belongsTo(Product::class);

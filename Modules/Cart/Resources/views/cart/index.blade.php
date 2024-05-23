@@ -63,7 +63,7 @@
                                     <td>{{ $cart->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td><a href="{{ route('cart.detail.index', $cart->id) }}">detail</a></td>
                                     <td>{{ $cart->quantity }}</td>
-                                    <td>{{ $cart->total }}</td>
+                                    <td>{{ number_format($cart->total) }}</td>
                                     <td>
                                         <button class="btn btn-success" data-toggle="modal" data-target="#modal-add-order-{{ $cart->id }}"><i class="fa fa-shopping-cart"></i> Order</button>
                                     </td>

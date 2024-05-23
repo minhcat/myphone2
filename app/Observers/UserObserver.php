@@ -27,10 +27,8 @@ class UserObserver
      */
     public function created(User $user)
     {
-        $code = rand(1000, 9999);
-        while (!is_null(Cart::where('code', '#'.$code)->first())) {
-            $code = rand(1000, 9999);
-        }
+        $code = generate_code(new Cart);
+
         $this->cartRepository->create([
             'code'      => '#'.$code ,
             'user_id'   => $user->id,

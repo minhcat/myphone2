@@ -58,7 +58,7 @@
                                     <td>{{ $invoice->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td><a href="{{ route('invoice.detail.index', $invoice->id) }}">Detail</a></td>
                                     <td>{{ $invoice->quantity }}</td>
-                                    <td>{{ $invoice->total }}</td>
+                                    <td>{{ number_format($invoice->total) }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

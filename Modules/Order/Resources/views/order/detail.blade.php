@@ -58,7 +58,7 @@
                             <p><strong>Total</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ $order->total }}</p>
+                            <p>{{ number_format($order->total) }}</p>
                         </div>
                     </div>
                 </div>

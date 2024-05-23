@@ -85,3 +85,38 @@ if (!function_exists('check_can_edit_by_orderid')) {
         }
     }
 }
+
+if (!function_exists('generate_code')) {
+    function generate_code($model) {
+        $code = rand(1000, 9999);
+        while (!is_null($model->where('code', '#'.$code)->first())) {
+            $code = rand(1000, 9999);
+        }
+
+        return $code;
+    }
+}
+
+if (!function_exists('calc_quantity')) {
+    function calc_quantity($that, $attributes) {
+        $cart = $that->find($attributes['id']);
+        $details = $cart->details;
+        $quantity = 0;
+        foreach ($details as $detail) {
+            $quantity += $detail->quantity;
+        }
+        return $quantity;
+    }
+}
+
+if (!function_exists('calc_total')) {
+    function calc_total($that, $attributes) {
+        $cart = $that->find($attributes['id']);
+        $details = $cart->details;
+        $total = 0;
+        foreach ($details as $detail) {
+            $total += $detail->quantity * $detail->price;
+        }
+        return $total;
+    }
+}

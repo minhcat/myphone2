@@ -64,7 +64,7 @@
                                     <td>{{ $order->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td><a href="{{ route('order.detail.index', $order->id) }}">detail</a></td>
                                     <td>{{ $order->quantity }}</td>
-                                    <td>{{ $order->total }}</td>
+                                    <td>{{ number_format($order->total) }}</td>
                                     <td>{!! generate_label_orderstatus($order->status) !!}</td>
                                     <td>
                                         {!! generate_button_orderstatus($order->status, $order->id) !!}

@@ -58,7 +58,7 @@
                             <p><strong>Total</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ $cart->total }}</p>
+                            <p>{{ number_format($cart->total) }}</p>
                         </div>
                     </div>
                 </div>
