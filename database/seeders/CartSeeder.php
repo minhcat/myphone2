@@ -52,6 +52,41 @@ class CartSeeder extends Seeder
                 'created_at'    => now()->format('Y-m-d H:i:s'),
                 'updated_at'    => now()->format('Y-m-d H:i:s'),
             ],
+            [
+                'code'          => '#5141',
+                'user_id'       => 6,
+                'note'          => '',
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'code'          => '#6971',
+                'user_id'       => 7,
+                'note'          => '',
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'code'          => '#8458',
+                'user_id'       => 8,
+                'note'          => '',
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'code'          => '#3061',
+                'user_id'       => 9,
+                'note'          => '',
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'code'          => '#9724',
+                'user_id'       => 10,
+                'note'          => '',
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s'),
+            ],
         ]);
 
         DB::table('cart_details')->truncate();

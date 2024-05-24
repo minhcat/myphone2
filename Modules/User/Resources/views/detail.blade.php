@@ -48,7 +48,7 @@
                             <p><strong>Gender</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ App\Enums\Gender::getDescription($user->gender) }}</p>
+                            <p>{{ App\Enums\Gender::getName($user->gender) }}</p>
                         </div>
                     </div>
                 </div>
