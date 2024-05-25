@@ -5,16 +5,34 @@ namespace Modules\Promotion\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Promotion\Repositories\PromotionRepository;
 
 class PromotionController extends Controller
 {
+    
+    /** @var \Modules\Promotion\Repositories\PromotionRepository */
+    protected $promotionRepository;
+
+    /**
+     * Create a new Product controller instance.
+     */
+    public function __construct()
+    {
+        $this->promotionRepository = new PromotionRepository();
+
+        view()->share('menu', ['group' => 'promotion', 'active' => 'promotion']);
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('promotion::index');
+        $search = $request->input('search');
+        $promotions = $this->promotionRepository->paginate($search);
+
+        return view('promotion::promotion.index', compact('promotions'));
     }
 
     /**

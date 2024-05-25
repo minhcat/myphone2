@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('status')->unsigned()->default(0);
             $table->integer('author_id')->unsigned()->default(0);
             $table->integer('condition_id')->unsigned()->default(0);
-            $table->integer('promotion_form_id')->unsigned()->default(0);
+            $table->integer('discount_form_id')->unsigned()->default(0);
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->timestamps();

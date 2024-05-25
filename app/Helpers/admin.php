@@ -27,9 +27,9 @@ if (!function_exists('get_messages')) {
     }
 }
 
-if (!function_exists('generate_label_orderstatus')) {
-    function generate_label_orderstatus($status) {
-        return '<span class="label label-'.OrderStatus::getLabel($status).'">'.OrderStatus::getName($status).'</span>';
+if (!function_exists('generate_label')) {
+    function generate_label($status, $class) {
+        return '<span class="label label-'.$class::getLabel($status).'">'.$class::getName($status).'</span>';
     }
 }
 

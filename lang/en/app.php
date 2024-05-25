@@ -35,12 +35,14 @@ return [
                 'raw'           => 'raw',
                 'pending'       => 'pending',
                 'approved'      => 'approved',
-                'end'           => 'danger'
+                'inprogress'    => 'inprogress',
+                'end'           => 'end'
             ],
             'label'             => [
                 'raw'           => 'default',
-                'pending'       => 'primary',
+                'pending'       => 'info',
                 'approved'      => 'success',
+                'inprogress'    => 'primary',
                 'end'           => 'danger',
             ],
         ],
