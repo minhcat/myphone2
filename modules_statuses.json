@@ -8,5 +8,6 @@
     "Tag": true,
     "Cart": true,
     "Order": true,
-    "Invoice": true
+    "Invoice": true,
+    "Promotion": true
 }
