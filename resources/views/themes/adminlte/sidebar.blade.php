@@ -66,10 +66,12 @@
           <i class="fa fa-angle-left pull-right"></i>
         </span>
       </a>
-      <ul class="treeview-menu">
-        <li><a href="#">Promotion</a></li>
-        <li><a href="#">Rebation</a></li>
-        <li><a href="#">Voucher</a></li>
+      <ul class="treeview-menu" {!! isset($menu['group']) && $menu['group'] == 'promotion' ? 'style="display: block"' : '' !!}>
+        <li class="{{ isset($menu['active']) && $menu['active'] == 'promotion' ? 'active' : '' }}"><a href="#">Promotion</a></li>
+        <li class="{{ isset($menu['active']) && $menu['active'] == 'rebation' ? 'active' : '' }}"><a href="#">Rebation</a></li>
+        <li class="{{ isset($menu['active']) && $menu['active'] == 'voucher' ? 'active' : '' }}"><a href="#">Voucher</a></li>
+        <li class="{{ isset($menu['active']) && $menu['active'] == 'condition' ? 'active' : '' }}"><a href="#">Condition</a></li>
+        <li class="{{ isset($menu['active']) && $menu['active'] == 'discount_form' ? 'active' : '' }}"><a href="#">Discount Form</a></li>
       </ul>
     </li>
     <li class="treeview">
@@ -80,6 +82,8 @@
       </a>
       <ul class="treeview-menu">
         <li><a href="#">Transporter</a></li>
+        <li><a href="#">Transport Fee</a></li>
+        <li><a href="#">Address</a></li>
         <li><a href="#">Area</a></li>
         <li><a href="#">City</a></li>
         <li><a href="#">County</a></li>
