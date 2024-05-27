@@ -21,8 +21,8 @@ return new class extends Migration
             $table->integer('author_id')->unsigned()->default(0);
             $table->integer('condition_id')->unsigned()->default(0);
             $table->integer('discount_form_id')->unsigned()->default(0);
-            $table->dateTime('start_date')->nullable();
-            $table->dateTime('end_date')->nullable();
+            $table->dateTime('start_datetime')->nullable();
+            $table->dateTime('end_datetime')->nullable();
             $table->timestamps();
         });
     }

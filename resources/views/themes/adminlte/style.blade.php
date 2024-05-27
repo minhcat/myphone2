@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="{{ asset('themes/adminlte/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
 <!-- bootstrap range datepicker -->
 <link rel="stylesheet" href="{{ asset('themes/adminlte/vendor/bootstrap-daterangepicker/daterangepicker.css') }}">
+<!-- bootstrap timepicker -->
+<link rel="stylesheet" href="{{ asset('themes/adminlte/plugins/timepicker/bootstrap-timepicker.css') }}">
 <!-- Select2 -->
 <link rel="stylesheet" href="{{ asset('themes/adminlte/vendor/select2/dist/css/select2.min.css') }}">
 <!-- Theme style -->

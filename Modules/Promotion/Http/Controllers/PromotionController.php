@@ -2,6 +2,7 @@
 
 namespace Modules\Promotion\Http\Controllers;
 
+use App\Enums\PromotionStatus;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -41,7 +42,13 @@ class PromotionController extends Controller
      */
     public function create()
     {
-        return view('promotion::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('promotion.store'),
+            'method'    => 'POST',
+        ];
+
+        return view('promotion::promotion.create', compact('form'));
     }
 
     /**
@@ -51,7 +58,13 @@ class PromotionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'      => 'required',
+        ]);
+
+        $this->promotionRepository->create($request->all(), ['status' => PromotionStatus::PENDING]);
+
+        return redirect()->route('promotion.index')->with('success', 'Create new promotion successfully');
     }
 
     /**
@@ -71,7 +84,15 @@ class PromotionController extends Controller
      */
     public function edit($id)
     {
-        return view('promotion::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('promotion.update', $id),
+            'method'    => 'PUT',
+        ];
+
+        $promotion = $this->promotionRepository->find($id);
+
+        return view('promotion::promotion.edit', compact('form', 'promotion'));
     }
 
     /**
@@ -82,7 +103,13 @@ class PromotionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'  => 'required'
+        ]);
+
+        $this->promotionRepository->update($id, $request->all());
+
+        return redirect()->route('promotion.index')->with('success', 'Update promotion successfully');
     }
 
     /**

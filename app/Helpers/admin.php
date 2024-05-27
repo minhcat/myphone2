@@ -120,3 +120,13 @@ if (!function_exists('calc_total')) {
         return $total;
     }
 }
+
+if (!function_exists('convert_stdtime')) {
+    function convert_stdtime(string $datetime, string $format) {
+        $array = date_parse_from_format($format, $datetime);
+        if ($array['hour']) {
+            return $array['hour'] . ':' . $array['minute'] . ':' . $array['second'] . ' ' . $array['year'] . '/' . $array['month'] . '/' . $array['day'];
+        }
+        return $array['year'] . '/' . $array['month'] . '/' . $array['day'];
+    }
+}

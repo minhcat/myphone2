@@ -109,7 +109,7 @@ class ProductController extends Controller
         $brands = $this->brandRepository->all();
 
         $form = [
-            'title'     => 'Create',
+            'title'     => 'Edit',
             'url'       => route('product.update', $id),
             'method'    => 'PUT',
         ];

@@ -30,6 +30,8 @@
 <script src="{{ asset('themes/adminlte/vendor/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
 <!-- datepicker -->
 <script src="{{ asset('themes/adminlte/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.js') }}"></script>
+<!-- timepicker -->
+<script src="{{ asset('themes/adminlte/plugins/timepicker/bootstrap-timepicker.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('themes/adminlte/dist/js/adminlte.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->

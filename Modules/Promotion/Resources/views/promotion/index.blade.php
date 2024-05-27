@@ -57,8 +57,8 @@
                                     <td><a href="{{ route('promotion.show', $promotion->id) }}">{{ $promotion->name }}</a></td>
                                     <td><a href="">Invoice Total</a></td>
                                     <td><a href="">Discount Invoice Amount</a></td>
-                                    <td>{{ $promotion->start_date->format('H:i:s d/m/Y') }}</td>
-                                    <td>{{ $promotion->end_date->format('H:i:s d/m/Y') }}</td>
+                                    <td>{{ $promotion->start_datetime->format('H:i:s d/m/Y') }}</td>
+                                    <td>{{ $promotion->end_datetime->format('H:i:s d/m/Y') }}</td>
                                     <td>{!! generate_label($promotion->status, new App\Enums\PromotionStatus) !!}</td>
                                     @if ($promotion->user)
                                     <td><a href="{{ route('user.show', $promotion->user->id) }}">{{ $promotion->user->fullname }}</a></td>
