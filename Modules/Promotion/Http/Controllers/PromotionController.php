@@ -74,7 +74,9 @@ class PromotionController extends Controller
      */
     public function show($id)
     {
-        return view('promotion::show');
+        $promotion = $this->promotionRepository->find($id);
+
+        return view('promotion::promotion.detail', compact('promotion'));
     }
 
     /**
@@ -119,6 +121,8 @@ class PromotionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->promotionRepository->delete($id);
+
+        return redirect()->route('promotion.index')->with('success', 'Delete promotion successfully');
     }
 }
