@@ -47,7 +47,7 @@
                                 <th>End Date</th>
                                 <th>Status</th>
                                 <th>Author</th>
-                                <th style="width: 256px">Action</th>
+                                <th style="width: 265px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -65,8 +65,8 @@
                                     @else
                                     <td></td>
                                     @endif
-                                    <td>
-                                        <button class="btn btn-success"><i class="fa fa-thumbs-up"></i> Approve</button>
+                                    <td style="text-align: right">
+                                        {!! generate_button_update_status($promotion->status, new  App\Enums\PromotionStatus, ['toggle' => 'modal', 'target' => '#modal-promotion-update', 'id' => $promotion->id, 'status' => App\Enums\PromotionStatus::getNextStatus($promotion->status)]) !!}
                                         <a class="btn btn-primary" href="{{ route('promotion.edit', $promotion->id) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-promotion-delete" data-id="{{ $promotion->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
@@ -104,6 +104,29 @@
         ],
     ]
 ])
+
+@include('promotion::promotion.layouts.modal', [
+    'modal'                 => [
+        'id'                => 'modal-promotion-update',
+        'title'             => 'Update Status Promotion',
+        'message'           => 'Are you sure to update status this promotion!',
+        'form'              => [
+            'url'           => route('promotion.update', ':id'),
+            'method'        => 'PUT',
+            'inputs'        => [
+                [
+                    'name'  => 'status',
+                    'value' => ':status'
+                ]
+            ]
+        ],
+        'buttons'           => [
+            'primary'       => [
+                'text'      => 'Update'
+            ]
+        ],
+    ]
+])
 @endsection
 
 @push('script')
@@ -116,6 +139,7 @@
                 window.location.href = url;
             }
         })
+
         let url_delete = $('#modal-promotion-delete form').attr('action');
         $('.btn-delete').click(function() {
             let id = $(this).data('id');
@@ -124,6 +148,18 @@
         })
         $('#modal-promotion-delete').on('hide.bs.modal', function() {
             $('#modal-promotion-delete form').attr('action', url_delete);
+        })
+
+        let url_update = $('#modal-promotion-update form').attr('action');
+        $('.btn-update').click(function() {
+            let id = $(this).data('id');
+            let url = url_update.replace(':id', id)
+            let status = $(this).data('status');
+            $('#modal-promotion-update form').attr('action', url);
+            $('#modal-promotion-update form input[name="status"]').val(status);
+        })
+        $('#modal-promotion-update').on('hide.bs.modal', function() {
+            $('#modalpromotionr-update form').attr('action', url_update);
         })
     })
 </script>

@@ -69,6 +69,23 @@ if (!function_exists('generate_button_orderstatus')) {
     }
 }
 
+if (!function_exists('generate_button_update_status')) {
+    function generate_button_update_status($status, $class, $data = []) {
+        $nextStatus = $class::getNextStatus($status);
+        $icon = $class::getIcon($nextStatus);
+        $label = $class::getLabel($nextStatus);
+        $action = $class::getAction($status);
+        $dataAttr = '';
+        foreach ($data as $name => $value) {
+            $dataAttr .= 'data-'.$name.'="'.$value.'" ';
+        }
+        if ($nextStatus !== null) {
+            return '<button class="btn btn-'.$label.' btn-update w100" '.$dataAttr.'><i class="'.$icon.'"></i> '.$action.'</button>';
+        }
+        return '';
+    }
+}
+
 if (!function_exists('check_can_edit_by_orderid')) {
     function check_can_edit_by_orderid($order_id) {
         $status = optional(Order::find($order_id))->status;

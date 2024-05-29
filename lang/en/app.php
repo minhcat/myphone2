@@ -45,6 +45,20 @@ return [
                 'inprogress'    => 'primary',
                 'end'           => 'danger',
             ],
+            'icon'              => [
+                'raw'           => 'fa fa-wrench',
+                'pending'       => 'fa fa-hourglass',
+                'approved'      => 'fa fa-thumbs-up',
+                'inprogress'    => 'fa fa-play',
+                'end'           => 'fa fa-stop',
+            ],
+            'action'            => [
+                'raw'           => null,
+                'pending'       => 'Approve',
+                'approved'      => null,
+                'inprogress'    => 'Stop',
+                'end'           => null,
+            ],
         ],
         'discount_target'       => [
             'name'              => [
