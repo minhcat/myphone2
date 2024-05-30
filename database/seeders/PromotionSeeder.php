@@ -86,26 +86,29 @@ class PromotionSeeder extends Seeder
 
         DB::table('conditions')->insert([
             [
-                'code'              => '1',
                 'name'              => 'Invoice Total',
-                'description'       => 'invoice total price is more than X',
+                'description'       => 'invoice total price is more than 300k',
                 'author_id'         => 1,
+                'value'             => 300000,
+                'handler'           => 1,
                 'created_at'        => now()->format('Y-m-d H:i:s'),
                 'updated_at'        => now()->format('Y-m-d H:i:s'),
             ],
             [
-                'code'              => '2',
                 'name'              => 'Products Sale',
                 'description'       => 'check list of sale products',
                 'author_id'         => 2,
+                'value'             => null,
+                'handler'           => 2,
                 'created_at'        => now()->format('Y-m-d H:i:s'),
                 'updated_at'        => now()->format('Y-m-d H:i:s'),
             ],
             [
-                'code'              => '3',
                 'name'              => 'Categories Sale',
                 'description'       => 'check list of sale categories',
                 'author_id'         => 3,
+                'value'             => null,
+                'handler'           => 3,
                 'created_at'        => now()->format('Y-m-d H:i:s'),
                 'updated_at'        => now()->format('Y-m-d H:i:s'),
             ],

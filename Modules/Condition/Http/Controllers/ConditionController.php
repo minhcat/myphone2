@@ -5,16 +5,33 @@ namespace Modules\Condition\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Condition\Repositories\ConditionRepository;
 
 class ConditionController extends Controller
 {
+    /** @var \Modules\Condition\Repositories\ConditionRepository */
+    protected $conditionRepository;
+
+    /**
+     * Create new Condition Controller instance.
+     */
+    public function __construct()
+    {
+        $this->conditionRepository = new ConditionRepository;
+
+        view()->share('menu', ['group' => 'promotion', 'active' => 'condition']);
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('condition::index');
+        $search = $request->input('search');
+        $conditions = $this->conditionRepository->paginate($search);
+
+        return view('condition::index', compact('conditions'));
     }
 
     /**

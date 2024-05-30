@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('conditions', function (Blueprint $table) {
+        Schema::create('abc', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('author_id')->unsigned()->default(0);
-            $table->text('description');
-            $table->integer('value')->unsigned()->nullable();
-            $table->integer('handler')->unsigned()->default(0);
             $table->timestamps();
         });
     }
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('conditions');
+        Schema::dropIfExists('abc');
     }
 };
