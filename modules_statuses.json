@@ -9,5 +9,6 @@
     "Cart": true,
     "Order": true,
     "Invoice": true,
-    "Promotion": true
+    "Promotion": true,
+    "Condition": true
 }
