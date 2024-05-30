@@ -40,7 +40,13 @@ class ConditionController extends Controller
      */
     public function create()
     {
-        return view('condition::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('condition.store'),
+            'method'    => 'POST',
+        ];
+
+        return view('condition::create', compact('form'));
     }
 
     /**
@@ -50,7 +56,13 @@ class ConditionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'  => 'required|unique:conditions'
+        ]);
+
+        $this->conditionRepository->create($request->all());
+
+        return redirect()->route('condition.index')->with('success', 'Create new condition successfully');
     }
 
     /**
@@ -70,7 +82,15 @@ class ConditionController extends Controller
      */
     public function edit($id)
     {
-        return view('condition::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('condition.update', $id),
+            'method'    => 'PUT',
+        ];
+
+        $condition = $this->conditionRepository->find($id);
+
+        return view('condition::edit', compact('form', 'condition'));
     }
 
     /**
@@ -81,7 +101,13 @@ class ConditionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'  => 'unique:categories,name,'.$id
+        ]);
+
+        $this->conditionRepository->update($id, $request->all());
+
+        return redirect()->route('condition.index')->with('success', 'Update condition successfully');
     }
 
     /**
