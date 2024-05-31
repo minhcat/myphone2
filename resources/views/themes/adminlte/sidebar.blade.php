@@ -37,7 +37,7 @@
         <li class="{{ isset($menu['active']) && $menu['active'] == 'brand' ? 'active' : '' }}"><a href="{{ route('brand.index') }}">Brand</a></li>
       </ul>
     </li>
-    <li class="treeview">
+    <li class="treeview {{ $menu['group'] == 'category' ? 'menu-open' : '' }}">
       <a href="#"><i class="fa fa-copy"></i> <span>Category</span>
         <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
@@ -48,7 +48,7 @@
         <li class="{{ isset($menu['active']) && $menu['active'] == 'tag' ? 'active' : '' }}"><a href="{{ route('tag.index') }}">Tag</a></li>
       </ul>
     </li>
-    <li class="treeview">
+    <li class="treeview {{ $menu['group'] == 'invoice' ? 'menu-open' : '' }}">
       <a href="#"><i class="fa fa-shopping-cart"></i> <span>Invoice</span>
         <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
@@ -60,7 +60,7 @@
         <li class="{{ isset($menu['active']) && $menu['active'] == 'invoice' ? 'active' : '' }}"><a href="{{ route('invoice.index') }}">Invoice</a></li>
       </ul>
     </li>
-    <li class="treeview">
+    <li class="treeview {{ $menu['group'] == 'promotion' ? 'menu-open' : '' }}">
       <a href="#"><i class="fa fa-bullhorn"></i> <span>Promotion</span>
         <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
