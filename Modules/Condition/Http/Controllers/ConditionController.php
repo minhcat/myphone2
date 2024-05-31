@@ -72,7 +72,9 @@ class ConditionController extends Controller
      */
     public function show($id)
     {
-        return view('condition::show');
+        $condition = $this->conditionRepository->find($id);
+
+        return view('condition::detail', compact('condition'));
     }
 
     /**
@@ -117,6 +119,8 @@ class ConditionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->conditionRepository->delete($id);
+
+        return redirect()->route('condition.index')->with('success', 'Delete condition successfully');
     }
 }
