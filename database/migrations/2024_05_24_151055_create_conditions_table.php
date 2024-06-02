@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->integer('author_id')->unsigned()->default(0);
             $table->text('description');
+            $table->integer('type')->unsigned()->default(0);
             $table->integer('value')->unsigned()->nullable();
-            $table->integer('handler')->unsigned()->default(0);
             $table->timestamps();
         });
     }

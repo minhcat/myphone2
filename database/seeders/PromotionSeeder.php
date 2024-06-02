@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ConditionTargetType;
+use App\Enums\ConditionType;
 use App\Enums\DiscountTarget;
 use App\Enums\DiscountType;
 use App\Enums\PromotionStatus;
@@ -86,11 +88,20 @@ class PromotionSeeder extends Seeder
 
         DB::table('conditions')->insert([
             [
+                'name'              => 'Invoice Quantity',
+                'description'       => 'invoice quantity price is more than 300k',
+                'author_id'         => 1,
+                'type'              => ConditionType::INVOICE_QUANTITY,
+                'value'             => 5,
+                'created_at'        => now()->format('Y-m-d H:i:s'),
+                'updated_at'        => now()->format('Y-m-d H:i:s'),
+            ],
+            [
                 'name'              => 'Invoice Total',
                 'description'       => 'invoice total price is more than 300k',
                 'author_id'         => 1,
+                'type'              => ConditionType::INVOICE_TOTAL,
                 'value'             => 300000,
-                'handler'           => 1,
                 'created_at'        => now()->format('Y-m-d H:i:s'),
                 'updated_at'        => now()->format('Y-m-d H:i:s'),
             ],
@@ -98,8 +109,17 @@ class PromotionSeeder extends Seeder
                 'name'              => 'Products Sale',
                 'description'       => 'check list of sale products',
                 'author_id'         => 2,
+                'type'              => ConditionType::PRODUCT,
                 'value'             => null,
-                'handler'           => 2,
+                'created_at'        => now()->format('Y-m-d H:i:s'),
+                'updated_at'        => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'name'              => 'Products Group Sale',
+                'description'       => 'check list of sale products group',
+                'author_id'         => 2,
+                'type'              => ConditionType::PRODUCT_GROUP,
+                'value'             => null,
                 'created_at'        => now()->format('Y-m-d H:i:s'),
                 'updated_at'        => now()->format('Y-m-d H:i:s'),
             ],
@@ -107,10 +127,51 @@ class PromotionSeeder extends Seeder
                 'name'              => 'Categories Sale',
                 'description'       => 'check list of sale categories',
                 'author_id'         => 3,
+                'type'              => ConditionType::CATEGORY,
                 'value'             => null,
-                'handler'           => 3,
                 'created_at'        => now()->format('Y-m-d H:i:s'),
                 'updated_at'        => now()->format('Y-m-d H:i:s'),
+            ],
+        ]);
+
+        DB::table('condition_targets')->truncate();
+
+        DB::table('condition_targets')->insert([
+            [
+                'condition_id'      => 3,
+                'parent_id'         => null,
+                'target_type'       => ConditionTargetType::PRODUCT,
+                'target_id'         => 1
+            ],
+            [
+                'condition_id'      => 3,
+                'parent_id'         => null,
+                'target_type'       => ConditionTargetType::PRODUCT,
+                'target_id'         => 2
+            ],
+            [
+                'condition_id'      => 4,
+                'parent_id'         => null,
+                'target_type'       => ConditionTargetType::PRODUCT_GROUP,
+                'target_id'         => null
+            ],
+            [
+                'condition_id'      => 4,
+                'parent_id'         => 3,
+                'target_type'       => ConditionTargetType::PRODUCT_GROUP,
+                'target_id'         => 3
+            ],
+            [
+                'condition_id'      => 4,
+                'parent_id'         => 3,
+                'target_type'       => ConditionTargetType::PRODUCT_GROUP,
+                'target_id'         => 4
+            ],
+            [
+                'condition_id'      => 5,
+                'parent_id'         => null,
+                'target_type'       => ConditionTargetType::CATEGORY,
+                'target_id'         => 11
             ],
         ]);
 
