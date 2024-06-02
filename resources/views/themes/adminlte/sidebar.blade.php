@@ -30,11 +30,11 @@
           <i class="fa fa-angle-left pull-right"></i>
         </span>
       </a>
-      <ul class="treeview-menu" {!! isset($menu['group']) && $menu['group'] == 'product' ? 'style="display: block"' : '' !!}>
-        <li class="{{ isset($menu['active']) && $menu['active'] == 'product' ? 'active' : '' }}"><a href="{{ route('product.index') }}">Product</a></li>
-        <li class="{{ isset($menu['active']) && $menu['active'] == 'attribute' ? 'active' : '' }}"><a href="{{ route('attribute.index') }}">Attribute</a></li>
-        <li class="{{ isset($menu['active']) && $menu['active'] == 'specification' ? 'active' : '' }}"><a href="{{ route('specification.index') }}">Specification</a></li>
-        <li class="{{ isset($menu['active']) && $menu['active'] == 'brand' ? 'active' : '' }}"><a href="{{ route('brand.index') }}">Brand</a></li>
+      <ul class="treeview-menu" {!! $menu['group'] == 'product' ? 'style="display: block"' : '' !!}>
+        <li class="{{ $menu['active'] == 'product' ? 'active' : '' }}"><a href="{{ route('product.index') }}">Product</a></li>
+        <li class="{{ $menu['active'] == 'attribute' ? 'active' : '' }}"><a href="{{ route('attribute.index') }}">Attribute</a></li>
+        <li class="{{ $menu['active'] == 'specification' ? 'active' : '' }}"><a href="{{ route('specification.index') }}">Specification</a></li>
+        <li class="{{ $menu['active'] == 'brand' ? 'active' : '' }}"><a href="{{ route('brand.index') }}">Brand</a></li>
       </ul>
     </li>
     <li class="treeview {{ $menu['group'] == 'category' ? 'menu-open' : '' }}">
@@ -43,9 +43,9 @@
           <i class="fa fa-angle-left pull-right"></i>
         </span>
       </a>
-      <ul class="treeview-menu" {!! isset($menu['group']) && $menu['group'] == 'category' ? 'style="display: block"' : '' !!}>
-        <li class="{{ isset($menu['active']) && $menu['active'] == 'category' ? 'active' : '' }}"><a href="{{ route('category.index') }}">Category</a></li>
-        <li class="{{ isset($menu['active']) && $menu['active'] == 'tag' ? 'active' : '' }}"><a href="{{ route('tag.index') }}">Tag</a></li>
+      <ul class="treeview-menu" {!! $menu['group'] == 'category' ? 'style="display: block"' : '' !!}>
+        <li class="{{ $menu['active'] == 'category' ? 'active' : '' }}"><a href="{{ route('category.index') }}">Category</a></li>
+        <li class="{{ $menu['active'] == 'tag' ? 'active' : '' }}"><a href="{{ route('tag.index') }}">Tag</a></li>
       </ul>
     </li>
     <li class="treeview {{ $menu['group'] == 'invoice' ? 'menu-open' : '' }}">
@@ -54,10 +54,10 @@
           <i class="fa fa-angle-left pull-right"></i>
         </span>
       </a>
-      <ul class="treeview-menu" {!! isset($menu['group']) && $menu['group'] == 'invoice' ? 'style="display: block"' : '' !!}>
-        <li class="{{ isset($menu['active']) && $menu['active'] == 'cart' ? 'active' : '' }}"><a href="{{ route('cart.index') }}">Cart</a></li>
-        <li class="{{ isset($menu['active']) && $menu['active'] == 'order' ? 'active' : '' }}"><a href="{{ route('order.index') }}">Order</a></li>
-        <li class="{{ isset($menu['active']) && $menu['active'] == 'invoice' ? 'active' : '' }}"><a href="{{ route('invoice.index') }}">Invoice</a></li>
+      <ul class="treeview-menu" {!! $menu['group'] == 'invoice' ? 'style="display: block"' : '' !!}>
+        <li class="{{ $menu['active'] == 'cart' ? 'active' : '' }}"><a href="{{ route('cart.index') }}">Cart</a></li>
+        <li class="{{ $menu['active'] == 'order' ? 'active' : '' }}"><a href="{{ route('order.index') }}">Order</a></li>
+        <li class="{{ $menu['active'] == 'invoice' ? 'active' : '' }}"><a href="{{ route('invoice.index') }}">Invoice</a></li>
       </ul>
     </li>
     <li class="treeview {{ $menu['group'] == 'promotion' ? 'menu-open' : '' }}">
@@ -66,12 +66,12 @@
           <i class="fa fa-angle-left pull-right"></i>
         </span>
       </a>
-      <ul class="treeview-menu" {!! isset($menu['group']) && $menu['group'] == 'promotion' ? 'style="display: block"' : '' !!}>
-        <li class="{{ isset($menu['active']) && $menu['active'] == 'promotion' ? 'active' : '' }}"><a href="{{ route('promotion.index') }}">Promotion</a></li>
-        <li class="{{ isset($menu['active']) && $menu['active'] == 'rebation' ? 'active' : '' }}"><a href="#">Rebation</a></li>
-        <li class="{{ isset($menu['active']) && $menu['active'] == 'voucher' ? 'active' : '' }}"><a href="#">Voucher</a></li>
-        <li class="{{ isset($menu['active']) && $menu['active'] == 'condition' ? 'active' : '' }}"><a href="{{ route('condition.index') }}">Condition</a></li>
-        <li class="{{ isset($menu['active']) && $menu['active'] == 'discount_form' ? 'active' : '' }}"><a href="#">Discount Form</a></li>
+      <ul class="treeview-menu" {!! $menu['group'] == 'promotion' ? 'style="display: block"' : '' !!}>
+        <li class="{{ $menu['active'] == 'promotion' ? 'active' : '' }}"><a href="{{ route('promotion.index') }}">Promotion</a></li>
+        <li class="{{ $menu['active'] == 'rebation' ? 'active' : '' }}"><a href="#">Rebation</a></li>
+        <li class="{{ $menu['active'] == 'voucher' ? 'active' : '' }}"><a href="#">Voucher</a></li>
+        <li class="{{ $menu['active'] == 'condition' ? 'active' : '' }}"><a href="{{ route('condition.index') }}">Condition</a></li>
+        <li class="{{ $menu['active'] == 'discount_form' ? 'active' : '' }}"><a href="#">Discount Form</a></li>
       </ul>
     </li>
     <li class="treeview">
@@ -92,14 +92,14 @@
     </li>
 
     <li class="header">SYSTEM</li>
-    <li class="treeview {{ isset($menu['group']) && $menu['group'] == 'user' ? 'menu-open' : '' }}">
+    <li class="treeview {{ $menu['group'] == 'user' ? 'menu-open' : '' }}">
       <a href="#"><i class="fa fa-user"></i> <span>User</span>
         <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
         </span>
       </a>
-      <ul class="treeview-menu" {!! isset($menu['group']) && $menu['group'] == 'user' ? 'style="display: block"' : '' !!}>
-        <li class="{{ isset($menu['active']) && $menu['active'] == 'user' ? 'active' : '' }}"><a href="{{ route('user.index') }}">User</a></li>
+      <ul class="treeview-menu" {!! $menu['group'] == 'user' ? 'style="display: block"' : '' !!}>
+        <li class="{{ $menu['active'] == 'user' ? 'active' : '' }}"><a href="{{ route('user.index') }}">User</a></li>
         <li><a href="#">Role</a></li>
         <li><a href="#">Permission</a></li>
       </ul>
