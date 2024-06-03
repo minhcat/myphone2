@@ -64,6 +64,7 @@ return [
             'name'                  => [
                 'invoice_quantity'  => 'invoice quantity',
                 'invoice_total'     => 'invoice total',
+                'variant'           => 'variant',
                 'product'           => 'product',
                 'product_group'     => 'product group',
                 'category'          => 'category',
@@ -72,6 +73,7 @@ return [
             'label'                 => [
                 'invoice_quantity'  => 'info',
                 'invoice_total'     => 'primary',
+                'variant'           => 'success',
                 'product'           => 'success',
                 'product_group'     => 'warning',
                 'category'          => 'danger',
@@ -80,12 +82,14 @@ return [
         ],
         'condition_target_type'     => [
             'name'                  => [
+                'variant'           => 'variant',
                 'product'           => 'product',
                 'product_group'     => 'product group',
                 'category'          => 'category',
                 'tag'               => 'tag',
             ],
             'label'                 => [
+                'variant'           => 'success',
                 'product'           => 'success',
                 'product_group'     => 'warning',
                 'category'          => 'danger',
