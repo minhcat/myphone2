@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('condition_id')->unsigned();
             $table->integer('parent_id')->unsigned()->nullable();
             $table->integer('target_type')->unsigned()->nullable();     // target null là dạng nhóm sp đi kèm: target là 1 list
-            $table->integer('target_id')->unsigned();
+            $table->integer('target_id')->unsigned()->nullable();
         });
     }
 

@@ -1,4 +1,4 @@
-@extends('condition::layouts.master')
+@extends('condition::condition.layouts.master')
 
 @section('title-page', 'Condition')
 
@@ -42,8 +42,9 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Author</th>
+                                <th>Type</th>
                                 <th>Value</th>
-                                <th>Handler</th>
+                                <th>Sale List</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 <th style="width: 175px">Action</th>
@@ -55,8 +56,9 @@
                                     <td>{{ $condition->id }}</td>
                                     <td><a href="{{ route('condition.show', $condition->id) }}">{{ $condition->name }}</a></td>
                                     <td>@if (!is_null($condition->user)) <a href="{{ route('user.show', $condition->user->id) }}">{{ $condition->user->fullname }}</a>@endif</td>
+                                    <td>{!! generate_label($condition->type, new App\Enums\ConditionType) !!}</td>
                                     <td>{{ is_null($condition->value) ? 'null' : $condition->value }}</td>
-                                    <td>Check Total Invoice</td>
+                                    <td>@if ($condition->type == App\Enums\ConditionType::PRODUCT || $condition->type == App\Enums\ConditionType::PRODUCT_GROUP) <a href="#">list</a> @endif</td>
                                     <td>{{ $condition->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $condition->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>
@@ -80,7 +82,7 @@
     </div>
 </div>
 
-@include('condition::layouts.modal', [
+@include('condition::condition.layouts.modal', [
     'modal'             => [
         'id'            => 'modal-condition-delete',
         'title'         => 'Delete Condition',

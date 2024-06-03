@@ -31,7 +31,7 @@ class ConditionController extends Controller
         $search = $request->input('search');
         $conditions = $this->conditionRepository->paginate($search);
 
-        return view('condition::index', compact('conditions'));
+        return view('condition::condition.index', compact('conditions'));
     }
 
     /**
@@ -46,7 +46,7 @@ class ConditionController extends Controller
             'method'    => 'POST',
         ];
 
-        return view('condition::create', compact('form'));
+        return view('condition::condition.create', compact('form'));
     }
 
     /**
@@ -74,7 +74,7 @@ class ConditionController extends Controller
     {
         $condition = $this->conditionRepository->find($id);
 
-        return view('condition::detail', compact('condition'));
+        return view('condition::condition.detail', compact('condition'));
     }
 
     /**
@@ -92,7 +92,7 @@ class ConditionController extends Controller
 
         $condition = $this->conditionRepository->find($id);
 
-        return view('condition::edit', compact('form', 'condition'));
+        return view('condition::condition.edit', compact('form', 'condition'));
     }
 
     /**

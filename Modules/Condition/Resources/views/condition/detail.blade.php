@@ -1,4 +1,4 @@
-@extends('condition::layouts.master')
+@extends('condition::condition.layouts.master')
 
 @section('title-page', 'Conditions')
 

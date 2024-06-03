@@ -1,4 +1,4 @@
-@extends('condition::layouts.master')
+@extends('condition::condition.layouts.master')
 
 @section('title-page', 'Conditions')
 
@@ -15,5 +15,5 @@
 @endsection
 
 @section('content')
-    @include('condition::layouts.form')
+    @include('condition::condition.layouts.form')
 @endsection
