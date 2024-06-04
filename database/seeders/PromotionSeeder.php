@@ -138,36 +138,42 @@ class PromotionSeeder extends Seeder
 
         DB::table('condition_targets')->insert([
             [
+                'code'              => '0001',
                 'condition_id'      => 3,
                 'parent_id'         => null,
                 'target_type'       => ConditionTargetType::PRODUCT,
                 'target_id'         => 1
             ],
             [
+                'code'              => '0002',
                 'condition_id'      => 3,
                 'parent_id'         => null,
                 'target_type'       => ConditionTargetType::PRODUCT,
                 'target_id'         => 2
             ],
             [
+                'code'              => '0003',
                 'condition_id'      => 4,
                 'parent_id'         => null,
                 'target_type'       => ConditionTargetType::PRODUCT_GROUP,
                 'target_id'         => null
             ],
             [
+                'code'              => '0004',
                 'condition_id'      => 4,
                 'parent_id'         => 3,
                 'target_type'       => ConditionTargetType::PRODUCT_GROUP,
                 'target_id'         => 3
             ],
             [
+                'code'              => '0005',
                 'condition_id'      => 4,
                 'parent_id'         => 3,
                 'target_type'       => ConditionTargetType::PRODUCT_GROUP,
                 'target_id'         => 4
             ],
             [
+                'code'              => '0006',
                 'condition_id'      => 5,
                 'parent_id'         => null,
                 'target_type'       => ConditionTargetType::CATEGORY,

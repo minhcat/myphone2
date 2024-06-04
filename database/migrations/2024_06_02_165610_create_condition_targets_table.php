@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('condition_targets', function (Blueprint $table) {
             $table->id();
+            $table->string('code');
             $table->integer('condition_id')->unsigned();
             $table->integer('parent_id')->unsigned()->nullable();
             $table->integer('target_type')->unsigned()->nullable();     // target null là dạng nhóm sp đi kèm: target là 1 list

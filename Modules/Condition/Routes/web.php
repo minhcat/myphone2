@@ -13,9 +13,20 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Condition\Http\Controllers\ConditionController;
+use Modules\Condition\Http\Controllers\ConditionTargetController;
 
 Route::prefix('admin')->group(function() {
     Route::prefix('conditions')->name('condition.')->group(function() {
+        Route::prefix('/{condition_id}/targets')->name('target.')->group(function() {
+            Route::get('/', [ConditionTargetController::class, 'index'])->name('index');
+            Route::get('/create', [ConditionTargetController::class, 'create'])->name('create');
+            Route::get('/{id}/edit', [ConditionTargetController::class, 'edit'])->name('edit');
+            Route::get('/{id}', [ConditionTargetController::class, 'show'])->name('show');
+            Route::post('/', [ConditionTargetController::class, 'store'])->name('store');
+            Route::put('/{id}', [ConditionTargetController::class, 'update'])->name('update');
+            Route::delete('/{id}', [ConditionTargetController::class, 'destroy'])->name('delete');
+        });
+
         Route::get('/', [ConditionController::class, 'index'])->name('index');
         Route::get('/create', [ConditionController::class, 'create'])->name('create');
         Route::get('/{id}/edit', [ConditionController::class, 'edit'])->name('edit');
