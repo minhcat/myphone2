@@ -37,4 +37,33 @@ final class ConditionTargetType
             default:                        return $value;
         }
     }
+
+    public static function getList()
+    {
+        return [
+            static::VARIANT,
+            static::PRODUCT,
+            static::PRODUCT_GROUP,
+            static::CATEGORY,
+            static::TAG
+        ];
+    }
+
+    public static function getObject($list = null)
+    {
+        if ($list === null) {
+            $list = self::getList();
+        }
+        $objects = [];
+
+        foreach ($list as $item) {
+            $objects[] = (object) [
+                'code'  => $item,
+                'name'  => self::getName($item),
+                'label' => self::getLabel($item)
+            ];
+        }
+
+        return $objects;
+    }
 }

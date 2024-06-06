@@ -2,6 +2,7 @@
 
 namespace Modules\Condition\Repositories;
 
+use App\Enums\ConditionTargetType;
 use App\Repositories\AbstractRepository;
 use Modules\Condition\Entities\ConditionTarget;
 
@@ -23,5 +24,10 @@ class ConditionTargetRepository extends AbstractRepository
             return $this->model->where('condition_id', $condition_id)->where($field, 'LIKE', "%$search%")->paginate($take);
         }
         return $this->model->where('condition_id', $condition_id)->where($this->searchFieldName, 'LIKE', "%$search%")->paginate($take);
+    }
+
+    public function getParents()
+    {
+        return $this->model->where('target_type', ConditionTargetType::PRODUCT_GROUP)->whereNull('target_id')->get();
     }
 }

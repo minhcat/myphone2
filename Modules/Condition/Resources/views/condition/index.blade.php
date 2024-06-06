@@ -58,7 +58,14 @@
                                     <td>@if (!is_null($condition->user)) <a href="{{ route('user.show', $condition->user->id) }}">{{ $condition->user->fullname }}</a>@endif</td>
                                     <td>{!! generate_label($condition->type, new App\Enums\ConditionType) !!}</td>
                                     <td>{{ is_null($condition->value) ? 'null' : $condition->value }}</td>
-                                    <td>@if ($condition->type == App\Enums\ConditionType::PRODUCT || $condition->type == App\Enums\ConditionType::PRODUCT_GROUP) <a href="#">list</a> @endif</td>
+                                    <td>
+                                        @if ($condition->type == App\Enums\ConditionType::PRODUCT 
+                                        || $condition->type == App\Enums\ConditionType::PRODUCT_GROUP
+                                        || $condition->type == App\Enums\ConditionType::CATEGORY
+                                        || $condition->type == App\Enums\ConditionType::TAG) 
+                                        <a href="{{ route('condition.target.index', $condition->id) }}">list</a> 
+                                        @endif
+                                    </td>
                                     <td>{{ $condition->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $condition->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>

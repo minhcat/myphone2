@@ -14,7 +14,9 @@ class ConditionTarget extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['condition_id', 'parent_id', 'target_type', 'target_id'];
+    protected $fillable = ['code', 'condition_id', 'parent_id', 'target_type', 'target_id'];
+
+    public $timestamps = false;
 
     public function parent()
     {
