@@ -39,4 +39,9 @@ class ConditionTarget extends Model
         }
         return $this->belongsTo(Product::class, 'target_id');
     }
+
+    public function condition()
+    {
+        return $this->belongsTo(Condition::class);
+    }
 }

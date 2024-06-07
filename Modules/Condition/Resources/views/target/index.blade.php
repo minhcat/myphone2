@@ -81,11 +81,11 @@
     </div>
 </div>
 
-@include('condition::condition.layouts.modal', [
+@include('condition::target.layouts.modal', [
     'modal'             => [
-        'id'            => 'modal-condition-delete',
-        'title'         => 'Delete Condition',
-        'message'       => 'Are you sure to delete this condition!',
+        'id'            => 'modal-condition-target-delete',
+        'title'         => 'Delete Condition Target',
+        'message'       => 'Are you sure to delete this condition target!',
         'form'          => [
             'url'       => route('condition.target.delete', ['condition_id' => $condition_id, 'id' => ':id']),
             'method'    => 'DELETE',
@@ -110,14 +110,15 @@
                 window.location.href = url;
             }
         })
-        let url_delete = $('#modal-condition-delete form').attr('action');
+        let url_delete = $('#modal-condition-target-delete form').attr('action');
         $('.btn-delete').click(function() {
+            debugger
             let id = $(this).data('id');
             let url = url_delete.replace(':id', id)
-            $('#modal-condition-delete form').attr('action', url);
+            $('#modal-condition-target-delete form').attr('action', url);
         })
-        $('#modal-condition-delete').on('hide.bs.modal', function() {
-            $('#modal-condition-delete form').attr('action', url_delete);
+        $('#modal-condition-target-delete').on('hide.bs.modal', function() {
+            $('#modal-condition-target-delete form').attr('action', url_delete);
         })
     })
 </script>

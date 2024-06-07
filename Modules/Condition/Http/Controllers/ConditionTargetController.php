@@ -99,9 +99,11 @@ class ConditionTargetController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show($condition_id, $id)
     {
-        return view('condition::show');
+        $target = $this->conditionTargetRepository->find($id);
+
+        return view('condition::target.detail', compact('condition_id', 'target'));
     }
 
     /**
@@ -144,9 +146,11 @@ class ConditionTargetController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($condition_id, $id)
     {
-        //
+        $this->conditionTargetRepository->delete($id);
+
+        return redirect()->route('condition.target.index', $condition_id)->with('success', 'Delete condition target successfully');
     }
 
     private function filterTargetType($condition_type)
