@@ -65,10 +65,10 @@
                 <div class="field-group">
                     <div class="row">
                         <div class="col-lg-2">
-                            <p><strong>Handler</strong></p>
+                            <p><strong>Type</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>Check Total Invoice</p>
+                            <p>{!! generate_label($condition->type, new App\Enums\ConditionType) !!}</p>
                         </div>
                     </div>
                 </div>
