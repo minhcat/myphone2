@@ -20,7 +20,6 @@ return new class extends Migration
             $table->integer('author_id')->unsigned()->default(0);
             $table->text('description')->default('');
             $table->integer('target_type')->unsigned()->default(0);
-            $table->integer('target_id')->unsigned()->nullable();
             $table->integer('discount_type')->unsigned()->default(0);
             $table->integer('discount_value')->unsigned()->default(0);
             $table->integer('discount_minimum')->unsigned()->nullable();
