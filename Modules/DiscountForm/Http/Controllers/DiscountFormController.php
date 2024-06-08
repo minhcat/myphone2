@@ -5,9 +5,23 @@ namespace Modules\DiscountForm\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\DiscountForm\Repositories\DiscountFormRepository;
 
 class DiscountFormController extends Controller
 {
+    /** @var \Modules\DiscountForm\Repositories\DiscountFormRepository */
+    protected $discountFormRepository;
+
+    /**
+     * Create new Discount Form Controller instance.
+     */
+    public function __construct()
+    {
+        $this->discountFormRepository = new DiscountFormRepository;
+
+        view()->share('menu', ['group' => 'promotion', 'active' => 'discount_form']);
+    }
+    
     /**
      * Display a listing of the resource.
      * @return Renderable
