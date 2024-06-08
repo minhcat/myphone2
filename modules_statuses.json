@@ -10,5 +10,6 @@
     "Order": true,
     "Invoice": true,
     "Promotion": true,
-    "Condition": true
+    "Condition": true,
+    "DiscountForm": true
 }

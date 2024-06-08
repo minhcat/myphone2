@@ -1,0 +1,11 @@
+{
+    "name": "DiscountForm",
+    "alias": "discountform",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\DiscountForm\\Providers\\DiscountFormServiceProvider"
+    ],
+    "files": []
+}
