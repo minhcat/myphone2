@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\DiscountForm\Http\Controllers\DiscountFormController;
 
 Route::prefix('admin')->group(function() {
-    Route::prefix('discount-form')->name('discount_form.')->group(function() {
+    Route::prefix('discount-forms')->name('discount_form.')->group(function() {
         Route::get('/', [DiscountFormController::class, 'index'])->name('index');
         Route::get('/create', [DiscountFormController::class, 'create'])->name('create');
         Route::get('/{id}/edit', [DiscountFormController::class, 'edit'])->name('edit');

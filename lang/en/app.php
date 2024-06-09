@@ -113,7 +113,7 @@ return [
                 'amount'            => 'amount',
                 'percent'           => 'percent',
             ],
-            'value'                 => [
+            'label'                 => [
                 'amount'            => 'primary',
                 'percent'           => 'success',
             ],

@@ -13,9 +13,9 @@ final class DiscountTarget
     public static function getName($value)
     {
         switch ($value) {
-            case static::INVOICE:       return __('app.enums.discount_form_target.name.invoice');
-            case static::PRODUCT:       return __('app.enums.discount_form_target.name.product');
-            case static::TRANSPORT_FEE: return __('app.enums.discount_form_target.name.transport_fee');
+            case static::INVOICE:       return __('app.enums.discount_target.name.invoice');
+            case static::PRODUCT:       return __('app.enums.discount_target.name.product');
+            case static::TRANSPORT_FEE: return __('app.enums.discount_target.name.transport_fee');
             default:                    return $value;
         }
     }
@@ -23,9 +23,9 @@ final class DiscountTarget
     public static function getLabel($value)
     {
         switch ($value) {
-            case static::INVOICE:       return __('app.enums.discount_form_target.label.invoice');
-            case static::PRODUCT:       return __('app.enums.discount_form_target.label.product');
-            case static::TRANSPORT_FEE: return __('app.enums.discount_form_target.label.transport_fee');
+            case static::INVOICE:       return __('app.enums.discount_target.label.invoice');
+            case static::PRODUCT:       return __('app.enums.discount_target.label.product');
+            case static::TRANSPORT_FEE: return __('app.enums.discount_target.label.transport_fee');
             default:                    return $value;
         }
     }

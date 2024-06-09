@@ -71,7 +71,7 @@
         <li class="{{ $menu['active'] == 'rebation' ? 'active' : '' }}"><a href="#">Rebation</a></li>
         <li class="{{ $menu['active'] == 'voucher' ? 'active' : '' }}"><a href="#">Voucher</a></li>
         <li class="{{ $menu['active'] == 'condition' ? 'active' : '' }}"><a href="{{ route('condition.index') }}">Condition</a></li>
-        <li class="{{ $menu['active'] == 'discount_form' ? 'active' : '' }}"><a href="#">Discount Form</a></li>
+        <li class="{{ $menu['active'] == 'discount_form' ? 'active' : '' }}"><a href="{{ route('discount_form.index') }}">Discount Form</a></li>
       </ul>
     </li>
     <li class="treeview">

@@ -26,9 +26,12 @@ class DiscountFormController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('discountform::index');
+        $search = $request->input('search');
+        $discount_forms = $this->discountFormRepository->paginate($search);
+
+        return view('discountform::index', compact('discount_forms'));
     }
 
     /**
