@@ -29,4 +29,31 @@ final class DiscountTarget
             default:                    return $value;
         }
     }
+
+    public static function getList()
+    {
+        return [
+            self::INVOICE,
+            self::PRODUCT,
+            self::TRANSPORT_FEE
+        ];
+    }
+
+    public static function getObject($list = null)
+    {
+        if ($list === null) {
+            $list = self::getList();
+        }
+        $objects = [];
+
+        foreach ($list as $item) {
+            $objects[] = (object) [
+                'code'  => $item,
+                'name'  => self::getName($item),
+                'label' => self::getLabel($item)
+            ];
+        }
+
+        return $objects;
+    }
 }

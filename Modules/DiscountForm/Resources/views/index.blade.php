@@ -54,7 +54,7 @@
                             @foreach ($discount_forms as $discount_form)
                                 <tr>
                                     <td>{{ $discount_form->id }}</td>
-                                    <td><a href="{{ route('condition.show', $discount_form->id) }}">{{ $discount_form->name }}</a></td>
+                                    <td><a href="{{ route('discount_form.show', $discount_form->id) }}">{{ $discount_form->name }}</a></td>
                                     <td>@if (!is_null($discount_form->user)) <a href="{{ route('user.show', $discount_form->user->id) }}">{{ $discount_form->user->fullname }}</a>@endif</td>
                                     <td>{!! generate_label($discount_form->target_type, new App\Enums\DiscountTarget) !!}</td>
                                     <td>{!! generate_label($discount_form->discount_type, new App\Enums\DiscountType) !!}</td>
@@ -62,8 +62,8 @@
                                     <td>{{ $discount_form->discount_minimum }}</td>
                                     <td>{{ $discount_form->discount_maximum }}</td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{ route('condition.edit', $discount_form->id) }}"><i class="fa fa-edit"></i> Edit</a>
-                                        <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-condition-delete" data-id="{{ $discount_form->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        <a class="btn btn-primary" href="{{ route('discount_form.edit', $discount_form->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-discount-form-delete" data-id="{{ $discount_form->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -84,7 +84,7 @@
 
 @include('discountform::layouts.modal', [
     'modal'             => [
-        'id'            => 'modal-discountform-delete',
+        'id'            => 'modal-discount-form-delete',
         'title'         => 'Delete Discount Form',
         'message'       => 'Are you sure to delete this discount form!',
         'form'          => [

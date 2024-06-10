@@ -2,6 +2,8 @@
 
 namespace Modules\DiscountForm\Http\Controllers;
 
+use App\Enums\DiscountTarget;
+use App\Enums\DiscountType;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -40,7 +42,15 @@ class DiscountFormController extends Controller
      */
     public function create()
     {
-        return view('discountform::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('discount_form.store'),
+            'method'    => 'POST',
+        ];
+        $discount_types = DiscountType::getObject();
+        $target_types = DiscountTarget::getObject();
+
+        return view('discountform::create', compact('form', 'discount_types', 'target_types'));
     }
 
     /**
@@ -50,7 +60,17 @@ class DiscountFormController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'code'              => 'required|unique:discount_forms',
+            'name'              => 'required|unique:discount_forms',
+            'target_type'       => 'required',
+            'discount_type'     => 'required',
+            'discount_value'    => 'required'
+        ]);
+
+        $this->discountFormRepository->create($request->all());
+
+        return redirect()->route('discount_form.index')->with('success', 'Create new discount form successfully');
     }
 
     /**
@@ -70,7 +90,16 @@ class DiscountFormController extends Controller
      */
     public function edit($id)
     {
-        return view('discountform::edit');
+        $form = [
+            'title'     => 'Update',
+            'url'       => route('discount_form.update', $id),
+            'method'    => 'PUT',
+        ];
+        $discount_types = DiscountType::getObject();
+        $target_types = DiscountTarget::getObject();
+        $discount_form = $this->discountFormRepository->find($id);
+
+        return view('discountform::edit', compact('form', 'discount_form', 'discount_types', 'target_types'));
     }
 
     /**
@@ -81,7 +110,14 @@ class DiscountFormController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'code'  => 'unique:discount_forms,code,'.$id,
+            'name'  => 'unique:discount_forms,name,'.$id
+        ]);
+
+        $this->discountFormRepository->update($id, $request->all());
+
+        return redirect()->route('discount_form.index')->with('success', 'Update discount form successfully');
     }
 
     /**

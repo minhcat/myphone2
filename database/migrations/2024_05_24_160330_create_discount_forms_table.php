@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('code');
             $table->string('name');
             $table->integer('author_id')->unsigned()->default(0);
-            $table->text('description')->default('');
+            $table->text('description')->nullable();
             $table->integer('target_type')->unsigned()->default(0);
             $table->integer('discount_type')->unsigned()->default(0);
             $table->integer('discount_value')->unsigned()->default(0);

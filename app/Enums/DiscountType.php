@@ -25,4 +25,30 @@ final class DiscountType
             default:                return $value;
         }
     }
+
+    public static function getList()
+    {
+        return [
+            self::AMOUNT,
+            self::PERCENT
+        ];
+    }
+
+    public static function getObject($list = null)
+    {
+        if ($list === null) {
+            $list = self::getList();
+        }
+        $objects = [];
+
+        foreach ($list as $item) {
+            $objects[] = (object) [
+                'code'  => $item,
+                'name'  => self::getName($item),
+                'label' => self::getLabel($item)
+            ];
+        }
+
+        return $objects;
+    }
 }
