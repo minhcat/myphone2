@@ -80,7 +80,9 @@ class DiscountFormController extends Controller
      */
     public function show($id)
     {
-        return view('discountform::show');
+        $discount_form = $this->discountFormRepository->find($id);
+
+        return view('discountform::detail', compact('discount_form'));
     }
 
     /**
@@ -127,6 +129,8 @@ class DiscountFormController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->discountFormRepository->delete($id);
+
+        return redirect()->route('discount_form.index')->with('success', 'Delete discount form successfully');
     }
 }
