@@ -16,11 +16,16 @@ return new class extends Migration
         Schema::create('promotions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description')->default('');
+            $table->text('description')->nullable();
             $table->integer('status')->unsigned()->default(0);
             $table->integer('author_id')->unsigned()->default(0);
-            $table->integer('condition_id')->unsigned()->default(0);
-            $table->integer('discount_form_id')->unsigned()->default(0);
+            $table->integer('condition_type')->unsigned()->default(0);
+            $table->integer('condition_value')->unsigned()->default(0);
+            $table->integer('discount_target')->unsigned()->default(0);
+            $table->integer('discount_type')->unsigned()->default(0);
+            $table->integer('discount_value')->unsigned()->default(0);
+            $table->integer('discount_minimum')->unsigned()->nullable();
+            $table->integer('discount_maximum')->unsigned()->nullable();
             $table->dateTime('start_datetime')->nullable();
             $table->dateTime('end_datetime')->nullable();
             $table->timestamps();

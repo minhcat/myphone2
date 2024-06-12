@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-final class DiscountType
+final class DiscountType extends AbstractEnum
 {
     public const AMOUNT = 0;
 
@@ -26,29 +26,11 @@ final class DiscountType
         }
     }
 
-    public static function getList()
+    public static function getList(): array
     {
         return [
             self::AMOUNT,
             self::PERCENT
         ];
-    }
-
-    public static function getObject($list = null)
-    {
-        if ($list === null) {
-            $list = self::getList();
-        }
-        $objects = [];
-
-        foreach ($list as $item) {
-            $objects[] = (object) [
-                'code'  => $item,
-                'name'  => self::getName($item),
-                'label' => self::getLabel($item)
-            ];
-        }
-
-        return $objects;
     }
 }
