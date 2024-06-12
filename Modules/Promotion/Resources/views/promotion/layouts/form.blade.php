@@ -32,35 +32,66 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="condition_id">Condition</label>
-                                <select id="condition_id" class="form-control" aria-placeholder="not select" name="condition_id">
+                                <label for="condition_type">Condition Type</label>
+                                <select id="condition_type" class="form-control" aria-placeholder="not select" name="condition_type">
                                     <option disabled selected>-- choose condition --</option>
-                                    <option value="1" {{ $promotion->condition_id == 1 ? 'selected' : '' }}>Invoice Total</option>
-                                    <option value="2" {{ $promotion->condition_id == 2 ? 'selected' : '' }}>Product Sale</option>
-                                    <option value="3" {{ $promotion->condition_id == 3 ? 'selected' : '' }}>Category Sale</option>
+                                    @foreach($condition_types as $condition_type)
+                                        <option value="{{ $condition_type->code }}" {{ $promotion->condition_type === $condition_type->code ? 'selected' : '' }}>{{ $condition_type->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="discount_form_id">Discount Form</label>
-                                <select id="discount_form_id" class="form-control" aria-placeholder="not select" name="discount_form_id">
-                                    <option disabled selected>-- choose discount form --</option>
-                                    <option value="1" {{ $promotion->discount_form_id == 1 ? 'selected' : '' }}>Discount Invoice Amount</option>
-                                    <option value="2" {{ $promotion->discount_form_id == 2 ? 'selected' : '' }}>Discount Invoice Percent</option>
-                                    <option value="3" {{ $promotion->discount_form_id == 3 ? 'selected' : '' }}>Discount Product Amount</option>
+                                <label for="discount_target">Discount Target</label>
+                                <select id="discount_target" class="form-control" aria-placeholder="not select" name="discount_target">
+                                    <option disabled selected>-- choose discount target --</option>
+                                    @foreach($discount_targets as $discount_target)
+                                        <option value="{{ $discount_target->code }}" {{ $promotion->discount_target === $discount_target->code ? 'selected' : '' }}>{{ $discount_target->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="discount_type">Discount Type</label>
+                                <select id="discount_type" class="form-control" aria-placeholder="not select" name="discount_type">
+                                    <option disabled selected>-- choose discount type --</option>
+                                    @foreach($discount_types as $discount_type)
+                                        <option value="{{ $discount_type->code }}" {{ $promotion->discount_type === $discount_type->code ? 'selected' : '' }}>{{ $discount_type->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="discount_value">Discount Value</label>
+                                <input id="discount_value" type="number" class="form-control" name="discount_value" value="{{ $promotion->discount_value }}" autocomplete="discount_value">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="discount_minimum">Discount Minimum</label>
+                                <input id="discount_minimum" type="number" class="form-control" name="discount_minimum" value="{{ $promotion->discount_minimum }}" autocomplete="discount_minimum">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="discount_maximum">Discount Maximum</label>
+                                <input id="discount_maximum" type="number" class="form-control" name="discount_maximum" value="{{ $promotion->discount_maximum }}" autocomplete="discount_maximum">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="start_date">Start Date</label>
                                 <div class="row">
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-6">
                                         <div class="input-group date">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-clock-o"></i>
@@ -68,7 +99,7 @@
                                             <input type="text" class="form-control pull-right" id="start_time" name="start_time" value="{{ $promotion->starttime }}">
                                         </div>
                                     </div>
-                                    <div class="col-lg-9">
+                                    <div class="col-lg-6">
                                         <div class="input-group date">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
@@ -77,16 +108,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="end_date">End Date</label>
                                 <div class="row">
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-6">
                                         <div class="input-group date">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-clock-o"></i>
@@ -94,7 +122,7 @@
                                             <input type="text" class="form-control pull-right" id="end_time" name="end_time" value="{{ $promotion->endtime }}">
                                         </div>
                                     </div>
-                                    <div class="col-lg-9">
+                                    <div class="col-lg-6">
                                         <div class="input-group date">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>

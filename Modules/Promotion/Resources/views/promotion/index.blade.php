@@ -41,8 +41,9 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Condition</th>
-                                <th>Discount Form</th>
+                                <th>Condition Type</th>
+                                <th>Discount Target</th>
+                                <th>Discount Type</th>
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Status</th>
@@ -55,8 +56,9 @@
                                 <tr>
                                     <td>{{ $promotion->id }}</td>
                                     <td><a href="{{ route('promotion.show', $promotion->id) }}">{{ $promotion->name }}</a></td>
-                                    <td><a href="">Invoice Total</a></td>
-                                    <td><a href="">Discount Invoice Amount</a></td>
+                                    <td>{!! generate_label($promotion->condition_type, new App\Enums\ConditionType) !!}</td>
+                                    <td>{!! generate_label($promotion->discount_target, new App\Enums\DiscountTarget) !!}</td>
+                                    <td>{!! generate_label($promotion->discount_type, new App\Enums\DiscountType) !!}</td>
                                     <td>{{ $promotion->start_datetime->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $promotion->end_datetime->format('H:i:s d/m/Y') }}</td>
                                     <td>{!! generate_label($promotion->status, new App\Enums\PromotionStatus) !!}</td>

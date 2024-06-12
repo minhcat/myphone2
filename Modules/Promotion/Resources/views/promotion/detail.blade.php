@@ -45,20 +45,60 @@
                 <div class="field-group">
                     <div class="row">
                         <div class="col-lg-2">
-                            <p><strong>Condition</strong></p>
+                            <p><strong>Condition Type</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p></p>
+                            <p>{!! generate_label($promotion->condition_type, new App\Enums\ConditionType) !!}</p>
                         </div>
                     </div>
                 </div>
                 <div class="field-group">
                     <div class="row">
                         <div class="col-lg-2">
-                            <p><strong>Discount Form</strong></p>
+                            <p><strong>Discount Target</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p></p>
+                            <p>{!! generate_label($promotion->discount_target, new App\Enums\DiscountTarget) !!}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <p><strong>Discount Type</strong></p>
+                        </div>
+                        <div class="col-lg-10">
+                            <p>{!! generate_label($promotion->discount_type, new App\Enums\DiscountType) !!}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <p><strong>Discount Value</strong></p>
+                        </div>
+                        <div class="col-lg-10">
+                            <p>{{ number_format($promotion->discount_value) }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <p><strong>Discount Minimum</strong></p>
+                        </div>
+                        <div class="col-lg-10">
+                            <p>{{ number_format($promotion->discount_minimum) }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <p><strong>Discount Maximum</strong></p>
+                        </div>
+                        <div class="col-lg-10">
+                            <p>{{ number_format($promotion->discount_maximum) }}</p>
                         </div>
                     </div>
                 </div>
@@ -88,7 +128,7 @@
                             <p><strong>Status</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ App\Enums\PromotionStatus::getName($promotion->status) }}</p>
+                            <p>{!! generate_label($promotion->status, new App\Enums\PromotionStatus) !!}</p>
                         </div>
                     </div>
                 </div>

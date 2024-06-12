@@ -2,6 +2,9 @@
 
 namespace Modules\Promotion\Http\Controllers;
 
+use App\Enums\ConditionType;
+use App\Enums\DiscountTarget;
+use App\Enums\DiscountType;
 use App\Enums\PromotionStatus;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -47,8 +50,11 @@ class PromotionController extends Controller
             'url'       => route('promotion.store'),
             'method'    => 'POST',
         ];
+        $condition_types = ConditionType::getObject();
+        $discount_targets = DiscountTarget::getObject();
+        $discount_types = DiscountType::getObject();
 
-        return view('promotion::promotion.create', compact('form'));
+        return view('promotion::promotion.create', compact('form', 'condition_types', 'discount_targets', 'discount_types'));
     }
 
     /**
@@ -93,8 +99,11 @@ class PromotionController extends Controller
         ];
 
         $promotion = $this->promotionRepository->find($id);
+        $condition_types = ConditionType::getObject();
+        $discount_targets = DiscountTarget::getObject();
+        $discount_types = DiscountType::getObject();
 
-        return view('promotion::promotion.edit', compact('form', 'promotion'));
+        return view('promotion::promotion.edit', compact('form', 'promotion', 'condition_types', 'discount_targets', 'discount_types'));
     }
 
     /**

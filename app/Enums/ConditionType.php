@@ -11,8 +11,8 @@ final class ConditionType extends AbstractEnum
     public static function getName($value)
     {
         switch ($value) {
-            case static::QUANTITY:  return __('app.enums.condition_type.name.invoice_quantity');
-            case static::TOTAL:     return __('app.enums.condition_type.name.invoice_total');
+            case static::QUANTITY:  return __('app.enums.condition_type.name.quantity');
+            case static::TOTAL:     return __('app.enums.condition_type.name.total');
             default:                        return $value;
         }
     }
@@ -20,8 +20,8 @@ final class ConditionType extends AbstractEnum
     public static function getLabel($value)
     {
         switch ($value) {
-            case static::QUANTITY:  return __('app.enums.condition_type.label.invoice_quantity');
-            case static::TOTAL:     return __('app.enums.condition_type.label.invoice_total');
+            case static::QUANTITY:  return __('app.enums.condition_type.label.quantity');
+            case static::TOTAL:     return __('app.enums.condition_type.label.total');
             default:                        return $value;
         }
     }
