@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-final class PromotionStatus
+final class PromotionStatus extends AbstractEnum
 {
     public const RAW = 0;
 
@@ -72,5 +72,16 @@ final class PromotionStatus
             case static::END:           return null;
             default:                    return null;
         }
+    }
+
+    public static function getList(): array
+    {
+        return [
+            static::RAW,
+            static::PENDING,
+            static::APPROVED,
+            static::INPROGRESS,
+            static::END
+        ];
     }
 }

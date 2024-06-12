@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-final class OrderStatus
+final class OrderStatus extends AbstractEnum
 {
     public const PENDING = 1;
 
@@ -39,5 +39,17 @@ final class OrderStatus
             case static::OTHER:     return __('app.enums.order_status.label.other');
             default:                return $value;
         }
+    }
+
+    public static function getList(): array
+    {
+        return [
+            static::PENDING,
+            static::APPROVED,
+            static::SHIPPING,
+            static::COMPLETED,
+            static::CANCELLED,
+            static::OTHER,
+        ];
     }
 }

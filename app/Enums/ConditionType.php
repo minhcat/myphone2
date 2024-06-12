@@ -2,29 +2,17 @@
 
 namespace App\Enums;
 
-final class ConditionType
+final class ConditionType extends AbstractEnum
 {
-    public const INVOICE_QUANTITY = 0;
+    public const QUANTITY = 0;
 
-    public const INVOICE_TOTAL = 1;
-
-    public const PRODUCT = 2;
-
-    public const PRODUCT_GROUP = 3;
-
-    public const CATEGORY = 4;
-
-    public const TAG = 5;
+    public const TOTAL = 1;
 
     public static function getName($value)
     {
         switch ($value) {
-            case static::INVOICE_QUANTITY:  return __('app.enums.condition_type.name.invoice_quantity');
-            case static::INVOICE_TOTAL:     return __('app.enums.condition_type.name.invoice_total');
-            case static::PRODUCT:           return __('app.enums.condition_type.name.product');
-            case static::PRODUCT_GROUP:     return __('app.enums.condition_type.name.product_group');
-            case static::CATEGORY:          return __('app.enums.condition_type.name.category');
-            case static::TAG:               return __('app.enums.condition_type.name.tag');
+            case static::QUANTITY:  return __('app.enums.condition_type.name.invoice_quantity');
+            case static::TOTAL:     return __('app.enums.condition_type.name.invoice_total');
             default:                        return $value;
         }
     }
@@ -32,13 +20,17 @@ final class ConditionType
     public static function getLabel($value)
     {
         switch ($value) {
-            case static::INVOICE_QUANTITY:  return __('app.enums.condition_type.label.invoice_quantity');
-            case static::INVOICE_TOTAL:     return __('app.enums.condition_type.label.invoice_total');
-            case static::PRODUCT:           return __('app.enums.condition_type.label.product');
-            case static::PRODUCT_GROUP:     return __('app.enums.condition_type.label.product_group');
-            case static::CATEGORY:          return __('app.enums.condition_type.label.category');
-            case static::TAG:               return __('app.enums.condition_type.label.tag');
+            case static::QUANTITY:  return __('app.enums.condition_type.label.invoice_quantity');
+            case static::TOTAL:     return __('app.enums.condition_type.label.invoice_total');
             default:                        return $value;
         }
+    }
+
+    public static function getList(): array
+    {
+        return [
+            static::QUANTITY,
+            static::TOTAL,
+        ];
     }
 }

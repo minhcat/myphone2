@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-final class Gender
+final class Gender extends AbstractEnum
 {
     public const MALE = 0;
 
@@ -28,5 +28,14 @@ final class Gender
             case static::OTHER:     return __('app.enums.gender.label.other');
             default:                return $value;
         }
+    }
+
+    public static function getList(): array
+    {
+        return [
+            self::MALE,
+            self::FEMALE,
+            self::OTHER
+        ];
     }
 }
