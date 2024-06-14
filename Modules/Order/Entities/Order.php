@@ -11,7 +11,20 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['code', 'user_id', 'address_id', 'status', 'note', 'created_at', 'updated_at'];
+    protected $fillable = [
+        'code',
+        'user_id',
+        'address_id',
+        'status',
+        'note',
+        'subtotal',
+        'transport_fee',
+        'discount',
+        'tax',
+        'total',
+        'created_at',
+        'updated_at'
+    ];
 
     public function user()
     {
@@ -32,7 +45,7 @@ class Order extends Model
         );
     }
 
-    public function total() : Attribute
+    public function subtotalDetail() : Attribute
     {
         return Attribute::make(
             get: function (mixed $value, array $attributes) {

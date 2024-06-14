@@ -11,7 +11,19 @@ class Invoice extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['code', 'user_id', 'address_id', 'total', 'note', 'created_at', 'updated_at'];
+    protected $fillable = [
+        'code',
+        'user_id',
+        'address_id',
+        'subtotal',
+        'transport_fee',
+        'discount',
+        'tax',
+        'total',
+        'note',
+        'created_at',
+        'updated_at'
+    ];
 
     public function user()
     {
@@ -32,7 +44,7 @@ class Invoice extends Model
         );
     }
 
-    public function total() : Attribute
+    public function subtotalDetail() : Attribute
     {
         return Attribute::make(
             get: function (mixed $value, array $attributes) {

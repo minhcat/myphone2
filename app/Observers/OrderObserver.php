@@ -40,6 +40,10 @@ class OrderObserver
                 'code'          => '#'.$code,
                 'user_id'       => $order->user_id,
                 'address_id'    => $order->address_id,
+                'subtotal'      => $order->subtotal,
+                'transport_fee' => $order->transport_fee,
+                'discount'      => $order->discount,
+                'tax'           => $order->tax,
                 'total'         => $order->total,
                 'note'          => $order->note,
             ]);

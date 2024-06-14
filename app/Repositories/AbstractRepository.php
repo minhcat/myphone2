@@ -25,9 +25,9 @@ abstract class AbstractRepository implements RepositoryInterface
         return $this->model->all();
     }
 
-    public function get($skip = self::SKIP_DEFAULT, $take = self::TAKE_DEFAULT)
+    public function get($where = [], $skip = self::SKIP_DEFAULT, $take = self::TAKE_DEFAULT)
     {
-        return $this->model->skip($skip)->take($take)->get();
+        return $this->model->where($where)->skip($skip)->take($take)->get();
     }
 
     // todo: replace take and search
