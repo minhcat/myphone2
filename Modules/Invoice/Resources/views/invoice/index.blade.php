@@ -41,10 +41,12 @@
                                 <th>#</th>
                                 <th>Code</th>
                                 <th>Author</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
                                 <th>Detail</th>
                                 <th>Quantity</th>
+                                <th>Subtotal</th>
+                                <th>Transport Fee</th>
+                                <th>Discount</th>
+                                <th>Tax</th>
                                 <th>Total</th>
                             </tr>
                         </thead>
@@ -54,10 +56,12 @@
                                     <td>{{ $invoice->id }}</td>
                                     <td><a href="{{ route('invoice.show', $invoice->id) }}">{{ $invoice->code }}</a></td>
                                     <td>@if (!is_null($invoice->user)) <a href="{{ route('user.show', $invoice->user->id) }}">{{ $invoice->user->fullname }}</a>@endif</td>
-                                    <td>{{ $invoice->created_at->format('H:i:s d/m/Y') }}</td>
-                                    <td>{{ $invoice->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td><a href="{{ route('invoice.detail.index', $invoice->id) }}">Detail</a></td>
                                     <td>{{ $invoice->quantity }}</td>
+                                    <td>{{ number_format($invoice->subtotal) }}</td>
+                                    <td>{{ number_format($invoice->transport_fee) }}</td>
+                                    <td>{{ number_format($invoice->discount) }}</td>
+                                    <td>{{ number_format($invoice->tax) }}</td>
                                     <td>{{ number_format($invoice->total) }}</td>
                                 </tr>
                             @endforeach

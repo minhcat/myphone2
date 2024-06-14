@@ -3,6 +3,7 @@
 namespace Modules\Cart\Http\Controllers;
 
 use App\Enums\OrderStatus;
+use App\Events\CreateOrderEvent;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -92,6 +93,8 @@ class CartController extends Controller
                 'price'         => $product->price,
             ]);
         }
+
+        event(new CreateOrderEvent($order));
 
         return redirect()->route('cart.index')->with('success', 'Create new order successfully');
     }

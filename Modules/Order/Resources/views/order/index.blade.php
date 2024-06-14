@@ -41,10 +41,11 @@
                                 <th>#</th>
                                 <th>Code</th>
                                 <th>User</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
                                 <th>Detail</th>
                                 <th>Quantity</th>
+                                <th>Subtotal</th>
+                                <th>Transport Fee</th>
+                                <th>Discount</th>
                                 <th>Total</th>
                                 <th>Status</th>
                                 <th style="width: 200px">Action</th>
@@ -60,10 +61,11 @@
                                     @else
                                     <td></td>
                                     @endif
-                                    <td>{{ $order->created_at->format('H:i:s d/m/Y') }}</td>
-                                    <td>{{ $order->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td><a href="{{ route('order.detail.index', $order->id) }}">detail</a></td>
                                     <td>{{ $order->quantity }}</td>
+                                    <td>{{ number_format($order->subtotal) }}</td>
+                                    <td>{{ number_format($order->transport_fee) }}</td>
+                                    <td>{{ number_format($order->discount) }}</td>
                                     <td>{{ number_format($order->total) }}</td>
                                     <td>{!! generate_label($order->status, new App\Enums\OrderStatus) !!}</td>
                                     <td>

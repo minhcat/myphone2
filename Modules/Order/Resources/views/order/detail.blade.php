@@ -55,6 +55,46 @@
                 <div class="field-group">
                     <div class="row">
                         <div class="col-lg-2">
+                            <p><strong>Subtotal</strong></p>
+                        </div>
+                        <div class="col-lg-10">
+                            <p>{{ number_format($order->subtotal) }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <p><strong>Transport Fee</strong></p>
+                        </div>
+                        <div class="col-lg-10">
+                            <p>{{ number_format($order->transport_fee) }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <p><strong>Discount</strong></p>
+                        </div>
+                        <div class="col-lg-10">
+                            <p>{{ number_format($order->discount) }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <p><strong>Tax</strong></p>
+                        </div>
+                        <div class="col-lg-10">
+                            <p>{{ number_format($order->tax) }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <div class="row">
+                        <div class="col-lg-2">
                             <p><strong>Total</strong></p>
                         </div>
                         <div class="col-lg-10">
