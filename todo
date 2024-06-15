@@ -2,11 +2,9 @@ add admin to route name modules
 make form login logout
 make factory user data
 update product variation in cart, order, invoice
-add category, tag in detail product
 check created_at, update_at all modules with format
 update noti create, update, delete to lang
 check and update validate update
-update folder view promotion module
 check all modal, delete js in index view
 remove config, console, database, test folder in modules
 edit default nullable migration

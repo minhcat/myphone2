@@ -90,6 +90,8 @@ class TagSeeder extends Seeder
             ],
         ]);
 
+        DB::table('product_tag')->truncate();
+
         DB::table('product_tag')->insert([
             [
                 'product_id'    => 1,
@@ -106,6 +108,46 @@ class TagSeeder extends Seeder
             [
                 'product_id'    => 2,
                 'tag_id'        => 1,
+            ],
+            [
+                'product_id'    => 2,
+                'tag_id'        => 2,
+            ],
+            [
+                'product_id'    => 2,
+                'tag_id'        => 4,
+            ],
+            [
+                'product_id'    => 3,
+                'tag_id'        => 1,
+            ],
+            [
+                'product_id'    => 3,
+                'tag_id'        => 2,
+            ],
+            [
+                'product_id'    => 3,
+                'tag_id'        => 5,
+            ],
+            [
+                'product_id'    => 4,
+                'tag_id'        => 1,
+            ],
+            [
+                'product_id'    => 4,
+                'tag_id'        => 2,
+            ],
+            [
+                'product_id'    => 4,
+                'tag_id'        => 5,
+            ],
+            [
+                'product_id'    => 5,
+                'tag_id'        => 1,
+            ],
+            [
+                'product_id'    => 5,
+                'tag_id'        => 2,
             ],
         ]);
     }

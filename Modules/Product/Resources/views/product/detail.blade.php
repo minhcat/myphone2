@@ -58,7 +58,15 @@
                             <p><strong>Category</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>smartphone</p>
+                            <p>
+                                @foreach($product->categories as $category)
+                                    @if ($loop->last)
+                                        {{ $category->name }}
+                                    @else
+                                        {{ $category->name }},
+                                    @endif
+                                @endforeach
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -68,7 +76,15 @@
                             <p><strong>Tag</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>new, modern, usa</p>
+                            <p>
+                                @foreach($product->tags as $tag)
+                                    @if ($loop->last)
+                                        {{ $tag->name }}
+                                    @else
+                                        {{ $tag->name }},
+                                    @endif
+                                @endforeach
+                            </p>
                         </div>
                     </div>
                 </div>
