@@ -1,4 +1,4 @@
-@extends('promotion::promotion.layouts.master')
+@extends('promotion::layouts.master')
 
 @section('title-page', 'Promotions')
 

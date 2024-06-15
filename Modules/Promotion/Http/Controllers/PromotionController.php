@@ -36,7 +36,7 @@ class PromotionController extends Controller
         $search = $request->input('search');
         $promotions = $this->promotionRepository->paginate($search);
 
-        return view('promotion::promotion.index', compact('promotions'));
+        return view('promotion::index', compact('promotions'));
     }
 
     /**
@@ -54,7 +54,7 @@ class PromotionController extends Controller
         $discount_targets = DiscountTarget::getObject();
         $discount_types = DiscountType::getObject();
 
-        return view('promotion::promotion.create', compact('form', 'condition_types', 'discount_targets', 'discount_types'));
+        return view('promotion::create', compact('form', 'condition_types', 'discount_targets', 'discount_types'));
     }
 
     /**
@@ -82,7 +82,7 @@ class PromotionController extends Controller
     {
         $promotion = $this->promotionRepository->find($id);
 
-        return view('promotion::promotion.detail', compact('promotion'));
+        return view('promotion::detail', compact('promotion'));
     }
 
     /**
@@ -103,7 +103,7 @@ class PromotionController extends Controller
         $discount_targets = DiscountTarget::getObject();
         $discount_types = DiscountType::getObject();
 
-        return view('promotion::promotion.edit', compact('form', 'promotion', 'condition_types', 'discount_targets', 'discount_types'));
+        return view('promotion::edit', compact('form', 'promotion', 'condition_types', 'discount_targets', 'discount_types'));
     }
 
     /**

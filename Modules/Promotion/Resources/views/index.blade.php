@@ -1,4 +1,4 @@
-@extends('promotion::promotion.layouts.master')
+@extends('promotion::layouts.master')
 
 @section('title-page', 'Promotion')
 
@@ -89,7 +89,7 @@
     </div>
 </div>
 
-@include('promotion::promotion.layouts.modal', [
+@include('promotion::layouts.modal', [
     'modal'             => [
         'id'            => 'modal-promotion-delete',
         'title'         => 'Delete Promotion',
@@ -107,7 +107,7 @@
     ]
 ])
 
-@include('promotion::promotion.layouts.modal', [
+@include('promotion::layouts.modal', [
     'modal'                 => [
         'id'                => 'modal-promotion-update',
         'title'             => 'Update Status Promotion',

@@ -1,4 +1,4 @@
-@extends('promotion::promotion.layouts.master')
+@extends('promotion::layouts.master')
 
 @section('title-page', 'Promotions')
 
@@ -15,5 +15,5 @@
 @endsection
 
 @section('content')
-    @include('promotion::promotion.layouts.form')
+    @include('promotion::layouts.form')
 @endsection
