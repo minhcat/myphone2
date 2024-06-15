@@ -45,6 +45,16 @@
                 <div class="field-group">
                     <div class="row">
                         <div class="col-lg-2">
+                            <p><strong>Status</strong></p>
+                        </div>
+                        <div class="col-lg-10">
+                            <p>{!! generate_label($order->status, new OrderStatus) !!}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <div class="row">
+                        <div class="col-lg-2">
                             <p><strong>Quantity</strong></p>
                         </div>
                         <div class="col-lg-10">

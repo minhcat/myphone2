@@ -56,7 +56,7 @@
                                     <td>{{ $user->id }}</td>
                                     <td><a href="{{ route('user.show', $user->id) }}">{{ $user->account }}</a></td>
                                     <td>{{ $user->fullname }}</td>
-                                    <td>{{ App\Enums\Gender::getName($user->gender) }}</td>
+                                    <td>{!! generate_label($user->gender, new Gender) !!}</td>
                                     <td>{{ $user->job }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->created_at->format('d-m-Y') }}</td>

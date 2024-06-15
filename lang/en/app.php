@@ -11,7 +11,7 @@ return [
             'label'                 => [
                 'male'              => 'primary',
                 'female'            => 'success',
-                'other'             => 'secondary',
+                'other'             => 'default',
             ],
         ],
         'order_status'              => [

@@ -50,24 +50,14 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Gender</label>
+                                @foreach($genders as $key => $gender)
                                 <div class="radio">
-                                    <label for="gender1">
-                                        <input type="radio" name="gender" id="gender1" value="{{ App\Enums\Gender::MALE }}" {{ $user->gender == App\Enums\Gender::MALE ? 'checked' : '' }}>
-                                        male
+                                    <label for="gender{{ $key }}">
+                                        <input type="radio" name="gender" id="gender1" value="{{ $gender->code }}" {{ $user->gender === $gender->code ? 'checked' : '' }}>
+                                        {{ $gender->name }}
                                     </label>
                                 </div>
-                                <div class="radio">
-                                    <label for="gender2">
-                                        <input type="radio" name="gender" id="gender2" value="{{ App\Enums\Gender::FEMALE }}" {{ $user->gender == App\Enums\Gender::FEMALE ? 'checked' : '' }}>
-                                        female
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label for="gender3">
-                                        <input type="radio" name="gender" id="gender3" value="{{ App\Enums\Gender::OTHER }}" {{ $user->gender == App\Enums\Gender::OTHER ? 'checked' : '' }}>
-                                        other
-                                    </label>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

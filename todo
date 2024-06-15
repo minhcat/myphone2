@@ -7,7 +7,6 @@ check created_at, update_at all modules with format
 update noti create, update, delete to lang
 check and update validate update
 update folder view promotion module
-add interface, abtract, register app provider enums
 check all modal, delete js in index view
 remove config, console, database, test folder in modules
 edit default nullable migration

@@ -56,19 +56,19 @@
                                 <tr>
                                     <td>{{ $promotion->id }}</td>
                                     <td><a href="{{ route('promotion.show', $promotion->id) }}">{{ $promotion->name }}</a></td>
-                                    <td>{!! generate_label($promotion->condition_type, new App\Enums\ConditionType) !!}</td>
-                                    <td>{!! generate_label($promotion->discount_target, new App\Enums\DiscountTarget) !!}</td>
-                                    <td>{!! generate_label($promotion->discount_type, new App\Enums\DiscountType) !!}</td>
+                                    <td>{!! generate_label($promotion->condition_type, new ConditionType) !!}</td>
+                                    <td>{!! generate_label($promotion->discount_target, new DiscountTarget) !!}</td>
+                                    <td>{!! generate_label($promotion->discount_type, new DiscountType) !!}</td>
                                     <td>{{ $promotion->start_datetime->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $promotion->end_datetime->format('H:i:s d/m/Y') }}</td>
-                                    <td>{!! generate_label($promotion->status, new App\Enums\PromotionStatus) !!}</td>
+                                    <td>{!! generate_label($promotion->status, new PromotionStatus) !!}</td>
                                     @if ($promotion->user)
                                     <td><a href="{{ route('user.show', $promotion->user->id) }}">{{ $promotion->user->fullname }}</a></td>
                                     @else
                                     <td></td>
                                     @endif
                                     <td style="text-align: right">
-                                        {!! generate_button_update_status($promotion->status, new  App\Enums\PromotionStatus, ['toggle' => 'modal', 'target' => '#modal-promotion-update', 'id' => $promotion->id, 'status' => App\Enums\PromotionStatus::getNextStatus($promotion->status)]) !!}
+                                        {!! generate_button_update_status($promotion->status, new PromotionStatus, ['toggle' => 'modal', 'target' => '#modal-promotion-update', 'id' => $promotion->id, 'status' => PromotionStatus::getNextStatus($promotion->status)]) !!}
                                         <a class="btn btn-primary" href="{{ route('promotion.edit', $promotion->id) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-promotion-delete" data-id="{{ $promotion->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>

@@ -48,7 +48,7 @@
                             <p><strong>Condition Type</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{!! generate_label($promotion->condition_type, new App\Enums\ConditionType) !!}</p>
+                            <p>{!! generate_label($promotion->condition_type, new ConditionType) !!}</p>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                             <p><strong>Discount Target</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{!! generate_label($promotion->discount_target, new App\Enums\DiscountTarget) !!}</p>
+                            <p>{!! generate_label($promotion->discount_target, new DiscountTarget) !!}</p>
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                             <p><strong>Discount Type</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{!! generate_label($promotion->discount_type, new App\Enums\DiscountType) !!}</p>
+                            <p>{!! generate_label($promotion->discount_type, new DiscountType) !!}</p>
                         </div>
                     </div>
                 </div>
@@ -128,7 +128,7 @@
                             <p><strong>Status</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{!! generate_label($promotion->status, new App\Enums\PromotionStatus) !!}</p>
+                            <p>{!! generate_label($promotion->status, new PromotionStatus) !!}</p>
                         </div>
                     </div>
                 </div>

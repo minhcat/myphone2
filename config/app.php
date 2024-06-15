@@ -209,7 +209,12 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'ExampleClass' => App\Example\ExampleClass::class,
+        'ConditionType'     => App\Enums\ConditionType::class,
+        'DiscountTarget'    => App\Enums\DiscountTarget::class,
+        'DiscountType'      => App\Enums\DiscountType::class,
+        'Gender'            => App\Enums\Gender::class,
+        'OrderStatus'       => App\Enums\OrderStatus::class,
+        'PromotionStatus'   => App\Enums\PromotionStatus::class
     ])->toArray(),
 
 ];

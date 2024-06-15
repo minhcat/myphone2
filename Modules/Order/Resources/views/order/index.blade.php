@@ -67,7 +67,7 @@
                                     <td>{{ number_format($order->transport_fee) }}</td>
                                     <td>{{ number_format($order->discount) }}</td>
                                     <td>{{ number_format($order->total) }}</td>
-                                    <td>{!! generate_label($order->status, new App\Enums\OrderStatus) !!}</td>
+                                    <td>{!! generate_label($order->status, new OrderStatus) !!}</td>
                                     <td>
                                         {!! generate_button_orderstatus($order->status, $order->id) !!}
                                     </td>

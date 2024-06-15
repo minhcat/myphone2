@@ -2,6 +2,7 @@
 
 namespace Modules\User\Http\Controllers;
 
+use App\Enums\Gender;
 use App\Repositories\AbstractRepository;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -47,7 +48,9 @@ class UserController extends Controller
             'method'    => 'POST',
         ];
 
-        return view('user::create', compact('form'));
+        $genders = Gender::getObject();
+
+        return view('user::create', compact('form', 'genders'));
     }
 
     /**
@@ -95,8 +98,9 @@ class UserController extends Controller
         ];
 
         $user = $this->userRepository->find($id);
+        $genders = Gender::getObject();
 
-        return view('user::edit', compact('form', 'user'));
+        return view('user::edit', compact('form', 'user', 'genders'));
     }
 
     /**

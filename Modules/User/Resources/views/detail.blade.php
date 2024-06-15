@@ -48,7 +48,7 @@
                             <p><strong>Gender</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ App\Enums\Gender::getName($user->gender) }}</p>
+                            <p>{!! generate_label($user->gender, new Gender) !!}</p>
                         </div>
                     </div>
                 </div>
