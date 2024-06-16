@@ -135,6 +135,7 @@
             </div>
             <div class="box-footer">
                 <a href="{{ route('invoice.index') }}" class="btn btn-default">Back</a>
+                <a href="{{ route('invoice.show_invoice', $invoice->id) }}" class="btn btn-success">Invoice</a>
             </div>
         </div>
     </div>

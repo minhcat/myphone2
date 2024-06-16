@@ -28,6 +28,7 @@ Route::prefix('admin')->group(function() {
 
         Route::get('/', [OrderController::class, 'index'])->name('index');
         Route::get('/{id}', [OrderController::class, 'show'])->name('show');
+        Route::get('/{id}/invoice', [OrderController::class, 'showInvoice'])->name('show_invoice');
         Route::put('/{id}', [OrderController::class, 'update'])->name('update');
         Route::delete('/{id}', [OrderController::class, 'destroy'])->name('delete');
     });

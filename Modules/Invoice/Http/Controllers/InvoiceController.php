@@ -45,4 +45,16 @@ class InvoiceController extends Controller
 
         return view('invoice::invoice.detail', compact('invoice'));
     }
+
+    /**
+     * Show the specified resource with invoice type.
+     * @param int $id
+     * @return Renderable
+     */
+    public function showInvoice($id)
+    {
+        $invoice = $this->invoiceRepository->find($id);
+
+        return view('invoice::invoice.invoice', compact('invoice'));
+    }
 }

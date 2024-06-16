@@ -165,3 +165,7 @@ table.table-fix tr td{
 .modal-add-order .modal-content .modal-body .products.products-minus .input-group .input-group-btn button i.fa.fa-minus{
     display: none;
 }
+
+.order-invoice .box .order-invoice-footer table tr.with-border-top{
+    border-top: 1px solid #ddd;
+}

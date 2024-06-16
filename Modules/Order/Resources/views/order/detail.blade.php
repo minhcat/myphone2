@@ -145,6 +145,7 @@
             </div>
             <div class="box-footer">
                 <a href="{{ route('order.index') }}" class="btn btn-default">Back</a>
+                <a href="{{ route('order.show_invoice', $order->id) }}" class="btn btn-success">Invoice</a>
             </div>
         </div>
     </div>

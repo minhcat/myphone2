@@ -74,4 +74,16 @@ class OrderController extends Controller
 
         return redirect()->route('order.index')->with('success', 'Delete order successfully');
     }
+
+    /**
+     * Show the specified resource with invoice type.
+     * @param int $id
+     * @return Renderable
+     */
+    public function showInvoice($id)
+    {
+        $order = $this->orderRepository->find($id);
+
+        return view('order::order.invoice', compact('order'));
+    }
 }

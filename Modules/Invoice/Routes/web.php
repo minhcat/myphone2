@@ -22,5 +22,6 @@ Route::prefix('admin')->group(function() {
         });
         Route::get('/', [InvoiceController::class, 'index'])->name('index');
         Route::get('/{id}', [InvoiceController::class, 'show'])->name('show');
+        Route::get('/{id}/invoice', [InvoiceController::class, 'showInvoice'])->name('show_invoice');
     });
 });
