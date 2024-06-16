@@ -83,6 +83,14 @@ abstract class AbstractRepository implements RepositoryInterface
             $data[$name] = $field;
         }
 
+        if (array_key_exists('description', $data) && $data['description'] === null) {
+            $data['description'] = '';
+        }
+
+        if (array_key_exists('note', $data) && $data['note'] === null) {
+            $data['note'] = '';
+        }
+
         return $data;
     }
 
