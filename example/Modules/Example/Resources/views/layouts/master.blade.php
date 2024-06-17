@@ -1,2 +1,0 @@
-@extends('themes.adminlte.master')
-

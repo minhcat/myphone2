@@ -5,4 +5,3 @@ update product variation in cart, order, invoice
 check created_at, update_at all modules with format
 update noti create, update, delete to lang
 check and update validate update
-check all modal, delete js in index view
