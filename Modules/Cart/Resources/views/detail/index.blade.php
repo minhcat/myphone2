@@ -97,6 +97,7 @@
                 window.location.href = url;
             }
         })
+
         let url_delete = $('#modal-cart-detail-delete form').attr('action');
         $('.btn-delete').click(function() {
             let id = $(this).data('id');

@@ -100,6 +100,7 @@
                 window.location.href = url;
             }
         })
+
         $('.modal-add-order').on('click', '.products-minus .btn-add', function() {
             let id = $(this).data('id');
             let $modal = $('#modal-add-order-' + id);
@@ -119,6 +120,7 @@
             $modal.find('span.total').text(number_format(total_price))
             $modal.find('span.total').data('total', total_price)
         });
+
         $('.modal-add-order').on('click', '.products-add .btn-add', function() {
             let id = $(this).data('id');
             let $modal = $('#modal-add-order-' + id);

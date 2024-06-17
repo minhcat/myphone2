@@ -140,6 +140,7 @@
                 window.location.href = url;
             }
         })
+
         let url_delete = $('#modal-order-delete form').attr('action');
         $('.btn-delete').click(function() {
             let id = $(this).data('id');
@@ -149,6 +150,7 @@
         $('#modal-order-delete').on('hide.bs.modal', function() {
             $('#modal-order-delete form').attr('action', url_delete);
         })
+
         let url_update = $('#modal-order-update form').attr('action');
         $('.btn-update').click(function() {
             let id = $(this).data('id');
