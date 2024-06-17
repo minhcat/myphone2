@@ -6,4 +6,3 @@ check created_at, update_at all modules with format
 update noti create, update, delete to lang
 check and update validate update
 check all modal, delete js in index view
-remove config, console, database, test folder in modules
