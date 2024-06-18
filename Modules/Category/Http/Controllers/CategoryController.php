@@ -62,7 +62,7 @@ class CategoryController extends Controller
 
         $this->categoryRepository->create($request->all());
 
-        return redirect()->route('category.index')->with('success', 'create new category successfully');
+        return redirect()->route('category.index')->with('success', __('notification.create.success', ['model' => 'category']));
     }
 
     /**
@@ -109,7 +109,7 @@ class CategoryController extends Controller
 
         $this->categoryRepository->update($id, $request->all());
 
-        return redirect()->route('category.index')->with('success', 'update category successfully');
+        return redirect()->route('category.index')->with('success', __('notification.update.success', ['model' => 'category']));
     }
 
     /**
@@ -121,7 +121,7 @@ class CategoryController extends Controller
     {
         $this->categoryRepository->delete($id);
 
-        return redirect()->route('category.index')->with('success', 'delete category successfully');
+        return redirect()->route('category.index')->with('success', __('notification.delete.success', ['model' => 'category']));
     }
 
     /**
@@ -153,7 +153,7 @@ class CategoryController extends Controller
 
         return response()->json([
             'type'      => 'Success',
-            'message'   => 'buid categories successfully'   
+            'message'   => __('notification.build.success', ['model' => 'category'])
         ]);
     }
 }

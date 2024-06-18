@@ -96,6 +96,6 @@ class CartController extends Controller
 
         event(new CreateOrderEvent($order));
 
-        return redirect()->route('cart.index')->with('success', 'Create new order successfully');
+        return redirect()->route('cart.index')->with('success', __('notification.create.success', ['model' => 'order']));
     }
 }

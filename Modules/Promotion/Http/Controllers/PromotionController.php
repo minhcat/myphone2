@@ -70,7 +70,7 @@ class PromotionController extends Controller
 
         $this->promotionRepository->create($request->all(), ['status' => PromotionStatus::PENDING]);
 
-        return redirect()->route('promotion.index')->with('success', 'Create new promotion successfully');
+        return redirect()->route('promotion.index')->with('success', __('notification.create.success', ['model' => 'promotion']));
     }
 
     /**
@@ -120,7 +120,7 @@ class PromotionController extends Controller
 
         $this->promotionRepository->update($id, $request->all());
 
-        return redirect()->route('promotion.index')->with('success', 'Update promotion successfully');
+        return redirect()->route('promotion.index')->with('success', __('notification.update.success', ['model' => 'promotion']));
     }
 
     /**
@@ -132,6 +132,6 @@ class PromotionController extends Controller
     {
         $this->promotionRepository->delete($id);
 
-        return redirect()->route('promotion.index')->with('success', 'Delete promotion successfully');
+        return redirect()->route('promotion.index')->with('success', __('notification.delete.success', ['model' => 'promotion']));
     }
 }

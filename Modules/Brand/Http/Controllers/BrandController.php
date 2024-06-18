@@ -62,7 +62,7 @@ class BrandController extends Controller
 
         $this->brandRepository->create($request->all());
 
-        return redirect()->route('brand.index')->with('success', 'create new brand successfully');
+        return redirect()->route('brand.index')->with('success', __('notification.create.success', ['model' => 'brand']));
     }
 
     /**
@@ -109,7 +109,7 @@ class BrandController extends Controller
 
         $this->brandRepository->update($id, $request->all());
 
-        return redirect()->route('brand.index')->with('success', 'update brand successfully');
+        return redirect()->route('brand.index')->with('success', __('notification.update.success', ['model' => 'brand']));
     }
 
     /**
@@ -121,6 +121,6 @@ class BrandController extends Controller
     {
         $this->brandRepository->delete($id);
 
-        return redirect()->route('brand.index')->with('success', 'delete brand successfully');
+        return redirect()->route('brand.index')->with('success', __('notification.delete.success', ['model' => 'brand']));
     }
 }

@@ -63,7 +63,7 @@ class OptionController extends Controller
 
         $this->optionRepository->create($request->all(), ['attribute_id' => $attribute_id]);
 
-        return redirect()->route('attribute.option.index', $attribute_id)->with('success', 'create new option successfully');
+        return redirect()->route('attribute.option.index', $attribute_id)->with('success', __('notification.create.success', ['model' => 'option']));
     }
 
     /**
@@ -110,7 +110,7 @@ class OptionController extends Controller
 
         $this->optionRepository->update($id, $request->all(), ['attribute_id' => $attribute_id]);
 
-        return redirect()->route('attribute.option.index', $attribute_id)->with('success', 'update option successfully');
+        return redirect()->route('attribute.option.index', $attribute_id)->with('success', __('notification.update.success', ['model' => 'option']));
     }
 
     /**
@@ -122,6 +122,6 @@ class OptionController extends Controller
     {
         $this->optionRepository->delete($id);
 
-        return redirect()->route('attribute.option.index', $attribute_id)->with('success', 'delete option successfully');
+        return redirect()->route('attribute.option.index', $attribute_id)->with('success', __('notification.delete.success', ['model' => 'option']));
     }
 }

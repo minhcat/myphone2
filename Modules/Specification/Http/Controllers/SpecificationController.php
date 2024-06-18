@@ -62,7 +62,7 @@ class SpecificationController extends Controller
 
         $this->specificationRepository->create($request->all());
 
-        return redirect()->route('specification.index')->with('success', 'Create new Specification succcessfully.');
+        return redirect()->route('specification.index')->with('success', __('notification.create.success', ['model' => 'specification']));
     }
 
     /**
@@ -104,12 +104,12 @@ class SpecificationController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'      => 'required:unique:specifications.name.'.$id,
+            'name'      => 'required|unique:specifications.name.'.$id,
         ]);
 
         $this->specificationRepository->update($id, $request->all());
 
-        return redirect()->route('specification.index')->with('success', 'Update specification successfully.');
+        return redirect()->route('specification.index')->with('success', __('notification.update.success', ['model' => 'specification']));
     }
 
     /**
@@ -121,6 +121,6 @@ class SpecificationController extends Controller
     {
         $this->specificationRepository->delete($id);
 
-        return redirect()->route('specification.index')->with('success', 'Delete specification successfully.');
+        return redirect()->route('specification.index')->with('success', __('notification.delete.success', ['model' => 'specification']));
     }
 }

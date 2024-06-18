@@ -68,7 +68,7 @@ class AttributeController extends Controller
 
         $this->attributeRepository->create($request->all());
 
-        return redirect()->route('attribute.index')->with('success', 'create new attribute successfully');
+        return redirect()->route('attribute.index')->with('success', __('notification.create.success', ['model' => 'attribute']));
     }
 
     /**
@@ -115,7 +115,7 @@ class AttributeController extends Controller
 
         $this->attributeRepository->update($id, $request->all());
 
-        return redirect()->route('attribute.index')->with('success', 'update attribute successfully');
+        return redirect()->route('attribute.index')->with('success', __('notification.update.success', ['model' => 'attribute']));
     }
 
     /**
@@ -129,6 +129,6 @@ class AttributeController extends Controller
 
         $this->optionRepository->deleteByAttributeId($id);
 
-        return redirect()->route('attribute.index')->with('success', 'delete attribute successfully');
+        return redirect()->route('attribute.index')->with('success', __('notification.delete.success', ['model' => 'attribute']));
     }
 }

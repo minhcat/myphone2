@@ -62,7 +62,7 @@ class InformationController extends Controller
 
         $this->informationRepository->create($request->all(), ['specification_id' => $specification_id]);
 
-        return redirect()->route('specification.information.index', $specification_id)->with('success', 'Create new Information successfully');
+        return redirect()->route('specification.information.index', $specification_id)->with('success', __('notification.create.success', ['model' => 'information']));
     }
 
     /**
@@ -109,7 +109,7 @@ class InformationController extends Controller
 
         $this->informationRepository->update($id, $request->all(), ['specification_id' => $specification_id]);
 
-        return redirect()->route('specification.information.index', $specification_id)->with('success', 'Edit Information successfully.');
+        return redirect()->route('specification.information.index', $specification_id)->with('success', __('notification.update.success', ['model' => 'information']));
     }
 
     /**
@@ -121,6 +121,6 @@ class InformationController extends Controller
     {
         $this->informationRepository->delete($id);
 
-        return redirect()->route('specification.information.index', $specification_id)->with('success', 'Delete Information successfully');
+        return redirect()->route('specification.information.index', $specification_id)->with('success', __('notification.delete.success', ['model' => 'information']));
     }
 }

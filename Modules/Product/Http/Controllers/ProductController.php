@@ -82,7 +82,7 @@ class ProductController extends Controller
 
         $this->productRepository->create($request->all());
 
-        return redirect()->route('product.index')->with('success', 'create new product successfully');
+        return redirect()->route('product.index')->with('success', __('notification.create.success', ['model' => 'product']));
     }
 
     /**
@@ -134,7 +134,7 @@ class ProductController extends Controller
 
         $this->productRepository->update($id, $request->all());
 
-        return redirect()->route('product.index')->with('success', 'update product successfully');
+        return redirect()->route('product.index')->with('success', __('notification.update.success', ['model' => 'product']));
     }
 
     /**
@@ -146,6 +146,6 @@ class ProductController extends Controller
     {
         $this->productRepository->delete($id);
 
-        return redirect()->route('product.index')->with('success', 'delete product successfully');
+        return redirect()->route('product.index')->with('success', __('notification.delete.success', ['model' => 'product']));
     }
 }

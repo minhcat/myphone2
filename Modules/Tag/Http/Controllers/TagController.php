@@ -62,7 +62,7 @@ class TagController extends Controller
 
         $this->tagRepository->create($request->all());
 
-        return redirect()->route('tag.index')->with('success', 'Create new tag successfully');
+        return redirect()->route('tag.index')->with('success', __('notification.create.success', ['model' => 'tag']));
     }
 
     /**
@@ -108,7 +108,7 @@ class TagController extends Controller
 
         $this->tagRepository->update($id, $request->all());
 
-        return redirect()->route('tag.index')->with('success', 'Edit tag successfully');
+        return redirect()->route('tag.index')->with('success', __('notification.update.success', ['model' => 'tag']));
     }
 
     /**
@@ -120,6 +120,6 @@ class TagController extends Controller
     {
         $this->tagRepository->delete($id);
 
-        return redirect()->route('tag.index')->with('success', 'Delete tag successfully');
+        return redirect()->route('tag.index')->with('success', __('notification.delete.success', ['model' => 'tag']));
     }
 }

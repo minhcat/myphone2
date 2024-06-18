@@ -73,6 +73,6 @@ class DetailController extends Controller
     {
         $this->detailRepository->updateWithProductId($product_id, $request->all());
 
-        return redirect()->route('product.detail.index', $product_id)->with('success', 'update data successfully');
+        return redirect()->route('product.detail.index', $product_id)->with('success', __('notification.update.success', ['model' => 'product detail']));
     }
 }

@@ -75,12 +75,12 @@ class OrderDetailController extends Controller
 
             $this->orderDetailRepository->update($detail->id, ['quantity' => $quantity]);
 
-            return redirect()->route('order.detail.index', $order_id)->with('success', 'Create new order detail successfully!');
+            return redirect()->route('order.detail.index', $order_id)->with('success', __('notification.create.success', ['model' => 'order detail']));
         }
 
         $this->orderDetailRepository->create($request->all(), ['price' => $product->price ?: 0, 'order_id' => $order_id]);
 
-        return redirect()->route('order.detail.index', $order_id)->with('success', 'Create new order detail successfully!');
+        return redirect()->route('order.detail.index', $order_id)->with('success', __('notification.create.success', ['model' => 'order detail']));
     }
 
     /**
@@ -130,14 +130,14 @@ class OrderDetailController extends Controller
         if (!is_null($detail)) {
             $this->orderDetailRepository->update($detail->id, ['quantity' => intval($request->input('quantity'))]);
 
-            return redirect()->route('order.detail.index', $order_id)->with('success', 'Update order detail successfully!');
+            return redirect()->route('order.detail.index', $order_id)->with('success', __('notification.update.success', ['model' => 'order detail']));
         }
 
         $this->orderDetailRepository->create($request->all(), ['price' => $product->price, 'order_id' => $order_id]);
 
         $this->orderDetailRepository->delete($id);
 
-        return redirect()->route('order.detail.index', $order_id)->with('success', 'Update order detail successfully!');
+        return redirect()->route('order.detail.index', $order_id)->with('success', __('notification.update.success', ['model' => 'order detail']));
     }
 
     /**
@@ -149,6 +149,6 @@ class OrderDetailController extends Controller
     {
         $this->orderDetailRepository->delete($id);
 
-        return redirect()->route('order.detail.index', $order_id)->with('success', 'Delete order detail successfully');
+        return redirect()->route('order.detail.index', $order_id)->with('success', __('notification.delete.success', ['model' => 'order detail']));
     }
 }

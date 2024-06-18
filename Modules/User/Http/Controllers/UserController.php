@@ -69,7 +69,7 @@ class UserController extends Controller
 
         $this->userRepository->create($request->all());
 
-        return redirect()->route('user.index')->with('success', 'create new user successfully');
+        return redirect()->route('user.index')->with('success', __('notification.create.success', ['model' => 'user']));
     }
 
     /**
@@ -120,7 +120,7 @@ class UserController extends Controller
 
         $this->userRepository->update($id, $request->all());
 
-        return redirect()->route('user.index')->with('success', 'update user successfully');
+        return redirect()->route('user.index')->with('success', __('notification.update.success', ['model' => 'user']));
     }
 
     /**
@@ -132,6 +132,6 @@ class UserController extends Controller
     {
         $this->userRepository->delete($id);
 
-        return redirect()->route('user.index')->with('success', 'delete user successfully');
+        return redirect()->route('user.index')->with('success', __('notification.delete.success', ['model' => 'user']));
     }
 }

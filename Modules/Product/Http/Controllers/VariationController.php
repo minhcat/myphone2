@@ -78,7 +78,7 @@ class VariationController extends Controller
 
         $this->variationRepository->create($request->all());
 
-        return redirect()->route('product.variation.index', $product_id)->with('success', 'create new variation successfully');
+        return redirect()->route('product.variation.index', $product_id)->with('success', __('notification.create.success', ['model' => 'product variation']));
     }
 
     /**
@@ -128,7 +128,7 @@ class VariationController extends Controller
 
         $this->variationRepository->update($id, $request->all());
 
-        return redirect()->route('product.variation.index', $product_id)->with('success', 'create new variation successfully');
+        return redirect()->route('product.variation.index', $product_id)->with('success', __('notification.update.success', ['model' => 'product variation']));
     }
 
     /**
@@ -140,6 +140,6 @@ class VariationController extends Controller
     {
         $this->variationRepository->delete($id);
 
-        return redirect()->route('product.variation.index', $product_id)->with('success', 'delete variation successfully');
+        return redirect()->route('product.variation.index', $product_id)->with('success', __('notification.delete.success', ['model' => 'product variation']));
     }
 }
