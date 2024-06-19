@@ -14,7 +14,7 @@ class OrderDetailRepository extends AbstractRepository
 
     public function paginateByOrderId($order_id, $take = self::TAKE_DEFAULT)
     {
-        return $this->model->where('order_id', $order_id)->paginate($take);
+        return $this->model->orderBy($this->orderBy, $this->orderType)->where('order_id', $order_id)->paginate($take);
     }
 
     public function findWhere($where = [])

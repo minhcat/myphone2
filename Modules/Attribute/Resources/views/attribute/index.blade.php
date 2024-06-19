@@ -49,9 +49,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($attributes as $attribute)
+                            @foreach ($attributes as $key => $attribute)
                                 <tr>
-                                    <td>{{ $attribute->id }}</td>
+                                    <td>{{ $key + 1 }}</td>
                                     <td><a href="{{ route('attribute.show', $attribute->id) }}">{{ $attribute->name }}</a></td>
                                     <td>@if (!is_null($attribute->user)) <a href="{{ route('user.show', $attribute->user->id) }}">{{ $attribute->user->fullname }}</a>@endif</td>
                                     <td>{{ $attribute->created_at->format('H:i:s d/m/Y') }}</td>

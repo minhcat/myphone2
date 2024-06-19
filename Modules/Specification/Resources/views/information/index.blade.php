@@ -49,9 +49,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($informations as $information)
+                            @foreach ($informations as $key => $information)
                                 <tr>
-                                    <td>{{ $information->id }}</td>
+                                    <td>{{ $key + 1 }}</td>
                                     <td><a href="{{ route('specification.information.show', ['specification_id' => $specification_id, 'id' => $information->id]) }}">{{ $information->value }}</a></td>
                                     @if ($information->user)
                                     <td><a href="{{ route('user.show', $information->user->id) }}">{{ $information->user->fullname }}</a></td>

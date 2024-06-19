@@ -39,9 +39,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($variations as $variation)
+                            @foreach ($variations as $key => $variation)
                                 <tr>
-                                    <td>{{ $variation->id }}</td>
+                                    <td>{{ $key + 1 }}</td>
                                     <td><a href="{{ route('product.variation.show', ['product_id' => $product_id, 'id' => $variation->id]) }}">{{ $variation->code }}</a></td>
                                     <td>{{ $variation->price }}</td>
                                     @foreach($attributes as $attribute)

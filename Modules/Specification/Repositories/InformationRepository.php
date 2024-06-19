@@ -16,12 +16,13 @@ class InformationRepository extends AbstractRepository
 
     public function paginateBySpecificationId($specification_id, $search = null, $take = self::TAKE_DEFAULT, $field = null)
     {
+        $query = $this->model->orderBy($this->orderBy, $this->orderType);
         if (is_null($search)) {
-            return $this->model->where('specification_id', $specification_id)->paginate($take);
+            return $query->where('specification_id', $specification_id)->paginate($take);
         }
         if (!is_null($field)) {
-            return $this->model->where('specification_id', $specification_id)->where($field, 'LIKE', "%$search%")->paginate($take);
+            return $query->where('specification_id', $specification_id)->where($field, 'LIKE', "%$search%")->paginate($take);
         }
-        return $this->model->where('specification_id', $specification_id)->where($this->searchFieldName, 'LIKE', "%$search%")->paginate($take);
+        return $query->where('specification_id', $specification_id)->where($this->searchFieldName, 'LIKE', "%$search%")->paginate($take);
     }
 }

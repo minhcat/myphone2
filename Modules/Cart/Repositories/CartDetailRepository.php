@@ -14,7 +14,7 @@ class CartDetailRepository extends AbstractRepository
 
     public function paginateByCartId($cart_id, $take = self::TAKE_DEFAULT)
     {
-        return $this->model->where('cart_id', $cart_id)->paginate($take);
+        return $this->model->orderBy($this->orderBy, $this->orderType)->where('cart_id', $cart_id)->paginate($take);
     }
 
     public function findWhere($where = [])

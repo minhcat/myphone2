@@ -52,9 +52,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($orders as $order)
+                            @foreach ($orders as $key => $order)
                                 <tr>
-                                    <td>{{ $order->id }}</td>
+                                    <td>{{ $key + 1 }}</td>
                                     <td><a href="{{ route('order.show', $order->id) }}">{{ $order->code }}</a></td>
                                     @if ($order->user)
                                     <td><a href="{{ route('user.show', $order->user->id) }}">{{ $order->user->fullname }}</a></td>

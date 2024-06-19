@@ -13,6 +13,10 @@ abstract class AbstractRepository implements RepositoryInterface
 
     protected $searchFieldName = 'name';
 
+    protected $orderBy = 'id';
+
+    protected $orderType = 'desc';
+
     public function __construct()
     {
         $this->model = $this->getModel();
@@ -33,13 +37,14 @@ abstract class AbstractRepository implements RepositoryInterface
     // todo: replace take and search
     public function paginate($search = null, $take = self::TAKE_DEFAULT, $field = null)
     {
+        $query = $this->model->orderBy($this->orderBy, $this->orderType);
         if (is_null($search)) {
-            return $this->model->paginate($take);
+            return $query->paginate($take);
         }
         if (!is_null($field)) {
-            return $this->model->where($field, 'LIKE', "%$search%")->paginate($take);
+            return $query->where($field, 'LIKE', "%$search%")->paginate($take);
         }
-        return $this->model->where($this->searchFieldName, 'LIKE', "%$search%")->paginate($take);
+        return $query->where($this->searchFieldName, 'LIKE', "%$search%")->paginate($take);
     }
 
     public function find($id)

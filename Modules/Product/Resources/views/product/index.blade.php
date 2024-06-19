@@ -51,9 +51,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($products as $product)
+                            @foreach ($products as $key => $product)
                                 <tr>
-                                    <td>{{ $product->id }}</td>
+                                    <td>{{ $key + 1 }}</td>
                                     <td><a href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a></td>
                                     <td>{{ optional($product->brand)->name }}</td>
                                     <td>

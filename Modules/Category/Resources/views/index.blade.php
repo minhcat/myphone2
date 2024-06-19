@@ -50,9 +50,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categories as $category)
+                            @foreach ($categories as $key => $category)
                                 <tr>
-                                    <td>{{ $category->id }}</td>
+                                    <td>{{ $key + 1 }}</td>
                                     <td><a href="{{ route('category.show', $category->id) }}">{{ $category->name }}</a></td>
                                     <td><a href="{{ route('category.show', $category->id) }}">{{ optional($category->parent)->name }}</a></td>
                                     <td>@if (!is_null($category->user)) <a href="{{ route('user.show', $category->user->id) }}">{{ $category->user->fullname }}</a>@endif</td>

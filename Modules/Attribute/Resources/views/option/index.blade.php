@@ -50,9 +50,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($options as $option)
+                            @foreach ($options as $key => $option)
                                 <tr>
-                                    <td>{{ $option->id }}</td>
+                                    <td>{{ $key + 1 }}</td>
                                     <td><a href="{{ route('attribute.option.show', ['attribute_id' => $attribute_id, 'id' => $option->id]) }}">{{ $option->value }}</a></td>
                                     <td>@if (!is_null($option->user)) <a href="{{ route('user.show', $option->user->id) }}">{{ $option->user->fullname }}</a>@endif</td>
                                     <td>{{ $option->created_at->format('H:i:s d/m/Y') }}</td>

@@ -52,9 +52,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($promotions as $promotion)
+                            @foreach ($promotions as $key => $promotion)
                                 <tr>
-                                    <td>{{ $promotion->id }}</td>
+                                    <td>{{ $key + 1 }}</td>
                                     <td><a href="{{ route('promotion.show', $promotion->id) }}">{{ $promotion->name }}</a></td>
                                     <td>{!! generate_label($promotion->condition_type, new ConditionType) !!}</td>
                                     <td>{!! generate_label($promotion->discount_target, new DiscountTarget) !!}</td>

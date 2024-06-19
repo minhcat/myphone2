@@ -35,9 +35,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($details as $detail)
+                            @foreach ($details as $key => $detail)
                                 <tr>
-                                    <td>{{ $detail->id }}</td>
+                                    <td>{{ $key + 1 }}</td>
                                     <td><a href="{{ route('product.show', $detail->product->id) }}">{{ $detail->product->name }}</a></td>
                                     <td>{{ $detail->quantity }}</td>
                                     <td>{{ $detail->price }}</td>

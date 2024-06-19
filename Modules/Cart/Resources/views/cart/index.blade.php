@@ -50,9 +50,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($carts as $cart)
+                            @foreach ($carts as $key => $cart)
                                 <tr>
-                                    <td>{{ $cart->id }}</td>
+                                    <td>{{ $key + 1 }}</td>
                                     <td><a href="{{ route('cart.show', $cart->id) }}">{{ $cart->code }}</a></td>
                                     @if ($cart->user)
                                     <td><a href="{{ route('user.show', $cart->user->id) }}">{{ $cart->user->fullname }}</a></td>

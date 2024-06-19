@@ -49,9 +49,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($brands as $brand)                                
+                            @foreach($brands as $key => $brand)                                
                                 <tr>
-                                    <td>{{ $brand->id }}</td>
+                                    <td>{{ $key + 1 }}</td>
                                     <td><a href="{{ route('brand.show', $brand->id) }}">{{ $brand->name }}</a></td>
                                     <td>{{ $brand->country }}</td>
                                     @if ($brand->user)

@@ -14,6 +14,6 @@ class InvoiceDetailRepository extends AbstractRepository
 
     public function paginateByInvoiceId($invoice_id, $take = self::TAKE_DEFAULT)
     {
-        return $this->model->where('invoice_id', $invoice_id)->paginate($take);
+        return $this->model->orderBy($this->orderBy, $this->orderType)->where('invoice_id', $invoice_id)->paginate($take);
     }
 }

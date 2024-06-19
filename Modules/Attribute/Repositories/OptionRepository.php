@@ -14,15 +14,16 @@ class OptionRepository extends AbstractRepository
         return new Option();
     }
 
-    public function paginateByAttributeId($attributeId, $search = null, $take = self::TAKE_DEFAULT, $field = null) // fix: change 'value' to null
+    public function paginateByAttributeId($attributeId, $search = null, $take = self::TAKE_DEFAULT, $field = null)
     {
+        $query = $this->model->orderBy($this->orderBy, $this->orderType);
         if (is_null($search)) {
-            return $this->model->where('attribute_id', $attributeId)->paginate($take);
+            return $query->where('attribute_id', $attributeId)->paginate($take);
         }
         if (!is_null($field)) {
-            return $this->model->where('attribute_id', $attributeId)->where($field, 'LIKE', "%$search%")->paginate($take);
+            return $query->where('attribute_id', $attributeId)->where($field, 'LIKE', "%$search%")->paginate($take);
         }
-        return $this->model->where('attribute_id', $attributeId)->where($this->searchFieldName, 'LIKE', "%$search%")->paginate($take);  // fix: change 'name' to 'value'
+        return $query->where('attribute_id', $attributeId)->where($this->searchFieldName, 'LIKE', "%$search%")->paginate($take);
     }
 
     public function deleteByAttributeId($attributeId)

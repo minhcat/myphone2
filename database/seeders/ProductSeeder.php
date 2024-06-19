@@ -379,20 +379,20 @@ class ProductSeeder extends Seeder
             ],
         ];
 
-        for ($i = 1; $i <= 30; $i++) {
-            $data[] = [
-                'name'          => 'smartphone ' . $i,
-                'slug'          => 'smartphone-' . $i,
-                'sku_prefix'    => 'PRO',
-                'sku_number'    => '00' . (20 + $i),
-                'price'         => 5000000,
-                'description'   => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                'brand_id'      => null,
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ];
-        }
+        // for ($i = 1; $i <= 30; $i++) {
+        //     $data[] = [
+        //         'name'          => 'smartphone ' . $i,
+        //         'slug'          => 'smartphone-' . $i,
+        //         'sku_prefix'    => 'PRO',
+        //         'sku_number'    => '00' . (20 + $i),
+        //         'price'         => 5000000,
+        //         'description'   => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        //         'brand_id'      => null,
+        //         'author_id'     => 1,
+        //         'created_at'    => now()->format('Y-m-d H:i:s'),
+        //         'updated_at'    => now()->format('Y-m-d H:i:s'),
+        //     ];
+        // }
 
         DB::table('products')->insert($data);
     }

@@ -48,9 +48,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($tags as $tag)
+                            @foreach ($tags as $key => $tag)
                                 <tr>
-                                    <td>{{ $tag->id }}</td>
+                                    <td>{{ $key + 1 }}</td>
                                     <td><a href="{{ route('tag.show', $tag->id) }}">{{ $tag->name }}</a></td>
                                     @if ($tag->user)
                                     <td><a href="{{ route('user.show', $tag->user->id) }}">{{ $tag->user->fullname }}</a></td>

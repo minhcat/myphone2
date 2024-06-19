@@ -51,9 +51,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($invoices as $invoice)
+                            @foreach ($invoices as $key => $invoice)
                                 <tr>
-                                    <td>{{ $invoice->id }}</td>
+                                    <td>{{ $key + 1 }}</td>
                                     <td><a href="{{ route('invoice.show', $invoice->id) }}">{{ $invoice->code }}</a></td>
                                     <td>@if (!is_null($invoice->user)) <a href="{{ route('user.show', $invoice->user->id) }}">{{ $invoice->user->fullname }}</a>@endif</td>
                                     <td><a href="{{ route('invoice.detail.index', $invoice->id) }}">Detail</a></td>

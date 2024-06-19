@@ -51,9 +51,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($users as $user)
+                            @foreach($users as $key => $user)
                                 <tr>
-                                    <td>{{ $user->id }}</td>
+                                    <td>{{ $key + 1 }}</td>
                                     <td><a href="{{ route('user.show', $user->id) }}">{{ $user->account }}</a></td>
                                     <td>{{ $user->fullname }}</td>
                                     <td>{!! generate_label($user->gender, new Gender) !!}</td>
