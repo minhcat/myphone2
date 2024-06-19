@@ -11,8 +11,8 @@ final class DiscountTarget extends AbstractEnum
     public static function getName($value)
     {
         switch ($value) {
-            case static::INVOICE:       return __('app.enums.discount_target.name.invoice');
-            case static::TRANSPORT_FEE: return __('app.enums.discount_target.name.transport_fee');
+            case static::INVOICE:       return __('enum.discount_target.name.invoice');
+            case static::TRANSPORT_FEE: return __('enum.discount_target.name.transport_fee');
             default:                    return $value;
         }
     }
@@ -20,8 +20,8 @@ final class DiscountTarget extends AbstractEnum
     public static function getLabel($value)
     {
         switch ($value) {
-            case static::INVOICE:       return __('app.enums.discount_target.label.invoice');
-            case static::TRANSPORT_FEE: return __('app.enums.discount_target.label.transport_fee');
+            case static::INVOICE:       return __('enum.discount_target.label.invoice');
+            case static::TRANSPORT_FEE: return __('enum.discount_target.label.transport_fee');
             default:                    return $value;
         }
     }

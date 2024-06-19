@@ -17,11 +17,11 @@ final class PromotionStatus extends AbstractEnum
     public static function getName($value)
     {
         switch ($value) {
-            case static::RAW:           return __('app.enums.promotion_status.name.raw');
-            case static::PENDING:       return __('app.enums.promotion_status.name.pending');
-            case static::APPROVED:      return __('app.enums.promotion_status.name.approved');
-            case static::INPROGRESS:    return __('app.enums.promotion_status.name.inprogress');
-            case static::END:           return __('app.enums.promotion_status.name.end');
+            case static::RAW:           return __('enum.promotion_status.name.raw');
+            case static::PENDING:       return __('enum.promotion_status.name.pending');
+            case static::APPROVED:      return __('enum.promotion_status.name.approved');
+            case static::INPROGRESS:    return __('enum.promotion_status.name.inprogress');
+            case static::END:           return __('enum.promotion_status.name.end');
             default:                    return $value;
         }
     }
@@ -29,11 +29,11 @@ final class PromotionStatus extends AbstractEnum
     public static function getLabel($value)
     {
         switch ($value) {
-            case static::RAW:           return __('app.enums.promotion_status.label.raw');
-            case static::PENDING:       return __('app.enums.promotion_status.label.pending');
-            case static::APPROVED:      return __('app.enums.promotion_status.label.approved');
-            case static::INPROGRESS:    return __('app.enums.promotion_status.label.inprogress');
-            case static::END:           return __('app.enums.promotion_status.label.end');
+            case static::RAW:           return __('enum.promotion_status.label.raw');
+            case static::PENDING:       return __('enum.promotion_status.label.pending');
+            case static::APPROVED:      return __('enum.promotion_status.label.approved');
+            case static::INPROGRESS:    return __('enum.promotion_status.label.inprogress');
+            case static::END:           return __('enum.promotion_status.label.end');
             default:                    return $value;
         }
     }

@@ -13,9 +13,9 @@ final class Gender extends AbstractEnum
     public static function getName($value)
     {
         switch ($value) {
-            case static::MALE:      return __('app.enums.gender.name.male');
-            case static::FEMALE:    return __('app.enums.gender.name.female');
-            case static::OTHER:     return __('app.enums.gender.name.other');
+            case static::MALE:      return __('enum.gender.name.male');
+            case static::FEMALE:    return __('enum.gender.name.female');
+            case static::OTHER:     return __('enum.gender.name.other');
             default:                return $value;
         }
     }
@@ -23,9 +23,9 @@ final class Gender extends AbstractEnum
     public static function getLabel($value)
     {
         switch ($value) {
-            case static::MALE:      return __('app.enums.gender.label.male');
-            case static::FEMALE:    return __('app.enums.gender.label.female');
-            case static::OTHER:     return __('app.enums.gender.label.other');
+            case static::MALE:      return __('enum.gender.label.male');
+            case static::FEMALE:    return __('enum.gender.label.female');
+            case static::OTHER:     return __('enum.gender.label.other');
             default:                return $value;
         }
     }

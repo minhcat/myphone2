@@ -3,7 +3,6 @@ make form login logout
 make factory user, product data
 update product variation in cart, order, invoice
 check created_at, update_at all modules with format
-update noti create, update, delete to lang
 remove order create, update, delete handle controller
 update product detail seeder with spec
 inverse data index

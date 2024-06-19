@@ -11,8 +11,8 @@ final class DiscountType extends AbstractEnum
     public static function getName($value)
     {
         switch ($value) {
-            case static::AMOUNT:    return __('app.enums.discount_type.name.amount');
-            case static::PERCENT:   return __('app.enums.discount_type.name.percent');
+            case static::AMOUNT:    return __('enum.discount_type.name.amount');
+            case static::PERCENT:   return __('enum.discount_type.name.percent');
             default:                return $value;
         }
     }
@@ -20,8 +20,8 @@ final class DiscountType extends AbstractEnum
     public static function getLabel($value)
     {
         switch ($value) {
-            case static::AMOUNT:    return __('app.enums.discount_type.label.amount');
-            case static::PERCENT:   return __('app.enums.discount_type.label.percent');
+            case static::AMOUNT:    return __('enum.discount_type.label.amount');
+            case static::PERCENT:   return __('enum.discount_type.label.percent');
             default:                return $value;
         }
     }
