@@ -147,3 +147,46 @@ if (!function_exists('convert_stdtime')) {
         return $array['year'] . '/' . $array['month'] . '/' . $array['day'];
     }
 }
+
+if (!function_exists('generateSeederData')) {
+    function generate_seeder_data(array $array, $option = null) {
+        $length = [];
+        foreach ($array as $field => $values) {
+            if (is_array($values)) {
+                $length[] = count($values);
+            }
+        }
+        $length = min($length);
+
+        $data = [];
+        foreach ($array as $field => $values) {
+            if (is_array($values)) {
+                for ($i = 0; $i < $length; $i++) {
+                    if (!isset($data[$i])) {
+                        $data[$i] = [];
+                    }
+                    $data[$i][$field] = $values[$i];
+                }
+            } else {
+                for ($i = 0; $i < $length; $i++) {
+                    if (!isset($data[$i])) {
+                        $data[$i] = [];
+                    }
+                    $data[$i][$field] = $values;
+                }
+            }
+        }
+
+        if ($option === null || $option?->timestemps === true) {
+            for ($i = 0; $i < $length; $i++) {
+                if (!isset($data[$i])) {
+                    $data[$i] = [];
+                }
+                $data[$i]['created_at'] = now()->format('Y-m-d H:i:s');
+                $data[$i]['updated_at'] = now()->format('Y-m-d H:i:s');
+            }
+        }
+
+        return $data;
+    }
+}

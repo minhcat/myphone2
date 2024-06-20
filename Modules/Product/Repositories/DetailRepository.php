@@ -29,6 +29,8 @@ class DetailRepository extends AbstractRepository
                 'specification_id'  => $data['specification'][$key],
                 'information_id'    => $item,
                 'author_id'         => 1, // todo: use Auth::user->id
+                'created_at'        => now()->format('Y-m-d H:i:s'),
+                'updated_at'        => now()->format('Y-m-d H:i:s'),
             ];
         }
 
