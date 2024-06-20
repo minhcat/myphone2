@@ -108,7 +108,7 @@
                             <p><strong>Start Datetime</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ $promotion->start_datetime->format('H:i:s d-m-Y') }}</p>
+                            <p>{{ $promotion->start_datetime->format('H:i:s d/m/Y') }}</p>
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                             <p><strong>End Datetime</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ $promotion->end_datetime->format('H:i:s d-m-Y') }}</p>
+                            <p>{{ $promotion->end_datetime->format('H:i:s d/m/Y') }}</p>
                         </div>
                     </div>
                 </div>
@@ -148,7 +148,7 @@
                             <p><strong>Created At</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ $promotion->created_at->format('H:i:s d-m-Y') }}</p>
+                            <p>{{ $promotion->created_at->format('H:i:s d/m/Y') }}</p>
                         </div>
                     </div>
                 </div>
@@ -158,7 +158,7 @@
                             <p><strong>Updated At</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ $promotion->updated_at->format('H:i:s d-m-Y') }}</p>
+                            <p>{{ $promotion->updated_at->format('H:i:s d/m/Y') }}</p>
                         </div>
                     </div>
                 </div>

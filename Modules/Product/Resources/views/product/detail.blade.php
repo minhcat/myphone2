@@ -114,7 +114,7 @@
                             <p><strong>Created At</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ $product->created_at }}</p>
+                            <p>{{ $product->created_at->format('H:i:s d/m/Y') }}</p>
                         </div>
                     </div>
                 </div>
@@ -124,7 +124,7 @@
                             <p><strong>Updated At</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ $product->updated_at }}</p>
+                            <p>{{ $product->updated_at->format('H:i:s d/m/Y') }}</p>
                         </div>
                     </div>
                 </div>

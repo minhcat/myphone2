@@ -2,5 +2,3 @@ add admin to route name modules
 make form login logout
 make factory user, product data
 update product variation in cart, order, invoice
-check created_at, update_at all modules with format
-update product detail seeder with spec

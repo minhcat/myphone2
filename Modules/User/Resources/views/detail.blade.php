@@ -88,7 +88,7 @@
                             <p><strong>Created At</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ $user->created_at->format('d-m-Y') }}</p>
+                            <p>{{ $user->created_at->format('H:i:s d/m/Y') }}</p>
                         </div>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
                             <p><strong>Updated At</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ $user->updated_at->format('d-m-Y') }}</p>
+                            <p>{{ $user->updated_at->format('H:i:s d/m/Y') }}</p>
                         </div>
                     </div>
                 </div>

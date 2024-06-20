@@ -59,8 +59,8 @@
                                     <td>{!! generate_label($user->gender, new Gender) !!}</td>
                                     <td>{{ $user->job }}</td>
                                     <td>{{ $user->email }}</td>
-                                    <td>{{ $user->created_at->format('d-m-Y') }}</td>
-                                    <td>{{ $user->updated_at->format('d-m-Y') }}</td>
+                                    <td>{{ $user->created_at->format('H:i:s d/m/Y') }}</td>
+                                    <td>{{ $user->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>
                                         <a class="btn btn-primary" href="{{ route('user.edit', $user->id) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-user-delete" data-id="{{ $user->id }}"><i class="fa fa-trash"></i> Delete</button>
