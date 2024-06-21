@@ -17,6 +17,7 @@ class Promotion extends Model
         'status',
         'author_id',
         'condition_type',
+        'condition_value',
         'discount_target',
         'discount_type',
         'discount_value',

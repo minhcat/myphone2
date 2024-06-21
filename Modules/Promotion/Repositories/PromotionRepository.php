@@ -21,6 +21,14 @@ class PromotionRepository extends AbstractRepository
             $data['end_datetime'] = $data['end_time'] . ' ' . convert_stdtime($data['end_date'], 'd/m/Y');
         }
 
+        if (array_key_exists('discount_value', $data) && $data['discount_value'] === null) {
+            unset($data['discount_value']);
+        }
+
+        if (array_key_exists('condition_value', $data) && $data['condition_value'] === null) {
+            unset($data['condition_value']);
+        }
+
         return parent::convertDataCreate($data, $more);
     }
 
@@ -31,6 +39,14 @@ class PromotionRepository extends AbstractRepository
         }
         if (isset($data['end_time']) && isset($data['start_time'])) {
             $data['end_datetime'] = $data['end_time'] . ' ' . convert_stdtime($data['end_date'], 'd/m/Y');
+        }
+
+        if (array_key_exists('discount_value', $data) && $data['discount_value'] === null) {
+            unset($data['discount_value']);
+        }
+
+        if (array_key_exists('condition_value', $data) && $data['condition_value'] === null) {
+            unset($data['condition_value']);
         }
 
         return parent::convertDataUpdate($data, $more);

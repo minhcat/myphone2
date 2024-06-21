@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="condition_type">Condition Type</label>
                                 <select id="condition_type" class="form-control" aria-placeholder="not select" name="condition_type">
@@ -39,6 +39,12 @@
                                         <option value="{{ $condition_type->code }}" {{ $promotion->condition_type === $condition_type->code ? 'selected' : '' }}>{{ $condition_type->name }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="condition_value">Condition Value</label>
+                                <input id="condition_value" type="number" class="form-control" name="condition_value" value="{{ $promotion->condition_value }}" autocomplete="condition_value">
                             </div>
                         </div>
                     </div>

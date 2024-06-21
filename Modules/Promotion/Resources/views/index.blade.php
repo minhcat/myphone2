@@ -59,8 +59,8 @@
                                     <td>{!! generate_label($promotion->condition_type, new ConditionType) !!}</td>
                                     <td>{!! generate_label($promotion->discount_target, new DiscountTarget) !!}</td>
                                     <td>{!! generate_label($promotion->discount_type, new DiscountType) !!}</td>
-                                    <td>{{ $promotion->start_datetime->format('H:i:s d/m/Y') }}</td>
-                                    <td>{{ $promotion->end_datetime->format('H:i:s d/m/Y') }}</td>
+                                    <td>{{ $promotion->start_datetime?->format('H:i:s d/m/Y') }}</td>
+                                    <td>{{ $promotion->end_datetime?->format('H:i:s d/m/Y') }}</td>
                                     <td>{!! generate_label($promotion->status, new PromotionStatus) !!}</td>
                                     @if ($promotion->user)
                                     <td><a href="{{ route('user.show', $promotion->user->id) }}">{{ $promotion->user->fullname }}</a></td>

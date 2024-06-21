@@ -41,11 +41,11 @@ final class PromotionStatus extends AbstractEnum
     public static function getIcon($value)
     {
         switch ($value) {
-            case static::RAW:           return __('app.enums.promotion_status.icon.raw');
-            case static::PENDING:       return __('app.enums.promotion_status.icon.pending');
-            case static::APPROVED:      return __('app.enums.promotion_status.icon.approved');
-            case static::INPROGRESS:    return __('app.enums.promotion_status.icon.inprogress');
-            case static::END:           return __('app.enums.promotion_status.icon.end');
+            case static::RAW:           return __('enum.promotion_status.icon.raw');
+            case static::PENDING:       return __('enum.promotion_status.icon.pending');
+            case static::APPROVED:      return __('enum.promotion_status.icon.approved');
+            case static::INPROGRESS:    return __('enum.promotion_status.icon.inprogress');
+            case static::END:           return __('enum.promotion_status.icon.end');
             default:                    return $value;
         }
     }
@@ -66,9 +66,9 @@ final class PromotionStatus extends AbstractEnum
     {
         switch ($value) {
             case static::RAW:           return null;
-            case static::PENDING:       return __('app.enums.promotion_status.action.pending');
+            case static::PENDING:       return __('enum.promotion_status.action.pending');
             case static::APPROVED:      return null;
-            case static::INPROGRESS:    return __('app.enums.promotion_status.action.inprogress');
+            case static::INPROGRESS:    return __('enum.promotion_status.action.inprogress');
             case static::END:           return null;
             default:                    return null;
         }
