@@ -41,12 +41,13 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
+                                <th>Author</th>
+                                <th>List</th>
                                 <th>Discount Target</th>
                                 <th>Discount Type</th>
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Status</th>
-                                <th>Author</th>
                                 <th style="width: 265px">Action</th>
                             </tr>
                         </thead>
@@ -55,16 +56,17 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td><a href="{{ route('sale.show', $sale->id) }}">{{ $sale->name }}</a></td>
-                                    <td>{!! generate_label($sale->discount_target, new DiscountTarget) !!}</td>
-                                    <td>{!! generate_label($sale->discount_type, new DiscountType) !!}</td>
-                                    <td>{{ $sale->start_datetime?->format('H:i:s d/m/Y') }}</td>
-                                    <td>{{ $sale->end_datetime?->format('H:i:s d/m/Y') }}</td>
-                                    <td>{!! generate_label($sale->status, new PromotionStatus) !!}</td>
                                     @if ($sale->user)
                                     <td><a href="{{ route('user.show', $sale->user->id) }}">{{ $sale->user->fullname }}</a></td>
                                     @else
                                     <td></td>
                                     @endif
+                                    <td><a href="#">list</a></td>
+                                    <td>{!! generate_label($sale->discount_target, new DiscountTarget) !!}</td>
+                                    <td>{!! generate_label($sale->discount_type, new DiscountType) !!}</td>
+                                    <td>{{ $sale->start_datetime?->format('H:i:s d/m/Y') }}</td>
+                                    <td>{{ $sale->end_datetime?->format('H:i:s d/m/Y') }}</td>
+                                    <td>{!! generate_label($sale->status, new PromotionStatus) !!}</td>
                                     <td style="text-align: right">
                                         {!! generate_button_update_status($sale->status, new PromotionStatus, ['toggle' => 'modal', 'target' => '#modal-sale-update', 'id' => $sale->id, 'status' => PromotionStatus::getNextStatus($sale->status)]) !!}
                                         <a class="btn btn-primary" href="{{ route('sale.edit', $sale->id) }}"><i class="fa fa-edit"></i> Edit</a>
