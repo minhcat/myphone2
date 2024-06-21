@@ -5,9 +5,23 @@ namespace Modules\Sale\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Sale\Repositories\SaleRepository;
 
 class SaleController extends Controller
 {
+    /** @var \Modules\Sale\Repositories\SaleRepository */
+    protected $saleRepository;
+
+    /**
+     * Create a new Product controller instance.
+     */
+    public function __construct()
+    {
+        $this->saleRepository = new SaleRepository();
+
+        view()->share('menu', ['group' => 'promotion', 'active' => 'sale']);
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable

@@ -13,7 +13,6 @@ use Modules\Promotion\Repositories\PromotionRepository;
 
 class PromotionController extends Controller
 {
-    
     /** @var \Modules\Promotion\Repositories\PromotionRepository */
     protected $promotionRepository;
 
