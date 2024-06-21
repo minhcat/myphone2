@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Sale\Http\Controllers\SaleController;
 
 Route::prefix('admin')->group(function() {
-    Route::prefix('sale')->name('sale.')->group(function() {
+    Route::prefix('sales')->name('sale.')->group(function() {
         Route::get('/', [SaleController::class, 'index'])->name('index');
         Route::get('/create', [SaleController::class, 'create'])->name('create');
         Route::get('/{id}', [SaleController::class, 'show'])->name('show');
