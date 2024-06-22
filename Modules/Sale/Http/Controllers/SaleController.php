@@ -77,7 +77,9 @@ class SaleController extends Controller
      */
     public function show($id)
     {
-        return view('sale::show');
+        $sale = $this->saleRepository->find($id);
+
+        return view('sale::detail', compact('sale'));
     }
 
     /**
@@ -110,7 +112,7 @@ class SaleController extends Controller
     {
         $this->saleRepository->update($id, $request->all());
 
-        return redirect()->route('sale.index')->with('success', __('notification.create.success', ['model' => 'sale']));
+        return redirect()->route('sale.index')->with('success', __('notification.update.success', ['model' => 'sale']));
     }
 
     /**
@@ -120,6 +122,8 @@ class SaleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->saleRepository->delete($id);
+
+        return redirect()->route('sale.index')->with('success', __('notification.delete.success', ['model' => 'sale']));
     }
 }
