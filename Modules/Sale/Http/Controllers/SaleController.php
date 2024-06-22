@@ -2,6 +2,9 @@
 
 namespace Modules\Sale\Http\Controllers;
 
+use App\Enums\DiscountTarget;
+use App\Enums\DiscountType;
+use App\Enums\PromotionStatus;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -40,7 +43,15 @@ class SaleController extends Controller
      */
     public function create()
     {
-        return view('sale::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('sale.store'),
+            'method'    => 'POST',
+        ];
+        $discount_targets = DiscountTarget::getObject();
+        $discount_types = DiscountType::getObject();
+        
+        return view('sale::create', compact('form', 'discount_targets', 'discount_types'));
     }
 
     /**
@@ -50,7 +61,13 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'  => 'required'
+        ]);
+
+        $this->saleRepository->create($request->all(), ['status' => PromotionStatus::PENDING]);
+
+        return redirect()->route('sale.index')->with('success', __('notification.create.success', ['model' => 'sale']));
     }
 
     /**
@@ -70,7 +87,17 @@ class SaleController extends Controller
      */
     public function edit($id)
     {
-        return view('sale::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('sale.update', $id),
+            'method'    => 'PUT',
+        ];
+
+        $sale = $this->saleRepository->find($id);
+        $discount_targets = DiscountTarget::getObject();
+        $discount_types = DiscountType::getObject();
+
+        return view('sale::edit', compact('form', 'sale', 'discount_targets', 'discount_types'));
     }
 
     /**
@@ -81,7 +108,9 @@ class SaleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->saleRepository->update($id, $request->all());
+
+        return redirect()->route('sale.index')->with('success', __('notification.create.success', ['model' => 'sale']));
     }
 
     /**

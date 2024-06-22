@@ -68,7 +68,7 @@
       </a>
       <ul class="treeview-menu" {!! $menu['group'] == 'promotion' ? 'style="display: block"' : '' !!}>
         <li class="{{ $menu['active'] == 'promotion' ? 'active' : '' }}"><a href="{{ route('promotion.index') }}">Promotion</a></li>
-        <li class="{{ $menu['active'] == 'safeoff' ? 'active' : '' }}"><a href="#">Safe Off</a></li>
+        <li class="{{ $menu['active'] == 'sale' ? 'active' : '' }}"><a href="{{ route('sale.index') }}">Sale Off</a></li>
         <li class="{{ $menu['active'] == 'rebation' ? 'active' : '' }}"><a href="#">Rebation</a></li>
         <li class="{{ $menu['active'] == 'voucher' ? 'active' : '' }}"><a href="#">Voucher</a></li>
       </ul>
