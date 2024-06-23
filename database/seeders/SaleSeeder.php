@@ -124,7 +124,8 @@ class SaleSeeder extends Seeder
 
         DB::table('sale_products')->insert([
             [
-                'product_id'        => 1,
+                'target_type'       => 0,
+                'target_id'         => 1,
                 'sale_id'           => 7,
                 'discount_type'     => null,
                 'discount_value'    => null,
@@ -132,7 +133,8 @@ class SaleSeeder extends Seeder
                 'discount_minimum'  => null,
             ],
             [
-                'product_id'        => 2,
+                'target_type'       => 0,
+                'target_id'         => 2,
                 'sale_id'           => 7,
                 'discount_type'     => null,
                 'discount_value'    => null,
@@ -140,7 +142,8 @@ class SaleSeeder extends Seeder
                 'discount_minimum'  => null,
             ],
             [
-                'product_id'        => 4,
+                'target_type'       => 0,
+                'target_id'         => 4,
                 'sale_id'           => 7,
                 'discount_type'     => null,
                 'discount_value'    => null,
@@ -148,7 +151,8 @@ class SaleSeeder extends Seeder
                 'discount_minimum'  => null,
             ],
             [
-                'product_id'        => 5,
+                'target_type'       => 0,
+                'target_id'         => 5,
                 'sale_id'           => 7,
                 'discount_type'     => null,
                 'discount_value'    => null,
@@ -156,7 +160,8 @@ class SaleSeeder extends Seeder
                 'discount_minimum'  => null,
             ],
             [
-                'product_id'        => 3,
+                'target_type'       => 0,
+                'target_id'         => 3,
                 'sale_id'           => 6,
                 'discount_type'     => null,
                 'discount_value'    => null,
@@ -164,7 +169,8 @@ class SaleSeeder extends Seeder
                 'discount_minimum'  => null,
             ],
             [
-                'product_id'        => 6,
+                'target_type'       => 0,
+                'target_id'         => 6,
                 'sale_id'           => 6,
                 'discount_type'     => null,
                 'discount_value'    => null,
@@ -172,7 +178,8 @@ class SaleSeeder extends Seeder
                 'discount_minimum'  => null,
             ],
             [
-                'product_id'        => 7,
+                'target_type'       => 0,
+                'target_id'         => 7,
                 'sale_id'           => 6,
                 'discount_type'     => null,
                 'discount_value'    => null,

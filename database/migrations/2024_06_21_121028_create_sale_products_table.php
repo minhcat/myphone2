@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('sale_products', function (Blueprint $table) {
             $table->id();
-            $table->integer('product_id')->unsigned();
+            $table->integer('target_type')->unsigned();
+            $table->integer('target_id')->unsigned();
             $table->integer('sale_id')->unsigned();
             $table->integer('discount_type')->unsigned()->nullable();
             $table->integer('discount_value')->unsigned()->nullable();
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sales_products');
+        Schema::dropIfExists('sale_products');
     }
 };
