@@ -1,4 +1,4 @@
-@extends('sale::layouts.master')
+@extends('sale::sale.layouts.master')
 
 @section('title-page', 'Sales')
 
@@ -15,5 +15,5 @@
 @endsection
 
 @section('content')
-    @include('sale::layouts.form')
+    @include('sale::sale.layouts.form')
 @endsection

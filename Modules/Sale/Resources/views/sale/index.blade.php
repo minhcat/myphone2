@@ -1,4 +1,4 @@
-@extends('sale::layouts.master')
+@extends('sale::sale.layouts.master')
 
 @section('title-page', 'Sale')
 
@@ -61,7 +61,7 @@
                                     @else
                                     <td></td>
                                     @endif
-                                    <td><a href="#">list</a></td>
+                                    <td><a href="{{ route('sale.product.index', $sale->id) }}">list</a></td>
                                     <td>{!! generate_label($sale->discount_target, new DiscountTarget) !!}</td>
                                     <td>{!! generate_label($sale->discount_type, new DiscountType) !!}</td>
                                     <td>{{ $sale->start_datetime?->format('H:i:s d/m/Y') }}</td>
@@ -89,7 +89,7 @@
     </div>
 </div>
 
-@include('sale::layouts.modal', [
+@include('sale::sale.layouts.modal', [
     'modal'             => [
         'id'            => 'modal-sale-delete',
         'title'         => 'Delete Sale',
@@ -107,7 +107,7 @@
     ]
 ])
 
-@include('sale::layouts.modal', [
+@include('sale::sale.layouts.modal', [
     'modal'                 => [
         'id'                => 'modal-sale-update',
         'title'             => 'Update Status Sale',

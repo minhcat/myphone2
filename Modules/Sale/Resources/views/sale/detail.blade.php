@@ -1,4 +1,4 @@
-@extends('sale::layouts.master')
+@extends('sale::sale.layouts.master')
 
 @section('title-page', 'Sales')
 

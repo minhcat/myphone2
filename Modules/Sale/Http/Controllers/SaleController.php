@@ -34,7 +34,7 @@ class SaleController extends Controller
         $search = $request->input('search');
         $sales = $this->saleRepository->paginate($search);
 
-        return view('sale::index', compact('sales'));
+        return view('sale::sale.index', compact('sales'));
     }
 
     /**
@@ -51,7 +51,7 @@ class SaleController extends Controller
         $discount_targets = DiscountTarget::getObject();
         $discount_types = DiscountType::getObject();
         
-        return view('sale::create', compact('form', 'discount_targets', 'discount_types'));
+        return view('sale::sale.create', compact('form', 'discount_targets', 'discount_types'));
     }
 
     /**
@@ -79,7 +79,7 @@ class SaleController extends Controller
     {
         $sale = $this->saleRepository->find($id);
 
-        return view('sale::detail', compact('sale'));
+        return view('sale::sale.detail', compact('sale'));
     }
 
     /**
@@ -99,7 +99,7 @@ class SaleController extends Controller
         $discount_targets = DiscountTarget::getObject();
         $discount_types = DiscountType::getObject();
 
-        return view('sale::edit', compact('form', 'sale', 'discount_targets', 'discount_types'));
+        return view('sale::sale.edit', compact('form', 'sale', 'discount_targets', 'discount_types'));
     }
 
     /**
