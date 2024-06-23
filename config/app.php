@@ -214,7 +214,8 @@ return [
         'DiscountType'      => App\Enums\DiscountType::class,
         'Gender'            => App\Enums\Gender::class,
         'OrderStatus'       => App\Enums\OrderStatus::class,
-        'PromotionStatus'   => App\Enums\PromotionStatus::class
+        'PromotionStatus'   => App\Enums\PromotionStatus::class,
+        'TargetType'        => App\Enums\TargetType::class,
     ])->toArray(),
 
 ];
