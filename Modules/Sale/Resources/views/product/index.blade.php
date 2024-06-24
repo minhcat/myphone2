@@ -58,10 +58,10 @@
                                     @else
                                     <td><a href="{{ route('product.show', $sale_product->target_id) }}">{{ $sale_product->target->name }}</a></td>
                                     @endif
-                                    <td>{!! generate_label($sale_product->discount_type, new DiscountType) !!}</td>
-                                    <td>{{ $sale_product->discount_value === null ? '#' : $sale_product->discount_value }}</td>
-                                    <td>{{ $sale_product->discount_minimum === null ? '#' : $sale_product->discount_minimum }}</td>
-                                    <td>{{ $sale_product->discount_maximum === null ? '#' : $sale_product->discount_maximum }}</td>
+                                    <td>{!! generate_label($sale_product->discount_type_show, new DiscountType) !!}</td>
+                                    <td>{{ number_format($sale_product->discount_value_show) }}</td>
+                                    <td>{{ $sale_product->discount_minimum_show }}</td>
+                                    <td>{{ $sale_product->discount_maximum_show }}</td>
                                     <td style="text-align: right">
                                         <a class="btn btn-primary" href="{{ route('sale.product.edit', ['sale_id' => $sale_id, 'id' => $sale_product->id]) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-sale-product-delete" data-id="{{ $sale_product->id }}"><i class="fa fa-trash"></i> Delete</button>
