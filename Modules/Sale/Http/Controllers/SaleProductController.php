@@ -95,16 +95,6 @@ class SaleProductController extends Controller
     }
 
     /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('sale::show');
-    }
-
-    /**
      * Show the form for editing the specified resource.
      * @param int $id
      * @return Renderable
@@ -160,8 +150,12 @@ class SaleProductController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($sale_id, $id)
     {
-        //
+        $this->saleProductRepository->delete($id);
+
+        return redirect()
+        ->route('sale.product.index', $sale_id)
+        ->with('success', __('notification.delete.success', ['model' => 'sale product']));
     }
 }
