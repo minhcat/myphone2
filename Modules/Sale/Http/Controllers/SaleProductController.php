@@ -2,9 +2,14 @@
 
 namespace Modules\Sale\Http\Controllers;
 
+use App\Enums\DiscountTarget;
+use App\Enums\DiscountType;
+use App\Enums\TargetType;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Product\Repositories\ProductRepository;
+use Modules\Product\Repositories\VariationRepository;
 use Modules\Sale\Repositories\SaleProductRepository;
 
 class SaleProductController extends Controller
@@ -12,12 +17,20 @@ class SaleProductController extends Controller
     /** @var \Modules\Sale\Repositories\SaleProductRepository */
     protected $saleProductRepository;
 
+    /** @var \Modules\Product\Repositories\ProductRepository */
+    protected $productRepository;
+
+    /** @var \Modules\Product\Repositories\VariationRepository */
+    protected $variantRepository;
+
     /**
      * Create a new Product controller instance.
      */
     public function __construct()
     {
         $this->saleProductRepository = new SaleProductRepository();
+        $this->productRepository = new ProductRepository();
+        $this->variantRepository = new VariationRepository();
 
         view()->share('menu', ['group' => 'promotion', 'active' => 'sale']);
     }
@@ -38,9 +51,29 @@ class SaleProductController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function create($sale_id)
     {
-        return view('sale::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('sale.product.store', $sale_id),
+            'method'    => 'POST',
+        ];
+
+        $products = $this->productRepository->all();
+        $variants = $this->variantRepository->all();
+        $target_types = TargetType::getObject();
+        $discount_targets = DiscountTarget::getObject();
+        $discount_types = DiscountType::getObject();
+
+        return view('sale::product.create', compact(
+            'form',
+            'products',
+            'variants',
+            'target_types',
+            'discount_targets',
+            'discount_types',
+            'sale_id'
+        ));
     }
 
     /**
@@ -48,9 +81,17 @@ class SaleProductController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(Request $request, $sale_id)
     {
-        //
+        $request->validate([
+            'target_id'    => 'required',
+        ]);
+
+        $this->saleProductRepository->create($request->all(), ['sale_id' => $sale_id]);
+
+        return redirect()
+        ->route('sale.product.index', $sale_id)
+        ->with('success', __('notification.create.success', ['model' => 'sale product']));
     }
 
     /**
@@ -68,9 +109,31 @@ class SaleProductController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit($sale_id, $id)
     {
-        return view('sale::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('sale.product.update', ['sale_id' => $sale_id, 'id' => $id]),
+            'method'    => 'PUT',
+        ];
+
+        $products = $this->productRepository->all();
+        $variants = $this->variantRepository->all();
+        $target_types = TargetType::getObject();
+        $discount_targets = DiscountTarget::getObject();
+        $discount_types = DiscountType::getObject();
+        $sale_product = $this->saleProductRepository->find($id);
+
+        return view('sale::product.edit', compact(
+            'form',
+            'products',
+            'variants',
+            'target_types',
+            'discount_targets',
+            'discount_types',
+            'sale_product',
+            'sale_id'
+        ));
     }
 
     /**
@@ -79,9 +142,17 @@ class SaleProductController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $sale_id, $id)
     {
-        //
+        $request->validate([
+            'target_id' => 'required'
+        ]);
+
+        $this->saleProductRepository->update($id, $request->all());
+
+        return redirect()
+        ->route('sale.product.index', $sale_id)
+        ->with('success', __('notification.update.success', ['model' => 'sale product']));
     }
 
     /**

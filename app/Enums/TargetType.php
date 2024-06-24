@@ -11,8 +11,8 @@ final class TargetType extends AbstractEnum
     public static function getName($value)
     {
         switch ($value) {
-            case static::PRODUCT:   return __('enum.discount_target.name.invoice');
-            case static::VARIANT:   return __('enum.discount_target.name.transport_fee');
+            case static::PRODUCT:   return __('enum.target_type.name.product');
+            case static::VARIANT:   return __('enum.target_type.name.variant');
             default:                return $value;
         }
     }
@@ -20,8 +20,8 @@ final class TargetType extends AbstractEnum
     public static function getLabel($value)
     {
         switch ($value) {
-            case static::PRODUCT:   return __('enum.discount_target.label.invoice');
-            case static::VARIANT:   return __('enum.discount_target.label.transport_fee');
+            case static::PRODUCT:   return __('enum.target_type.label.product');
+            case static::VARIANT:   return __('enum.target_type.label.variant');
             default:                return $value;
         }
     }

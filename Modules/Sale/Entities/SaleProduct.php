@@ -13,8 +13,11 @@ class SaleProduct extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
-        'product_id',
+        'target_type',
+        'target_id',
         'sale_id',
         'discount_type',
         'discount_value',

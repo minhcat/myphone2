@@ -89,4 +89,14 @@ return [
             'percent'           => 'success',
         ],
     ],
+    'target_type'               => [
+        'name'                  => [
+            'product'           => 'product',
+            'variant'           => 'variant',
+        ],
+        'label'                 => [
+            'product'           => 'primary',
+            'variant'           => 'success',
+        ],
+    ],
 ];

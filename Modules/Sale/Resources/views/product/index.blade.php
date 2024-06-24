@@ -56,7 +56,7 @@
                                     @if ($sale_product->target_type === TargetType::PRODUCT)
                                     <td><a href="{{ route('product.show', $sale_product->target_id) }}">{{ $sale_product->target->name }}</a></td>
                                     @else
-                                    <td><a href="{{ route('product.show', $sale_product->target_id) }}">{{ $sale_product->target->name }}</a></td>
+                                    <td><a href="{{ route('product.variation.show', ['product_id' => $sale_product->target->product_id, 'id' => $sale_product->target_id]) }}">{{ $sale_product->target->name }}</a></td>
                                     @endif
                                     <td>{!! generate_label($sale_product->discount_type_show, new DiscountType) !!}</td>
                                     <td>{{ number_format($sale_product->discount_value_show) }}</td>
