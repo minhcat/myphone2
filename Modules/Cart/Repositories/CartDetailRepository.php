@@ -21,4 +21,9 @@ class CartDetailRepository extends AbstractRepository
     {
         return $this->model->where($where)->first();
     }
+
+    public function deleteWhere($where = [])
+    {
+        return $this->model->where($where)->delete();
+    }
 }

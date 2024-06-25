@@ -7,6 +7,7 @@ use App\Events\CreateOrderEvent;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Cart\Repositories\CartDetailRepository;
 use Modules\Cart\Repositories\CartRepository;
 use Modules\Order\Repositories\OrderDetailRepository;
 use Modules\Order\Repositories\OrderRepository;
@@ -16,6 +17,9 @@ class CartController extends Controller
 {
     /** @var \Modules\Cart\Repositories\CartRepository */
     protected $cartRepository;
+
+    /** @var \Modules\Cart\Repositories\CartDetailRepository */
+    protected $cartDetailRepository;
 
     /** @var \Modules\Order\Repositories\OrderRepository */
     protected $orderRepository;
@@ -32,6 +36,7 @@ class CartController extends Controller
     public function __construct()
     {
         $this->cartRepository = new CartRepository;
+        $this->cartDetailRepository = new CartDetailRepository;
         $this->orderRepository = new OrderRepository;
         $this->orderDetailRepository = new OrderDetailRepository;
         $this->productRepository = new ProductRepository;
@@ -83,8 +88,10 @@ class CartController extends Controller
             'note'          => $request->input('note') ?? '',
         ]);
 
+        $product_ids = [];
         $details = $request->input('details');
         foreach ($details as $product_id => $quantity) {
+            $product_ids[] = $product_id;
             $product = $this->productRepository->find($product_id);
             $this->orderDetailRepository->create([
                 'order_id'      => $order->id,
@@ -93,6 +100,8 @@ class CartController extends Controller
                 'price'         => $product->price,
             ]);
         }
+
+        $this->cartDetailRepository->deleteWhere([['cart_id', $id], ['product_id', $product_ids]]);
 
         event(new CreateOrderEvent($order));
 
