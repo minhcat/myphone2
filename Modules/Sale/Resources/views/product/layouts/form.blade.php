@@ -14,7 +14,7 @@
                 @endif
                 <div class="box-body">
                     <div class="row">
-                        <div class="col-lg-6 product-col {{ $sale_product->target_type !== TargetType::PRODUCT ? 'hidden' : '' }}">
+                        <div class="col-lg-6 product-col {{ $sale_product->target_type !== TargetType::PRODUCT && $form['title'] === 'Edit' ? 'hidden' : '' }}">
                             <div class="form-group">
                                 <label for="target_id">Product <span class="text-red">*</span></label>
                                 <select id="target_id" class="form-control" aria-placeholder="not select" name="target_id">

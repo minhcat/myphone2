@@ -36,6 +36,11 @@ class Sale extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
+    public function saleproducts()
+    {
+        return $this->hasMany(SaleProduct::class);
+    }
+
     public function startdate() : Attribute
     {
         return Attribute::make(
