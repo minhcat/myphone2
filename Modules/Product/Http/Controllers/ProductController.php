@@ -61,7 +61,7 @@ class ProductController extends Controller
 
         $form = [
             'title'     => 'Create',
-            'url'       => route('product.store'),
+            'url'       => route('admin.product.store'),
             'method'    => 'POST',
         ];
 
@@ -82,7 +82,7 @@ class ProductController extends Controller
 
         $this->productRepository->create($request->all());
 
-        return redirect()->route('product.index')->with('success', __('notification.create.success', ['model' => 'product']));
+        return redirect()->route('admin.product.index')->with('success', __('notification.create.success', ['model' => 'product']));
     }
 
     /**
@@ -110,7 +110,7 @@ class ProductController extends Controller
 
         $form = [
             'title'     => 'Edit',
-            'url'       => route('product.update', $id),
+            'url'       => route('admin.product.update', $id),
             'method'    => 'PUT',
         ];
 
@@ -134,7 +134,7 @@ class ProductController extends Controller
 
         $this->productRepository->update($id, $request->all());
 
-        return redirect()->route('product.index')->with('success', __('notification.update.success', ['model' => 'product']));
+        return redirect()->route('admin.product.index')->with('success', __('notification.update.success', ['model' => 'product']));
     }
 
     /**
@@ -146,6 +146,6 @@ class ProductController extends Controller
     {
         $this->productRepository->delete($id);
 
-        return redirect()->route('product.index')->with('success', __('notification.delete.success', ['model' => 'product']));
+        return redirect()->route('admin.product.index')->with('success', __('notification.delete.success', ['model' => 'product']));
     }
 }

@@ -9,7 +9,7 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('product.index') }}">Product</a></li>
+    <li><a href="{{ route('admin.product.index') }}">Product</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -20,7 +20,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('product.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                <a href="{{ route('admin.product.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -29,7 +29,7 @@
                             <div class="filter">
                                 <label for="search">
                                     Search:
-                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('product.index') }}">
+                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.product.index') }}">
                                 </label>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                             @foreach ($products as $key => $product)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td><a href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a></td>
+                                    <td><a href="{{ route('admin.product.show', $product->id) }}">{{ $product->name }}</a></td>
                                     <td>{{ optional($product->brand)->name }}</td>
                                     <td>
                                         @foreach($product->categories as $category)
@@ -67,14 +67,14 @@
                                     </td>
                                     <td>{{ $product->price_format }} vnđ</td>
                                     @if ($product->user)
-                                    <td><a href="{{ route('user.show', $product->user->id) }}">{{ $product->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $product->user->id) }}">{{ $product->user->fullname }}</a></td>
                                     @else
                                     <td></td>
                                     @endif
-                                    <td><a href="{{ route('product.variation.index', $product->id) }}">list</a></td>
-                                    <td><a href="{{ route('product.detail.index', $product->id) }}">view</a></td>
+                                    <td><a href="{{ route('admin.product.variation.index', $product->id) }}">list</a></td>
+                                    <td><a href="{{ route('admin.product.detail.index', $product->id) }}">view</a></td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{ route('product.edit', $product->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <a class="btn btn-primary" href="{{ route('admin.product.edit', $product->id) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-product-delete" data-id="{{ $product->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
@@ -100,7 +100,7 @@
         'title'         => 'Delete Product',
         'message'       => 'Are you sure to delete this product!',
         'form'          => [
-            'url'       => route('product.delete', ':id'),
+            'url'       => route('admin.product.delete', ':id'),
             'method'    => 'DELETE',
             'inputs'    => []
         ],
