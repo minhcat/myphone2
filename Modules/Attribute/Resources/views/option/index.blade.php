@@ -54,7 +54,7 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td><a href="{{ route('admin.attribute.option.show', ['attribute_id' => $attribute_id, 'id' => $option->id]) }}">{{ $option->value }}</a></td>
-                                    <td>@if (!is_null($option->user)) <a href="{{ route('user.show', $option->user->id) }}">{{ $option->user->fullname }}</a>@endif</td>
+                                    <td>@if (!is_null($option->user)) <a href="{{ route('admin.user.show', $option->user->id) }}">{{ $option->user->fullname }}</a>@endif</td>
                                     <td>{{ $option->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $option->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>

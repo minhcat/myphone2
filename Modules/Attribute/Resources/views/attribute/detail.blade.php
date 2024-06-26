@@ -84,8 +84,8 @@
                 </div>
             </div>
             <div class="box-footer">
-                <a href="{{ route('attribute.index') }}" class="btn btn-default">Back</a>
-                <a href="{{ route('attribute.edit', $attribute->id) }}" class="btn btn-primary">Edit</a>
+                <a href="{{ route('admin.attribute.index') }}" class="btn btn-default">Back</a>
+                <a href="{{ route('admin.attribute.edit', $attribute->id) }}" class="btn btn-primary">Edit</a>
             </div>
         </div>
     </div>
