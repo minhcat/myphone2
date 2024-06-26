@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Attribute\Http\Controllers\AttributeController;
 use Modules\Attribute\Http\Controllers\OptionController;
 
-Route::prefix('admin')->group(function() {
+Route::prefix('admin')->name('admin.')->group(function() {
     Route::prefix('attributes')->name('attribute.')->group(function() {
         Route::prefix('/{attribute_id}/options')->name('option.')->group(function() {
             Route::get('/', [OptionController::class, 'index'])->name('index');

@@ -48,7 +48,7 @@ class AttributeController extends Controller
     {
         $form = [
             'title'     => 'Create',
-            'url'       => route('attribute.store'),
+            'url'       => route('admin.attribute.store'),
             'method'    => 'POST',
         ];
 
@@ -68,7 +68,7 @@ class AttributeController extends Controller
 
         $this->attributeRepository->create($request->all());
 
-        return redirect()->route('attribute.index')->with('success', __('notification.create.success', ['model' => 'attribute']));
+        return redirect()->route('admin.attribute.index')->with('success', __('notification.create.success', ['model' => 'attribute']));
     }
 
     /**
@@ -92,7 +92,7 @@ class AttributeController extends Controller
     {
         $form = [
             'title'     => 'Edit',
-            'url'       => route('attribute.update', $id),
+            'url'       => route('admin.attribute.update', $id),
             'method'    => 'PUT',
         ];
 
@@ -115,7 +115,7 @@ class AttributeController extends Controller
 
         $this->attributeRepository->update($id, $request->all());
 
-        return redirect()->route('attribute.index')->with('success', __('notification.update.success', ['model' => 'attribute']));
+        return redirect()->route('admin.attribute.index')->with('success', __('notification.update.success', ['model' => 'attribute']));
     }
 
     /**
@@ -129,6 +129,6 @@ class AttributeController extends Controller
 
         $this->optionRepository->deleteByAttributeId($id);
 
-        return redirect()->route('attribute.index')->with('success', __('notification.delete.success', ['model' => 'attribute']));
+        return redirect()->route('admin.attribute.index')->with('success', __('notification.delete.success', ['model' => 'attribute']));
     }
 }

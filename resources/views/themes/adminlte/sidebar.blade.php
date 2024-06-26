@@ -32,7 +32,7 @@
       </a>
       <ul class="treeview-menu" {!! $menu['group'] == 'product' ? 'style="display: block"' : '' !!}>
         <li class="{{ $menu['active'] == 'product' ? 'active' : '' }}"><a href="{{ route('product.index') }}">Product</a></li>
-        <li class="{{ $menu['active'] == 'attribute' ? 'active' : '' }}"><a href="{{ route('attribute.index') }}">Attribute</a></li>
+        <li class="{{ $menu['active'] == 'attribute' ? 'active' : '' }}"><a href="{{ route('admin.attribute.index') }}">Attribute</a></li>
         <li class="{{ $menu['active'] == 'specification' ? 'active' : '' }}"><a href="{{ route('specification.index') }}">Specification</a></li>
         <li class="{{ $menu['active'] == 'brand' ? 'active' : '' }}"><a href="{{ route('brand.index') }}">Brand</a></li>
       </ul>

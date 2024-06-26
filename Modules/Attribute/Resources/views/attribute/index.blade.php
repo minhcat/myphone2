@@ -9,7 +9,7 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('attribute.index') }}">Attribute</a></li>
+    <li><a href="{{ route('admin.attribute.index') }}">Attribute</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -20,7 +20,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('attribute.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                <a href="{{ route('admin.attribute.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -29,7 +29,7 @@
                             <div class="filter">
                                 <label for="search">
                                     Search:
-                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('attribute.index') }}">
+                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.attribute.index') }}">
                                 </label>
                             </div>
                         </div>
@@ -52,13 +52,13 @@
                             @foreach ($attributes as $key => $attribute)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td><a href="{{ route('attribute.show', $attribute->id) }}">{{ $attribute->name }}</a></td>
+                                    <td><a href="{{ route('admin.attribute.show', $attribute->id) }}">{{ $attribute->name }}</a></td>
                                     <td>@if (!is_null($attribute->user)) <a href="{{ route('user.show', $attribute->user->id) }}">{{ $attribute->user->fullname }}</a>@endif</td>
                                     <td>{{ $attribute->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $attribute->updated_at->format('H:i:s d/m/Y') }}</td>
-                                    <td><a href="{{ route('attribute.option.index', $attribute->id) }}">options</a></td>
+                                    <td><a href="{{ route('admin.attribute.option.index', $attribute->id) }}">options</a></td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{ route('attribute.edit', $attribute->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <a class="btn btn-primary" href="{{ route('admin.attribute.edit', $attribute->id) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-attribute-delete" data-id="{{ $attribute->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
@@ -84,7 +84,7 @@
         'title'         => 'Delete Attribute',
         'message'       => 'Are you sure to delete this attribute!',
         'form'          => [
-            'url'       => route('attribute.delete', ':id'),
+            'url'       => route('admin.attribute.delete', ':id'),
             'method'    => 'DELETE',
             'inputs'    => []
         ],
