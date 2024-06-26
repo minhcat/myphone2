@@ -44,7 +44,7 @@
         </span>
       </a>
       <ul class="treeview-menu" {!! $menu['group'] == 'category' ? 'style="display: block"' : '' !!}>
-        <li class="{{ $menu['active'] == 'category' ? 'active' : '' }}"><a href="{{ route('category.index') }}">Category</a></li>
+        <li class="{{ $menu['active'] == 'category' ? 'active' : '' }}"><a href="{{ route('admin.category.index') }}">Category</a></li>
         <li class="{{ $menu['active'] == 'tag' ? 'active' : '' }}"><a href="{{ route('tag.index') }}">Tag</a></li>
       </ul>
     </li>

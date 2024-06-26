@@ -9,7 +9,7 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('category.index') }}">Category</a></li>
+    <li><a href="{{ route('admin.category.index') }}">Category</a></li>
     <li class="active">Create</li>
 </ol>
 @endsection

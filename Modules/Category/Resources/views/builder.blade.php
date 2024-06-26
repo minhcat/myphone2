@@ -9,7 +9,7 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('category.index') }}">Category</a></li>
+    <li><a href="{{ route('admin.category.index') }}">Category</a></li>
     <li class="active">Builder</li>
 </ol>
 @endsection
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="box-footer">
-                <a href="{{ route('category.index') }}" class="btn btn-default">Back</a>
+                <a href="{{ route('admin.category.index') }}" class="btn btn-default">Back</a>
                 <button id="builder_submit" class="btn btn-primary">Save</button>
             </div>
         </div>
@@ -48,7 +48,7 @@
             collapseBtnHTML: ''
         });
         $('#builder_submit').click(function() {
-            $.post('{{ route('category.build') }}', {
+            $.post('{{ route("admin.category.build") }}', {
                 categories: JSON.stringify($('.dd').nestable('serialize')),
                 _token: '{{ csrf_token() }}'
             }, function (data) {

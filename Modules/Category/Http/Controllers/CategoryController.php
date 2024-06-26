@@ -42,7 +42,7 @@ class CategoryController extends Controller
     {
         $form = [
             'title'     => 'Create',
-            'url'       => route('category.store'),
+            'url'       => route('admin.category.store'),
             'method'    => 'POST',
         ];
 
@@ -62,7 +62,7 @@ class CategoryController extends Controller
 
         $this->categoryRepository->create($request->all());
 
-        return redirect()->route('category.index')->with('success', __('notification.create.success', ['model' => 'category']));
+        return redirect()->route('admin.category.index')->with('success', __('notification.create.success', ['model' => 'category']));
     }
 
     /**
@@ -86,7 +86,7 @@ class CategoryController extends Controller
     {
         $form = [
             'title'     => 'Edit',
-            'url'       => route('category.update', $id),
+            'url'       => route('admin.category.update', $id),
             'method'    => 'PUT'
         ];
 
@@ -109,7 +109,7 @@ class CategoryController extends Controller
 
         $this->categoryRepository->update($id, $request->all());
 
-        return redirect()->route('category.index')->with('success', __('notification.update.success', ['model' => 'category']));
+        return redirect()->route('admin.category.index')->with('success', __('notification.update.success', ['model' => 'category']));
     }
 
     /**
@@ -121,7 +121,7 @@ class CategoryController extends Controller
     {
         $this->categoryRepository->delete($id);
 
-        return redirect()->route('category.index')->with('success', __('notification.delete.success', ['model' => 'category']));
+        return redirect()->route('admin.category.index')->with('success', __('notification.delete.success', ['model' => 'category']));
     }
 
     /**

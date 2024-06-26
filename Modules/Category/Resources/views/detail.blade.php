@@ -9,7 +9,7 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('category.index') }}">Category</a></li>
+    <li><a href="{{ route('admin.category.index') }}">Category</a></li>
     <li class="active">Detail</li>
 </ol>
 @endsection
@@ -104,8 +104,8 @@
                 </div>
             </div>
             <div class="box-footer">
-                <a href="{{ route('category.index') }}" class="btn btn-default">Back</a>
-                <a href="{{ route('category.edit', $category->id) }}" class="btn btn-primary">Edit</a>
+                <a href="{{ route('admin.category.index') }}" class="btn btn-default">Back</a>
+                <a href="{{ route('admin.category.edit', $category->id) }}" class="btn btn-primary">Edit</a>
             </div>
         </div>
     </div>

@@ -9,7 +9,7 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('category.index') }}">Category</a></li>
+    <li><a href="{{ route('admin.category.index') }}">Category</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -20,8 +20,8 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('category.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
-                <a href="{{ route('category.builder') }}" class="btn btn-success pull-right mr-2"><i class="fa fa-cog"></i> Builder</a>
+                <a href="{{ route('admin.category.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                <a href="{{ route('admin.category.builder') }}" class="btn btn-success pull-right mr-2"><i class="fa fa-cog"></i> Builder</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -30,7 +30,7 @@
                             <div class="filter">
                                 <label for="search">
                                     Search:
-                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('category.index') }}">
+                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.category.index') }}">
                                 </label>
                             </div>
                         </div>
@@ -53,13 +53,13 @@
                             @foreach ($categories as $key => $category)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td><a href="{{ route('category.show', $category->id) }}">{{ $category->name }}</a></td>
-                                    <td><a href="{{ route('category.show', $category->id) }}">{{ optional($category->parent)->name }}</a></td>
-                                    <td>@if (!is_null($category->user)) <a href="{{ route('user.show', $category->user->id) }}">{{ $category->user->fullname }}</a>@endif</td>
+                                    <td><a href="{{ route('admin.category.show', $category->id) }}">{{ $category->name }}</a></td>
+                                    <td><a href="{{ route('admin.category.show', $category->id) }}">{{ optional($category->parent)->name }}</a></td>
+                                    <td>@if (!is_null($category->user)) <a href="{{ route('admin.user.show', $category->user->id) }}">{{ $category->user->fullname }}</a>@endif</td>
                                     <td>{{ $category->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $category->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{ route('category.edit', $category->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <a class="btn btn-primary" href="{{ route('admin.category.edit', $category->id) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-category-delete" data-id="{{ $category->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
@@ -85,7 +85,7 @@
         'title'         => 'Delete Category',
         'message'       => 'Are you sure to delete this category!',
         'form'          => [
-            'url'       => route('category.delete', ':id'),
+            'url'       => route('admin.category.delete', ':id'),
             'method'    => 'DELETE',
             'inputs'    => []
         ],
