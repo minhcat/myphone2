@@ -9,8 +9,8 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('attribute.index') }}">Attribute</a></li>
-    <li><a href="{{ route('attribute.option.index', $attribute_id) }}">Option</a></li>
+    <li><a href="{{ route('admin.attribute.index') }}">Attribute</a></li>
+    <li><a href="{{ route('admin.attribute.option.index', $attribute_id) }}">Option</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -21,8 +21,8 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('attribute.option.create', $attribute_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
-                <a href="{{ route('attribute.index') }}" class="btn btn-default pull-right mr-1"><i class="fa fa-arrow-left"></i> Back</a>
+                <a href="{{ route('admin.attribute.option.create', $attribute_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                <a href="{{ route('admin.attribute.index') }}" class="btn btn-default pull-right mr-1"><i class="fa fa-arrow-left"></i> Back</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -31,7 +31,7 @@
                             <div class="filter">
                                 <label for="search">
                                     Search:
-                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('attribute.option.index', $attribute_id) }}">
+                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.attribute.option.index', $attribute_id) }}">
                                 </label>
                             </div>
                         </div>
@@ -53,12 +53,12 @@
                             @foreach ($options as $key => $option)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td><a href="{{ route('attribute.option.show', ['attribute_id' => $attribute_id, 'id' => $option->id]) }}">{{ $option->value }}</a></td>
+                                    <td><a href="{{ route('admin.attribute.option.show', ['attribute_id' => $attribute_id, 'id' => $option->id]) }}">{{ $option->value }}</a></td>
                                     <td>@if (!is_null($option->user)) <a href="{{ route('user.show', $option->user->id) }}">{{ $option->user->fullname }}</a>@endif</td>
                                     <td>{{ $option->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $option->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{ route('attribute.option.edit', ['attribute_id' => $attribute_id, 'id' => $option->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <a class="btn btn-primary" href="{{ route('admin.attribute.option.edit', ['attribute_id' => $attribute_id, 'id' => $option->id]) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-option-delete" data-id="{{ $option->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
@@ -84,7 +84,7 @@
         'title'         => 'Delete Option',
         'message'       => 'Are you sure to delete this option!',
         'form'          => [
-            'url'       => route('attribute.option.delete', ['attribute_id' => $attribute_id, 'id' => ':id']),
+            'url'       => route('admin.attribute.option.delete', ['attribute_id' => $attribute_id, 'id' => ':id']),
             'method'    => 'DELETE',
             'inputs'    => []
         ],

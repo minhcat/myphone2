@@ -43,7 +43,7 @@ class OptionController extends Controller
     {
         $form = [
             'title'     => 'Create',
-            'url'       => route('attribute.option.store', $attribute_id),
+            'url'       => route('admin.attribute.option.store', $attribute_id),
             'method'    => 'POST',
         ];
 
@@ -63,7 +63,7 @@ class OptionController extends Controller
 
         $this->optionRepository->create($request->all(), ['attribute_id' => $attribute_id]);
 
-        return redirect()->route('attribute.option.index', $attribute_id)->with('success', __('notification.create.success', ['model' => 'option']));
+        return redirect()->route('admin.attribute.option.index', $attribute_id)->with('success', __('notification.create.success', ['model' => 'option']));
     }
 
     /**
@@ -87,7 +87,7 @@ class OptionController extends Controller
     {
         $form = [
             'title'     => 'Edit',
-            'url'       => route('attribute.option.update', ['attribute_id' => $attribute_id, 'id' => $id]),
+            'url'       => route('admin.attribute.option.update', ['attribute_id' => $attribute_id, 'id' => $id]),
             'method'    => 'PUT',
         ];
 
@@ -110,7 +110,7 @@ class OptionController extends Controller
 
         $this->optionRepository->update($id, $request->all(), ['attribute_id' => $attribute_id]);
 
-        return redirect()->route('attribute.option.index', $attribute_id)->with('success', __('notification.update.success', ['model' => 'option']));
+        return redirect()->route('admin.attribute.option.index', $attribute_id)->with('success', __('notification.update.success', ['model' => 'option']));
     }
 
     /**
@@ -122,6 +122,6 @@ class OptionController extends Controller
     {
         $this->optionRepository->delete($id);
 
-        return redirect()->route('attribute.option.index', $attribute_id)->with('success', __('notification.delete.success', ['model' => 'option']));
+        return redirect()->route('admin.attribute.option.index', $attribute_id)->with('success', __('notification.delete.success', ['model' => 'option']));
     }
 }
