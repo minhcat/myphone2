@@ -84,7 +84,7 @@
                     </div>
                 </div>
                 <div class="box-footer">
-                    <a href="{{ route('user.index') }}" class="btn btn-default">Back</a>
+                    <a href="{{ route('admin.user.index') }}" class="btn btn-default">Back</a>
                     <button class="btn btn-primary" type="submit">Save</button>
                 </div>
             </form>

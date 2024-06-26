@@ -44,7 +44,7 @@ class UserController extends Controller
     {
         $form = [
             'title'     => 'Create',
-            'url'       => route('user.store'),
+            'url'       => route('admin.user.store'),
             'method'    => 'POST',
         ];
 
@@ -69,7 +69,7 @@ class UserController extends Controller
 
         $this->userRepository->create($request->all());
 
-        return redirect()->route('user.index')->with('success', __('notification.create.success', ['model' => 'user']));
+        return redirect()->route('admin.user.index')->with('success', __('notification.create.success', ['model' => 'user']));
     }
 
     /**
@@ -93,7 +93,7 @@ class UserController extends Controller
     {
         $form = [
             'title'     => 'Update',
-            'url'       => route('user.update', $id),
+            'url'       => route('admin.user.update', $id),
             'method'    => 'PUT',
         ];
 
@@ -120,7 +120,7 @@ class UserController extends Controller
 
         $this->userRepository->update($id, $request->all());
 
-        return redirect()->route('user.index')->with('success', __('notification.update.success', ['model' => 'user']));
+        return redirect()->route('admin.user.index')->with('success', __('notification.update.success', ['model' => 'user']));
     }
 
     /**
@@ -132,6 +132,6 @@ class UserController extends Controller
     {
         $this->userRepository->delete($id);
 
-        return redirect()->route('user.index')->with('success', __('notification.delete.success', ['model' => 'user']));
+        return redirect()->route('admin.user.index')->with('success', __('notification.delete.success', ['model' => 'user']));
     }
 }

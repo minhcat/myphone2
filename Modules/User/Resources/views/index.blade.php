@@ -9,7 +9,7 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('user.index') }}">User</a></li>
+    <li><a href="{{ route('admin.user.index') }}">User</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -20,7 +20,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('user.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                <a href="{{ route('admin.user.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -29,7 +29,7 @@
                             <div class="filter">
                                 <label for="search">
                                     Search:
-                                    <input type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('user.index') }}">
+                                    <input type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.user.index') }}">
                                 </label>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                             @foreach($users as $key => $user)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td><a href="{{ route('user.show', $user->id) }}">{{ $user->account }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $user->id) }}">{{ $user->account }}</a></td>
                                     <td>{{ $user->fullname }}</td>
                                     <td>{!! generate_label($user->gender, new Gender) !!}</td>
                                     <td>{{ $user->job }}</td>
@@ -62,7 +62,7 @@
                                     <td>{{ $user->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $user->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{ route('user.edit', $user->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <a class="btn btn-primary" href="{{ route('admin.user.edit', $user->id) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-user-delete" data-id="{{ $user->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
@@ -88,7 +88,7 @@
         'title'         => 'Delete User',
         'message'       => 'Are you sure to delete this user!',
         'form'          => [
-            'url'       => route('user.delete', ':id'),
+            'url'       => route('admin.user.delete', ':id'),
             'method'    => 'DELETE',
             'inputs'    => []
         ],
