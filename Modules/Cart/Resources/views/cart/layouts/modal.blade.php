@@ -11,7 +11,7 @@
                 <p>User: <span class="username">{{ $cart->user->fullname }}</span></p>
                 <p>Quantity: <span class="quantity">0</span></p>
                 <p>Total: <span class="total">0</span></p>
-                <form action="{{ route('cart.order', $cart->id) }}" method="POST">
+                <form action="{{ route('admin.cart.order', $cart->id) }}" method="POST">
                     @csrf
                     <input type="hidden" name="address_id" value="1">
                     <div class="products products-add">

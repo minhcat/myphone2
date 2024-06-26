@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Cart\Http\Controllers\CartController;
 use Modules\Cart\Http\Controllers\CartDetailController;
 
-Route::prefix('admin')->group(function() {
+Route::prefix('admin')->name('admin.')->group(function() {
     Route::prefix('carts')->name('cart.')->group(function() {
         Route::prefix('/{cart_id}/details')->name('detail.')->group(function() {
             Route::get('/', [CartDetailController::class, 'index'])->name('index');

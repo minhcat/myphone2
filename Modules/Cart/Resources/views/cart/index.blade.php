@@ -9,7 +9,7 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('cart.index') }}">Cart</a></li>
+    <li><a href="{{ route('admin.cart.index') }}">Cart</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -28,7 +28,7 @@
                             <div class="filter">
                                 <label for="search">
                                     Search:
-                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('cart.index') }}">
+                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.cart.index') }}">
                                 </label>
                             </div>
                         </div>
@@ -53,15 +53,15 @@
                             @foreach ($carts as $key => $cart)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td><a href="{{ route('cart.show', $cart->id) }}">{{ $cart->code }}</a></td>
+                                    <td><a href="{{ route('admin.cart.show', $cart->id) }}">{{ $cart->code }}</a></td>
                                     @if ($cart->user)
-                                    <td><a href="{{ route('user.show', $cart->user->id) }}">{{ $cart->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $cart->user->id) }}">{{ $cart->user->fullname }}</a></td>
                                     @else
                                     <td></td>
                                     @endif
                                     <td>{{ $cart->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $cart->updated_at->format('H:i:s d/m/Y') }}</td>
-                                    <td><a href="{{ route('cart.detail.index', $cart->id) }}">detail</a></td>
+                                    <td><a href="{{ route('admin.cart.detail.index', $cart->id) }}">detail</a></td>
                                     <td>{{ $cart->quantity }}</td>
                                     <td>{{ number_format($cart->total) }}</td>
                                     <td>

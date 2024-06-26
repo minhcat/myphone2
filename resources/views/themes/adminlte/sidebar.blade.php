@@ -55,7 +55,7 @@
         </span>
       </a>
       <ul class="treeview-menu" {!! $menu['group'] == 'invoice' ? 'style="display: block"' : '' !!}>
-        <li class="{{ $menu['active'] == 'cart' ? 'active' : '' }}"><a href="{{ route('cart.index') }}">Cart</a></li>
+        <li class="{{ $menu['active'] == 'cart' ? 'active' : '' }}"><a href="{{ route('admin.cart.index') }}">Cart</a></li>
         <li class="{{ $menu['active'] == 'order' ? 'active' : '' }}"><a href="{{ route('order.index') }}">Order</a></li>
         <li class="{{ $menu['active'] == 'invoice' ? 'active' : '' }}"><a href="{{ route('invoice.index') }}">Invoice</a></li>
       </ul>
