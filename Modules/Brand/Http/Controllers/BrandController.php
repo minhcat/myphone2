@@ -42,7 +42,7 @@ class BrandController extends Controller
     {
         $form = [
             'title'     => 'Create',
-            'url'       => route('brand.store'),
+            'url'       => route('admin.brand.store'),
             'method'    => 'POST',
         ];
 
@@ -62,7 +62,7 @@ class BrandController extends Controller
 
         $this->brandRepository->create($request->all());
 
-        return redirect()->route('brand.index')->with('success', __('notification.create.success', ['model' => 'brand']));
+        return redirect()->route('admin.brand.index')->with('success', __('notification.create.success', ['model' => 'brand']));
     }
 
     /**
@@ -86,7 +86,7 @@ class BrandController extends Controller
     {
         $form = [
             'title'     => 'Edit',
-            'url'       => route('brand.update', $id),
+            'url'       => route('admin.brand.update', $id),
             'method'    => 'PUT',
         ];
 
@@ -109,7 +109,7 @@ class BrandController extends Controller
 
         $this->brandRepository->update($id, $request->all());
 
-        return redirect()->route('brand.index')->with('success', __('notification.update.success', ['model' => 'brand']));
+        return redirect()->route('admin.brand.index')->with('success', __('notification.update.success', ['model' => 'brand']));
     }
 
     /**
@@ -121,6 +121,6 @@ class BrandController extends Controller
     {
         $this->brandRepository->delete($id);
 
-        return redirect()->route('brand.index')->with('success', __('notification.delete.success', ['model' => 'brand']));
+        return redirect()->route('admin.brand.index')->with('success', __('notification.delete.success', ['model' => 'brand']));
     }
 }

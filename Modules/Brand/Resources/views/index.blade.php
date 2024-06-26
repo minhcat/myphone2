@@ -9,7 +9,7 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('brand.index') }}">Brand</a></li>
+    <li><a href="{{ route('admin.brand.index') }}">Brand</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -20,7 +20,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('brand.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                <a href="{{ route('admin.brand.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -29,7 +29,7 @@
                             <div class="filter" style="text-align: left">
                                 <label for="search">
                                     Search:
-                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('brand.index') }}">
+                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.brand.index') }}">
                                 </label>
                             </div>
                         </div>
@@ -52,17 +52,17 @@
                             @foreach($brands as $key => $brand)                                
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td><a href="{{ route('brand.show', $brand->id) }}">{{ $brand->name }}</a></td>
+                                    <td><a href="{{ route('admin.brand.show', $brand->id) }}">{{ $brand->name }}</a></td>
                                     <td>{{ $brand->country }}</td>
                                     @if ($brand->user)
-                                    <td><a href="{{ route('user.show', $brand->user->id) }}">{{ $brand->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $brand->user->id) }}">{{ $brand->user->fullname }}</a></td>
                                     @else
                                     <td></td>
                                     @endif
                                     <td>{{ $brand->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $brand->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{ route('brand.edit', $brand->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <a class="btn btn-primary" href="{{ route('admin.brand.edit', $brand->id) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-brand-delete" data-id="{{ $brand->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
@@ -88,7 +88,7 @@
         'title'         => 'Delete Brand',
         'message'       => 'Are you sure to delete this brand!',
         'form'          => [
-            'url'       => route('brand.delete', ':id'),
+            'url'       => route('admin.brand.delete', ':id'),
             'method'    => 'DELETE',
             'inputs'    => []
         ],

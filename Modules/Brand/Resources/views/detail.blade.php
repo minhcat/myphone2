@@ -8,8 +8,8 @@
 
 @section('breakcumb')
 <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="#">Brand</a></li>
+    <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
+    <li><a href="{{ route('admin.brand.index') }}">Brand</a></li>
     <li class="active">Detail</li>
 </ol>
 @endsection
@@ -29,6 +29,16 @@
                         </div>
                         <div class="col-lg-10">
                             <p>{{ $brand->name }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <p><strong>Author</strong></p>
+                        </div>
+                        <div class="col-lg-10">
+                            <p>{{ $brand->user->fullname }}</p>
                         </div>
                     </div>
                 </div>
@@ -84,8 +94,8 @@
                 </div>
             </div>
             <div class="box-footer">
-                <a href="{{ route('brand.index') }}" class="btn btn-default">Back</a>
-                <a href="{{ route('brand.edit', $brand->id) }}" class="btn btn-primary">Edit</a>
+                <a href="{{ route('admin.brand.index') }}" class="btn btn-default">Back</a>
+                <a href="{{ route('admin.brand.edit', $brand->id) }}" class="btn btn-primary">Edit</a>
             </div>
         </div>
     </div>
