@@ -9,8 +9,8 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('cart.index') }}">Cart</a></li>
-    <li><a href="{{ route('cart.detail.index', 1) }}">Detail</a></li>
+    <li><a href="{{ route('admin.cart.index') }}">Cart</a></li>
+    <li><a href="{{ route('admin.cart.detail.index', 1) }}">Detail</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -21,7 +21,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('cart.detail.create', $cart_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                <a href="{{ route('admin.cart.detail.create', $cart_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
             </div>
             <div class="box-body">
                 <div class="table-body">
@@ -40,12 +40,12 @@
                             @foreach ($details as $key => $detail)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td><a href="{{ route('product.show', $detail->product->id) }}">{{ $detail->product->name }}</a></td>
+                                    <td><a href="{{ route('admin.product.show', $detail->product->id) }}">{{ $detail->product->name }}</a></td>
                                     <td>{{ $detail->quantity }}</td>
                                     <td>{{ $detail->price }}</td>
                                     <td>{{ $detail->price * $detail->quantity }}</td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{ route('cart.detail.edit', ['cart_id' => $cart_id, 'id' => $detail->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <a class="btn btn-primary" href="{{ route('admin.cart.detail.edit', ['cart_id' => $cart_id, 'id' => $detail->id]) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-cart-detail-delete" data-id="{{ $detail->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
@@ -71,7 +71,7 @@
         'title'         => 'Delete Cart Detail',
         'message'       => 'Are you sure to delete this detail!',
         'form'          => [
-            'url'       => route('cart.detail.delete', [
+            'url'       => route('admin.cart.detail.delete', [
                 'cart_id'   => $cart_id,
                 'id'        => ':id'
             ]),

@@ -47,7 +47,7 @@ class CartDetailController extends Controller
         $products = $this->productRepository->all();
         $form = [
             'title'     => 'Create',
-            'url'       => route('cart.detail.store', $cart_id),
+            'url'       => route('admin.cart.detail.store', $cart_id),
             'method'    => 'POST',
         ];
 
@@ -74,12 +74,12 @@ class CartDetailController extends Controller
 
             $this->cartDetailRepository->update($cart_detail->id, ['quantity' => $quantity]);
 
-            return redirect()->route('cart.detail.index', $cart_id)->with('success', __('notification.create.success', ['model' => 'cart detail']));
+            return redirect()->route('admin.cart.detail.index', $cart_id)->with('success', __('notification.create.success', ['model' => 'cart detail']));
         }
 
         $this->cartDetailRepository->create($request->all(), ['cart_id' => $cart_id, 'price' => $product->price ?: 0]);
 
-        return redirect()->route('cart.detail.index', $cart_id)->with('success', __('notification.create.success', ['model' => 'cart detail']));
+        return redirect()->route('admin.cart.detail.index', $cart_id)->with('success', __('notification.create.success', ['model' => 'cart detail']));
     }
 
     /**
@@ -92,7 +92,7 @@ class CartDetailController extends Controller
         $products = $this->productRepository->all();
         $form = [
             'title'     => 'Update',
-            'url'       => route('cart.detail.update', ['cart_id' => $cart_id, 'id' => $id]),
+            'url'       => route('admin.cart.detail.update', ['cart_id' => $cart_id, 'id' => $id]),
             'method'    => 'PUT',
         ];
         $detail = $this->cartDetailRepository->find($id);
@@ -119,14 +119,14 @@ class CartDetailController extends Controller
         if (!is_null($cart_detail)) {
             $this->cartDetailRepository->update($cart_detail->id, ['quantity' => intval($request->input('quantity'))]);
 
-            return redirect()->route('cart.detail.index', $cart_id)->with('success', __('notification.update.success', ['model' => 'cart detail']));
+            return redirect()->route('admin.cart.detail.index', $cart_id)->with('success', __('notification.update.success', ['model' => 'cart detail']));
         }
 
         $this->cartDetailRepository->create($request->all(), ['cart_id' => $cart_id, 'price' => $product->price]);
 
         $this->cartDetailRepository->delete($id);
 
-        return redirect()->route('cart.detail.index', $cart_id)->with('success', __('notification.update.success', ['model' => 'cart detail']));
+        return redirect()->route('admin.cart.detail.index', $cart_id)->with('success', __('notification.update.success', ['model' => 'cart detail']));
     }
 
     /**
@@ -138,6 +138,6 @@ class CartDetailController extends Controller
     {
         $this->cartDetailRepository->delete($id);
 
-        return redirect()->route('cart.detail.index', $cart_id)->with('success', __('notification.delete.success', ['model' => 'cart detail']));
+        return redirect()->route('admin.cart.detail.index', $cart_id)->with('success', __('notification.delete.success', ['model' => 'cart detail']));
     }
 }
