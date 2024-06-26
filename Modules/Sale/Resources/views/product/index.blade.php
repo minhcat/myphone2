@@ -10,7 +10,7 @@
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
     <li><a href="{{ route('sale.index') }}">Sale</a></li>
-    <li><a href="{{ route('sale.product.index', $sale_id) }}">Sale</a></li>
+    <li><a href="{{ route('sale.product.index', $sale_id) }}">Product</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -24,18 +24,6 @@
                 <a href="{{ route('sale.product.create', $sale_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
             </div>
             <div class="box-body">
-                <div class="table-header">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="filter">
-                                <label for="search">
-                                    Search:
-                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('sale.product.index', $sale_id) }}">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="table-body">
                     <table class="table table-bordered table-striped mt-3">
                         <thead>
