@@ -76,7 +76,7 @@
                     <input type="hidden" name="id" value="{{ $variation->id }}">
                 </div>
                 <div class="box-footer">
-                    <a href="{{ route('product.variation.index', $product_id) }}" class="btn btn-default">Back</a>
+                    <a href="{{ route('admin.product.variation.index', $product_id) }}" class="btn btn-default">Back</a>
                     <button class="btn btn-primary" type="submit">Save</button>
                 </div>
             </form>

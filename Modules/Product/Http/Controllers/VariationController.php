@@ -54,7 +54,7 @@ class VariationController extends Controller
     {
         $form = [
             'title'     => 'Create',
-            'url'       => route('product.variation.store', $product_id),
+            'url'       => route('admin.product.variation.store', $product_id),
             'method'    => 'POST'
         ];
 
@@ -78,7 +78,7 @@ class VariationController extends Controller
 
         $this->variationRepository->create($request->all());
 
-        return redirect()->route('product.variation.index', $product_id)->with('success', __('notification.create.success', ['model' => 'product variation']));
+        return redirect()->route('admin.product.variation.index', $product_id)->with('success', __('notification.create.success', ['model' => 'product variation']));
     }
 
     /**
@@ -104,7 +104,7 @@ class VariationController extends Controller
     {
         $form = [
             'title'     => 'Edit',
-            'url'       => route('product.variation.update', ['product_id' => $product_id, 'id' => $id]),
+            'url'       => route('admin.product.variation.update', ['product_id' => $product_id, 'id' => $id]),
             'method'    => 'PUT'
         ];
         $variation = $this->variationRepository->find($id);
@@ -128,7 +128,7 @@ class VariationController extends Controller
 
         $this->variationRepository->update($id, $request->all());
 
-        return redirect()->route('product.variation.index', $product_id)->with('success', __('notification.update.success', ['model' => 'product variation']));
+        return redirect()->route('admin.product.variation.index', $product_id)->with('success', __('notification.update.success', ['model' => 'product variation']));
     }
 
     /**
@@ -140,6 +140,6 @@ class VariationController extends Controller
     {
         $this->variationRepository->delete($id);
 
-        return redirect()->route('product.variation.index', $product_id)->with('success', __('notification.delete.success', ['model' => 'product variation']));
+        return redirect()->route('admin.product.variation.index', $product_id)->with('success', __('notification.delete.success', ['model' => 'product variation']));
     }
 }

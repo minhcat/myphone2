@@ -9,8 +9,8 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('product.index') }}">Product</a></li>
-    <li><a href="{{ route('product.variation.index', $product_id) }}">Variation</a></li>
+    <li><a href="{{ route('admin.product.index') }}">Product</a></li>
+    <li><a href="{{ route('admin.product.variation.index', $product_id) }}">Variation</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -21,8 +21,8 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">{{ $product_name }}</div>
-                <a href="{{ route('product.variation.create', $product_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
-                <a href="{{ route('product.index') }}" class="btn btn-default pull-right mr-1">Back</a>
+                <a href="{{ route('admin.product.variation.create', $product_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                <a href="{{ route('admin.product.index') }}" class="btn btn-default pull-right mr-1">Back</a>
             </div>
             <div class="box-body">
                 <div class="table-body">
@@ -42,7 +42,7 @@
                             @foreach ($variations as $key => $variation)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td><a href="{{ route('product.variation.show', ['product_id' => $product_id, 'id' => $variation->id]) }}">{{ $variation->code }}</a></td>
+                                    <td><a href="{{ route('admin.product.variation.show', ['product_id' => $product_id, 'id' => $variation->id]) }}">{{ $variation->code }}</a></td>
                                     <td>{{ $variation->price }}</td>
                                     @foreach($attributes as $attribute)
                                         <td>
@@ -54,7 +54,7 @@
                                         </td>
                                     @endforeach
                                     <td>
-                                        <a class="btn btn-primary" href="{{ route('product.variation.edit', ['product_id' => $product_id, 'id' => $variation->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <a class="btn btn-primary" href="{{ route('admin.product.variation.edit', ['product_id' => $product_id, 'id' => $variation->id]) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-variation-delete" data-id="{{ $variation->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
@@ -80,7 +80,7 @@
         'title'         => 'Delete Variation',
         'message'       => 'Are you sure to delete this variation!',
         'form'          => [
-            'url'       => route('product.variation.delete', ['product_id' => $product_id, 'id' => ':id']),
+            'url'       => route('admin.product.variation.delete', ['product_id' => $product_id, 'id' => ':id']),
             'method'    => 'DELETE',
             'inputs'    => []
         ],
