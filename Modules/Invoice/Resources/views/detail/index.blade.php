@@ -9,8 +9,8 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('invoice.index') }}">Invoice</a></li>
-    <li><a href="{{ route('invoice.detail.index', $invoice_id) }}">Detail</a></li>
+    <li><a href="{{ route('admin.invoice.index') }}">Invoice</a></li>
+    <li><a href="{{ route('admin.invoice.detail.index', $invoice_id) }}">Detail</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -38,7 +38,7 @@
                             @foreach ($details as $key => $detail)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td><a href="{{ route('product.show', $detail->product->id) }}">{{ $detail->product->name }}</a></td>
+                                    <td><a href="{{ route('admin.product.show', $detail->product->id) }}">{{ $detail->product->name }}</a></td>
                                     <td>{{ $detail->quantity }}</td>
                                     <td>{{ $detail->price }}</td>
                                     <td>{{ $detail->price * $detail->quantity }}</td>
