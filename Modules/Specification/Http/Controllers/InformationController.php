@@ -42,7 +42,7 @@ class InformationController extends Controller
     {
         $form = [
             'title'     => 'Create',
-            'url'       => route('specification.information.store', $specification_id),
+            'url'       => route('admin.specification.information.store', $specification_id),
             'method'    => 'POST',
         ];
 
@@ -62,7 +62,7 @@ class InformationController extends Controller
 
         $this->informationRepository->create($request->all(), ['specification_id' => $specification_id]);
 
-        return redirect()->route('specification.information.index', $specification_id)->with('success', __('notification.create.success', ['model' => 'information']));
+        return redirect()->route('admin.specification.information.index', $specification_id)->with('success', __('notification.create.success', ['model' => 'information']));
     }
 
     /**
@@ -86,7 +86,7 @@ class InformationController extends Controller
     {
         $form = [
             'title'     => 'Edit',
-            'url'       => route('specification.information.update', ['specification_id' => $specification_id, 'id' => $id]),
+            'url'       => route('admin.specification.information.update', ['specification_id' => $specification_id, 'id' => $id]),
             'method'    => 'PUT',
         ];
 
@@ -109,7 +109,7 @@ class InformationController extends Controller
 
         $this->informationRepository->update($id, $request->all(), ['specification_id' => $specification_id]);
 
-        return redirect()->route('specification.information.index', $specification_id)->with('success', __('notification.update.success', ['model' => 'information']));
+        return redirect()->route('admin.specification.information.index', $specification_id)->with('success', __('notification.update.success', ['model' => 'information']));
     }
 
     /**
@@ -121,6 +121,6 @@ class InformationController extends Controller
     {
         $this->informationRepository->delete($id);
 
-        return redirect()->route('specification.information.index', $specification_id)->with('success', __('notification.delete.success', ['model' => 'information']));
+        return redirect()->route('admin.specification.information.index', $specification_id)->with('success', __('notification.delete.success', ['model' => 'information']));
     }
 }

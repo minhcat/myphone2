@@ -9,8 +9,8 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('specification.index') }}">Specification</a></li>
-    <li><a href="{{ route('specification.information.index', $specification_id) }}">Information</a></li>
+    <li><a href="{{ route('admin.specification.index') }}">Specification</a></li>
+    <li><a href="{{ route('admin.specification.information.index', $specification_id) }}">Information</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -21,7 +21,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('specification.information.create', $specification_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                <a href="{{ route('admin.specification.information.create', $specification_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -30,7 +30,7 @@
                             <div class="filter">
                                 <label for="search">
                                     Search:
-                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('specification.information.index', $specification_id) }}">
+                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.specification.information.index', $specification_id) }}">
                                 </label>
                             </div>
                         </div>
@@ -52,16 +52,16 @@
                             @foreach ($informations as $key => $information)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td><a href="{{ route('specification.information.show', ['specification_id' => $specification_id, 'id' => $information->id]) }}">{{ $information->value }}</a></td>
+                                    <td><a href="{{ route('admin.specification.information.show', ['specification_id' => $specification_id, 'id' => $information->id]) }}">{{ $information->value }}</a></td>
                                     @if ($information->user)
-                                    <td><a href="{{ route('user.show', $information->user->id) }}">{{ $information->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $information->user->id) }}">{{ $information->user->fullname }}</a></td>
                                     @else
                                     <td></td>
                                     @endif
                                     <td>{{ $information->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $information->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{ route('specification.information.edit', ['specification_id' => $specification_id, 'id' => $information->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <a class="btn btn-primary" href="{{ route('admin.specification.information.edit', ['specification_id' => $specification_id, 'id' => $information->id]) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-information-delete" data-id="{{ $information->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
@@ -87,7 +87,7 @@
         'title'         => 'Delete Specification',
         'message'       => 'Are you sure to delete this information!',
         'form'          => [
-            'url'       => route('specification.information.delete', [
+            'url'       => route('admin.specification.information.delete', [
                 'specification_id'  => $specification_id,
                 'id'                => ':id'
             ]),

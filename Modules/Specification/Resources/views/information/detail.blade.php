@@ -9,8 +9,8 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('specification.index') }}">Specification</a></li>
-    <li><a href="{{ route('specification.information.index', $specification_id) }}">Information</a></li>
+    <li><a href="{{ route('admin.specification.index') }}">Specification</a></li>
+    <li><a href="{{ route('admin.specification.information.index', $specification_id) }}">Information</a></li>
     <li class="active">Detail</li>
 </ol>
 @endsection
@@ -75,8 +75,8 @@
                 </div>
             </div>
             <div class="box-footer">
-                <a href="{{ route('specification.information.index', $specification_id) }}" class="btn btn-default">Back</a>
-                <a href="{{ route('specification.information.edit', ['specification_id' => $specification_id, 'id' => $information->id]) }}" class="btn btn-primary">Edit</a>
+                <a href="{{ route('admin.specification.information.index', $specification_id) }}" class="btn btn-default">Back</a>
+                <a href="{{ route('admin.specification.information.edit', ['specification_id' => $specification_id, 'id' => $information->id]) }}" class="btn btn-primary">Edit</a>
             </div>
         </div>
     </div>

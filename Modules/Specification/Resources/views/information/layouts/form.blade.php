@@ -32,7 +32,7 @@
                     <input type="hidden" name="author_id" value="{{ Auth::check() ? Auth::user()->id : 1 }}">
                 </div>
                 <div class="box-footer">
-                    <a href="{{ route('specification.information.index', $specification_id) }}" class="btn btn-default">Back</a>
+                    <a href="{{ route('admin.specification.information.index', $specification_id) }}" class="btn btn-default">Back</a>
                     <button class="btn btn-primary" type="submit">Save</button>
                 </div>
             </form>
