@@ -9,8 +9,8 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('sale.index') }}">Sale</a></li>
-    <li><a href="{{ route('sale.product.index', $sale_id) }}">Product</a></li>
+    <li><a href="{{ route('admin.sale.index') }}">Sale</a></li>
+    <li><a href="{{ route('admin.sale.product.index', $sale_id) }}">Product</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -21,7 +21,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('sale.product.create', $sale_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                <a href="{{ route('admin.sale.product.create', $sale_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
             </div>
             <div class="box-body">
                 <div class="table-body">
@@ -42,16 +42,16 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     @if ($sale_product->target_type === TargetType::PRODUCT)
-                                    <td><a href="{{ route('product.show', $sale_product->target_id) }}">{{ $sale_product->target->name }}</a></td>
+                                    <td><a href="{{ route('admin.product.show', $sale_product->target_id) }}">{{ $sale_product->target->name }}</a></td>
                                     @else
-                                    <td><a href="{{ route('product.variation.show', ['product_id' => $sale_product->target->product_id, 'id' => $sale_product->target_id]) }}">{{ $sale_product->target->name }}</a></td>
+                                    <td><a href="{{ route('admin.product.variation.show', ['product_id' => $sale_product->target->product_id, 'id' => $sale_product->target_id]) }}">{{ $sale_product->target->name }}</a></td>
                                     @endif
                                     <td>{!! generate_label($sale_product->discount_type_show, new DiscountType) !!}</td>
                                     <td>{{ number_format($sale_product->discount_value_show) }}</td>
                                     <td>{{ $sale_product->discount_minimum_show }}</td>
                                     <td>{{ $sale_product->discount_maximum_show }}</td>
                                     <td style="text-align: right">
-                                        <a class="btn btn-primary" href="{{ route('sale.product.edit', ['sale_id' => $sale_id, 'id' => $sale_product->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <a class="btn btn-primary" href="{{ route('admin.sale.product.edit', ['sale_id' => $sale_id, 'id' => $sale_product->id]) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-sale-product-delete" data-id="{{ $sale_product->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
@@ -77,7 +77,7 @@
         'title'         => 'Delete Sale',
         'message'       => 'Are you sure to delete this sale!',
         'form'          => [
-            'url'       => route('sale.product.delete', ['sale_id' => $sale_id, 'id' => ':id']),
+            'url'       => route('admin.sale.product.delete', ['sale_id' => $sale_id, 'id' => ':id']),
             'method'    => 'DELETE',
             'inputs'    => []
         ],

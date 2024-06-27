@@ -55,7 +55,7 @@ class SaleProductController extends Controller
     {
         $form = [
             'title'     => 'Create',
-            'url'       => route('sale.product.store', $sale_id),
+            'url'       => route('admin.sale.product.store', $sale_id),
             'method'    => 'POST',
         ];
 
@@ -90,7 +90,7 @@ class SaleProductController extends Controller
         $this->saleProductRepository->create($request->all(), ['sale_id' => $sale_id]);
 
         return redirect()
-        ->route('sale.product.index', $sale_id)
+        ->route('admin.sale.product.index', $sale_id)
         ->with('success', __('notification.create.success', ['model' => 'sale product']));
     }
 
@@ -103,7 +103,7 @@ class SaleProductController extends Controller
     {
         $form = [
             'title'     => 'Edit',
-            'url'       => route('sale.product.update', ['sale_id' => $sale_id, 'id' => $id]),
+            'url'       => route('admin.sale.product.update', ['sale_id' => $sale_id, 'id' => $id]),
             'method'    => 'PUT',
         ];
 
@@ -141,7 +141,7 @@ class SaleProductController extends Controller
         $this->saleProductRepository->update($id, $request->all());
 
         return redirect()
-        ->route('sale.product.index', $sale_id)
+        ->route('admin.sale.product.index', $sale_id)
         ->with('success', __('notification.update.success', ['model' => 'sale product']));
     }
 
@@ -155,7 +155,7 @@ class SaleProductController extends Controller
         $this->saleProductRepository->delete($id);
 
         return redirect()
-        ->route('sale.product.index', $sale_id)
+        ->route('admin.sale.product.index', $sale_id)
         ->with('success', __('notification.delete.success', ['model' => 'sale product']));
     }
 }
