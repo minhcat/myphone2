@@ -60,7 +60,7 @@ class OrderController extends Controller
 
         $this->orderRepository->update($id, $request->all());
 
-        return redirect()->route('order.index')->with('success', __('notification.update.success', ['model' => 'order']));
+        return redirect()->route('admin.order.index')->with('success', __('notification.update.success', ['model' => 'order']));
     }
 
     /**
@@ -72,7 +72,7 @@ class OrderController extends Controller
     {
         $this->orderRepository->delete($id);
 
-        return redirect()->route('order.index')->with('success', __('notification.delete.success', ['model' => 'order']));
+        return redirect()->route('admin.order.index')->with('success', __('notification.delete.success', ['model' => 'order']));
     }
 
     /**

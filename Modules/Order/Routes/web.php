@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Order\Http\Controllers\OrderController;
 use Modules\Order\Http\Controllers\OrderDetailController;
 
-Route::prefix('admin')->group(function() {
+Route::prefix('admin')->name('admin.')->group(function() {
     Route::prefix('orders')->name('order.')->group(function() {
         Route::prefix('/{order_id}/details')->name('detail.')->group(function() {
             Route::get('/', [OrderDetailController::class, 'index'])->name('index');

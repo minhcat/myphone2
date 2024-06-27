@@ -9,7 +9,7 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('order.index') }}">Order</a></li>
+    <li><a href="{{ route('admin.order.index') }}">Order</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -28,7 +28,7 @@
                             <div class="filter">
                                 <label for="search">
                                     Search:
-                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('order.index') }}">
+                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.order.index') }}">
                                 </label>
                             </div>
                         </div>
@@ -55,13 +55,13 @@
                             @foreach ($orders as $key => $order)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td><a href="{{ route('order.show', $order->id) }}">{{ $order->code }}</a></td>
+                                    <td><a href="{{ route('admin.order.show', $order->id) }}">{{ $order->code }}</a></td>
                                     @if ($order->user)
-                                    <td><a href="{{ route('user.show', $order->user->id) }}">{{ $order->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $order->user->id) }}">{{ $order->user->fullname }}</a></td>
                                     @else
                                     <td></td>
                                     @endif
-                                    <td><a href="{{ route('order.detail.index', $order->id) }}">detail</a></td>
+                                    <td><a href="{{ route('admin.order.detail.index', $order->id) }}">detail</a></td>
                                     <td>{{ $order->quantity }}</td>
                                     <td>{{ number_format($order->subtotal) }}</td>
                                     <td>{{ number_format($order->transport_fee) }}</td>
@@ -94,7 +94,7 @@
         'title'         => 'Delete Order',
         'message'       => 'Are you sure to delete this order!',
         'form'          => [
-            'url'       => route('order.delete', ':id'),
+            'url'       => route('admin.order.delete', ':id'),
             'method'    => 'DELETE',
             'inputs'    => []
         ],
@@ -112,7 +112,7 @@
         'title'             => 'Update Order',
         'message'           => 'Are you sure to update status this order!',
         'form'              => [
-            'url'           => route('order.update', ':id'),
+            'url'           => route('admin.order.update', ':id'),
             'method'        => 'PUT',
             'inputs'        => [
                 [
