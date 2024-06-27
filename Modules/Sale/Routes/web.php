@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Sale\Http\Controllers\SaleController;
 use Modules\Sale\Http\Controllers\SaleProductController;
 
-Route::prefix('admin')->group(function() {
+Route::prefix('admin')->name('admin.')->group(function() {
     Route::prefix('sales')->name('sale.')->group(function() {
         Route::prefix('/{sale_id}/products')->name('product.')->group(function() {
             Route::get('/', [SaleProductController::class, 'index'])->name('index');

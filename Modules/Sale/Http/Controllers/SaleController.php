@@ -45,7 +45,7 @@ class SaleController extends Controller
     {
         $form = [
             'title'     => 'Create',
-            'url'       => route('sale.store'),
+            'url'       => route('admin.sale.store'),
             'method'    => 'POST',
         ];
         $discount_targets = DiscountTarget::getObject();
@@ -91,7 +91,7 @@ class SaleController extends Controller
     {
         $form = [
             'title'     => 'Edit',
-            'url'       => route('sale.update', $id),
+            'url'       => route('admin.sale.update', $id),
             'method'    => 'PUT',
         ];
 
@@ -112,7 +112,7 @@ class SaleController extends Controller
     {
         $this->saleRepository->update($id, $request->all());
 
-        return redirect()->route('sale.index')->with('success', __('notification.update.success', ['model' => 'sale']));
+        return redirect()->route('admin.sale.index')->with('success', __('notification.update.success', ['model' => 'sale']));
     }
 
     /**
@@ -124,6 +124,6 @@ class SaleController extends Controller
     {
         $this->saleRepository->delete($id);
 
-        return redirect()->route('sale.index')->with('success', __('notification.delete.success', ['model' => 'sale']));
+        return redirect()->route('admin.sale.index')->with('success', __('notification.delete.success', ['model' => 'sale']));
     }
 }

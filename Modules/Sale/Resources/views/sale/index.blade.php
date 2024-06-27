@@ -9,7 +9,7 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('sale.index') }}">Sale</a></li>
+    <li><a href="{{ route('admin.sale.index') }}">Sale</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -20,7 +20,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('sale.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                <a href="{{ route('admin.sale.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -29,7 +29,7 @@
                             <div class="filter">
                                 <label for="search">
                                     Search:
-                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('sale.index') }}">
+                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.sale.index') }}">
                                 </label>
                             </div>
                         </div>
@@ -55,13 +55,13 @@
                             @foreach ($sales as $key => $sale)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td><a href="{{ route('sale.show', $sale->id) }}">{{ $sale->name }}</a></td>
+                                    <td><a href="{{ route('admin.sale.show', $sale->id) }}">{{ $sale->name }}</a></td>
                                     @if ($sale->user)
-                                    <td><a href="{{ route('user.show', $sale->user->id) }}">{{ $sale->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $sale->user->id) }}">{{ $sale->user->fullname }}</a></td>
                                     @else
                                     <td></td>
                                     @endif
-                                    <td><a href="{{ route('sale.product.index', $sale->id) }}">list</a></td>
+                                    <td><a href="{{ route('admin.sale.product.index', $sale->id) }}">list</a></td>
                                     <td>{!! generate_label($sale->discount_target, new DiscountTarget) !!}</td>
                                     <td>{!! generate_label($sale->discount_type, new DiscountType) !!}</td>
                                     <td>{{ $sale->start_datetime?->format('H:i:s d/m/Y') }}</td>
@@ -69,7 +69,7 @@
                                     <td>{!! generate_label($sale->status, new PromotionStatus) !!}</td>
                                     <td style="text-align: right">
                                         {!! generate_button_update_status($sale->status, new PromotionStatus, ['toggle' => 'modal', 'target' => '#modal-sale-update', 'id' => $sale->id, 'status' => PromotionStatus::getNextStatus($sale->status)]) !!}
-                                        <a class="btn btn-primary" href="{{ route('sale.edit', $sale->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <a class="btn btn-primary" href="{{ route('admin.sale.edit', $sale->id) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-sale-delete" data-id="{{ $sale->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
@@ -95,7 +95,7 @@
         'title'         => 'Delete Sale',
         'message'       => 'Are you sure to delete this sale!',
         'form'          => [
-            'url'       => route('sale.delete', ':id'),
+            'url'       => route('admin.sale.delete', ':id'),
             'method'    => 'DELETE',
             'inputs'    => []
         ],
@@ -113,7 +113,7 @@
         'title'             => 'Update Status Sale',
         'message'           => 'Are you sure to update status this sale!',
         'form'              => [
-            'url'           => route('sale.update', ':id'),
+            'url'           => route('admin.sale.update', ':id'),
             'method'        => 'PUT',
             'inputs'        => [
                 [
