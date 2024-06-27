@@ -9,7 +9,7 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('promotion.index') }}">Promotion</a></li>
+    <li><a href="{{ route('admin.promotion.index') }}">Promotion</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -20,7 +20,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('promotion.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                <a href="{{ route('admin.promotion.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -29,7 +29,7 @@
                             <div class="filter">
                                 <label for="search">
                                     Search:
-                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('promotion.index') }}">
+                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.promotion.index') }}">
                                 </label>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                             @foreach ($promotions as $key => $promotion)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td><a href="{{ route('promotion.show', $promotion->id) }}">{{ $promotion->name }}</a></td>
+                                    <td><a href="{{ route('admin.promotion.show', $promotion->id) }}">{{ $promotion->name }}</a></td>
                                     <td>{!! generate_label($promotion->condition_type, new ConditionType) !!}</td>
                                     <td>{!! generate_label($promotion->discount_target, new DiscountTarget) !!}</td>
                                     <td>{!! generate_label($promotion->discount_type, new DiscountType) !!}</td>
@@ -63,13 +63,13 @@
                                     <td>{{ $promotion->end_datetime?->format('H:i:s d/m/Y') }}</td>
                                     <td>{!! generate_label($promotion->status, new PromotionStatus) !!}</td>
                                     @if ($promotion->user)
-                                    <td><a href="{{ route('user.show', $promotion->user->id) }}">{{ $promotion->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $promotion->user->id) }}">{{ $promotion->user->fullname }}</a></td>
                                     @else
                                     <td></td>
                                     @endif
                                     <td style="text-align: right">
                                         {!! generate_button_update_status($promotion->status, new PromotionStatus, ['toggle' => 'modal', 'target' => '#modal-promotion-update', 'id' => $promotion->id, 'status' => PromotionStatus::getNextStatus($promotion->status)]) !!}
-                                        <a class="btn btn-primary" href="{{ route('promotion.edit', $promotion->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <a class="btn btn-primary" href="{{ route('admin.promotion.edit', $promotion->id) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-promotion-delete" data-id="{{ $promotion->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
@@ -95,7 +95,7 @@
         'title'         => 'Delete Promotion',
         'message'       => 'Are you sure to delete this promotion!',
         'form'          => [
-            'url'       => route('promotion.delete', ':id'),
+            'url'       => route('admin.promotion.delete', ':id'),
             'method'    => 'DELETE',
             'inputs'    => []
         ],
@@ -113,7 +113,7 @@
         'title'             => 'Update Status Promotion',
         'message'           => 'Are you sure to update status this promotion!',
         'form'              => [
-            'url'           => route('promotion.update', ':id'),
+            'url'           => route('admin.promotion.update', ':id'),
             'method'        => 'PUT',
             'inputs'        => [
                 [

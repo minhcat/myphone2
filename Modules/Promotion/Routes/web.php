@@ -14,7 +14,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Promotion\Http\Controllers\PromotionController;
 
-Route::prefix('admin')->group(function() {
+Route::prefix('admin')->name('admin.')->group(function() {
     Route::prefix('promotions')->name('promotion.')->group(function() {
         Route::get('/', [PromotionController::class, 'index'])->name('index');
         Route::get('/create', [PromotionController::class, 'create'])->name('create');

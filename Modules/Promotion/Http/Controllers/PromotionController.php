@@ -46,7 +46,7 @@ class PromotionController extends Controller
     {
         $form = [
             'title'     => 'Create',
-            'url'       => route('promotion.store'),
+            'url'       => route('admin.promotion.store'),
             'method'    => 'POST',
         ];
         $condition_types = ConditionType::getObject();
@@ -69,7 +69,7 @@ class PromotionController extends Controller
 
         $this->promotionRepository->create($request->all(), ['status' => PromotionStatus::PENDING]);
 
-        return redirect()->route('promotion.index')->with('success', __('notification.create.success', ['model' => 'promotion']));
+        return redirect()->route('admin.promotion.index')->with('success', __('notification.create.success', ['model' => 'promotion']));
     }
 
     /**
@@ -93,7 +93,7 @@ class PromotionController extends Controller
     {
         $form = [
             'title'     => 'Edit',
-            'url'       => route('promotion.update', $id),
+            'url'       => route('admin.promotion.update', $id),
             'method'    => 'PUT',
         ];
 
@@ -119,7 +119,7 @@ class PromotionController extends Controller
 
         $this->promotionRepository->update($id, $request->all());
 
-        return redirect()->route('promotion.index')->with('success', __('notification.update.success', ['model' => 'promotion']));
+        return redirect()->route('admin.promotion.index')->with('success', __('notification.update.success', ['model' => 'promotion']));
     }
 
     /**
@@ -131,6 +131,6 @@ class PromotionController extends Controller
     {
         $this->promotionRepository->delete($id);
 
-        return redirect()->route('promotion.index')->with('success', __('notification.delete.success', ['model' => 'promotion']));
+        return redirect()->route('admin.promotion.index')->with('success', __('notification.delete.success', ['model' => 'promotion']));
     }
 }
