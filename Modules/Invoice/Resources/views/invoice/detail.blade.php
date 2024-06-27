@@ -9,7 +9,7 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('invoice.index') }}">Invoice</a></li>
+    <li><a href="{{ route('admin.invoice.index') }}">Invoice</a></li>
     <li class="active">Detail</li>
 </ol>
 @endsection
@@ -134,8 +134,8 @@
                 </div>
             </div>
             <div class="box-footer">
-                <a href="{{ route('invoice.index') }}" class="btn btn-default">Back</a>
-                <a href="{{ route('invoice.show_invoice', $invoice->id) }}" class="btn btn-success">Invoice</a>
+                <a href="{{ route('admin.invoice.index') }}" class="btn btn-default">Back</a>
+                <a href="{{ route('admin.invoice.show_invoice', $invoice->id) }}" class="btn btn-success">Invoice</a>
             </div>
         </div>
     </div>

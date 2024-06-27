@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Invoice\Http\Controllers\InvoiceController;
 use Modules\Invoice\Http\Controllers\InvoiceDetailController;
 
-Route::prefix('admin')->group(function() {
+Route::prefix('admin')->name('admin.')->group(function() {
     Route::prefix('invoices')->name('invoice.')->group(function() {
         Route::prefix('/{id}/details')->name('detail.')->group(function() {
             Route::get('/', [InvoiceDetailController::class, 'index'])->name('index');

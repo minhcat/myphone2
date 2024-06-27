@@ -9,7 +9,7 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('invoice.index') }}">Invoice</a></li>
+    <li><a href="{{ route('admin.invoice.index') }}">Invoice</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -28,7 +28,7 @@
                             <div class="filter">
                                 <label for="search">
                                     Search:
-                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('invoice.index') }}">
+                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.invoice.index') }}">
                                 </label>
                             </div>
                         </div>
@@ -54,9 +54,9 @@
                             @foreach ($invoices as $key => $invoice)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td><a href="{{ route('invoice.show', $invoice->id) }}">{{ $invoice->code }}</a></td>
-                                    <td>@if (!is_null($invoice->user)) <a href="{{ route('user.show', $invoice->user->id) }}">{{ $invoice->user->fullname }}</a>@endif</td>
-                                    <td><a href="{{ route('invoice.detail.index', $invoice->id) }}">Detail</a></td>
+                                    <td><a href="{{ route('admin.invoice.show', $invoice->id) }}">{{ $invoice->code }}</a></td>
+                                    <td>@if (!is_null($invoice->user)) <a href="{{ route('admin.user.show', $invoice->user->id) }}">{{ $invoice->user->fullname }}</a>@endif</td>
+                                    <td><a href="{{ route('admin.invoice.detail.index', $invoice->id) }}">Detail</a></td>
                                     <td>{{ $invoice->quantity }}</td>
                                     <td>{{ number_format($invoice->subtotal) }}</td>
                                     <td>{{ number_format($invoice->transport_fee) }}</td>
