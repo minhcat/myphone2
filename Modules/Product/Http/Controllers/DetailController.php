@@ -53,7 +53,7 @@ class DetailController extends Controller
     {
         $form = [
             'title'     => 'Edit',
-            'url'       => route('product.detail.update', $product_id),
+            'url'       => route('admin.product.detail.update', $product_id),
             'method'    => 'POST',
         ];
         $product_name = optional($this->productRepository->find($product_id))->name;
@@ -73,6 +73,6 @@ class DetailController extends Controller
     {
         $this->detailRepository->updateWithProductId($product_id, $request->all());
 
-        return redirect()->route('product.detail.index', $product_id)->with('success', __('notification.update.success', ['model' => 'product detail']));
+        return redirect()->route('admin.product.detail.index', $product_id)->with('success', __('notification.update.success', ['model' => 'product detail']));
     }
 }
