@@ -41,7 +41,7 @@ class TagController extends Controller
     public function create()
     {
         $form = [
-            'url'       => route('tag.store'),
+            'url'       => route('admin.tag.store'),
             'method'    => 'POST',
             'title'     => 'Create'
         ];
@@ -62,7 +62,7 @@ class TagController extends Controller
 
         $this->tagRepository->create($request->all());
 
-        return redirect()->route('tag.index')->with('success', __('notification.create.success', ['model' => 'tag']));
+        return redirect()->route('admin.tag.index')->with('success', __('notification.create.success', ['model' => 'tag']));
     }
 
     /**
@@ -85,7 +85,7 @@ class TagController extends Controller
     public function edit($id)
     {
         $form = [
-            'url'       => route('tag.update', $id),
+            'url'       => route('admin.tag.update', $id),
             'method'    => 'PUT',
             'title'     => 'Edit'
         ];
@@ -108,7 +108,7 @@ class TagController extends Controller
 
         $this->tagRepository->update($id, $request->all());
 
-        return redirect()->route('tag.index')->with('success', __('notification.update.success', ['model' => 'tag']));
+        return redirect()->route('admin.tag.index')->with('success', __('notification.update.success', ['model' => 'tag']));
     }
 
     /**
@@ -120,6 +120,6 @@ class TagController extends Controller
     {
         $this->tagRepository->delete($id);
 
-        return redirect()->route('tag.index')->with('success', __('notification.delete.success', ['model' => 'tag']));
+        return redirect()->route('admin.tag.index')->with('success', __('notification.delete.success', ['model' => 'tag']));
     }
 }

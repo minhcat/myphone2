@@ -14,7 +14,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Tag\Http\Controllers\TagController;
 
-Route::prefix('admin')->group(function() {
+Route::prefix('admin')->name('admin.')->group(function() {
     Route::prefix('tags')->name('tag.')->group(function() {
         Route::get('/', [TagController::class, 'index'])->name('index');
         Route::get('/create', [TagController::class, 'create'])->name('create');

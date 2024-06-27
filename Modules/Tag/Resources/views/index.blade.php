@@ -9,7 +9,7 @@
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-    <li><a href="{{ route('tag.index') }}">Tag</a></li>
+    <li><a href="{{ route('admin.tag.index') }}">Tag</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -20,7 +20,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('tag.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                <a href="{{ route('admin.tag.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -29,7 +29,7 @@
                             <div class="filter">
                                 <label for="search">
                                     Search:
-                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('tag.index') }}">
+                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.tag.index') }}">
                                 </label>
                             </div>
                         </div>
@@ -51,16 +51,16 @@
                             @foreach ($tags as $key => $tag)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td><a href="{{ route('tag.show', $tag->id) }}">{{ $tag->name }}</a></td>
+                                    <td><a href="{{ route('admin.tag.show', $tag->id) }}">{{ $tag->name }}</a></td>
                                     @if ($tag->user)
-                                    <td><a href="{{ route('user.show', $tag->user->id) }}">{{ $tag->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $tag->user->id) }}">{{ $tag->user->fullname }}</a></td>
                                     @else
                                     <td></td>
                                     @endif
                                     <td>{{ $tag->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $tag->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{ route('tag.edit', $tag->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <a class="btn btn-primary" href="{{ route('admin.tag.edit', $tag->id) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-tag-delete" data-id="{{ $tag->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
@@ -86,7 +86,7 @@
         'title'         => 'Delete Tag',
         'message'       => 'Are you sure to delete this tag!',
         'form'          => [
-            'url'       => route('tag.delete', ':id'),
+            'url'       => route('admin.tag.delete', ':id'),
             'method'    => 'DELETE',
             'inputs'    => []
         ],
