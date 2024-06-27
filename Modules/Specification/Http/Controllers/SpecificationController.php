@@ -41,7 +41,7 @@ class SpecificationController extends Controller
     public function create()
     {
         $form = [
-            'url'       => route('specification.store'),
+            'url'       => route('admin.specification.store'),
             'method'    => 'POST',
             'title'     => 'Create'
         ];
@@ -62,7 +62,7 @@ class SpecificationController extends Controller
 
         $this->specificationRepository->create($request->all());
 
-        return redirect()->route('specification.index')->with('success', __('notification.create.success', ['model' => 'specification']));
+        return redirect()->route('admin.specification.index')->with('success', __('notification.create.success', ['model' => 'specification']));
     }
 
     /**
@@ -85,7 +85,7 @@ class SpecificationController extends Controller
     public function edit($id)
     {
         $form = [
-            'url'       => route('specification.update', $id),
+            'url'       => route('admin.specification.update', $id),
             'method'    => 'PUT',
             'title'     => 'Update'
         ];
@@ -109,7 +109,7 @@ class SpecificationController extends Controller
 
         $this->specificationRepository->update($id, $request->all());
 
-        return redirect()->route('specification.index')->with('success', __('notification.update.success', ['model' => 'specification']));
+        return redirect()->route('admin.specification.index')->with('success', __('notification.update.success', ['model' => 'specification']));
     }
 
     /**
@@ -121,6 +121,6 @@ class SpecificationController extends Controller
     {
         $this->specificationRepository->delete($id);
 
-        return redirect()->route('specification.index')->with('success', __('notification.delete.success', ['model' => 'specification']));
+        return redirect()->route('admin.specification.index')->with('success', __('notification.delete.success', ['model' => 'specification']));
     }
 }
