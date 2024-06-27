@@ -1,9 +1,7 @@
 handle search with detail list paginate (not code) has relation name
-add admin to route name modules
 make form login logout
 make factory user, product data
 update product variation in cart, order, invoice
 study action unapproved and restart promotion
 handle validate with update status promotion
 condition value detail promotion
-check breakcumb link detail view
