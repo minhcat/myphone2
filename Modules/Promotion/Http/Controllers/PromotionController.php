@@ -113,10 +113,6 @@ class PromotionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name'      => 'required',
-        ]);
-
         $this->promotionRepository->update($id, $request->all());
 
         return redirect()->route('admin.promotion.index')->with('success', __('notification.update.success', ['model' => 'promotion']));
