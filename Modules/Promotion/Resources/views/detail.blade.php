@@ -55,6 +55,16 @@
                 <div class="field-group">
                     <div class="row">
                         <div class="col-lg-2">
+                            <p><strong>Condition Value</strong></p>
+                        </div>
+                        <div class="col-lg-10">
+                            <p>{{ $promotion->condition_value }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <div class="row">
+                        <div class="col-lg-2">
                             <p><strong>Discount Target</strong></p>
                         </div>
                         <div class="col-lg-10">
