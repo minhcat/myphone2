@@ -126,6 +126,10 @@ table.table-fix tr td{
     width: 100px !important;
 }
 
+.w108 {
+    width: 108px !important;
+}
+
 .modal-add-order .modal-content .modal-body .input-group {
     border: 1px solid #ddd;
     border-radius: 3px;

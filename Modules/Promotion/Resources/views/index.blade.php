@@ -48,7 +48,7 @@
                                 <th>End Date</th>
                                 <th>Status</th>
                                 <th>Author</th>
-                                <th style="width: 265px">Action</th>
+                                <th style="width: 273px">Action</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -72,15 +72,15 @@ if (!function_exists('generate_button_orderstatus')) {
 if (!function_exists('generate_button_update_status')) {
     function generate_button_update_status($status, $class, $data = []) {
         $nextStatus = $class::getNextStatus($status);
-        $icon = $class::getIcon($nextStatus);
-        $label = $class::getLabel($nextStatus);
+        $icon = $class::getIcon($status);
+        $label = $class::getActionLabel($status);
         $action = $class::getAction($status);
         $dataAttr = '';
         foreach ($data as $name => $value) {
             $dataAttr .= 'data-'.$name.'="'.$value.'" ';
         }
         if ($nextStatus !== null) {
-            return '<button class="btn btn-'.$label.' btn-update w100" '.$dataAttr.'><i class="'.$icon.'"></i> '.$action.'</button>';
+            return '<button class="btn btn-'.$label.' btn-update w108" '.$dataAttr.'><i class="'.$icon.'"></i> '.$action.'</button>';
         }
         return '';
     }
