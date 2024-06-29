@@ -5,9 +5,23 @@ namespace Modules\Voucher\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Voucher\Repositories\VoucherRepository;
 
 class VoucherController extends Controller
 {
+    /** @var \Modules\Voucher\Repositories\VoucherRepository */
+    protected $voucherRepository;
+
+    /**
+     * Create a new Product controller instance.
+     */
+    public function __construct()
+    {
+        $this->voucherRepository = new VoucherRepository();
+
+        view()->share('menu', ['group' => 'promotion', 'active' => 'voucher']);
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
