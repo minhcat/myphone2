@@ -48,7 +48,7 @@
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Status</th>
-                                <th style="width: 265px">Action</th>
+                                <th style="width: 274px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
