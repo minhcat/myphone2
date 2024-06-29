@@ -10,5 +10,6 @@
     "Order": true,
     "Invoice": true,
     "Promotion": true,
-    "Sale": true
+    "Sale": true,
+    "Voucher": true
 }
