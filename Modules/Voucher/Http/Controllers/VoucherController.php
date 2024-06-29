@@ -26,9 +26,12 @@ class VoucherController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('voucher::index');
+        $search = $request->input('search');
+        $vouchers = $this->voucherRepository->paginate($search);
+
+        return view('voucher::voucher.index', compact('vouchers'));
     }
 
     /**
