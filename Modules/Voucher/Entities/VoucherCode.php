@@ -30,7 +30,7 @@ class VoucherCode extends Model
         return Attribute::make(
             get: function (mixed $value, $attributes) {
                 if ($attributes['discount_type'] === null) {
-                    return $this->sale->discount_type;
+                    return $this->voucher->discount_type;
                 }
                 return $attributes['discount_type'];
             }
@@ -42,11 +42,11 @@ class VoucherCode extends Model
         return Attribute::make(
             get: function (mixed $value, $attributes) {
                 if ($attributes['discount_value'] === null) {
-                    $sale = $this->sale;
-                    if ($sale?->discount_value === null) {
+                    $voucher = $this->voucher;
+                    if ($voucher?->discount_value === null) {
                         return '#';
                     }
-                    return $sale->discount_value;
+                    return $voucher->discount_value;
                 }
                 return $attributes['discount_value'];
             }
@@ -58,11 +58,11 @@ class VoucherCode extends Model
         return Attribute::make(
             get: function (mixed $value, $attributes) {
                 if ($attributes['discount_maximum'] === null) {
-                    $sale = $this->sale;
-                    if ($sale?->discount_maximum === null) {
+                    $voucher = $this->voucher;
+                    if ($voucher?->discount_maximum === null) {
                         return '#';
                     }
-                    return $sale->discount_maximum;
+                    return $voucher->discount_maximum;
                 }
                 return $attributes['discount_maximum'];
             }
@@ -74,11 +74,11 @@ class VoucherCode extends Model
         return Attribute::make(
             get: function (mixed $value, $attributes) {
                 if ($attributes['discount_minimum'] === null) {
-                    $sale = $this->sale;
-                    if ($sale?->discount_minimum === null) {
+                    $voucher = $this->voucher;
+                    if ($voucher?->discount_minimum === null) {
                         return '#';
                     }
-                    return $sale->discount_minimum;
+                    return $voucher->discount_minimum;
                 }
                 return $attributes['discount_minimum'];
             }

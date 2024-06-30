@@ -61,7 +61,7 @@
                                     @else
                                     <td></td>
                                     @endif
-                                    <td><a href="#">list</a></td>
+                                    <td><a href="{{ route('admin.voucher.code.index', $voucher->id) }}">list</a></td>
                                     <td>{!! generate_label($voucher->discount_target, new DiscountTarget) !!}</td>
                                     <td>{!! generate_label($voucher->discount_type, new DiscountType) !!}</td>
                                     <td>{{ $voucher->start_datetime?->format('H:i:s d/m/Y') }}</td>
