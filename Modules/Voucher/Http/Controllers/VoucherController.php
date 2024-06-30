@@ -2,6 +2,9 @@
 
 namespace Modules\Voucher\Http\Controllers;
 
+use App\Enums\DiscountTarget;
+use App\Enums\DiscountType;
+use App\Enums\PromotionStatus;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -40,7 +43,15 @@ class VoucherController extends Controller
      */
     public function create()
     {
-        return view('voucher::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('admin.voucher.store'),
+            'method'    => 'POST',
+        ];
+        $discount_targets = DiscountTarget::getObject();
+        $discount_types = DiscountType::getObject();
+
+        return view('voucher::voucher.create', compact('form', 'discount_targets', 'discount_types'));
     }
 
     /**
@@ -50,7 +61,13 @@ class VoucherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'  => 'required'
+        ]);
+
+        $this->voucherRepository->create($request->all(), ['status' => PromotionStatus::PENDING]);
+
+        return redirect()->route('admin.voucher.index')->with('success', __('notification.create.success', ['model' => 'voucher']));
     }
 
     /**
@@ -70,7 +87,16 @@ class VoucherController extends Controller
      */
     public function edit($id)
     {
-        return view('voucher::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('admin.voucher.update', $id),
+            'method'    => 'PUT',
+        ];
+        $voucher = $this->voucherRepository->find($id);
+        $discount_targets = DiscountTarget::getObject();
+        $discount_types = DiscountType::getObject();
+
+        return view('voucher::voucher.edit', compact('form', 'voucher', 'discount_targets', 'discount_types'));
     }
 
     /**
@@ -81,7 +107,9 @@ class VoucherController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->voucherRepository->update($id, $request->all());
+
+        return redirect()->route('admin.voucher.index')->with('success', __('notification.update.success', ['model' => 'voucher']));
     }
 
     /**
