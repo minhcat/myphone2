@@ -77,7 +77,9 @@ class VoucherController extends Controller
      */
     public function show($id)
     {
-        return view('voucher::show');
+        $voucher = $this->voucherRepository->find($id);
+
+        return view('voucher::voucher.detail', compact('voucher'));
     }
 
     /**
@@ -119,6 +121,8 @@ class VoucherController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->voucherRepository->delete($id);
+
+        return redirect()->route('admin.voucher.index')->with('success', __('notification.delete.success', ['model' => 'voucher']));
     }
 }
