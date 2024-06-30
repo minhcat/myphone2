@@ -171,7 +171,7 @@ class VoucherSeeder extends Seeder
             ],
             [
                 'code'              => 'HJH034',
-                'voucher_id'        => 7,
+                'voucher_id'        => 8,
                 'discount_type'     => null,
                 'discount_value'    => null,
                 'discount_maximum'  => null,
@@ -179,7 +179,7 @@ class VoucherSeeder extends Seeder
             ],
             [
                 'code'              => 'WER343',
-                'voucher_id'        => 7,
+                'voucher_id'        => 8,
                 'discount_type'     => null,
                 'discount_value'    => null,
                 'discount_maximum'  => null,
@@ -187,7 +187,7 @@ class VoucherSeeder extends Seeder
             ],
             [
                 'code'              => 'TYT446',
-                'voucher_id'        => 7,
+                'voucher_id'        => 8,
                 'discount_type'     => null,
                 'discount_value'    => null,
                 'discount_maximum'  => null,
