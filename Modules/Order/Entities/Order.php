@@ -15,6 +15,7 @@ class Order extends Model
         'code',
         'user_id',
         'address_id',
+        'voucher_code',
         'status',
         'note',
         'subtotal',
