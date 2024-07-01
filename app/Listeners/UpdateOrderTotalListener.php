@@ -11,6 +11,7 @@ use App\Events\CreateOrderEvent;
 use Modules\Order\Repositories\OrderRepository;
 use Modules\Promotion\Repositories\PromotionRepository;
 use Modules\Sale\Repositories\SaleRepository;
+use Modules\Voucher\Repositories\VoucherCodeRepository;
 use Modules\Voucher\Repositories\VoucherRepository;
 
 class UpdateOrderTotalListener
@@ -27,6 +28,9 @@ class UpdateOrderTotalListener
     /** @var \Modules\Voucher\Repositories\VoucherRepository */
     protected $voucherRepository;
 
+    /** @var \Modules\Voucher\Repositories\VoucherCodeRepository */
+    protected $voucherCodeRepository;
+
     /**
      * Create the event listener.
      *
@@ -38,6 +42,7 @@ class UpdateOrderTotalListener
         $this->promotionRepository = new PromotionRepository;
         $this->saleRepository = new SaleRepository;
         $this->voucherRepository = new VoucherRepository;
+        $this->voucherCodeRepository = new VoucherCodeRepository;
     }
 
     /**
@@ -153,7 +158,7 @@ class UpdateOrderTotalListener
         foreach ($vouchers as $voucher) {
             $voucher_codes = $voucher->codes;
             foreach ($voucher_codes as $code) {
-                if ($order->voucher_code === $code->code) {
+                if ($order->voucher_code === $code->code && $code->quantity !== 0) {
                     $discount = 0;
                     $discount_type = $code->discount_type === null ? $voucher->discount_type : $code->discount_type;
                     $discount_value = $code->discount_value === null ? $voucher->discount_value : $code->discount_value;
@@ -165,6 +170,12 @@ class UpdateOrderTotalListener
                     } elseif ($discount_type === DiscountType::PERCENT) {
                         $discount = $order->subtotal * $discount_value / 100;
                         $discount = $this->checkDiscountRange($discount, $discount_minimum, $discount_maximum);
+                    }
+                    $quantity = $code->quantity;
+                    if ($quantity !== null) {
+                        $this->voucherCodeRepository->update($code->id, [
+                            'quantity' => $quantity - 1,
+                        ]);
                     }
                     $discount_total += $discount;
                 }
