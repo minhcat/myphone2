@@ -41,7 +41,7 @@
                             @foreach ($voucher_codes as $key => $voucher_code)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $voucher_code->code }}</td>
+                                    <td><a href="{{ route('admin.voucher.code.show', ['voucher_id' => $voucher_id, 'id' => $voucher_code->id]) }}">{{ $voucher_code->code }}</a></td>
                                     <td>{!! generate_label($voucher_code->discount_type_show, new DiscountType) !!}</td>
                                     <td>{{ number_format($voucher_code->discount_value_show) }}</td>
                                     <td>{{ $voucher_code->discount_minimum_show }}</td>

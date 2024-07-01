@@ -77,9 +77,11 @@ class VoucherCodeController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show($voucher_id, $id)
     {
-        return view('voucher::show');
+        $voucher_code = $this->voucherCodeRepository->find($id);
+
+        return view('voucher::code.detail', compact('voucher_code', 'voucher_id'));
     }
 
     /**
@@ -126,8 +128,12 @@ class VoucherCodeController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($voucher_id, $id)
     {
-        //
+        $this->voucherCodeRepository->delete($id);
+
+        return redirect()
+        ->route('admin.voucher.code.index', $voucher_id)
+        ->with('success', __('notification.delete.success', ['model' => 'voucher code']));
     }
 }
