@@ -11,6 +11,7 @@ use App\Events\CreateOrderEvent;
 use Modules\Order\Repositories\OrderRepository;
 use Modules\Promotion\Repositories\PromotionRepository;
 use Modules\Sale\Repositories\SaleRepository;
+use Modules\Voucher\Repositories\VoucherRepository;
 
 class UpdateOrderTotalListener
 {
@@ -23,6 +24,9 @@ class UpdateOrderTotalListener
     /** @var \Modules\Sale\Repositories\SaleRepository */
     protected $saleRepository;
 
+    /** @var \Modules\Voucher\Repositories\VoucherRepository */
+    protected $voucherRepository;
+
     /**
      * Create the event listener.
      *
@@ -33,6 +37,7 @@ class UpdateOrderTotalListener
         $this->orderRepository = new OrderRepository;
         $this->promotionRepository = new PromotionRepository;
         $this->saleRepository = new SaleRepository;
+        $this->voucherRepository = new VoucherRepository;
     }
 
     /**
@@ -45,6 +50,7 @@ class UpdateOrderTotalListener
     {
         $this->handlePromotion($event);
         $this->handleSaleOff($event);
+        $this->handleVoucher($event);
     }
 
     private function handlePromotion($event)
@@ -127,6 +133,40 @@ class UpdateOrderTotalListener
                         }
                         $discount_total += $discount;
                     }
+                }
+            }
+        }
+
+        $order = $this->orderRepository->find($order->id);
+        $this->orderRepository->update($order->id, [
+            'discount'      => $order->discount + $discount_total,
+            'total'         => $order->total - $discount_total
+        ]);
+    }
+
+    public function handleVoucher($event)
+    {
+        $order = $event->order;
+        $discount_total = 0;
+
+        $vouchers = $this->voucherRepository->get([['status', PromotionStatus::INPROGRESS]]);
+        foreach ($vouchers as $voucher) {
+            $voucher_codes = $voucher->codes;
+            foreach ($voucher_codes as $code) {
+                if ($order->voucher_code === $code->code) {
+                    $discount = 0;
+                    $discount_type = $code->discount_type === null ? $voucher->discount_type : $code->discount_type;
+                    $discount_value = $code->discount_value === null ? $voucher->discount_value : $code->discount_value;
+                    $discount_minimum = $code->discount_minimum === null ? $voucher->discount_minimum : $code->discount_minimum;
+                    $discount_maximum = $code->discount_maximum === null ? $voucher->discount_maximum : $code->discount_maximum;
+                    if ($discount_type === DiscountType::AMOUNT) {
+                        $discount = $discount_value;
+                        $discount = $this->checkDiscountRange($discount, $discount_minimum, $discount_maximum);
+                    } elseif ($discount_type === DiscountType::PERCENT) {
+                        $discount = $order->subtotal * $discount_value / 100;
+                        $discount = $this->checkDiscountRange($discount, $discount_minimum, $discount_maximum);
+                    }
+                    $discount_total += $discount;
                 }
             }
         }

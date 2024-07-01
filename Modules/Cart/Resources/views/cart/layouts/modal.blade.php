@@ -14,7 +14,10 @@
                 <form action="{{ route('admin.cart.order', $cart->id) }}" method="POST">
                     @csrf
                     <input type="hidden" name="address_id" value="1">
-                    <div class="products products-add">
+                    <div class="products products-add"></div>
+                    <div class="form-group">
+                        <label for="voucher_code">Voucher</label>
+                        <input type="text" class="form-control" id="voucher_code" name="voucher_code" value="">
                     </div>
                 </form>
                 <hr>

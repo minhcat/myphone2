@@ -62,7 +62,7 @@ class VoucherCodeController extends Controller
     public function store(Request $request, $voucher_id)
     {
         $request->validate([
-            'code'  => 'required'
+            'code'  => 'required|unique:voucher_codes'
         ]);
 
         $this->voucherCodeRepository->create($request->all(), ['voucher_id' => $voucher_id]);
@@ -113,7 +113,7 @@ class VoucherCodeController extends Controller
     public function update(Request $request, $voucher_id, $id)
     {
         $request->validate([
-            'code'  => 'required'
+            'code'  => 'required|unique:voucher_codes,code,'.$id
         ]);
 
         $this->voucherCodeRepository->update($id, $request->all());

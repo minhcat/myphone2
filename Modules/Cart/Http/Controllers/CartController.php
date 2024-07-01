@@ -84,6 +84,7 @@ class CartController extends Controller
         $order = $this->orderRepository->create([
             'user_id'       => $cart->user->id,
             'address_id'    => $request->input('address_id'),
+            'voucher_code'  => $request->input('voucher_code'),
             'status'        => OrderStatus::PENDING,
             'note'          => $request->input('note') ?? '',
         ]);

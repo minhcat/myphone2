@@ -36,6 +36,11 @@ class Voucher extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
+    public function codes()
+    {
+        return $this->hasMany(VoucherCode::class);
+    }
+
     public function startdate() : Attribute
     {
         return Attribute::make(
