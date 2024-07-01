@@ -2,6 +2,8 @@
 
 namespace Modules\Voucher\Http\Controllers;
 
+use App\Enums\DiscountTarget;
+use App\Enums\DiscountType;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -38,9 +40,18 @@ class VoucherCodeController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function create($voucher_id)
     {
-        return view('voucher::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('admin.voucher.code.store', $voucher_id),
+            'method'    => 'POST',
+        ];
+
+        $discount_targets = DiscountTarget::getObject();
+        $discount_types = DiscountType::getObject();
+
+        return view('voucher::code.create', compact('form', 'discount_targets', 'discount_types', 'voucher_id'));
     }
 
     /**
@@ -48,9 +59,17 @@ class VoucherCodeController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(Request $request, $voucher_id)
     {
-        //
+        $request->validate([
+            'code'  => 'required'
+        ]);
+
+        $this->voucherCodeRepository->create($request->all(), ['voucher_id' => $voucher_id]);
+
+        return redirect()
+        ->route('admin.voucher.code.index', $voucher_id)
+        ->with('success', __('notification.create.success', ['model' => 'voucher code']));
     }
 
     /**
@@ -68,9 +87,19 @@ class VoucherCodeController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit($voucher_id, $id)
     {
-        return view('voucher::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('admin.voucher.code.update', ['voucher_id' => $voucher_id, 'id' => $id]),
+            'method'    => 'PUT',
+        ];
+
+        $discount_targets = DiscountTarget::getObject();
+        $discount_types = DiscountType::getObject();
+        $voucher_code = $this->voucherCodeRepository->find($id);
+
+        return view('voucher::code.edit', compact('form', 'voucher_code', 'discount_targets', 'discount_types', 'voucher_id'));
     }
 
     /**
@@ -79,9 +108,17 @@ class VoucherCodeController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $voucher_id, $id)
     {
-        //
+        $request->validate([
+            'code'  => 'required'
+        ]);
+
+        $this->voucherCodeRepository->update($id, $request->all());
+
+        return redirect()
+        ->route('admin.voucher.code.index', $voucher_id)
+        ->with('success', __('notification.update.success', ['model' => 'voucher code']));
     }
 
     /**
