@@ -10,14 +10,14 @@ use Modules\Gift\Repositories\GiftRepository;
 class GiftController extends Controller
 {
     /** @var \Modules\Gift\Repositories\GiftRepository */
-    protected $saleRepository;
+    protected $giftRepository;
 
     /**
      * Create a new Product controller instance.
      */
     public function __construct()
     {
-        $this->saleRepository = new GiftRepository();
+        $this->giftRepository = new GiftRepository();
 
         view()->share('menu', ['group' => 'promotion', 'active' => 'gift']);
     }
@@ -26,9 +26,12 @@ class GiftController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('gift::index');
+        $search = $request->input('search');
+        $gifts = $this->giftRepository->paginate($search);
+
+        return view('gift::gift.index', compact('gifts'));
     }
 
     /**
