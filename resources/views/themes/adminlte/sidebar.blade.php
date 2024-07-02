@@ -70,7 +70,7 @@
         <li class="{{ $menu['active'] == 'promotion' ? 'active' : '' }}"><a href="{{ route('admin.promotion.index') }}">Promotion</a></li>
         <li class="{{ $menu['active'] == 'sale' ? 'active' : '' }}"><a href="{{ route('admin.sale.index') }}">Sale Off</a></li>
         <li class="{{ $menu['active'] == 'voucher' ? 'active' : '' }}"><a href="{{ route('admin.voucher.index') }}">Voucher</a></li>
-        <li class="{{ $menu['active'] == 'gift' ? 'active' : '' }}"><a href="#">Gift</a></li>
+        <li class="{{ $menu['active'] == 'gift' ? 'active' : '' }}"><a href="{{ route('admin.gift.index') }}">Gift</a></li>
       </ul>
     </li>
     <li class="treeview">
