@@ -84,7 +84,8 @@ class SaleProductController extends Controller
     public function store(Request $request, $sale_id)
     {
         $request->validate([
-            'target_id'    => 'required',
+            'target_id'     => 'required',
+            'target_type'   => 'required',
         ]);
 
         $this->saleProductRepository->create($request->all(), ['sale_id' => $sale_id]);
@@ -135,7 +136,8 @@ class SaleProductController extends Controller
     public function update(Request $request, $sale_id, $id)
     {
         $request->validate([
-            'target_id' => 'required'
+            'target_id'     => 'required',
+            'target_type'   => 'required',
         ]);
 
         $this->saleProductRepository->update($id, $request->all());

@@ -38,7 +38,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="target_type">Target Type</label>
+                                <label for="target_type">Target Type <span class="text-red">*</span></label>
                                 <select id="target_type" class="form-control" aria-placeholder="not select" name="target_type">
                                     @foreach($target_types as $target_type)
                                         <option value="{{ $target_type->code }}" {{ $sale_product->target_type === $target_type->code ? 'selected' : '' }}>{{ $target_type->name }}</option>
