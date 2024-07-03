@@ -3,3 +3,4 @@ make form login logout
 make factory user, product data
 update product variation in cart, order, invoice
 add target type validate create sale
+replace route admin store sale

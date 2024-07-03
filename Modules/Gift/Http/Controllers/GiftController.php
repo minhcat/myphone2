@@ -2,6 +2,7 @@
 
 namespace Modules\Gift\Http\Controllers;
 
+use App\Enums\PromotionStatus;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -40,7 +41,13 @@ class GiftController extends Controller
      */
     public function create()
     {
-        return view('gift::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('admin.gift.store'),
+            'method'    => 'POST',
+        ];
+
+        return view('gift::gift.create', compact('form'));
     }
 
     /**
@@ -50,7 +57,13 @@ class GiftController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'  => 'required'
+        ]);
+
+        $this->giftRepository->create($request->all(), ['status' => PromotionStatus::PENDING]);
+
+        return redirect()->route('admin.gift.index')->with('success', __('notification.create.success', ['model' => 'gift']));
     }
 
     /**
@@ -70,7 +83,14 @@ class GiftController extends Controller
      */
     public function edit($id)
     {
-        return view('gift::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('admin.gift.update', $id),
+            'method'    => 'PUT',
+        ];
+        $gift = $this->giftRepository->find($id);
+
+        return view('gift::gift.edit', compact('form', 'gift'));
     }
 
     /**
@@ -81,7 +101,9 @@ class GiftController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->giftRepository->update($id, $request->all());
+
+        return redirect()->route('admin.gift.index')->with('success', __('notification.update.success', ['model' => 'gift']));
     }
 
     /**
