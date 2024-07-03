@@ -9,7 +9,7 @@ use Modules\Gift\Repositories\GiftProductRepository;
 
 class GiftProductController extends Controller
 {
-    /** @var \Modules\Gift\Repositories\GiftRepository */
+    /** @var \Modules\Gift\Repositories\GiftProductRepository */
     protected $giftProductRepository;
 
     /**
@@ -26,9 +26,11 @@ class GiftProductController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index($gift_id)
     {
-        return view('gift::index');
+        $gift_products = $this->giftProductRepository->paginateByGiftId($gift_id);
+
+        return view('gift::product.index', compact('gift_products', 'gift_id'));
     }
 
     /**

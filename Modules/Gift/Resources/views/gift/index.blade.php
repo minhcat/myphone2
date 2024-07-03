@@ -59,7 +59,7 @@
                                     @else
                                     <td></td>
                                     @endif
-                                    <td><a href="">list</a></td>
+                                    <td><a href="{{ route('admin.gift.product.index', $gift->id) }}">list</a></td>
                                     <td>{{ $gift->start_datetime?->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $gift->end_datetime?->format('H:i:s d/m/Y') }}</td>
                                     <td>{!! generate_label($gift->status, new PromotionStatus) !!}</td>
