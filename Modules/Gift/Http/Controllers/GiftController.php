@@ -73,7 +73,9 @@ class GiftController extends Controller
      */
     public function show($id)
     {
-        return view('gift::show');
+        $gift = $this->giftRepository->find($id);
+
+        return view('gift::gift.detail', compact('gift'));
     }
 
     /**
@@ -113,6 +115,8 @@ class GiftController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->giftRepository->delete($id);
+
+        return redirect()->route('admin.gift.index')->with('sucess', __('notification.delete.success', ['model' => 'gift']));
     }
 }
