@@ -5,9 +5,23 @@ namespace Modules\Gift\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Gift\Repositories\GiftProductRepository;
 
 class GiftProductController extends Controller
 {
+    /** @var \Modules\Gift\Repositories\GiftRepository */
+    protected $giftProductRepository;
+
+    /**
+     * Create a new Product controller instance.
+     */
+    public function __construct()
+    {
+        $this->giftProductRepository = new GiftProductRepository();
+
+        view()->share('menu', ['group' => 'promotion', 'active' => 'gift']);
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
