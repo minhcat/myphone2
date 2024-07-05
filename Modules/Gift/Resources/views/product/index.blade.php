@@ -31,6 +31,7 @@
                                 <th>#</th>
                                 <th>Product</th>
                                 <th>Author</th>
+                                <th>Items</th>
                                 <th>Quantity</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
@@ -47,6 +48,7 @@
                                     <td><a href="{{ route('admin.product.variation.show', ['product_id' => $gift_product->target->product_id, 'id' => $gift_product->target_id]) }}">{{ $gift_product->target->name }}</a></td>
                                     @endif
                                     <td><a href="{{ route('admin.user.show', $gift_product->user->id) }}">{{ $gift_product->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.gift.product.item.index', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product->id]) }}">list</a></td>
                                     <td>{{ $gift_product->quantity === null ? '#' : $gift_product->quantity }}</td>
                                     <td>{{ $gift_product->created_at->format('H:i:s d-m-Y') }}</td>
                                     <td>{{ $gift_product->updated_at->format('H:i:s d-m-Y') }}</td>
@@ -71,7 +73,7 @@
     </div>
 </div>
 
-@include('gift::gift.layouts.modal', [
+@include('gift::product.layouts.modal', [
     'modal'             => [
         'id'            => 'modal-gift-product-delete',
         'title'         => 'Delete Gift',
