@@ -83,16 +83,6 @@ class GiftProductItemController extends Controller
     }
 
     /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('gift::show');
-    }
-
-    /**
      * Show the form for editing the specified resource.
      * @param int $id
      * @return Renderable
@@ -138,8 +128,12 @@ class GiftProductItemController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($gift_id, $gift_product_id, $id)
     {
-        //
+        $this->giftProductItemRepository->delete($id);
+
+        return redirect()
+        ->route('admin.gift.product.item.index', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id])
+        ->with('success', __('notification.delete.success', ['model' => 'gift product item']));
     }
 }
