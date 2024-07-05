@@ -1,1 +1,1 @@
-@include('themes.adminlte.master')
+@include('themes.adminlte.modal')

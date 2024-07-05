@@ -4,3 +4,4 @@ make factory user, product data
 update product variation in cart, order, invoice
 add target type validate create sale
 replace route admin store sale
+target id with check type select value

@@ -2,15 +2,24 @@
 
 namespace Modules\Gift\Http\Controllers;
 
+use App\Enums\TargetType;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Gift\Repositories\GiftProductItemRepository;
+use Modules\Product\Repositories\ProductRepository;
+use Modules\Product\Repositories\VariationRepository;
 
 class GiftProductItemController extends Controller
 {
     /** @var \Modules\Gift\Repositories\GiftProductItemRepository */
     protected $giftProductItemRepository;
+
+    /** @var \Modules\Product\Repositories\ProductRepository */
+    protected $productRepository;
+
+    /** @var \Modules\Product\Repositories\VariationRepository */
+    protected $variantRepository;
 
     /**
      * Create a new Product controller instance.
@@ -18,6 +27,8 @@ class GiftProductItemController extends Controller
     public function __construct()
     {
         $this->giftProductItemRepository = new GiftProductItemRepository();
+        $this->productRepository = new ProductRepository();
+        $this->variantRepository = new VariationRepository();
 
         view()->share('menu', ['group' => 'promotion', 'active' => 'gift']);
     }
@@ -37,9 +48,19 @@ class GiftProductItemController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function create($gift_id, $gift_product_id)
     {
-        return view('gift::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('admin.gift.product.item.store', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id]),
+            'method'    => 'POST',
+        ];
+
+        $products = $this->productRepository->all();
+        $variants = $this->variantRepository->all();
+        $target_types = TargetType::getObject();
+
+        return view('gift::item.create', compact('form', 'gift_id', 'gift_product_id', 'products', 'variants', 'target_types'));
     }
 
     /**
@@ -47,9 +68,18 @@ class GiftProductItemController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(Request $request, $gift_id, $gift_product_id)
     {
-        //
+        $request->validate([
+            'target_type'   => 'required',
+            'target_id'     => 'required',
+        ]);
+
+        $this->giftProductItemRepository->create($request->all(), ['gift_product_id' => $gift_product_id]);
+
+        return redirect()
+        ->route('admin.gift.product.item.index', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id])
+        ->with('success', __('notification.create.success', ['model' => 'gift product item']));
     }
 
     /**
@@ -67,9 +97,20 @@ class GiftProductItemController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit($gift_id, $gift_product_id, $id)
     {
-        return view('gift::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('admin.gift.product.item.update', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id, 'id' => $id]),
+            'method'    => 'PUT',
+        ];
+
+        $products = $this->productRepository->all();
+        $variants = $this->variantRepository->all();
+        $target_types = TargetType::getObject();
+        $gift_product_item = $this->giftProductItemRepository->find($id);
+
+        return view('gift::item.edit', compact('form', 'products', 'variants', 'target_types', 'gift_id', 'gift_product_id', 'gift_product_item'));
     }
 
     /**
@@ -78,9 +119,18 @@ class GiftProductItemController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $gift_id, $gift_product_id, $id)
     {
-        //
+        $request->validate([
+            'target_type'   => 'required',
+            'target_id'     => 'required',
+        ]);
+
+        $this->giftProductItemRepository->update($id, $request->all());
+
+        return redirect()
+        ->route('admin.gift.product.item.index', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id])
+        ->with('success', __('notification.update.success', ['model' => 'gift product item']));
     }
 
     /**
