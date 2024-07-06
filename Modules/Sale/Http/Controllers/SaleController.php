@@ -67,7 +67,7 @@ class SaleController extends Controller
 
         $this->saleRepository->create($request->all(), ['status' => PromotionStatus::PENDING]);
 
-        return redirect()->route('sale.index')->with('success', __('notification.create.success', ['model' => 'sale']));
+        return redirect()->route('admin.sale.index')->with('success', __('notification.create.success', ['model' => 'sale']));
     }
 
     /**
