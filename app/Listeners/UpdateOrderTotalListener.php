@@ -8,6 +8,10 @@ use App\Enums\DiscountType;
 use App\Enums\PromotionStatus;
 use App\Enums\TargetType;
 use App\Events\CreateOrderEvent;
+use Modules\Gift\Repositories\GiftProductItemRepository;
+use Modules\Gift\Repositories\GiftProductRepository;
+use Modules\Gift\Repositories\GiftRepository;
+use Modules\Order\Repositories\OrderDetailRepository;
 use Modules\Order\Repositories\OrderRepository;
 use Modules\Promotion\Repositories\PromotionRepository;
 use Modules\Sale\Repositories\SaleRepository;
@@ -18,6 +22,9 @@ class UpdateOrderTotalListener
 {
     /** @var \Modules\Order\Repositories\OrderRepository */
     protected $orderRepository;
+
+    /** @var \Modules\Order\Repositories\OrderDetailRepository */
+    protected $orderDetailRepository;
 
     /** @var \Modules\Promotion\Repositories\PromotionRepository */
     protected $promotionRepository;
@@ -31,6 +38,15 @@ class UpdateOrderTotalListener
     /** @var \Modules\Voucher\Repositories\VoucherCodeRepository */
     protected $voucherCodeRepository;
 
+    /** @var \Modules\Gift\Repositories\GiftRepository */
+    protected $giftRepository;
+
+    /** @var \Modules\Gift\Repositories\GiftProductRepository */
+    protected $giftProductRepository;
+
+    /** @var \Modules\Gift\Repositories\GiftProductItemRepository */
+    protected $giftProductItemRepository;
+
     /**
      * Create the event listener.
      *
@@ -39,10 +55,14 @@ class UpdateOrderTotalListener
     public function __construct()
     {
         $this->orderRepository = new OrderRepository;
+        $this->orderDetailRepository = new OrderDetailRepository;
         $this->promotionRepository = new PromotionRepository;
         $this->saleRepository = new SaleRepository;
         $this->voucherRepository = new VoucherRepository;
         $this->voucherCodeRepository = new VoucherCodeRepository;
+        $this->giftRepository = new GiftRepository;
+        $this->giftProductRepository = new GiftProductRepository;
+        $this->giftProductItemRepository = new GiftProductItemRepository;
     }
 
     /**
@@ -56,6 +76,7 @@ class UpdateOrderTotalListener
         $this->handlePromotion($event);
         $this->handleSaleOff($event);
         $this->handleVoucher($event);
+        $this->handleGift($event);
     }
 
     private function handlePromotion($event)
@@ -187,6 +208,43 @@ class UpdateOrderTotalListener
             'discount'      => $order->discount + $discount_total,
             'total'         => $order->total - $discount_total
         ]);
+    }
+
+    public function handleGift($event)
+    {
+        $order = $event->order;
+        $gifts = $this->giftRepository->get([['status', PromotionStatus::INPROGRESS]]);
+        $gifts_include = [];
+
+        foreach ($gifts as $gift) {
+            $gift_products = $this->giftProductRepository->get([['gift_id', $gift->id]]);
+            foreach ($gift_products as $gift_product) {
+                $order_details = $order->details;
+                foreach ($order_details as $order_detail) {
+                    if ($order_detail->product_id === $gift_product->target_id 
+                    && $gift_product->target_type === TargetType::PRODUCT
+                    && ($gift_product->quantity === null || $gift_product->quantity > 0)) {
+                        $gifts_include[] = $this->giftProductItemRepository->get([['gift_product_id', $gift_product->id]]);
+                        if ($gift_product->quantity !== null) {
+                            $this->giftProductRepository->update($gift_product->id, [
+                                'quantity' => $gift_product->quantity - 1,
+                            ]);
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach ($gifts_include as $gifts) {
+            foreach ($gifts as $gift) {
+                $this->orderDetailRepository->create([
+                    'order_id'          => $order->id,
+                    'product_id'        => $gift->target_id,
+                    'price'             => 0,
+                    'quantity'          => $gift->quantity
+                ]);
+            }
+        }
     }
 
     private function checkDiscountRange($discount, $discount_minimum, $discount_maximum)

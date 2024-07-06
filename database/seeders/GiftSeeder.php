@@ -109,7 +109,7 @@ class GiftSeeder extends Seeder
         DB::table('gift_product_items')->insert([
             [
                 'target_type'       => TargetType::PRODUCT,
-                'target_id'         => 20,
+                'target_id'         => 31,
                 'gift_product_id'   => 1,
                 'author_id'         => 1,
                 'quantity'          => 1,
@@ -118,7 +118,7 @@ class GiftSeeder extends Seeder
             ],
             [
                 'target_type'       => TargetType::PRODUCT,
-                'target_id'         => 21,
+                'target_id'         => 33,
                 'gift_product_id'   => 1,
                 'author_id'         => 1,
                 'quantity'          => 1,
@@ -127,7 +127,7 @@ class GiftSeeder extends Seeder
             ],
             [
                 'target_type'       => TargetType::PRODUCT,
-                'target_id'         => 22,
+                'target_id'         => 32,
                 'gift_product_id'   => 2,
                 'author_id'         => 1,
                 'quantity'          => 1,
@@ -136,7 +136,7 @@ class GiftSeeder extends Seeder
             ],
             [
                 'target_type'       => TargetType::PRODUCT,
-                'target_id'         => 23,
+                'target_id'         => 34,
                 'gift_product_id'   => 2,
                 'author_id'         => 1,
                 'quantity'          => 1,
@@ -145,7 +145,7 @@ class GiftSeeder extends Seeder
             ],
             [
                 'target_type'       => TargetType::PRODUCT,
-                'target_id'         => 24,
+                'target_id'         => 32,
                 'gift_product_id'   => 3,
                 'author_id'         => 1,
                 'quantity'          => 1,
@@ -154,7 +154,7 @@ class GiftSeeder extends Seeder
             ],
             [
                 'target_type'       => TargetType::PRODUCT,
-                'target_id'         => 25,
+                'target_id'         => 34,
                 'gift_product_id'   => 3,
                 'author_id'         => 1,
                 'quantity'          => 1,
