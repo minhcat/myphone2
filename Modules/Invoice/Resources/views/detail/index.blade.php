@@ -38,7 +38,11 @@
                             @foreach ($details as $key => $detail)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td><a href="{{ route('admin.product.show', $detail->product->id) }}">{{ $detail->product->name }}</a></td>
+                                    @if ($detail->target_type === TargetType::PRODUCT)
+                                    <td><a href="{{ route('admin.product.show', $detail->target_id) }}">{{ $detail->target->name }}</a></td>
+                                    @else
+                                    <td><a href="{{ route('admin.product.variation.show', ['product_id' => $detail->target->product_id, 'id' => $detail->target_id]) }}">{{ $detail->target->name }}</a></td>
+                                    @endif
                                     <td>{{ $detail->quantity }}</td>
                                     <td>{{ $detail->price }}</td>
                                     <td>{{ $detail->price * $detail->quantity }}</td>
