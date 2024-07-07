@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\TargetType;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -95,77 +96,89 @@ class CartSeeder extends Seeder
             // 1
             [
                 'cart_id'       => 1,
-                'product_id'    => 1,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'    => 1,
                 'price'         => 45000000,
                 'quantity'      => 1,
             ],
             [
                 'cart_id'       => 1,
-                'product_id'    => 2,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'    => 2,
                 'price'         => 42000000,
                 'quantity'      => 2,
             ],
             [
                 'cart_id'       => 1,
-                'product_id'    => 3,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'    => 3,
                 'price'         => 36000000,
                 'quantity'      => 2,
             ],
             // 2
             [
                 'cart_id'       => 2,
-                'product_id'    => 4,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'    => 4,
                 'price'         => 32000000,
                 'quantity'      => 1,
             ],
             [
                 'cart_id'       => 2,
-                'product_id'    => 5,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'     => 5,
                 'price'         => 8000000,
                 'quantity'      => 1,
             ],
             [
                 'cart_id'       => 2,
-                'product_id'    => 6,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'     => 6,
                 'price'         => 7000000,
                 'quantity'      => 1,
             ],
             // 3
             [
                 'cart_id'       => 3,
-                'product_id'    => 7,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'     => 7,
                 'price'         => 6000000,
                 'quantity'      => 1,
             ],
             [
                 'cart_id'       => 3,
-                'product_id'    => 8,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'     => 8,
                 'price'         => 5000000,
                 'quantity'      => 1,
             ],
             // 4
             [
                 'cart_id'       => 4,
-                'product_id'    => 9,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'     => 9,
                 'price'         => 20000000,
                 'quantity'      => 2,
             ],
             [
                 'cart_id'       => 4,
-                'product_id'    => 10,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'     => 10,
                 'price'         => 2000000,
                 'quantity'      => 1,
             ],
             // 5
             [
                 'cart_id'       => 5,
-                'product_id'    => 11,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'     => 11,
                 'price'         => 35000000,
                 'quantity'      => 1,
             ],
             [
                 'cart_id'       => 5,
-                'product_id'    => 12,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'     => 12,
                 'price'         => 32000000,
                 'quantity'      => 2,
             ],

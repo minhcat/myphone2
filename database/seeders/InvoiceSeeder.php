@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\TargetType;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -90,83 +91,96 @@ class InvoiceSeeder extends Seeder
             // invoice 1
             [
                 'invoice_id'    => 1,
-                'product_id'    => 1,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'     => 1,
                 'price'         => 45000000,
                 'quantity'      => 1,
             ],
             [
                 'invoice_id'    => 1,
-                'product_id'    => 2,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'     => 2,
                 'price'         => 42000000,
                 'quantity'      => 2,
             ],
             [
                 'invoice_id'    => 1,
-                'product_id'    => 3,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'     => 3,
                 'price'         => 36000000,
                 'quantity'      => 1,
             ],
             // invoice 2
             [
                 'invoice_id'    => 2,
-                'product_id'    => 4,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'     => 4,
                 'price'         => 32000000,
                 'quantity'      => 1,
             ],
             [
                 'invoice_id'    => 2,
-                'product_id'    => 5,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'     => 5,
                 'price'         => 8000000,
                 'quantity'      => 1,
             ],
             [
                 'invoice_id'    => 2,
-                'product_id'    => 6,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'     => 6,
                 'price'         => 7000000,
                 'quantity'      => 1,
             ],
             // invoice 3
             [
                 'invoice_id'    => 3,
-                'product_id'    => 7,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'     => 7,
                 'price'         => 6000000,
                 'quantity'      => 2,
             ],
             [
                 'invoice_id'    => 3,
-                'product_id'    => 8,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'     => 8,
                 'price'         => 5000000,
                 'quantity'      => 2,
             ],
             [
                 'invoice_id'    => 3,
-                'product_id'    => 9,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'     => 9,
                 'price'         => 20000000,
                 'quantity'      => 2,
             ],
             // invoice 4
             [
                 'invoice_id'    => 4,
-                'product_id'    => 7,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'     => 7,
                 'price'         => 6000000,
                 'quantity'      => 2,
             ],
             [
                 'invoice_id'    => 4,
-                'product_id'    => 8,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'     => 8,
                 'price'         => 5000000,
                 'quantity'      => 2,
             ],
             // invoice 5
             [
                 'invoice_id'    => 5,
-                'product_id'    => 7,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'     => 7,
                 'price'         => 6000000,
                 'quantity'      => 2,
             ],
             [
                 'invoice_id'    => 5,
-                'product_id'    => 8,
+                'target_type'   => TargetType::PRODUCT,
+                'target_id'     => 8,
                 'price'         => 5000000,
                 'quantity'      => 1,
             ],
