@@ -20,7 +20,11 @@
                                 <select id="target_id" class="form-control" aria-placeholder="not select" name="target_id">
                                     <option disabled selected>-- choose product --</option>
                                     @foreach($products as $product)
+                                        @if ($gift_product->target_type === TargetType::PRODUCT)
                                         <option value="{{ $product->id }}" {{ $gift_product->target_id === $product->id ? 'selected' : '' }}>{{ $product->name }}</option>
+                                        @else
+                                        <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -31,7 +35,11 @@
                                 <select id="target_id" class="form-control" aria-placeholder="not select" name="target_id">
                                     <option disabled selected>-- choose variant --</option>
                                     @foreach($variants as $variant)
+                                        @if ($gift_product->target_type === TargetType::VARIANT)
                                         <option value="{{ $variant->id }}" {{ $gift_product->target_id === $variant->id ? 'selected' : '' }}>{{ $variant->name }}</option>
+                                        @else
+                                        <option value="{{ $variant->id }}">{{ $variant->name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
