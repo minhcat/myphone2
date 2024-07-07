@@ -2,11 +2,13 @@
 
 namespace Modules\Cart\Http\Controllers;
 
+use App\Enums\TargetType;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Cart\Repositories\CartDetailRepository;
 use Modules\Product\Repositories\ProductRepository;
+use Modules\Product\Repositories\VariationRepository;
 
 class CartDetailController extends Controller
 {
@@ -16,6 +18,9 @@ class CartDetailController extends Controller
     /** @var \Modules\Product\Repositories\ProductRepository */
     protected $productRepository;
 
+    /** @var \Modules\Product\Repositories\VariationRepository */
+    protected $variantRepository;
+
     /**
      * Create new Cart Controller instance.
      */
@@ -23,6 +28,7 @@ class CartDetailController extends Controller
     {
         $this->cartDetailRepository = new CartDetailRepository;
         $this->productRepository = new ProductRepository;
+        $this->variantRepository = new VariationRepository;
 
         view()->share('menu', ['group' => 'invoice', 'active' => 'cart']);
     }
@@ -44,14 +50,17 @@ class CartDetailController extends Controller
      */
     public function create($cart_id)
     {
-        $products = $this->productRepository->all();
         $form = [
             'title'     => 'Create',
             'url'       => route('admin.cart.detail.store', $cart_id),
             'method'    => 'POST',
         ];
+        
+        $products = $this->productRepository->all();
+        $variants = $this->variantRepository->all();
+        $target_types = TargetType::getObject();
 
-        return view('cart::detail.create', compact('products', 'form', 'cart_id'));
+        return view('cart::detail.create', compact('products', 'form', 'cart_id', 'products', 'variants', 'target_types'));
     }
 
     /**
@@ -62,12 +71,23 @@ class CartDetailController extends Controller
     public function store(Request $request, $cart_id)
     {
         $request->validate([
-            'product_id'    => 'required',
+            'target_type'   => 'required',
+            'target_id'     => 'required',
             'quantity'      => 'required|numeric'
         ]);
-        $product = $this->productRepository->find($request->input('product_id'));
 
-        $cart_detail = $this->cartDetailRepository->findWhere(['cart_id' => $cart_id, 'product_id' => $product->id]);
+        $target_type = $request->input('target_type');
+        if ($target_type == TargetType::VARIANT) {    // compare string and int
+            $target = $this->variantRepository->find($request->input('target_id'));
+        } else {
+            $target = $this->productRepository->find($request->input('target_id'));
+        }
+
+        $cart_detail = $this->cartDetailRepository->findWhere([
+            ['cart_id', $cart_id],
+            ['target_type', $target_type],
+            ['target_id', $target->id]
+        ]);
 
         if (!is_null($cart_detail)) {
             $quantity = $cart_detail->quantity + intval($request->input('quantity'));
@@ -77,7 +97,7 @@ class CartDetailController extends Controller
             return redirect()->route('admin.cart.detail.index', $cart_id)->with('success', __('notification.create.success', ['model' => 'cart detail']));
         }
 
-        $this->cartDetailRepository->create($request->all(), ['cart_id' => $cart_id, 'price' => $product->price ?: 0]);
+        $this->cartDetailRepository->create($request->all(), ['cart_id' => $cart_id, 'price' => $target->price ?: 0]);
 
         return redirect()->route('admin.cart.detail.index', $cart_id)->with('success', __('notification.create.success', ['model' => 'cart detail']));
     }
@@ -89,15 +109,18 @@ class CartDetailController extends Controller
      */
     public function edit($cart_id, $id)
     {
-        $products = $this->productRepository->all();
         $form = [
             'title'     => 'Update',
             'url'       => route('admin.cart.detail.update', ['cart_id' => $cart_id, 'id' => $id]),
             'method'    => 'PUT',
         ];
-        $detail = $this->cartDetailRepository->find($id);
 
-        return view('cart::detail.edit', compact('form', 'products', 'detail', 'cart_id'));
+        $detail = $this->cartDetailRepository->find($id);
+        $products = $this->productRepository->all();
+        $variants = $this->variantRepository->all();
+        $target_types = TargetType::getObject();
+
+        return view('cart::detail.edit', compact('form', 'products', 'detail', 'cart_id', 'variants', 'target_types'));
     }
 
     /**
@@ -109,12 +132,23 @@ class CartDetailController extends Controller
     public function update(Request $request, $cart_id, $id)
     {
         $request->validate([
-            'product_id'    => 'required',
+            'target_type'   => 'required',
+            'target_id'     => 'required',
             'quantity'      => 'required|numeric'
         ]);
-        $product = $this->productRepository->find($request->input('product_id'));
 
-        $cart_detail = $this->cartDetailRepository->findWhere(['cart_id' => $cart_id, 'product_id' => $product->id]);
+        $target_type = $request->input('target_type');
+        if ($target_type == TargetType::VARIANT) {
+            $target = $this->variantRepository->find($request->input('target_id'));
+        } else {
+            $target = $this->productRepository->find($request->input('target_id'));
+        }
+
+        $cart_detail = $this->cartDetailRepository->findWhere([
+            ['cart_id', $cart_id],
+            ['target_type', $target_type],
+            ['target_id', $target->id]
+        ]);
 
         if (!is_null($cart_detail)) {
             $this->cartDetailRepository->update($cart_detail->id, ['quantity' => intval($request->input('quantity'))]);
@@ -122,7 +156,7 @@ class CartDetailController extends Controller
             return redirect()->route('admin.cart.detail.index', $cart_id)->with('success', __('notification.update.success', ['model' => 'cart detail']));
         }
 
-        $this->cartDetailRepository->create($request->all(), ['cart_id' => $cart_id, 'price' => $product->price]);
+        $this->cartDetailRepository->create($request->all(), ['cart_id' => $cart_id, 'price' => $target->price]);
 
         $this->cartDetailRepository->delete($id);
 

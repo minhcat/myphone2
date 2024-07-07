@@ -2,11 +2,13 @@
 
 namespace Modules\Order\Http\Controllers;
 
+use App\Enums\TargetType;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Order\Repositories\OrderDetailRepository;
 use Modules\Product\Repositories\ProductRepository;
+use Modules\Product\Repositories\VariationRepository;
 
 class OrderDetailController extends Controller
 {
@@ -16,6 +18,9 @@ class OrderDetailController extends Controller
     /** @var \Modules\Product\Repositories\ProductRepository */
     protected $productRepository;
 
+    /** @var \Modules\Product\Repositories\VariationRepository */
+    protected $variantRepository;
+
     /**
      * Create new Order Controller instance.
      */
@@ -23,6 +28,7 @@ class OrderDetailController extends Controller
     {
         $this->orderDetailRepository = new OrderDetailRepository;
         $this->productRepository = new ProductRepository;
+        $this->variantRepository = new VariationRepository;
 
         view()->share('menu', ['group' => 'invoice', 'active' => 'order']);
     }
@@ -44,14 +50,17 @@ class OrderDetailController extends Controller
      */
     public function create($order_id)
     {
-        $products = $this->productRepository->all();
         $form = [
             'title'     => 'Create',
             'url'       => route('admin.order.detail.store', $order_id),
             'method'    => 'POST',
         ];
+        
+        $products = $this->productRepository->all();
+        $variants = $this->variantRepository->all();
+        $target_types = TargetType::getObject();
 
-        return view('order::detail.create', compact('products', 'form', 'order_id'));
+        return view('order::detail.create', compact('products', 'form', 'order_id', 'variants', 'target_types'));
     }
 
     /**
@@ -62,13 +71,23 @@ class OrderDetailController extends Controller
     public function store(Request $request, $order_id)
     {
         $request->validate([
-            'product_id'    => 'required',
+            'target_type'   => 'required',
+            'target_id'     => 'required',
             'quantity'      => 'required|numeric'
         ]);
 
-        $product = $this->productRepository->find($request->input('product_id'));
+        $target_type = $request->input('target_type');
+        if ($target_type == TargetType::VARIANT) {
+            $target = $this->variantRepository->find($request->input('target_id'));
+        } else {
+            $target = $this->productRepository->find($request->input('target_id'));
+        }
 
-        $detail = $this->orderDetailRepository->findWhere(['order_id' => $order_id,'product_id' => $product->id]);
+        $detail = $this->orderDetailRepository->findWhere([
+            ['order_id', $order_id],
+            ['target_type', $target_type],
+            ['target_id', $target->id]
+        ]);
 
         if (!is_null($detail)) {
             $quantity = $detail->quantity + intval($request->input('quantity'));
@@ -78,7 +97,7 @@ class OrderDetailController extends Controller
             return redirect()->route('admin.order.detail.index', $order_id)->with('success', __('notification.create.success', ['model' => 'order detail']));
         }
 
-        $this->orderDetailRepository->create($request->all(), ['price' => $product->price ?: 0, 'order_id' => $order_id]);
+        $this->orderDetailRepository->create($request->all(), ['price' => $target->price ?: 0, 'order_id' => $order_id]);
 
         return redirect()->route('admin.order.detail.index', $order_id)->with('success', __('notification.create.success', ['model' => 'order detail']));
     }
@@ -100,15 +119,18 @@ class OrderDetailController extends Controller
      */
     public function edit($order_id, $id)
     {
-        $detail = $this->orderDetailRepository->find($id);
-        $products = $this->productRepository->all();
         $form = [
             'title'     => 'Edit',
             'url'       => route('admin.order.detail.update', ['order_id' => $order_id, 'id' => $id]),
             'method'    => 'PUT'
         ];
 
-        return view('order::detail.edit', compact('detail', 'products', 'form', 'order_id'));
+        $detail = $this->orderDetailRepository->find($id);
+        $products = $this->productRepository->all();
+        $variants = $this->variantRepository->all();
+        $target_types = TargetType::getObject();
+
+        return view('order::detail.edit', compact('detail', 'products', 'form', 'order_id', 'variants', 'target_types'));
     }
 
     /**
@@ -120,12 +142,22 @@ class OrderDetailController extends Controller
     public function update(Request $request, $order_id, $id)
     {
         $request->validate([
-            'product_id'    => 'required',
+            'target_type'   => 'required',
+            'target_id'     => 'required',
             'quantity'      => 'required|numeric'
         ]);
 
-        $product = $this->productRepository->find($request->input('product_id'));
-        $detail = $this->orderDetailRepository->findWhere(['product_id' => $product->id, 'order_id' => $order_id]);
+        $target_type = $request->input('target_type');
+        if ($target_type == TargetType::VARIANT) {
+            $target = $this->variantRepository->find($request->input('target_id'));
+        } else {
+            $target = $this->productRepository->find($request->input('target_id'));
+        }
+        $detail = $this->orderDetailRepository->findWhere([
+            ['target_type', $target_type],
+            ['target_id', $target->id],
+            ['order_id', $order_id]
+        ]);
 
         if (!is_null($detail)) {
             $this->orderDetailRepository->update($detail->id, ['quantity' => intval($request->input('quantity'))]);
@@ -133,7 +165,7 @@ class OrderDetailController extends Controller
             return redirect()->route('admin.order.detail.index', $order_id)->with('success', __('notification.update.success', ['model' => 'order detail']));
         }
 
-        $this->orderDetailRepository->create($request->all(), ['price' => $product->price, 'order_id' => $order_id]);
+        $this->orderDetailRepository->create($request->all(), ['price' => $target->price, 'order_id' => $order_id]);
 
         $this->orderDetailRepository->delete($id);
 
