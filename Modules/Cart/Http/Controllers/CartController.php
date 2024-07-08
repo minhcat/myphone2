@@ -3,6 +3,7 @@
 namespace Modules\Cart\Http\Controllers;
 
 use App\Enums\OrderStatus;
+use App\Enums\TargetType;
 use App\Events\CreateOrderEvent;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ use Modules\Cart\Repositories\CartRepository;
 use Modules\Order\Repositories\OrderDetailRepository;
 use Modules\Order\Repositories\OrderRepository;
 use Modules\Product\Repositories\ProductRepository;
+use Modules\Product\Repositories\VariationRepository;
 
 class CartController extends Controller
 {
@@ -30,6 +32,9 @@ class CartController extends Controller
     /** @var \Modules\Product\Repositories\ProductRepository */
     protected $productRepository;
 
+    /** @var \Modules\Product\Repositories\VariationRepository */
+    protected $variantRepository;
+
     /**
      * Create new Cart Controller instance.
      */
@@ -40,6 +45,7 @@ class CartController extends Controller
         $this->orderRepository = new OrderRepository;
         $this->orderDetailRepository = new OrderDetailRepository;
         $this->productRepository = new ProductRepository;
+        $this->variantRepository = new VariationRepository;
 
         view()->share('menu', ['group' => 'invoice', 'active' => 'cart']);
     }
@@ -89,20 +95,27 @@ class CartController extends Controller
             'note'          => $request->input('note') ?? '',
         ]);
 
-        $product_ids = [];
+        $target_ids = [];
         $details = $request->input('details');
-        foreach ($details as $product_id => $quantity) {
-            $product_ids[] = $product_id;
-            $product = $this->productRepository->find($product_id);
+        foreach ($details as $target_id => $data) {
+            $target_ids[] = [$data['target_type'], $target_id];
+            if ($data['target_type'] == TargetType::VARIANT) {
+                $target = $this->variantRepository->find($target_id);
+            } else {
+                $target = $this->productRepository->find($target_id);
+            }
             $this->orderDetailRepository->create([
                 'order_id'      => $order->id,
-                'product_id'    => $product_id,
-                'quantity'      => $quantity,
-                'price'         => $product->price,
+                'target_type'   => $data['target_type'],
+                'target_id'     => $target_id,
+                'quantity'      => $data['quantity'],
+                'price'         => $target->price,
             ]);
         }
 
-        $this->cartDetailRepository->deleteWhere([['cart_id', $id], ['product_id', $product_ids]]);
+        foreach ($target_ids as $target) {
+            $this->cartDetailRepository->deleteWhere([['cart_id', $id], ['target_type', $target[0]], ['target_id', $target[1]]]);
+        }
 
         event(new CreateOrderEvent($order));
 

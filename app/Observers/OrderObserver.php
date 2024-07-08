@@ -53,7 +53,8 @@ class OrderObserver
             foreach ($details as $detail) {
                 $this->invoiceDetailRepository->create([
                     'invoice_id'    => $invoice->id,
-                    'product_id'    => $detail->product_id,
+                    'target_type'   => $detail->target_type,
+                    'target_id'     => $detail->target_id,
                     'price'         => $detail->price,
                     'quantity'      => $detail->quantity,
                 ]);

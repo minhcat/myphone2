@@ -24,8 +24,9 @@
                 <div class="products products-minus">
                     @foreach($cart->details as $detail)
                         <div class="input-group mx-2">
-                            <div class="input-group-btn group-product"><button class="btn btn-default" type="button">{{ optional($detail->product)->name }} - {{ optional($detail->product)->price_format }} đ</button></div>
-                            <input type="number" class="form-control" value="{{ $detail->quantity }}" name="details[{{ $detail->product->id }}]">
+                            <div class="input-group-btn group-product"><button class="btn btn-default" type="button">{{ optional($detail->target)->name }} - {{ optional($detail->target)->price_format }} đ</button></div>
+                            <input type="number" class="form-control" value="{{ $detail->quantity }}" name="details[{{ $detail->target->id }}][quantity]">
+                            <input type="hidden" class="form-control" value="{{ $detail->target_type }}" name="details[{{ $detail->target->id }}][target_type]">
                             <div class="input-group-btn"><button class="btn btn-default btn-add" type="button" data-id="{{ $cart->id }}" data-price="{{ $detail->price }}"><i class="fa fa-plus"></i><i class="fa fa-minus"></i></button></div>
                         </div>
                     @endforeach

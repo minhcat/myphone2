@@ -3,6 +3,7 @@
 namespace Modules\Cart\Repositories;
 
 use App\Repositories\AbstractRepository;
+use Illuminate\Support\Facades\DB;
 use Modules\Cart\Entities\CartDetail;
 
 class CartDetailRepository extends AbstractRepository

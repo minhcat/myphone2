@@ -144,7 +144,7 @@ class UpdateOrderTotalListener
             foreach ($sale_products as $sale_product) {
                 $order_details = $order->details;
                 foreach ($order_details as $detail) {
-                    if ($detail->product_id === $sale_product->target_id && $sale_product->target_type === TargetType::PRODUCT) {
+                    if ($detail->target_id === $sale_product->target_id && $sale_product->target_type === $detail->target_type) {
                         $discount = 0;
                         $discount_type = $sale_product->discount_type === null ? $sale->discount_type : $sale_product->discount_type;
                         $discount_value = $sale_product->discount_value === null ? $sale->discount_value : $sale_product->discount_value;
@@ -221,8 +221,8 @@ class UpdateOrderTotalListener
             foreach ($gift_products as $gift_product) {
                 $order_details = $order->details;
                 foreach ($order_details as $order_detail) {
-                    if ($order_detail->product_id === $gift_product->target_id 
-                    && $gift_product->target_type === TargetType::PRODUCT
+                    if ($order_detail->target_id === $gift_product->target_id 
+                    && $order_detail->target_type === $gift_product->target_type
                     && ($gift_product->quantity === null || $gift_product->quantity > 0)) {
                         $gifts_include[] = $this->giftProductItemRepository->get([['gift_product_id', $gift_product->id]]);
                         if ($gift_product->quantity !== null) {
@@ -239,7 +239,8 @@ class UpdateOrderTotalListener
             foreach ($gifts as $gift) {
                 $this->orderDetailRepository->create([
                     'order_id'          => $order->id,
-                    'product_id'        => $gift->target_id,
+                    'target_type'       => $gift->target_type,
+                    'target_id'         => $gift->target_id,
                     'price'             => 0,
                     'quantity'          => $gift->quantity
                 ]);
