@@ -10,14 +10,14 @@ use Modules\City\Repositories\CityRepository;
 class CityController extends Controller
 {
     /** @var \Modules\City\Repositories\CityRepository */
-    protected $giftRepository;
+    protected $cityRepository;
 
     /**
      * Create a new Product controller instance.
      */
     public function __construct()
     {
-        $this->giftRepository = new CityRepository();
+        $this->cityRepository = new CityRepository();
 
         view()->share('menu', ['group' => 'transport', 'active' => 'city']);
     }
@@ -26,9 +26,12 @@ class CityController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('city::index');
+        $search = $request->input('search');
+        $cities = $this->cityRepository->paginate($search);
+
+        return view('city::city.index', compact('cities'));
     }
 
     /**

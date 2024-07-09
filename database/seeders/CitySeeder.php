@@ -20,21 +20,7 @@ class CitySeeder extends Seeder
 
         DB::table('cities')->insert([
             [
-                'name'          => 'Thành phố Hồ Chí Minh',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s')
-            ],
-            [
-                'name'          => 'Thành phố Hà Nội',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s')
-            ],
-            [
-                'name'          => 'Đồng Nai',
+                'name'          => 'Bắc Ninh',
                 'description'   => Lorem::paragraph(3),
                 'author_id'     => 1,
                 'created_at'    => now()->format('Y-m-d H:i:s'),
@@ -48,7 +34,21 @@ class CitySeeder extends Seeder
                 'updated_at'    => now()->format('Y-m-d H:i:s')
             ],
             [
-                'name'          => 'Bắc Ninh',
+                'name'          => 'Đồng Nai',
+                'description'   => Lorem::paragraph(3),
+                'author_id'     => 1,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'name'          => 'Thành phố Hà Nội',
+                'description'   => Lorem::paragraph(3),
+                'author_id'     => 1,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'name'          => 'Thành phố Hồ Chí Minh',
                 'description'   => Lorem::paragraph(3),
                 'author_id'     => 1,
                 'created_at'    => now()->format('Y-m-d H:i:s'),
@@ -62,7 +62,7 @@ class CitySeeder extends Seeder
             [
                 'name'          => 'Quận 1',
                 'description'   => Lorem::paragraph(3),
-                'city_id'       => 1,
+                'city_id'       => 5,
                 'author_id'     => 1,
                 'created_at'    => now()->format('Y-m-d H:i:s'),
                 'updated_at'    => now()->format('Y-m-d H:i:s')
@@ -70,7 +70,7 @@ class CitySeeder extends Seeder
             [
                 'name'          => 'Quận 2',
                 'description'   => Lorem::paragraph(3),
-                'city_id'       => 1,
+                'city_id'       => 5,
                 'author_id'     => 1,
                 'created_at'    => now()->format('Y-m-d H:i:s'),
                 'updated_at'    => now()->format('Y-m-d H:i:s')
@@ -78,7 +78,7 @@ class CitySeeder extends Seeder
             [
                 'name'          => 'Quận 3',
                 'description'   => Lorem::paragraph(3),
-                'city_id'       => 1,
+                'city_id'       => 5,
                 'author_id'     => 1,
                 'created_at'    => now()->format('Y-m-d H:i:s'),
                 'updated_at'    => now()->format('Y-m-d H:i:s')
@@ -86,7 +86,7 @@ class CitySeeder extends Seeder
             [
                 'name'          => 'Quận 4',
                 'description'   => Lorem::paragraph(3),
-                'city_id'       => 1,
+                'city_id'       => 5,
                 'author_id'     => 1,
                 'created_at'    => now()->format('Y-m-d H:i:s'),
                 'updated_at'    => now()->format('Y-m-d H:i:s')
@@ -94,7 +94,7 @@ class CitySeeder extends Seeder
             [
                 'name'          => 'Quận 5',
                 'description'   => Lorem::paragraph(3),
-                'city_id'       => 1,
+                'city_id'       => 5,
                 'author_id'     => 1,
                 'created_at'    => now()->format('Y-m-d H:i:s'),
                 'updated_at'    => now()->format('Y-m-d H:i:s')
@@ -102,7 +102,7 @@ class CitySeeder extends Seeder
             [
                 'name'          => 'Quận Bình Thạnh',
                 'description'   => Lorem::paragraph(3),
-                'city_id'       => 1,
+                'city_id'       => 5,
                 'author_id'     => 1,
                 'created_at'    => now()->format('Y-m-d H:i:s'),
                 'updated_at'    => now()->format('Y-m-d H:i:s')
@@ -110,7 +110,7 @@ class CitySeeder extends Seeder
             [
                 'name'          => 'Quận Gò Vấp',
                 'description'   => Lorem::paragraph(3),
-                'city_id'       => 1,
+                'city_id'       => 5,
                 'author_id'     => 1,
                 'created_at'    => now()->format('Y-m-d H:i:s'),
                 'updated_at'    => now()->format('Y-m-d H:i:s')
@@ -118,7 +118,7 @@ class CitySeeder extends Seeder
             [
                 'name'          => 'Quận Thủ Đức',
                 'description'   => Lorem::paragraph(3),
-                'city_id'       => 1,
+                'city_id'       => 5,
                 'author_id'     => 1,
                 'created_at'    => now()->format('Y-m-d H:i:s'),
                 'updated_at'    => now()->format('Y-m-d H:i:s')
