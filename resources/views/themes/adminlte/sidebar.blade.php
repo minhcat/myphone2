@@ -73,18 +73,18 @@
         <li class="{{ $menu['active'] == 'gift' ? 'active' : '' }}"><a href="{{ route('admin.gift.index') }}">Gift</a></li>
       </ul>
     </li>
-    <li class="treeview">
+    <li class="treeview {{ $menu['group'] == 'transport' ? 'menu-open' : '' }}">
       <a href="#"><i class="fa fa-truck"></i> <span>Transport</span>
         <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
         </span>
       </a>
-      <ul class="treeview-menu">
-        <li><a href="#">Transporter</a></li>
-        <li><a href="#">Transport Fee</a></li>
-        <li><a href="#">Address</a></li>
-        <li><a href="#">Area</a></li>
-        <li><a href="#">City</a></li>
+      <ul class="treeview-menu" {!! $menu['group'] == 'transport' ? 'style="display: block"' : '' !!}>
+        <li class="{{ $menu['active'] == 'transporter' ? 'active' : '' }}"><a href="#">Transporter</a></li>
+        <li class="{{ $menu['active'] == 'transport_fee' ? 'active' : '' }}"><a href="#">Transport Fee</a></li>
+        <li class="{{ $menu['active'] == 'address' ? 'active' : '' }}"><a href="#">Address</a></li>
+        <li class="{{ $menu['active'] == 'area' ? 'active' : '' }}"><a href="#">Area</a></li>
+        <li class="{{ $menu['active'] == 'city' ? 'active' : '' }}"><a href="{{ route('admin.city.index') }}">City</a></li>
       </ul>
     </li>
 
