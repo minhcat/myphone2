@@ -12,5 +12,6 @@
     "Promotion": true,
     "Sale": true,
     "Voucher": true,
-    "Gift": true
+    "Gift": true,
+    "City": true
 }
