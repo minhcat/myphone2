@@ -85,8 +85,6 @@
         <li><a href="#">Address</a></li>
         <li><a href="#">Area</a></li>
         <li><a href="#">City</a></li>
-        <li><a href="#">County</a></li>
-        <li><a href="#">Ward</a></li>
       </ul>
     </li>
 
