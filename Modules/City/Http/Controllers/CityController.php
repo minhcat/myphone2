@@ -40,7 +40,13 @@ class CityController extends Controller
      */
     public function create()
     {
-        return view('city::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('admin.city.store'),
+            'method'    => 'POST'
+        ];
+
+        return view('city::city.create', compact('form'));
     }
 
     /**
@@ -50,7 +56,13 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'  => 'required'
+        ]);
+
+        $this->cityRepository->create($request->all());
+
+        return redirect()->route('admin.city.index')->with('success', __('notification.create.success', ['model' => 'city']));
     }
 
     /**
@@ -60,7 +72,9 @@ class CityController extends Controller
      */
     public function show($id)
     {
-        return view('city::show');
+        $city = $this->cityRepository->find($id);
+
+        return view('city::city.detail', compact('city'));
     }
 
     /**
@@ -70,7 +84,15 @@ class CityController extends Controller
      */
     public function edit($id)
     {
-        return view('city::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('admin.city.update', $id),
+            'method'    => 'PUT'
+        ];
+
+        $city = $this->cityRepository->find($id);
+
+        return view('city::city.edit', compact('form', 'city'));
     }
 
     /**
@@ -81,7 +103,13 @@ class CityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'  => 'required'
+        ]);
+
+        $this->cityRepository->update($id, $request->all());
+
+        return redirect()->route('admin.city.index')->with('success', __('notification.update.success', ['model' => 'city']));
     }
 
     /**
@@ -91,6 +119,8 @@ class CityController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->cityRepository->delete($id);
+
+        return redirect()->route('admin.city.index')->with('success', __('notification.delete.success', ['model' => 'city']));
     }
 }
