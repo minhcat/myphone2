@@ -13,9 +13,20 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\City\Http\Controllers\CityController;
+use Modules\City\Http\Controllers\DistrictController;
 
 Route::prefix('admin')->name('admin.')->group(function() {
     Route::prefix('city')->name('city.')->group(function() {
+        Route::prefix('/{city_id}/districts')->name('district.')->group(function() {
+            Route::get('/', [DistrictController::class, 'index'])->name('index');
+            Route::get('/create', [DistrictController::class, 'create'])->name('create');
+            Route::get('/{id}', [DistrictController::class, 'show'])->name('show');
+            Route::get('/{id}/edit', [DistrictController::class, 'edit'])->name('edit');
+            Route::post('/', [DistrictController::class, 'store'])->name('store');
+            Route::put('/{id}', [DistrictController::class, 'update'])->name('update');
+            Route::delete('/{id}', [DistrictController::class, 'destroy'])->name('delete');
+        });
+
         Route::get('/', [CityController::class, 'index'])->name('index');
         Route::get('/create', [CityController::class, 'create'])->name('create');
         Route::get('/{id}', [CityController::class, 'show'])->name('show');
