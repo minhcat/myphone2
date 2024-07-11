@@ -5,9 +5,23 @@ namespace Modules\City\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\City\Repositories\DistrictRepository;
 
 class DistrictController extends Controller
 {
+    /** @var \Modules\City\Repositories\DistrictRepository */
+    protected $districtRepository;
+
+    /**
+     * Create a new Product controller instance.
+     */
+    public function __construct()
+    {
+        $this->districtRepository = new DistrictRepository();
+
+        view()->share('menu', ['group' => 'transport', 'active' => 'city']);
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
