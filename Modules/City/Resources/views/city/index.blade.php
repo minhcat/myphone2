@@ -42,7 +42,7 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Author</th>
-                                <th>List</th>
+                                <th>Districts</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 <th style="width: 175px">Action</th>

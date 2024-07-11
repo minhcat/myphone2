@@ -38,9 +38,15 @@ class DistrictController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function create($city_id)
     {
-        return view('city::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('admin.city.district.store', $city_id),
+            'method'    => 'POST'
+        ];
+
+        return view('city::district.create', compact('form', 'city_id'));
     }
 
     /**
@@ -48,9 +54,15 @@ class DistrictController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(Request $request, $city_id)
     {
-        //
+        $request->validate([
+            'name'  => 'required'
+        ]);
+
+        $this->districtRepository->create($request->all(), ['city_id' => $city_id]);
+
+        return redirect()->route('admin.city.district.index', $city_id)->with('success', __('notification.create.success', ['model' => 'district']));
     }
 
     /**
@@ -68,9 +80,17 @@ class DistrictController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit($city_id, $id)
     {
-        return view('city::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('admin.city.district.update', ['city_id' => $city_id, 'id' => $id]),
+            'method'    => 'PUT'
+        ];
+
+        $district = $this->districtRepository->find($id);
+
+        return view('city::district.edit', compact('form', 'district', 'city_id'));
     }
 
     /**
@@ -79,9 +99,15 @@ class DistrictController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $city_id, $id)
     {
-        //
+        $request->validate([
+            'name'  => 'required'
+        ]);
+
+        $this->districtRepository->update($id, $request->all());
+
+        return redirect()->route('admin.city.district.index', $city_id)->with('success', __('notification.update.success', ['model' => 'district']));
     }
 
     /**
