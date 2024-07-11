@@ -16,7 +16,7 @@ use Modules\City\Http\Controllers\CityController;
 use Modules\City\Http\Controllers\DistrictController;
 
 Route::prefix('admin')->name('admin.')->group(function() {
-    Route::prefix('city')->name('city.')->group(function() {
+    Route::prefix('cities')->name('city.')->group(function() {
         Route::prefix('/{city_id}/districts')->name('district.')->group(function() {
             Route::get('/', [DistrictController::class, 'index'])->name('index');
             Route::get('/create', [DistrictController::class, 'create'])->name('create');
