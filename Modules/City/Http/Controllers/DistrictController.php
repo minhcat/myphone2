@@ -70,9 +70,11 @@ class DistrictController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show($city_id, $id)
     {
-        return view('city::show');
+        $district = $this->districtRepository->find($id);
+
+        return view('city::district.detail', compact('district', 'city_id'));
     }
 
     /**
@@ -115,8 +117,10 @@ class DistrictController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($city_id, $id)
     {
-        //
+        $this->districtRepository->delete($id);
+
+        return redirect()->route('admin.city.district.index', $city_id)->with('success', __('notification.delete.success', ['model' => 'district']));
     }
 }
