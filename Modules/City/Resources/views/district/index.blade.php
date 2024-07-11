@@ -1,15 +1,16 @@
-@extends('city::city.layouts.master')
+@extends('city::district.layouts.master')
 
-@section('title-page', 'City')
+@section('title-page', 'District')
 
 @section('small-info')
-<small>List of cities ({{ $cities->total() }})</small>
+<small>List of districts ({{ $districts->total() }})</small>
 @endsection
 
 @section('breakcumb')
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
     <li><a href="{{ route('admin.city.index') }}">City</a></li>
+    <li><a href="{{ route('admin.city.district.index', $city_id) }}">District</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -20,7 +21,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('admin.city.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                <a href="{{ route('admin.city.district.create', $city_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -29,7 +30,7 @@
                             <div class="filter">
                                 <label for="search">
                                     Search:
-                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.city.index') }}">
+                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.city.district.index', $city_id) }}">
                                 </label>
                             </div>
                         </div>
@@ -49,21 +50,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($cities as $key => $city)
+                            @foreach ($districts as $key => $district)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td><a href="{{ route('admin.city.show', $city->id) }}">{{ $city->name }}</a></td>
-                                    @if ($city->user)
-                                    <td><a href="{{ route('admin.user.show', $city->user->id) }}">{{ $city->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.city.district.show', ['city_id' => $city_id, 'id' => $district->id]) }}">{{ $district->name }}</a></td>
+                                    @if ($district->user)
+                                    <td><a href="{{ route('admin.user.show', $district->user->id) }}">{{ $district->user->fullname }}</a></td>
                                     @else
                                     <td></td>
                                     @endif
-                                    <td><a href="{{ route('admin.city.district.index', $city->id) }}">list</a></td>
-                                    <td>{{ $city->created_at->format('H:i:s d/m/Y') }}</td>
-                                    <td>{{ $city->updated_at->format('H:i:s d/m/Y') }}</td>
+                                    <td><a href="">list</a></td>
+                                    <td>{{ $district->created_at->format('H:i:s d/m/Y') }}</td>
+                                    <td>{{ $district->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{ route('admin.city.edit', $city->id) }}"><i class="fa fa-edit"></i> Edit</a>
-                                        <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-city-delete" data-id="{{ $city->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        <a class="btn btn-primary" href="{{ route('admin.city.district.edit', ['city_id' => $city_id, 'id' => $district->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-district-delete" data-id="{{ $district->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -73,7 +74,7 @@
                 <div class="table-footer mt-3">
                     <div class="row">
                         <div class="col-lg-12">
-                            {{ $cities->appends($_GET)->links('themes.adminlte.paginate') }}
+                            {{ $districts->appends($_GET)->links('themes.adminlte.paginate') }}
                         </div>
                     </div>
                 </div>
@@ -82,13 +83,13 @@
     </div>
 </div>
 
-@include('city::city.layouts.modal', [
+@include('city::district.layouts.modal', [
     'modal'             => [
-        'id'            => 'modal-city-delete',
-        'title'         => 'Delete City',
-        'message'       => 'Are you sure to delete this city!',
+        'id'            => 'modal-district-delete',
+        'title'         => 'Delete District',
+        'message'       => 'Are you sure to delete this district!',
         'form'          => [
-            'url'       => route('admin.city.delete', ':id'),
+            'url'       => route('admin.city.district.delete', ['city_id' => $city_id, 'id' => ':id']),
             'method'    => 'DELETE',
             'inputs'    => []
         ],
@@ -113,14 +114,14 @@
             }
         })
 
-        let url_delete = $('#modal-city-delete form').attr('action');
+        let url_delete = $('#modal-district-delete form').attr('action');
         $('.btn-delete').click(function() {
             let id = $(this).data('id');
             let url = url_delete.replace(':id', id)
-            $('#modal-city-delete form').attr('action', url);
+            $('#modal-district-delete form').attr('action', url);
         })
-        $('#modal-city-delete').on('hide.bs.modal', function() {
-            $('#modal-city-delete form').attr('action', url_delete);
+        $('#modal-district-delete').on('hide.bs.modal', function() {
+            $('#modal-district-delete form').attr('action', url_delete);
         })
     })
 </script>

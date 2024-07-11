@@ -26,9 +26,12 @@ class DistrictController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request, $city_id)
     {
-        return view('city::index');
+        $search = $request->input('search');
+        $districts = $this->districtRepository->paginateByCityId($city_id, $search);
+
+        return view('city::district.index', compact('city_id', 'districts'));
     }
 
     /**
