@@ -12,7 +12,7 @@ class WardRepository extends AbstractRepository
         return new Ward();
     }
 
-    public function paginateByDistrictId($district_id, $search, $take = self::TAKE_DEFAULT, $field = null)
+    public function paginateByDistrictId($district_id, $search = null, $take = self::TAKE_DEFAULT, $field = null)
     {
         $query = $this->model->where('district_id', $district_id)->orderBy($this->orderBy, $this->orderType);
         if (is_null($search)) {

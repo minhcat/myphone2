@@ -26,9 +26,12 @@ class WardController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request, $city_id, $district_id)
     {
-        return view('city::index');
+        $search = $request->input('search');
+        $wards = $this->wardRepository->paginateByDistrictId($district_id, $search);
+
+        return view('city::ward.index', compact('wards', 'city_id', 'district_id'));
     }
 
     /**
