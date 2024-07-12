@@ -1,9 +1,9 @@
-@extends('city::district.layouts.master')
+@extends('city::ward.layouts.master')
 
-@section('title-page', 'Districts')
+@section('title-page', 'Wards')
 
 @section('small-info')
-<small>Add District</small>
+<small>Add Ward</small>
 @endsection
 
 @section('breakcumb')
@@ -11,10 +11,11 @@
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
     <li><a href="{{ route('admin.city.index') }}">City</a></li>
     <li><a href="{{ route('admin.city.district.index', $city_id) }}">District</a></li>
+    <li><a href="{{ route('admin.city.district.ward.index', ['city_id' => $city_id, 'district_id' => $district_id]) }}">Ward</a></li>
     <li class="active">Create</li>
 </ol>
 @endsection
 
 @section('content')
-    @include('city::district.layouts.form')
+    @include('city::ward.layouts.form')
 @endsection

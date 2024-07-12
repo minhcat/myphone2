@@ -44,7 +44,6 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Author</th>
-                                <th>List</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 <th style="width: 175px">Action</th>
@@ -60,7 +59,6 @@
                                     @else
                                     <td></td>
                                     @endif
-                                    <td><a href="">list</a></td>
                                     <td>{{ $ward->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $ward->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>

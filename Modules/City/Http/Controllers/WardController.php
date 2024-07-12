@@ -38,9 +38,15 @@ class WardController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function create($city_id, $district_id)
     {
-        return view('city::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('admin.city.district.ward.store', ['city_id' => $city_id, 'district_id' => $district_id]),
+            'method'    => 'POST'
+        ];
+
+        return view('city::ward.create', compact('form', 'city_id', 'district_id'));
     }
 
     /**
@@ -48,9 +54,17 @@ class WardController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(Request $request, $city_id, $district_id)
     {
-        //
+        $request->validate([
+            'name'  => 'required'
+        ]);
+
+        $this->wardRepository->create($request->all(), ['district_id' => $district_id]);
+
+        return redirect()
+        ->route('admin.city.district.ward.index', ['city_id' => $city_id, 'district_id' => $district_id])
+        ->with('success', __('notification.create.success', ['model' => 'ward']));
     }
 
     /**
@@ -68,9 +82,17 @@ class WardController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit($city_id, $district_id, $id)
     {
-        return view('city::edit');
+        $form = [
+            'title'     => 'Update',
+            'url'       => route('admin.city.district.ward.update', ['city_id' => $city_id, 'district_id' => $district_id, 'id' => $id]),
+            'method'    => 'PUT'
+        ];
+
+        $ward = $this->wardRepository->find($id);
+
+        return view('city::ward.edit', compact('form', 'ward', 'city_id', 'district_id'));
     }
 
     /**
@@ -79,9 +101,17 @@ class WardController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $city_id, $district_id, $id)
     {
-        //
+        $request->validate([
+            'name'  => 'required'
+        ]);
+
+        $this->wardRepository->update($id, $request->all());
+
+        return redirect()
+        ->route('admin.city.district.ward.index', ['city_id' => $city_id, 'district_id' => $district_id])
+        ->with('success', __('notification.update.success', ['model' => 'ward']));
     }
 
     /**
