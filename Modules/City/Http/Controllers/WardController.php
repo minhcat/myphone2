@@ -72,9 +72,11 @@ class WardController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show($city_id, $district_id, $id)
     {
-        return view('city::show');
+        $ward = $this->wardRepository->find($id);
+
+        return view('city::ward.detail', compact('city_id', 'district_id', 'ward'));
     }
 
     /**
@@ -119,8 +121,12 @@ class WardController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($city_id, $district_id, $id)
     {
-        //
+        $this->wardRepository->delete($id);
+
+        return redirect()
+        ->route('admin.city.district.ward.index', ['city_id' => $city_id, 'district_id' => $district_id])
+        ->with('success', __('notification.delete.success', ['model' => 'ward']));
     }
 }
