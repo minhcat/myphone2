@@ -5,9 +5,23 @@ namespace Modules\City\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\City\Repositories\WardRepository;
 
 class WardController extends Controller
 {
+    /** @var \Modules\City\Repositories\WardRepository */
+    protected $wardRepository;
+
+    /**
+     * Create a new Product controller instance.
+     */
+    public function __construct()
+    {
+        $this->wardRepository = new WardRepository();
+
+        view()->share('menu', ['group' => 'transport', 'active' => 'city']);
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
