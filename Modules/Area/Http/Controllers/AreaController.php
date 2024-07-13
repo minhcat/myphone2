@@ -5,9 +5,22 @@ namespace Modules\Area\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Area\Repositories\AreaRepository;
 
 class AreaController extends Controller
 {
+    /** @var \Modules\Area\Repositories\AreaRepository */
+    protected $areaRepository;
+
+    /**
+     * Create new Brand Controller instance.
+     */
+    public function __construct()
+    {
+        $this->areaRepository = new AreaRepository;
+
+        view()->share('menu', ['group' => 'tranport', 'active' => 'area']);
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
