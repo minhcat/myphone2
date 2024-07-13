@@ -216,6 +216,7 @@ return [
         'OrderStatus'       => App\Enums\OrderStatus::class,
         'PromotionStatus'   => App\Enums\PromotionStatus::class,
         'TargetType'        => App\Enums\TargetType::class,
+        'TerritoryType'     => App\Enums\TerritoryType::class,
     ])->toArray(),
 
 ];

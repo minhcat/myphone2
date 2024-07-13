@@ -30,5 +30,6 @@ class DatabaseSeeder extends Seeder
         $this->call(VoucherSeeder::class);
         $this->call(GiftSeeder::class);
         $this->call(CitySeeder::class);
+        $this->call(AreaSeeder::class);
     }
 }

@@ -106,4 +106,16 @@ return [
             'variant'           => 'success',
         ],
     ],
+    'territory_type'            => [
+        'name'                  => [
+            'city'              => 'city',
+            'district'          => 'district',
+            'ward'              => 'ward',
+        ],
+        'label'                 => [
+            'city'              => 'primary',
+            'district'          => 'success',
+            'ward'              => 'warning',
+        ],
+    ],
 ];
