@@ -13,5 +13,6 @@
     "Sale": true,
     "Voucher": true,
     "Gift": true,
-    "City": true
+    "City": true,
+    "Area": true
 }
