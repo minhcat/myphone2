@@ -71,7 +71,9 @@ class AreaController extends Controller
      */
     public function show($id)
     {
-        return view('area::show');
+        $area = $this->areaRepository->find($id);
+
+        return view('area::area.detail', compact('area'));
     }
 
     /**
@@ -116,6 +118,8 @@ class AreaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->areaRepository->delete($id);
+
+        return redirect()->route('admin.area.index')->with('success', __('notification.delete.success', ['model' => 'area']));
     }
 }
