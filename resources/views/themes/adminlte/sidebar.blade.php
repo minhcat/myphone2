@@ -82,7 +82,7 @@
       <ul class="treeview-menu" {!! $menu['group'] == 'transport' ? 'style="display: block"' : '' !!}>
         <li class="{{ $menu['active'] == 'transporter' ? 'active' : '' }}"><a href="#">Transporter</a></li>
         <li class="{{ $menu['active'] == 'transport_fee' ? 'active' : '' }}"><a href="#">Transport Fee</a></li>
-        <li class="{{ $menu['active'] == 'area' ? 'active' : '' }}"><a href="#">Area</a></li>
+        <li class="{{ $menu['active'] == 'area' ? 'active' : '' }}"><a href="{{ route('admin.area.index') }}">Area</a></li>
         <li class="{{ $menu['active'] == 'city' ? 'active' : '' }}"><a href="{{ route('admin.city.index') }}">City</a></li>
       </ul>
     </li>

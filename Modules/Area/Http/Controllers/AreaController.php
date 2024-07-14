@@ -19,7 +19,7 @@ class AreaController extends Controller
     {
         $this->areaRepository = new AreaRepository;
 
-        view()->share('menu', ['group' => 'tranport', 'active' => 'area']);
+        view()->share('menu', ['group' => 'transport', 'active' => 'area']);
     }
     /**
      * Display a listing of the resource.
@@ -39,7 +39,13 @@ class AreaController extends Controller
      */
     public function create()
     {
-        return view('area::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('admin.area.store'),
+            'method'    => 'POST'
+        ];
+
+        return view('area::area.create', compact('form'));
     }
 
     /**
@@ -49,7 +55,13 @@ class AreaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'  => 'required'
+        ]);
+
+        $this->areaRepository->create($request->all());
+
+        return redirect()->route('admin.area.index')->with('success', __('notification.create.success', ['model' => 'area']));
     }
 
     /**
@@ -69,7 +81,15 @@ class AreaController extends Controller
      */
     public function edit($id)
     {
-        return view('area::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('admin.area.update', $id),
+            'method'    => 'PUT'
+        ];
+
+        $area = $this->areaRepository->find($id);
+
+        return view('area::area.edit', compact('form', 'area'));
     }
 
     /**
@@ -80,7 +100,13 @@ class AreaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'  => 'required'
+        ]);
+
+        $this->areaRepository->update($id, $request->all());
+
+        return redirect()->route('admin.area.index')->with('success', __('notification.update.success', ['model' => 'area']));
     }
 
     /**
