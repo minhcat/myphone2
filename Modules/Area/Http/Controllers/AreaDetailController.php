@@ -26,9 +26,12 @@ class AreaDetailController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request, $area_id)
     {
-        return view('area::index');
+        $search = $request->input('search');
+        $area_details = $this->areaDetailRepository->paginateByAreaId($area_id, $search);
+
+        return view('area::detail.index', compact('area_details', 'area_id'));
     }
 
     /**

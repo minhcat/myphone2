@@ -1,9 +1,9 @@
-@extends('area::area.layouts.master')
+@extends('area::detail.layouts.master')
 
-@section('title-page', 'Area')
+@section('title-page', 'Area Detail')
 
 @section('small-info')
-<small>List of areas ({{ $areas->total() }})</small>
+<small>List of area details ({{ $area_details->total() }})</small>
 @endsection
 
 @section('breakcumb')
@@ -24,7 +24,7 @@
             </div>
             <div class="box-body">
                 <div class="table-header">
-                    <div class="row">
+                    <div class="row hidden">
                         <div class="col-lg-12">
                             <div class="filter">
                                 <label for="search">
@@ -42,28 +42,32 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Author</th>
-                                <th>Details</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 <th style="width: 175px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($areas as $key => $area)
+                            @foreach ($area_details as $key => $detail)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td><a href="{{ route('admin.area.show', $area->id) }}">{{ $area->name }}</a></td>
-                                    @if ($area->user)
-                                    <td><a href="{{ route('admin.user.show', $area->user->id) }}">{{ $area->user->fullname }}</a></td>
+                                    @if ($detail->territory_type === TerritoryType::CITY)
+                                    <td><a href="{{ route('admin.city.show', $detail->territory_id) }}">{{ $detail->territory->name }}</a></td>
+                                    @elseif ($detail->territory_type === TerritoryType::DISTRICT)
+                                    <td><a href="{{ route('admin.city.district.show', ['city_id' => $detail->territory->city->id, 'id' => $detail->territory_id]) }}">{{ $detail->territory->name }}</a></td>
+                                    @else
+                                    <td><a href="{{ route('admin.city.district.ward.show', ['city_id' => $detail->territory->district->city->id, 'district_id' => $detail->territory->district->id, 'id' => $detail->territory_id]) }}">{{ $detail->territory->name }}</a></td>
+                                    @endif
+                                    @if ($detail->user)
+                                    <td><a href="{{ route('admin.user.show', $detail->user->id) }}">{{ $detail->user->fullname }}</a></td>
                                     @else
                                     <td></td>
                                     @endif
-                                    <td><a href="{{ route('admin.area.detail.index', $area->id) }}">list</a></td>
-                                    <td>{{ $area->created_at->format('H:i:s d/m/Y') }}</td>
-                                    <td>{{ $area->updated_at->format('H:i:s d/m/Y') }}</td>
+                                    <td>{{ $detail->created_at->format('H:i:s d/m/Y') }}</td>
+                                    <td>{{ $detail->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{ route('admin.area.edit', $area->id) }}"><i class="fa fa-edit"></i> Edit</a>
-                                        <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-area-delete" data-id="{{ $area->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        <a class="btn btn-primary" href="{{ route('admin.area.detail.edit', ['area_id' => $area_id, 'id' => $detail->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-area-delete" data-id="{{ $detail->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -73,7 +77,7 @@
                 <div class="table-footer mt-3">
                     <div class="row">
                         <div class="col-lg-12">
-                            {{ $areas->appends($_GET)->links('themes.adminlte.paginate') }}
+                            {{ $area_details->appends($_GET)->links('themes.adminlte.paginate') }}
                         </div>
                     </div>
                 </div>
@@ -82,13 +86,13 @@
     </div>
 </div>
 
-@include('area::area.layouts.modal', [
+@include('area::detail.layouts.modal', [
     'modal'             => [
-        'id'            => 'modal-area-delete',
+        'id'            => 'modal-area-detail-delete',
         'title'         => 'Delete Area',
-        'message'       => 'Are you sure to delete this area!',
+        'message'       => 'Are you sure to delete this area detail!',
         'form'          => [
-            'url'       => route('admin.area.delete', ':id'),
+            'url'       => route('admin.area.detail.delete', ['area_id' => $area_id, 'id' => ':id']),
             'method'    => 'DELETE',
             'inputs'    => []
         ],
@@ -113,14 +117,14 @@
             }
         })
 
-        let url_delete = $('#modal-area-delete form').attr('action');
+        let url_delete = $('#modal-area-detail-delete form').attr('action');
         $('.btn-delete').click(function() {
             let id = $(this).data('id');
             let url = url_delete.replace(':id', id)
-            $('#modal-area-delete form').attr('action', url);
+            $('#modal-area-detail-delete form').attr('action', url);
         })
-        $('#modal-area-delete').on('hide.bs.modal', function() {
-            $('#modal-area-delete form').attr('action', url_delete);
+        $('#modal-area-detail-delete').on('hide.bs.modal', function() {
+            $('#modal-area-detail-delete form').attr('action', url_delete);
         })
     })
 </script>
