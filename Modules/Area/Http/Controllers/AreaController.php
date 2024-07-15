@@ -21,6 +21,7 @@ class AreaController extends Controller
 
         view()->share('menu', ['group' => 'transport', 'active' => 'area']);
     }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
