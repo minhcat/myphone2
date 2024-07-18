@@ -10,10 +10,20 @@ class City extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'author_id', 'created_at', 'updated_at'];
+    protected $fillable = ['name', 'shortname', 'description', 'author_id', 'created_at', 'updated_at'];
 
     public function user()
     {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function districts()
+    {
+        return $this->hasMany(District::class);
+    }
+
+    public function wards()
+    {
+        return $this->hasManyThrough(Ward::class, District::class);
     }
 }
