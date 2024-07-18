@@ -67,7 +67,7 @@
                                     <td>{{ $detail->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>
                                         <a class="btn btn-primary" href="{{ route('admin.area.detail.edit', ['area_id' => $area_id, 'id' => $detail->id]) }}"><i class="fa fa-edit"></i> Edit</a>
-                                        <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-area-delete" data-id="{{ $detail->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-area-detail-delete" data-id="{{ $detail->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
                             @endforeach

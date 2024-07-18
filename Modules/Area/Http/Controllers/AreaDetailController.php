@@ -95,16 +95,6 @@ class AreaDetailController extends Controller
     }
 
     /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('area::show');
-    }
-
-    /**
      * Show the form for editing the specified resource.
      * @param int $id
      * @return Renderable
@@ -156,9 +146,11 @@ class AreaDetailController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($area_id, $id)
     {
-        //
+        $this->areaDetailRepository->delete($id);
+
+        return redirect()->route('admin.area.detail.index', $area_id)->with('success', __('notification.delete.success', ['model' => 'area detail']));
     }
 
     private function getDataForm()
