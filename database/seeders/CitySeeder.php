@@ -21,6 +21,7 @@ class CitySeeder extends Seeder
         DB::table('cities')->insert([
             [
                 'name'          => 'Bắc Ninh',
+                'shortname'     => 'BN',
                 'description'   => Lorem::paragraph(3),
                 'author_id'     => 1,
                 'created_at'    => now()->format('Y-m-d H:i:s'),
@@ -28,6 +29,7 @@ class CitySeeder extends Seeder
             ],
             [
                 'name'          => 'Bình Dương',
+                'shortname'     => 'BĐ',
                 'description'   => Lorem::paragraph(3),
                 'author_id'     => 1,
                 'created_at'    => now()->format('Y-m-d H:i:s'),
@@ -35,6 +37,7 @@ class CitySeeder extends Seeder
             ],
             [
                 'name'          => 'Đồng Nai',
+                'shortname'     => 'ĐN',
                 'description'   => Lorem::paragraph(3),
                 'author_id'     => 1,
                 'created_at'    => now()->format('Y-m-d H:i:s'),
@@ -42,6 +45,7 @@ class CitySeeder extends Seeder
             ],
             [
                 'name'          => 'Thành phố Hà Nội',
+                'shortname'     => 'TP.HN',
                 'description'   => Lorem::paragraph(3),
                 'author_id'     => 1,
                 'created_at'    => now()->format('Y-m-d H:i:s'),
@@ -49,6 +53,7 @@ class CitySeeder extends Seeder
             ],
             [
                 'name'          => 'Thành phố Hồ Chí Minh',
+                'shortname'     => 'TP.HCM',
                 'description'   => Lorem::paragraph(3),
                 'author_id'     => 1,
                 'created_at'    => now()->format('Y-m-d H:i:s'),
@@ -61,6 +66,7 @@ class CitySeeder extends Seeder
         DB::table('districts')->insert([
             [
                 'name'          => 'Quận 1',
+                'shortname'     => 'Q1',
                 'description'   => Lorem::paragraph(3),
                 'city_id'       => 5,
                 'author_id'     => 1,
@@ -69,6 +75,7 @@ class CitySeeder extends Seeder
             ],
             [
                 'name'          => 'Quận 2',
+                'shortname'     => 'Q2',
                 'description'   => Lorem::paragraph(3),
                 'city_id'       => 5,
                 'author_id'     => 1,
@@ -77,6 +84,7 @@ class CitySeeder extends Seeder
             ],
             [
                 'name'          => 'Quận 3',
+                'shortname'     => 'Q3',
                 'description'   => Lorem::paragraph(3),
                 'city_id'       => 5,
                 'author_id'     => 1,
@@ -85,6 +93,7 @@ class CitySeeder extends Seeder
             ],
             [
                 'name'          => 'Quận 4',
+                'shortname'     => 'Q4',
                 'description'   => Lorem::paragraph(3),
                 'city_id'       => 5,
                 'author_id'     => 1,
@@ -93,6 +102,7 @@ class CitySeeder extends Seeder
             ],
             [
                 'name'          => 'Quận 5',
+                'shortname'     => 'Q5',
                 'description'   => Lorem::paragraph(3),
                 'city_id'       => 5,
                 'author_id'     => 1,
@@ -101,6 +111,7 @@ class CitySeeder extends Seeder
             ],
             [
                 'name'          => 'Quận Bình Thạnh',
+                'shortname'     => 'Q.BT',
                 'description'   => Lorem::paragraph(3),
                 'city_id'       => 5,
                 'author_id'     => 1,
@@ -109,6 +120,7 @@ class CitySeeder extends Seeder
             ],
             [
                 'name'          => 'Quận Gò Vấp',
+                'shortname'     => 'Q.GV',
                 'description'   => Lorem::paragraph(3),
                 'city_id'       => 5,
                 'author_id'     => 1,
@@ -117,8 +129,45 @@ class CitySeeder extends Seeder
             ],
             [
                 'name'          => 'Quận Thủ Đức',
+                'shortname'     => 'Q.TĐ',
                 'description'   => Lorem::paragraph(3),
                 'city_id'       => 5,
+                'author_id'     => 1,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'name'          => 'Quận Hai Bà Trưng',
+                'shortname'     => 'Q.HBT',
+                'description'   => Lorem::paragraph(3),
+                'city_id'       => 4,
+                'author_id'     => 1,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'name'          => 'Quận Ba Đình',
+                'shortname'     => 'Q.BĐ',
+                'description'   => Lorem::paragraph(3),
+                'city_id'       => 4,
+                'author_id'     => 1,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'name'          => 'Quận Đống Đa',
+                'shortname'     => 'Q.ĐĐ',
+                'description'   => Lorem::paragraph(3),
+                'city_id'       => 4,
+                'author_id'     => 1,
+                'created_at'    => now()->format('Y-m-d H:i:s'),
+                'updated_at'    => now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'name'          => 'Quận Hoàn Kiếm',
+                'shortname'     => 'Q.HK',
+                'description'   => Lorem::paragraph(3),
+                'city_id'       => 4,
                 'author_id'     => 1,
                 'created_at'    => now()->format('Y-m-d H:i:s'),
                 'updated_at'    => now()->format('Y-m-d H:i:s')
