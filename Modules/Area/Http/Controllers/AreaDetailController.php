@@ -4,7 +4,6 @@ namespace Modules\Area\Http\Controllers;
 
 use App\Enums\TerritoryType;
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Validation\Rule;
@@ -64,12 +63,7 @@ class AreaDetailController extends Controller
             'method'    => 'POST'
         ];
 
-        [
-            $territory_types,
-            $cities,
-            $districts,
-            $wards,
-        ] = $this->getDataForm();
+        [$territory_types, $cities, $districts, $wards] = $this->getDataForm();
 
         return view('area::detail.create', compact(
             'form',
@@ -115,9 +109,26 @@ class AreaDetailController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit($area_id, $id)
     {
-        return view('area::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('admin.area.detail.update', ['area_id' => $area_id, 'id' => $id]),
+            'method'    => 'PUT'
+        ];
+
+        $area_detail = $this->areaDetailRepository->find($id);
+        [$territory_types, $cities, $districts, $wards] = $this->getDataForm();
+
+        return view('area::detail.edit', compact(
+            'form',
+            'area_id',
+            'area_detail',
+            'territory_types',
+            'cities',
+            'districts',
+            'wards',
+        ));
     }
 
     /**
@@ -126,9 +137,18 @@ class AreaDetailController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $area_id, $id)
     {
-        //
+        $request->validate([
+            'territory_type'    => 'required',
+            'city_id'           => Rule::requiredIf($request->input('territory_type') == TerritoryType::CITY),
+            'district_id'       => Rule::requiredIf($request->input('territory_type') == TerritoryType::DISTRICT),
+            'ward_id'           => Rule::requiredIf($request->input('territory_type') == TerritoryType::WARD),
+        ]);
+
+        $this->areaDetailRepository->update($id, $request->all());
+
+        return redirect()->route('admin.area.detail.index', $area_id)->with('success', __('notification.update.success', ['model' => 'area detail']));
     }
 
     /**

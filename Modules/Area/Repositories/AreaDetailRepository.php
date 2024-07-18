@@ -27,6 +27,20 @@ class AreaDetailRepository extends AbstractRepository
 
     protected function convertDataCreate($data, $more = [])
     {
+        $data = $this->convertDataForm($data);
+
+        return parent::convertDataCreate($data, $more);
+    }
+
+    protected function convertDataUpdate($data, $more = [])
+    {
+        $data = $this->convertDataForm($data);
+
+        return parent::convertDataCreate($data, $more);
+    }
+
+    private function convertDataForm($data)
+    {
         if (array_key_exists('territory_type', $data)) {
             switch ($data['territory_type']) {
                 case TerritoryType::CITY: $data['territory_id'] = array_key_exists('city_id', $data) ? $data['city_id'] : 0; break;
@@ -36,6 +50,6 @@ class AreaDetailRepository extends AbstractRepository
             }
         }
 
-        return parent::convertDataCreate($data, $more);
+        return $data;
     }
 }

@@ -25,27 +25,35 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row city-row">
+                    <div class="row city-row {{ $area_detail->territory_type == TerritoryType::CITY ? '' : 'hidden' }}">
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="city_id">City <span class="text-red">*</span></label>
                                 <select id="city_id" class="form-control" aria-placeholder="not select" name="city_id">
                                     <option disabled selected value="0">-- choose city --</option>
                                     @foreach($cities as $city)
+                                        @if ($area_detail->territory_type == TerritoryType::CITY && $area_detail->territory_id === $city->id)
+                                        <option value="{{ $city->id }}" selected>{{ $city->name }}</option>
+                                        @else
                                         <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                     </div>
-                    <div class="row district-row hidden">
+                    <div class="row district-row {{ $area_detail->territory_type == TerritoryType::DISTRICT ? '' : 'hidden' }}">
                         <div class="col-lg-6 district-col">
                             <div class="form-group">
                                 <label for="district_id">District <span class="text-red">*</span></label>
                                 <select id="district_id" class="form-control" aria-placeholder="not select" name="district_id">
                                     <option disabled selected value="0">-- choose district --</option>
                                     @foreach($districts as $district)
-                                        <option value="{{ $district->id }}">{{ $district->name }}</option>
+                                        @if ($area_detail->territory_type == TerritoryType::DISTRICT && $area_detail->territory_id === $district->id)
+                                        <option value="{{ $district->id }}" selected>{{ $district->name_more }}</option>
+                                        @else
+                                        <option value="{{ $district->id }}">{{ $district->name_more }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -57,7 +65,7 @@
                                     <select id="city_district_id_{{ $city->id }}" class="form-control" aria-placeholder="not select" name="district_id">
                                         <option disabled selected value="0">-- choose district --</option>
                                         @foreach($city->districts as $city_district)
-                                            <option value="{{ $city_district->id }}">{{ $city_district->name }}</option>
+                                            <option value="{{ $city_district->id }}">{{ $city_district->name_more }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -75,14 +83,18 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row ward-row hidden">
+                    <div class="row ward-row {{ $area_detail->territory_type == TerritoryType::WARD ? '' : 'hidden' }}">
                         <div class="col-lg-4 ward-col">
                             <div class="form-group">
                                 <label for="ward_id">Ward <span class="text-red">*</span></label>
                                 <select id="ward_id" class="form-control" aria-placeholder="not select" name="ward_id">
                                     <option disabled selected value="0">-- choose ward --</option>
                                     @foreach($wards as $ward)
+                                        @if ($area_detail->territory_type == TerritoryType::WARD && $area_detail->territory_id === $ward->id)
+                                        <option value="{{ $ward->id }}" selected>{{ $ward->name_more }}</option>
+                                        @else
                                         <option value="{{ $ward->id }}">{{ $ward->name_more }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -106,7 +118,7 @@
                                 <select id="district_id_2" class="form-control" aria-placeholder="not select" name="district_id">
                                     <option disabled selected value="0">-- choose district --</option>
                                     @foreach($districts as $district)
-                                        <option value="{{ $district->id }}">{{ $district->name }}[{{ $city_district->id }}]</option>
+                                        <option value="{{ $district->id }}">{{ $district->name_more }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -142,7 +154,7 @@
                                     <select id="city_district_id2_{{ $city->id }}" class="form-control district_id" aria-placeholder="not select" name="district_id">
                                         <option disabled selected value="0">-- choose district --</option>
                                         @foreach($city->districts as $city_district)
-                                            <option value="{{ $city_district->id }}">{{ $city_district->name }}[{{ $city_district->id }}]</option>
+                                            <option value="{{ $city_district->id }}">{{ $city_district->name_more }}</option>
                                         @endforeach
                                     </select>
                                 </div>

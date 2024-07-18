@@ -2,6 +2,7 @@
 
 namespace Modules\City\Entities;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\User\Entities\User;
@@ -25,5 +26,15 @@ class District extends Model
     public function wards()
     {
         return $this->hasMany(Ward::class);
+    }
+
+    public function nameMore() : Attribute
+    {
+        return Attribute::make(
+            get: function(mixed $value, array $attributes) {
+                $city = $this->city;
+                return $attributes['name'] . ', ' . $city->shortname;
+            }
+        );
     }
 }
