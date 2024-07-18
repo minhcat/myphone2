@@ -2,6 +2,7 @@
 
 namespace Modules\Area\Repositories;
 
+use App\Enums\TerritoryType;
 use App\Repositories\AbstractRepository;
 use Modules\Area\Entities\AreaDetail;
 
@@ -22,5 +23,19 @@ class AreaDetailRepository extends AbstractRepository
             return $query->where($field, 'LIKE', "%$search%")->paginate($take);
         }
         return $query->where($this->searchFieldName, 'LIKE', "%$search%")->paginate($take);
+    }
+
+    protected function convertDataCreate($data, $more = [])
+    {
+        if (array_key_exists('territory_type', $data)) {
+            switch ($data['territory_type']) {
+                case TerritoryType::CITY: $data['territory_id'] = array_key_exists('city_id', $data) ? $data['city_id'] : 0; break;
+                case TerritoryType::DISTRICT: $data['territory_id'] = array_key_exists('district_id', $data) ? $data['district_id'] : 0; break;
+                case TerritoryType::WARD: $data['territory_id'] = array_key_exists('ward_id', $data) ? $data['ward_id'] : 0; break;
+                default: $data['territory_id'] = 0;
+            }
+        }
+
+        return parent::convertDataCreate($data, $more);
     }
 }

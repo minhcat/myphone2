@@ -17,7 +17,7 @@ use Modules\Area\Http\Controllers\AreaDetailController;
 
 Route::prefix('admin')->name('admin.')->group(function() {
     Route::prefix('areas')->name('area.')->group(function() {
-        Route::prefix('{area_id}/detail')->name('detail.')->group(function() {
+        Route::prefix('/{area_id}/details')->name('detail.')->group(function() {
             Route::get('/', [AreaDetailController::class, 'index'])->name('index');
             Route::get('/create', [AreaDetailController::class, 'create'])->name('create');
             Route::post('/', [AreaDetailController::class, 'store'])->name('store');

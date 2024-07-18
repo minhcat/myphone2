@@ -2,15 +2,30 @@
 
 namespace Modules\Area\Http\Controllers;
 
+use App\Enums\TerritoryType;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Validation\Rule;
 use Modules\Area\Repositories\AreaDetailRepository;
+use Modules\City\Repositories\CityRepository;
+use Modules\City\Repositories\DistrictRepository;
+use Modules\City\Repositories\WardRepository;
 
 class AreaDetailController extends Controller
 {
     /** @var \Modules\Area\Repositories\AreaDetailRepository */
     protected $areaDetailRepository;
+
+    /** @var \Modules\City\Repositories\CityRepository */
+    protected $cityRepository;
+
+    /** @var \Modules\City\Repositories\DistrictRepository */
+    protected $districtRepository;
+
+    /** @var \Modules\City\Repositories\WardRepository */
+    protected $wardRepository;
 
     /**
      * Create new Brand Controller instance.
@@ -18,6 +33,9 @@ class AreaDetailController extends Controller
     public function __construct()
     {
         $this->areaDetailRepository = new AreaDetailRepository;
+        $this->cityRepository = new CityRepository;
+        $this->districtRepository = new DistrictRepository;
+        $this->wardRepository = new WardRepository;
 
         view()->share('menu', ['group' => 'transport', 'active' => 'area']);
     }
@@ -38,9 +56,29 @@ class AreaDetailController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function create($area_id)
     {
-        return view('area::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('admin.area.detail.store', $area_id),
+            'method'    => 'POST'
+        ];
+
+        [
+            $territory_types,
+            $cities,
+            $districts,
+            $wards,
+        ] = $this->getDataForm();
+
+        return view('area::detail.create', compact(
+            'form',
+            'area_id',
+            'territory_types',
+            'cities',
+            'districts',
+            'wards',
+        ));
     }
 
     /**
@@ -48,9 +86,18 @@ class AreaDetailController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(Request $request, $area_id)
     {
-        //
+        $request->validate([
+            'territory_type'    => 'required',
+            'city_id'           => Rule::requiredIf($request->input('territory_type') == TerritoryType::CITY),
+            'district_id'       => Rule::requiredIf($request->input('territory_type') == TerritoryType::DISTRICT),
+            'ward_id'           => Rule::requiredIf($request->input('territory_type') == TerritoryType::WARD),
+        ]);
+
+        $this->areaDetailRepository->create($request->all(), ['area_id' => $area_id]);
+
+        return redirect()->route('admin.area.detail.index', $area_id)->with('success', __('notification.create.success', ['model' => 'area detail']));
     }
 
     /**
@@ -92,5 +139,20 @@ class AreaDetailController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getDataForm()
+    {
+        $territory_types = TerritoryType::getObject();
+        $cities = $this->cityRepository->all();
+        $districts = $this->districtRepository->all();
+        $wards = $this->wardRepository->all();
+
+        return [
+            $territory_types,
+            $cities,
+            $districts,
+            $wards,
+        ];
     }
 }
