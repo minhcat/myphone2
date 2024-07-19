@@ -26,9 +26,12 @@ class TransporterController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('transporter::index');
+        $search = $request->input('search');
+        $transporters = $this->transporterRepository->paginate($search);
+
+        return view('transporter::transporter.index', compact('transporters'));
     }
 
     /**
