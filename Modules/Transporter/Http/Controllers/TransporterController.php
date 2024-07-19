@@ -40,7 +40,13 @@ class TransporterController extends Controller
      */
     public function create()
     {
-        return view('transporter::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('admin.transporter.store'),
+            'method'    => 'POST'
+        ];
+
+        return view('transporter::transporter.create', compact('form'));
     }
 
     /**
@@ -50,7 +56,13 @@ class TransporterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'  => 'required',
+        ]);
+
+        $this->transporterRepository->create($request->all());
+
+        return redirect()->route('admin.transporter.index')->with('success', __('notification.create.index', ['model' => 'transporter']));
     }
 
     /**
@@ -70,7 +82,15 @@ class TransporterController extends Controller
      */
     public function edit($id)
     {
-        return view('transporter::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('admin.transporter.update', $id),
+            'method'    => 'PUT'
+        ];
+
+        $transporter = $this->transporterRepository->find($id);
+
+        return view('transporter::transporter.edit', compact('form', 'transporter'));
     }
 
     /**
@@ -81,7 +101,13 @@ class TransporterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'  => 'required',
+        ]);
+
+        $this->transporterRepository->update($id, $request->all());
+
+        return redirect()->route('admin.transporter.index')->with('success', __('notification.update.index', ['model' => 'transporter']));
     }
 
     /**
