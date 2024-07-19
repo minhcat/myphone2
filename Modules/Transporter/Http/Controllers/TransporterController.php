@@ -62,7 +62,7 @@ class TransporterController extends Controller
 
         $this->transporterRepository->create($request->all());
 
-        return redirect()->route('admin.transporter.index')->with('success', __('notification.create.index', ['model' => 'transporter']));
+        return redirect()->route('admin.transporter.index')->with('success', __('notification.create.success', ['model' => 'transporter']));
     }
 
     /**
@@ -72,7 +72,9 @@ class TransporterController extends Controller
      */
     public function show($id)
     {
-        return view('transporter::show');
+        $transporter = $this->transporterRepository->find($id);
+
+        return view('transporter::transporter.detail', compact('transporter'));
     }
 
     /**
@@ -107,7 +109,7 @@ class TransporterController extends Controller
 
         $this->transporterRepository->update($id, $request->all());
 
-        return redirect()->route('admin.transporter.index')->with('success', __('notification.update.index', ['model' => 'transporter']));
+        return redirect()->route('admin.transporter.index')->with('success', __('notification.update.success', ['model' => 'transporter']));
     }
 
     /**
@@ -117,6 +119,8 @@ class TransporterController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->transporterRepository->delete($id);
+
+        return redirect()->route('admin.transporter.index')->with('success', __('notification.delete.success', ['model' => 'transporter']));
     }
 }
