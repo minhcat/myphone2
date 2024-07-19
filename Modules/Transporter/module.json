@@ -1,0 +1,11 @@
+{
+    "name": "Transporter",
+    "alias": "transporter",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Transporter\\Providers\\TransporterServiceProvider"
+    ],
+    "files": []
+}

@@ -14,5 +14,6 @@
     "Voucher": true,
     "Gift": true,
     "City": true,
-    "Area": true
+    "Area": true,
+    "Transporter": true
 }
