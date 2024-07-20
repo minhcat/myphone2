@@ -217,6 +217,7 @@ return [
         'PromotionStatus'   => App\Enums\PromotionStatus::class,
         'TargetType'        => App\Enums\TargetType::class,
         'TerritoryType'     => App\Enums\TerritoryType::class,
+        'EstimateTimeType'  => App\Enums\EstimateTimeType::class,
     ])->toArray(),
 
 ];

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->integer('transporter_id')->unsigned();
+            $table->integer('estimate_time_type')->unsigned();
+            $table->integer('estimate_time')->unsigned();
             $table->integer('author_id')->unsigned();
             $table->timestamps();
         });

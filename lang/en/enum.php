@@ -118,4 +118,14 @@ return [
             'ward'              => 'warning',
         ],
     ],
+    'estimate_time_type'        => [
+        'name'                  => [
+            'hour'              => 'hour',
+            'day'               => 'day',
+        ],
+        'label'                 => [
+            'hour'              => 'primary',
+            'day'               => 'success',
+        ],
+    ],
 ];
