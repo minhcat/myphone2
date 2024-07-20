@@ -26,9 +26,12 @@ class TransporterCaseController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request, $transporter_id)
     {
-        return view('transporter::index');
+        $search = $request->input('search');
+        $transporter_cases = $this->transporterCaseRepository->paginateByTransporterId($transporter_id, $search);
+
+        return view('transporter::case.index', compact('transporter_cases', 'transporter_id'));
     }
 
     /**
