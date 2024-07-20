@@ -2,6 +2,7 @@
 
 namespace Modules\Transporter\Http\Controllers;
 
+use App\Enums\EstimateTimeType;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -38,9 +39,16 @@ class TransporterCaseController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function create($transporter_id)
     {
-        return view('transporter::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('admin.transporter.case.store', $transporter_id),
+            'method'    => 'POST'
+        ];
+        $estimate_time_types = EstimateTimeType::getObject();
+
+        return view('transporter::case.create', compact('form', 'transporter_id', 'estimate_time_types'));
     }
 
     /**
@@ -48,9 +56,17 @@ class TransporterCaseController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(Request $request, $transporter_id)
     {
-        //
+        $request->validate([
+            'name'  => 'required'
+        ]);
+
+        $this->transporterCaseRepository->create($request->all(), ['transporter_id' => $transporter_id]);
+
+        return redirect()
+        ->route('admin.transporter.case.index', $transporter_id)
+        ->with('success', __('notification.create.success', ['model' => 'transporter case']));
     }
 
     /**
@@ -68,9 +84,17 @@ class TransporterCaseController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit($transporter_id, $id)
     {
-        return view('transporter::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('admin.transporter.case.update', ['transporter_id' => $transporter_id, 'id' => $id]),
+            'method'    => 'PUT'
+        ];
+        $estimate_time_types = EstimateTimeType::getObject();
+        $transporter_case = $this->transporterCaseRepository->find($id);
+
+        return view('transporter::case.edit', compact('form', 'transporter_id', 'estimate_time_types', 'transporter_case'));
     }
 
     /**
@@ -79,9 +103,17 @@ class TransporterCaseController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $transporter_id, $id)
     {
-        //
+        $request->validate([
+            'name'  => 'required'
+        ]);
+
+        $this->transporterCaseRepository->update($id, $request->all(), ['transporter_id' => $transporter_id]);
+
+        return redirect()
+        ->route('admin.transporter.case.index', $transporter_id)
+        ->with('success', __('notification.update.success', ['model' => 'transporter case']));
     }
 
     /**

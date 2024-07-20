@@ -11,8 +11,8 @@ final class EstimateTimeType extends AbstractEnum
     public static function getName($value)
     {
         switch ($value) {
-            case static::HOUR:  return __('enum.estimate_time_type.name.amount');
-            case static::DAY:   return __('enum.estimate_time_type.name.percent');
+            case static::HOUR:  return __('enum.estimate_time_type.name.hour');
+            case static::DAY:   return __('enum.estimate_time_type.name.day');
             default:            return $value;
         }
     }
@@ -20,8 +20,8 @@ final class EstimateTimeType extends AbstractEnum
     public static function getLabel($value)
     {
         switch ($value) {
-            case static::HOUR:  return __('enum.estimate_time_type.label.amount');
-            case static::DAY:   return __('enum.estimate_time_type.label.percent');
+            case static::HOUR:  return __('enum.estimate_time_type.label.hour');
+            case static::DAY:   return __('enum.estimate_time_type.label.day');
             default:            return $value;
         }
     }
