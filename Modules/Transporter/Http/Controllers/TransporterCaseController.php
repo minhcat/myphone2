@@ -74,9 +74,11 @@ class TransporterCaseController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show($transporter_id, $id)
     {
-        return view('transporter::show');
+        $transporter_case = $this->transporterCaseRepository->find($id);
+
+        return view('transporter::case.detail', compact('transporter_case', 'transporter_id'));
     }
 
     /**
@@ -121,8 +123,12 @@ class TransporterCaseController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($transporter_id, $id)
     {
-        //
+        $this->transporterCaseRepository->delete($id);
+
+        return redirect()
+        ->route('admin.transporter.case.index', $transporter_id)
+        ->with('success', __('notification.delete.success', ['model' => 'transporter case']));
     }
 }
