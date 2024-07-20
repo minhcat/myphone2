@@ -17,7 +17,7 @@ use Modules\Transporter\Http\Controllers\TransporterController;
 
 Route::prefix('admin')->name('admin.')->group(function() {
     Route::prefix('transporters')->name('transporter.')->group(function() {
-        Route::prefix('{transporter_id}/case')->name('case.')->group(function() {
+        Route::prefix('{transporter_id}/cases')->name('case.')->group(function() {
             Route::get('/', [TransporterCaseController::class, 'index'])->name('index');
             Route::get('/create', [TransporterCaseController::class, 'create'])->name('create');
             Route::post('/', [TransporterCaseController::class, 'store'])->name('store');

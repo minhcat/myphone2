@@ -5,9 +5,23 @@ namespace Modules\Transporter\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Transporter\Repositories\TransporterCaseRepository;
 
 class TransporterCaseController extends Controller
 {
+    /** @var \Modules\Transporter\Repositories\TransporterCaseRepository */
+    protected $transporterCaseRepository;
+
+    /**
+     * Create a new Information controller instance.
+     */
+    public function __construct()
+    {
+        $this->transporterCaseRepository = new TransporterCaseRepository();
+
+        view()->share('menu', ['group' => 'transport', 'active' => 'transporter']);
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable

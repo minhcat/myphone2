@@ -9,7 +9,7 @@ use Modules\Transporter\Repositories\TransporterRepository;
 
 class TransporterController extends Controller
 {
-    /** @var \Modules\Transporter\Repositories\TransporterRepository */   // todo: update true repository
+    /** @var \Modules\Transporter\Repositories\TransporterRepository */
     protected $transporterRepository;
 
     /**
