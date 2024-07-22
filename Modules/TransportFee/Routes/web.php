@@ -11,6 +11,17 @@
 |
 */
 
-Route::prefix('transportfee')->group(function() {
-    Route::get('/', 'TransportFeeController@index');
+use Illuminate\Support\Facades\Route;
+use Modules\TransportFee\Http\Controllers\TransportFeeController;
+
+Route::prefix('admin')->name('admin.')->group(function() {
+    Route::prefix('transport_fees')->name('transport_fee.')->group(function() {
+        Route::get('/', [TransportFeeController::class, 'index'])->name('index');
+        Route::get('/create', [TransportFeeController::class, 'create'])->name('create');
+        Route::post('/', [TransportFeeController::class, 'store'])->name('store');
+        Route::get('/{id}', [TransportFeeController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [TransportFeeController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [TransportFeeController::class, 'update'])->name('update');
+        Route::delete('/{id}', [TransportFeeController::class, 'destroy'])->name('delete');
+    });
 });
