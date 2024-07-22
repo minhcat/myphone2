@@ -15,5 +15,6 @@
     "Gift": true,
     "City": true,
     "Area": true,
-    "Transporter": true
+    "Transporter": true,
+    "TransportFee": true
 }

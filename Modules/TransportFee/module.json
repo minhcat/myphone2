@@ -1,0 +1,11 @@
+{
+    "name": "TransportFee",
+    "alias": "transportfee",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\TransportFee\\Providers\\TransportFeeServiceProvider"
+    ],
+    "files": []
+}
