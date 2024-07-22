@@ -5,9 +5,23 @@ namespace Modules\TransportFee\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\TransportFee\Repositories\TransportFeeRepository;
 
 class TransportFeeController extends Controller
 {
+    /** @var \Modules\TransportFee\Repositories\TransportFeeRepository */
+    protected $transportFeeRepository;
+
+    /**
+     * Create a new Information controller instance.
+     */
+    public function __construct()
+    {
+        $this->transportFeeRepository = new TransportFeeRepository();
+
+        view()->share('menu', ['group' => 'transport', 'active' => 'transport_fee']);
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable

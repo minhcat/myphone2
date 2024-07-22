@@ -25,6 +25,7 @@ class TransportFeeSeeder extends Seeder
             [
                 'name'                      => 'GiaoHangNhanh 001',
                 'description'               => Lorem::paragraph(3),
+                'author_id'                 => 1,
                 'total_range_bottom_type'   => TotalRangeType::EQUAL,
                 'total_range_bottom'        => 0,
                 'total_range_top_type'      => TotalRangeType::EQUAL,
@@ -38,6 +39,7 @@ class TransportFeeSeeder extends Seeder
             [
                 'name'                      => 'GiaoHangNhanh 002',
                 'description'               => Lorem::paragraph(3),
+                'author_id'                 => 1,
                 'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
                 'total_range_bottom'        => 100000,
                 'total_range_top_type'      => TotalRangeType::EQUAL,
@@ -51,6 +53,7 @@ class TransportFeeSeeder extends Seeder
             [
                 'name'                      => 'GiaoHangNhanh 003',
                 'description'               => Lorem::paragraph(3),
+                'author_id'                 => 1,
                 'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
                 'total_range_bottom'        => 1000000,
                 'total_range_top_type'      => TotalRangeType::EQUAL,
@@ -65,6 +68,7 @@ class TransportFeeSeeder extends Seeder
             [
                 'name'                      => 'GiaoHangNhanh 004',
                 'description'               => Lorem::paragraph(3),
+                'author_id'                 => 1,
                 'total_range_bottom_type'   => TotalRangeType::EQUAL,
                 'total_range_bottom'        => 0,
                 'total_range_top_type'      => TotalRangeType::EQUAL,
@@ -78,6 +82,7 @@ class TransportFeeSeeder extends Seeder
             [
                 'name'                      => 'GiaoHangNhanh 005',
                 'description'               => Lorem::paragraph(3),
+                'author_id'                 => 1,
                 'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
                 'total_range_bottom'        => 100000,
                 'total_range_top_type'      => TotalRangeType::EQUAL,
@@ -91,6 +96,7 @@ class TransportFeeSeeder extends Seeder
             [
                 'name'                      => 'GiaoHangNhanh 006',
                 'description'               => Lorem::paragraph(3),
+                'author_id'                 => 1,
                 'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
                 'total_range_bottom'        => 1000000,
                 'total_range_top_type'      => TotalRangeType::EQUAL,
@@ -106,6 +112,7 @@ class TransportFeeSeeder extends Seeder
             [
                 'name'                      => 'GiaoHangNhanh 007',
                 'description'               => Lorem::paragraph(3),
+                'author_id'                 => 1,
                 'total_range_bottom_type'   => TotalRangeType::EQUAL,
                 'total_range_bottom'        => 0,
                 'total_range_top_type'      => TotalRangeType::EQUAL,
@@ -119,6 +126,7 @@ class TransportFeeSeeder extends Seeder
             [
                 'name'                      => 'GiaoHangNhanh 008',
                 'description'               => Lorem::paragraph(3),
+                'author_id'                 => 1,
                 'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
                 'total_range_bottom'        => 100000,
                 'total_range_top_type'      => TotalRangeType::EQUAL,
@@ -132,6 +140,7 @@ class TransportFeeSeeder extends Seeder
             [
                 'name'                      => 'GiaoHangNhanh 009',
                 'description'               => Lorem::paragraph(3),
+                'author_id'                 => 1,
                 'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
                 'total_range_bottom'        => 1000000,
                 'total_range_top_type'      => TotalRangeType::EQUAL,
@@ -146,6 +155,7 @@ class TransportFeeSeeder extends Seeder
             [
                 'name'                      => 'GiaoHangNhanh 010',
                 'description'               => Lorem::paragraph(3),
+                'author_id'                 => 1,
                 'total_range_bottom_type'   => TotalRangeType::EQUAL,
                 'total_range_bottom'        => 0,
                 'total_range_top_type'      => TotalRangeType::EQUAL,
@@ -159,6 +169,7 @@ class TransportFeeSeeder extends Seeder
             [
                 'name'                      => 'GiaoHangNhanh 011',
                 'description'               => Lorem::paragraph(3),
+                'author_id'                 => 1,
                 'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
                 'total_range_bottom'        => 100000,
                 'total_range_top_type'      => TotalRangeType::EQUAL,
@@ -172,6 +183,7 @@ class TransportFeeSeeder extends Seeder
             [
                 'name'                      => 'GiaoHangNhanh 012',
                 'description'               => Lorem::paragraph(3),
+                'author_id'                 => 1,
                 'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
                 'total_range_bottom'        => 1000000,
                 'total_range_top_type'      => TotalRangeType::EQUAL,
@@ -187,6 +199,7 @@ class TransportFeeSeeder extends Seeder
             [
                 'name'                      => 'GiaoHangNhanh 013',
                 'description'               => Lorem::paragraph(3),
+                'author_id'                 => 1,
                 'total_range_bottom_type'   => TotalRangeType::EQUAL,
                 'total_range_bottom'        => 0,
                 'total_range_top_type'      => TotalRangeType::EQUAL,
@@ -200,6 +213,7 @@ class TransportFeeSeeder extends Seeder
             [
                 'name'                      => 'GiaoHangNhanh 014',
                 'description'               => Lorem::paragraph(3),
+                'author_id'                 => 1,
                 'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
                 'total_range_bottom'        => 100000,
                 'total_range_top_type'      => TotalRangeType::EQUAL,
@@ -213,6 +227,7 @@ class TransportFeeSeeder extends Seeder
             [
                 'name'                      => 'GiaoHangNhanh 015',
                 'description'               => Lorem::paragraph(3),
+                'author_id'                 => 1,
                 'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
                 'total_range_bottom'        => 1000000,
                 'total_range_top_type'      => TotalRangeType::EQUAL,
@@ -227,6 +242,7 @@ class TransportFeeSeeder extends Seeder
             [
                 'name'                      => 'GiaoHangNhanh 016',
                 'description'               => Lorem::paragraph(3),
+                'author_id'                 => 1,
                 'total_range_bottom_type'   => TotalRangeType::EQUAL,
                 'total_range_bottom'        => 0,
                 'total_range_top_type'      => TotalRangeType::EQUAL,
@@ -240,6 +256,7 @@ class TransportFeeSeeder extends Seeder
             [
                 'name'                      => 'GiaoHangNhanh 017',
                 'description'               => Lorem::paragraph(3),
+                'author_id'                 => 1,
                 'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
                 'total_range_bottom'        => 100000,
                 'total_range_top_type'      => TotalRangeType::EQUAL,
@@ -253,6 +270,7 @@ class TransportFeeSeeder extends Seeder
             [
                 'name'                      => 'GiaoHangNhanh 018',
                 'description'               => Lorem::paragraph(3),
+                'author_id'                 => 1,
                 'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
                 'total_range_bottom'        => 1000000,
                 'total_range_top_type'      => TotalRangeType::EQUAL,

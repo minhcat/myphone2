@@ -18,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
+            $table->integer('author_id')->unsigned();
             $table->integer('total_range_bottom_type')->unsigned()->default(TotalRangeType::EQUAL);
             $table->integer('total_range_bottom')->unsigned()->default(0);
             $table->integer('total_range_top_type')->unsigned()->default(TotalRangeType::EQUAL);
