@@ -26,9 +26,12 @@ class TransportFeeController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('transportfee::index');
+        $search = $request->input('search');
+        $transport_fees = $this->transportFeeRepository->paginate($search);
+
+        return view('transportfee::index', compact('transport_fees'));
     }
 
     /**
