@@ -1,0 +1,268 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Enums\TotalRangeType;
+use Faker\Provider\Lorem;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class TransportFeeSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        DB::table('transport_fees')->truncate();
+
+        DB::table('transport_fees')->insert([
+            // GHN area ngoại tỉnh
+            // GHN case normal
+            [
+                'name'                      => 'GiaoHangNhanh 001',
+                'description'               => Lorem::paragraph(3),
+                'total_range_bottom_type'   => TotalRangeType::EQUAL,
+                'total_range_bottom'        => 0,
+                'total_range_top_type'      => TotalRangeType::EQUAL,
+                'total_range_top'           => 200000,
+                'area_id'                   => 4,
+                'transporter_case_id'       => 6,
+                'cost'                      => 25000,
+                'created_at'                => now()->format('Y-m-d H:i:s'),
+                'updated_at'                => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'name'                      => 'GiaoHangNhanh 002',
+                'description'               => Lorem::paragraph(3),
+                'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
+                'total_range_bottom'        => 100000,
+                'total_range_top_type'      => TotalRangeType::EQUAL,
+                'total_range_top'           => 1000000,
+                'area_id'                   => 4,
+                'transporter_case_id'       => 6,
+                'cost'                      => 15000,
+                'created_at'                => now()->format('Y-m-d H:i:s'),
+                'updated_at'                => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'name'                      => 'GiaoHangNhanh 003',
+                'description'               => Lorem::paragraph(3),
+                'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
+                'total_range_bottom'        => 1000000,
+                'total_range_top_type'      => TotalRangeType::EQUAL,
+                'total_range_top'           => null,
+                'area_id'                   => 4,
+                'transporter_case_id'       => 6,
+                'cost'                      => 0,
+                'created_at'                => now()->format('Y-m-d H:i:s'),
+                'updated_at'                => now()->format('Y-m-d H:i:s'),
+            ],
+            // GHN case fast
+            [
+                'name'                      => 'GiaoHangNhanh 004',
+                'description'               => Lorem::paragraph(3),
+                'total_range_bottom_type'   => TotalRangeType::EQUAL,
+                'total_range_bottom'        => 0,
+                'total_range_top_type'      => TotalRangeType::EQUAL,
+                'total_range_top'           => 200000,
+                'area_id'                   => 4,
+                'transporter_case_id'       => 7,
+                'cost'                      => 45000,
+                'created_at'                => now()->format('Y-m-d H:i:s'),
+                'updated_at'                => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'name'                      => 'GiaoHangNhanh 005',
+                'description'               => Lorem::paragraph(3),
+                'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
+                'total_range_bottom'        => 100000,
+                'total_range_top_type'      => TotalRangeType::EQUAL,
+                'total_range_top'           => 1000000,
+                'area_id'                   => 4,
+                'transporter_case_id'       => 7,
+                'cost'                      => 25000,
+                'created_at'                => now()->format('Y-m-d H:i:s'),
+                'updated_at'                => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'name'                      => 'GiaoHangNhanh 006',
+                'description'               => Lorem::paragraph(3),
+                'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
+                'total_range_bottom'        => 1000000,
+                'total_range_top_type'      => TotalRangeType::EQUAL,
+                'total_range_top'           => null,
+                'area_id'                   => 4,
+                'transporter_case_id'       => 7,
+                'cost'                      => 15000,
+                'created_at'                => now()->format('Y-m-d H:i:s'),
+                'updated_at'                => now()->format('Y-m-d H:i:s'),
+            ],
+            // GHN area ngoại thành
+            // GHN case normal
+            [
+                'name'                      => 'GiaoHangNhanh 007',
+                'description'               => Lorem::paragraph(3),
+                'total_range_bottom_type'   => TotalRangeType::EQUAL,
+                'total_range_bottom'        => 0,
+                'total_range_top_type'      => TotalRangeType::EQUAL,
+                'total_range_top'           => 200000,
+                'area_id'                   => 5,
+                'transporter_case_id'       => 6,
+                'cost'                      => 25000,
+                'created_at'                => now()->format('Y-m-d H:i:s'),
+                'updated_at'                => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'name'                      => 'GiaoHangNhanh 008',
+                'description'               => Lorem::paragraph(3),
+                'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
+                'total_range_bottom'        => 100000,
+                'total_range_top_type'      => TotalRangeType::EQUAL,
+                'total_range_top'           => 1000000,
+                'area_id'                   => 5,
+                'transporter_case_id'       => 6,
+                'cost'                      => 15000,
+                'created_at'                => now()->format('Y-m-d H:i:s'),
+                'updated_at'                => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'name'                      => 'GiaoHangNhanh 009',
+                'description'               => Lorem::paragraph(3),
+                'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
+                'total_range_bottom'        => 1000000,
+                'total_range_top_type'      => TotalRangeType::EQUAL,
+                'total_range_top'           => null,
+                'area_id'                   => 5,
+                'transporter_case_id'       => 6,
+                'cost'                      => 0,
+                'created_at'                => now()->format('Y-m-d H:i:s'),
+                'updated_at'                => now()->format('Y-m-d H:i:s'),
+            ],
+            // GHN case fast
+            [
+                'name'                      => 'GiaoHangNhanh 010',
+                'description'               => Lorem::paragraph(3),
+                'total_range_bottom_type'   => TotalRangeType::EQUAL,
+                'total_range_bottom'        => 0,
+                'total_range_top_type'      => TotalRangeType::EQUAL,
+                'total_range_top'           => 200000,
+                'area_id'                   => 5,
+                'transporter_case_id'       => 7,
+                'cost'                      => 45000,
+                'created_at'                => now()->format('Y-m-d H:i:s'),
+                'updated_at'                => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'name'                      => 'GiaoHangNhanh 011',
+                'description'               => Lorem::paragraph(3),
+                'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
+                'total_range_bottom'        => 100000,
+                'total_range_top_type'      => TotalRangeType::EQUAL,
+                'total_range_top'           => 1000000,
+                'area_id'                   => 5,
+                'transporter_case_id'       => 7,
+                'cost'                      => 25000,
+                'created_at'                => now()->format('Y-m-d H:i:s'),
+                'updated_at'                => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'name'                      => 'GiaoHangNhanh 012',
+                'description'               => Lorem::paragraph(3),
+                'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
+                'total_range_bottom'        => 1000000,
+                'total_range_top_type'      => TotalRangeType::EQUAL,
+                'total_range_top'           => null,
+                'area_id'                   => 5,
+                'transporter_case_id'       => 7,
+                'cost'                      => 15000,
+                'created_at'                => now()->format('Y-m-d H:i:s'),
+                'updated_at'                => now()->format('Y-m-d H:i:s'),
+            ],
+            // GHN area nội thành
+            // GHN case normal
+            [
+                'name'                      => 'GiaoHangNhanh 013',
+                'description'               => Lorem::paragraph(3),
+                'total_range_bottom_type'   => TotalRangeType::EQUAL,
+                'total_range_bottom'        => 0,
+                'total_range_top_type'      => TotalRangeType::EQUAL,
+                'total_range_top'           => 200000,
+                'area_id'                   => 7,
+                'transporter_case_id'       => 6,
+                'cost'                      => 25000,
+                'created_at'                => now()->format('Y-m-d H:i:s'),
+                'updated_at'                => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'name'                      => 'GiaoHangNhanh 014',
+                'description'               => Lorem::paragraph(3),
+                'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
+                'total_range_bottom'        => 100000,
+                'total_range_top_type'      => TotalRangeType::EQUAL,
+                'total_range_top'           => 1000000,
+                'area_id'                   => 7,
+                'transporter_case_id'       => 6,
+                'cost'                      => 15000,
+                'created_at'                => now()->format('Y-m-d H:i:s'),
+                'updated_at'                => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'name'                      => 'GiaoHangNhanh 015',
+                'description'               => Lorem::paragraph(3),
+                'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
+                'total_range_bottom'        => 1000000,
+                'total_range_top_type'      => TotalRangeType::EQUAL,
+                'total_range_top'           => null,
+                'area_id'                   => 7,
+                'transporter_case_id'       => 6,
+                'cost'                      => 0,
+                'created_at'                => now()->format('Y-m-d H:i:s'),
+                'updated_at'                => now()->format('Y-m-d H:i:s'),
+            ],
+            // GHN case fast
+            [
+                'name'                      => 'GiaoHangNhanh 016',
+                'description'               => Lorem::paragraph(3),
+                'total_range_bottom_type'   => TotalRangeType::EQUAL,
+                'total_range_bottom'        => 0,
+                'total_range_top_type'      => TotalRangeType::EQUAL,
+                'total_range_top'           => 200000,
+                'area_id'                   => 7,
+                'transporter_case_id'       => 7,
+                'cost'                      => 45000,
+                'created_at'                => now()->format('Y-m-d H:i:s'),
+                'updated_at'                => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'name'                      => 'GiaoHangNhanh 017',
+                'description'               => Lorem::paragraph(3),
+                'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
+                'total_range_bottom'        => 100000,
+                'total_range_top_type'      => TotalRangeType::EQUAL,
+                'total_range_top'           => 1000000,
+                'area_id'                   => 7,
+                'transporter_case_id'       => 7,
+                'cost'                      => 25000,
+                'created_at'                => now()->format('Y-m-d H:i:s'),
+                'updated_at'                => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'name'                      => 'GiaoHangNhanh 018',
+                'description'               => Lorem::paragraph(3),
+                'total_range_bottom_type'   => TotalRangeType::NOT_EQUAL,
+                'total_range_bottom'        => 1000000,
+                'total_range_top_type'      => TotalRangeType::EQUAL,
+                'total_range_top'           => null,
+                'area_id'                   => 7,
+                'transporter_case_id'       => 7,
+                'cost'                      => 15000,
+                'created_at'                => now()->format('Y-m-d H:i:s'),
+                'updated_at'                => now()->format('Y-m-d H:i:s'),
+            ],
+        ]);
+    }
+}
