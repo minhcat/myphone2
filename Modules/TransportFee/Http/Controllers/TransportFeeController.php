@@ -100,7 +100,9 @@ class TransportFeeController extends Controller
      */
     public function show($id)
     {
-        return view('transportfee::show');
+        $transport_fee = $this->transportFeeRepository->find($id);
+
+        return view('transportfee::detail', compact('transport_fee'));
     }
 
     /**
