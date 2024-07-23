@@ -47,4 +47,13 @@ class TransporterCase extends Model
             }
         );
     }
+
+    public function nameMore(): Attribute
+    {
+        return Attribute::make(
+            get: function(mixed $value, $attributes) {
+                return $this->name . ' - ' . $this->transporter->name;
+            }
+        );
+    }
 }

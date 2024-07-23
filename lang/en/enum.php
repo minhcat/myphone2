@@ -128,4 +128,14 @@ return [
             'day'               => 'success',
         ],
     ],
+    'total_range_type'          => [
+        'name'                  => [
+            'equal'             => 'equal',
+            'not_equal'         => 'not equal',
+        ],
+        'label'                 => [
+            'equal'             => 'primary',
+            'not_equal'         => 'success',
+        ],
+    ],
 ];
