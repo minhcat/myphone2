@@ -11,7 +11,7 @@ use Modules\User\Repositories\UserRepository;
 
 class UserController extends Controller
 {
-    /** @var \App\Repositories\AbstractRepository */
+    /** @var \Modules\User\Repositories\UserRepository */
     protected $userRepository;
 
     /**
