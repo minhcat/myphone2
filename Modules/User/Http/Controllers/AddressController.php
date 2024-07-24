@@ -26,9 +26,12 @@ class AddressController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request, $user_id)
     {
-        return view('user::index');
+        $search = $request->input('search');
+        $addresses = $this->addressRepository->paginateByUserId($user_id, $search);
+
+        return view('user::address.index', compact('addresses', 'user_id'));
     }
 
     /**
