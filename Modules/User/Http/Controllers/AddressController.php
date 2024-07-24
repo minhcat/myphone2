@@ -89,9 +89,11 @@ class AddressController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show($user_id, $id)
     {
-        return view('user::show');
+        $address = $this->addressRepository->find($id);
+
+        return view('user::address.detail', compact('address', 'user_id'));
     }
 
     /**
@@ -137,8 +139,10 @@ class AddressController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($user_id, $id)
     {
-        //
+        $this->addressRepository->delete($id);
+
+        return redirect()->route('admin.user.address.index', $user_id)->with('success', __('notification.delete.success', ['model' => 'address']));
     }
 }
