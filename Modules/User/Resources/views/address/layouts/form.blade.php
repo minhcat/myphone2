@@ -1,96 +1,33 @@
 @php
-    $area_detail = isset($area_detail) ? $area_detail : new Modules\Area\Entities\AreaDetail;
+    $address = isset($address) ? $address : new Modules\User\Entities\Address;
 @endphp
 <div class="row">
     <div class="col-lg-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <div class="box-title">{{ $form['title'] }}</div>
+                <div class="box-title">Title</div>
             </div>
             <form action="{{ $form['url'] }}" method="{{ $form['method'] == 'GET' ? 'GET' : 'POST' }}">
                 @csrf
-                @if ($form['method'] !== 'GET')
-                    @method($form['method'])
-                @endif
+                @method($form['method'])
                 <div class="box-body">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="territory_type">Target Type <span class="text-red">*</span></label>
-                                <select id="territory_type" class="form-control" aria-placeholder="not select" name="territory_type">
-                                    @foreach($territory_types as $territory_type)
-                                        <option value="{{ $territory_type->code }}" {{ $area_detail->territory_type === $territory_type->code ? 'selected' : '' }}>{{ $territory_type->name }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="content">Content <span class="text-red">*</span></label>
+                                <input type="text" class="form-control" placeholder="input content" name="content" value="{{ $address->content }}">
+                                <span class="help-block hidden">Content is require</span>
                             </div>
                         </div>
                     </div>
-                    <div class="row city-row {{ $area_detail->territory_type == TerritoryType::CITY ? '' : 'hidden' }}">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label for="city_id">City <span class="text-red">*</span></label>
-                                <select id="city_id" class="form-control" aria-placeholder="not select" name="city_id">
-                                    <option disabled selected value="0">-- choose city --</option>
-                                    @foreach($cities as $city)
-                                        @if ($area_detail->territory_type == TerritoryType::CITY && $area_detail->territory_id === $city->id)
-                                        <option value="{{ $city->id }}" selected>{{ $city->name }}</option>
-                                        @else
-                                        <option value="{{ $city->id }}">{{ $city->name }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row district-row {{ $area_detail->territory_type == TerritoryType::DISTRICT ? '' : 'hidden' }}">
-                        <div class="col-lg-6 district-col">
-                            <div class="form-group">
-                                <label for="district_id">District <span class="text-red">*</span></label>
-                                <select id="district_id" class="form-control" aria-placeholder="not select" name="district_id">
-                                    <option disabled selected value="0">-- choose district --</option>
-                                    @foreach($districts as $district)
-                                        @if ($area_detail->territory_type == TerritoryType::DISTRICT && $area_detail->territory_id === $district->id)
-                                        <option value="{{ $district->id }}" selected>{{ $district->name_more }}</option>
-                                        @else
-                                        <option value="{{ $district->id }}">{{ $district->name_more }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        @foreach($cities as $city)
-                            <div class="col-lg-6 district-col district-city-col district-col-city{{ $city->id }} hidden">
-                                <div class="form-group">
-                                    <label for="city_district_id_{{ $city->id }}">District <span class="text-red">*</span></label>
-                                    <select id="city_district_id_{{ $city->id }}" class="form-control" aria-placeholder="not select" name="district_id">
-                                        <option disabled selected value="0">-- choose district --</option>
-                                        @foreach($city->districts as $city_district)
-                                            <option value="{{ $city_district->id }}">{{ $city_district->name_more }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        @endforeach
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="city_id_2">City</label>
-                                <select id="city_id_2" class="form-control" aria-placeholder="not select" name="city_id">
-                                    <option disabled selected value="0">-- choose city --</option>
-                                    @foreach($cities as $city)
-                                        <option value="{{ $city->id }}">{{ $city->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row ward-row {{ $area_detail->territory_type == TerritoryType::WARD ? '' : 'hidden' }}">
+                    <div class="row ward-row">
                         <div class="col-lg-4 ward-col">
                             <div class="form-group">
                                 <label for="ward_id">Ward <span class="text-red">*</span></label>
                                 <select id="ward_id" class="form-control" aria-placeholder="not select" name="ward_id">
                                     <option disabled selected value="0">-- choose ward --</option>
                                     @foreach($wards as $ward)
-                                        @if ($area_detail->territory_type == TerritoryType::WARD && $area_detail->territory_id === $ward->id)
+                                        @if ($address->ward_id === $ward->id)
                                         <option value="{{ $ward->id }}" selected>{{ $ward->name_more }}</option>
                                         @else
                                         <option value="{{ $ward->id }}">{{ $ward->name_more }}</option>
@@ -150,8 +87,8 @@
                             @endforeach
                             <div class="col-lg-4 district-col district-col-city{{ $city->id }} hidden">
                                 <div class="form-group">
-                                    <label for="city_district_id2_{{ $city->id }}">District</label>
-                                    <select id="city_district_id2_{{ $city->id }}" class="form-control district_id" aria-placeholder="not select" name="district_id">
+                                    <label for="city_district_id_{{ $city->id }}">District</label>
+                                    <select id="city_district_id_{{ $city->id }}" class="form-control district_id" aria-placeholder="not select" name="district_id">
                                         <option disabled selected value="0">-- choose district --</option>
                                         @foreach($city->districts as $city_district)
                                             <option value="{{ $city_district->id }}">{{ $city_district->name_more }}</option>
@@ -162,8 +99,8 @@
                         @endforeach
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <label for="city_id_3">City</label>
-                                <select id="city_id_3" class="form-control" aria-placeholder="not select" name="city_id">
+                                <label for="city_id">City</label>
+                                <select id="city_id" class="form-control" aria-placeholder="not select" name="city_id">
                                     <option disabled selected value="0">-- choose city --</option>
                                     @foreach($cities as $city)
                                         <option value="{{ $city->id }}">{{ $city->name }}</option>
@@ -172,10 +109,9 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="author_id" value="{{ Auth::check() ? Auth::user()->id : 1 }}">
                 </div>
                 <div class="box-footer">
-                    <a href="{{ route('admin.area.detail.index', $area_id) }}" class="btn btn-default">Back</a>
+                    <a href="{{ route('admin.user.address.index', $user_id) }}" class="btn btn-default">Back</a>
                     <button class="btn btn-primary" type="submit">Save</button>
                 </div>
             </form>
@@ -185,41 +121,7 @@
 
 @push('script')
     <script>
-        const CITY_TYPE = {{ TerritoryType::CITY }}
-        const DISTRICT_TYPE = {{ TerritoryType::DISTRICT }}
-        const WARD_TYPE = {{ TerritoryType::WARD }}
         $(function() {
-            $('select#territory_type').change(function() {
-                let value = $(this).val()
-                if (value == CITY_TYPE) {
-                    $('.city-row').removeClass('hidden')
-                    $('.district-row').addClass('hidden')
-                    $('.district-row select').val(0)
-                    $('.ward-row').addClass('hidden')
-                    $('.ward-row select').val(0)
-                } else if (value == DISTRICT_TYPE) {
-                    $('.district-row').removeClass('hidden')
-                    $('.city-row').addClass('hidden')
-                    $('.city-row select').val(0)
-                    $('.ward-row').addClass('hidden')
-                    $('.ward-row select').val(0)
-                } else if (value == WARD_TYPE) {
-                    $('.ward-row').removeClass('hidden')
-                    $('.city-row').addClass('hidden')
-                    $('.city-row select').val(0)
-                    $('.district-row').addClass('hidden')
-                    $('.district-row select').val(0)
-                }
-            })
-
-            // district row
-            $('select#city_id_2').change(function() {
-                let value = $(this).val()
-                $('.district-row .district-col').addClass('hidden')
-                $('.district-row .district-col select').val(0)
-                $('.district-row .district-col-city'+value).removeClass('hidden')
-            })
-
             // ward row
             $('select#city_id_3').change(function() {
                 let value = $(this).val()

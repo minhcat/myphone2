@@ -5,6 +5,9 @@ namespace Modules\User\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\City\Repositories\CityRepository;
+use Modules\City\Repositories\DistrictRepository;
+use Modules\City\Repositories\WardRepository;
 use Modules\User\Repositories\AddressRepository;
 
 class AddressController extends Controller
@@ -12,12 +15,24 @@ class AddressController extends Controller
     /** @var \Modules\User\Repositories\AddressRepository */
     protected $addressRepository;
 
+    /** @var \Modules\City\Repositories\CityRepository */
+    protected $cityRepository;
+
+    /** @var \Modules\City\Repositories\DistrictRepository */
+    protected $districtRepository;
+
+    /** @var \Modules\City\Repositories\WardRepository */
+    protected $wardRepository;
+
     /**
      * Create a new Product controller instance.
      */
     public function __construct()
     {
         $this->addressRepository = new AddressRepository();
+        $this->cityRepository = new CityRepository();
+        $this->districtRepository = new DistrictRepository();
+        $this->wardRepository =  new WardRepository();
 
         view()->share('menu', ['group' => 'user', 'active' => 'user']);
     }
@@ -38,9 +53,18 @@ class AddressController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function create($user_id)
     {
-        return view('user::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('admin.user.address.store', $user_id),
+            'method'    => 'POST'
+        ];
+        $cities = $this->cityRepository->all();
+        $districts = $this->districtRepository->all();
+        $wards = $this->wardRepository->all();
+
+        return view('user::address.create', compact('form', 'user_id', 'cities', 'districts', 'wards'));
     }
 
     /**
@@ -48,9 +72,16 @@ class AddressController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(Request $request, $user_id)
     {
-        //
+        $request->validate([
+            'content'   => 'required',
+            'ward_id'   => 'required|numeric',
+        ]);
+
+        $this->addressRepository->create($request->all(), ['author_id' => $user_id]);
+
+        return redirect()->route('admin.user.address.index', $user_id)->with('success', __('notification.create.success', ['model' => 'address']));
     }
 
     /**
@@ -68,9 +99,19 @@ class AddressController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit($user_id, $id)
     {
-        return view('user::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('admin.user.address.update', ['user_id' => $user_id, 'id' => $id]),
+            'method'    => 'PUT'
+        ];
+        $cities = $this->cityRepository->all();
+        $districts = $this->districtRepository->all();
+        $wards = $this->wardRepository->all();
+        $address = $this->addressRepository->find($id);
+
+        return view('user::address.create', compact('form', 'address', 'user_id', 'cities', 'districts', 'wards'));
     }
 
     /**
@@ -79,9 +120,16 @@ class AddressController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $user_id, $id)
     {
-        //
+        $request->validate([
+            'content'   => 'required',
+            'ward_id'   => 'required|numeric',
+        ]);
+
+        $this->addressRepository->update($id, $request->all());
+
+        return redirect()->route('admin.user.address.index', $user_id)->with('success', __('notification.update.success', ['model' => 'address']));
     }
 
     /**

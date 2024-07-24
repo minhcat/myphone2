@@ -4,3 +4,4 @@ make factory user, product data
 change detail view to show view
 check todo comment
 delete index view not twice
+make help block require input (check user form)
