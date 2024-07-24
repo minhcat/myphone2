@@ -1,4 +1,4 @@
-@extends('user::layouts.master')
+@extends('user::user.layouts.master')
 
 @section('title-page', 'Users')
 
@@ -82,7 +82,7 @@
     </div>
 </div>
 
-@include('user::layouts.modal', [
+@include('user::user.layouts.modal', [
     'modal'             => [
         'id'            => 'modal-user-delete',
         'title'         => 'Delete User',

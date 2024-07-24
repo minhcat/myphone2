@@ -33,7 +33,7 @@ class UserController extends Controller
         $search   = $request->input('search');
         $users = $this->userRepository->paginate($search);
 
-        return view('user::index', compact('users'));
+        return view('user::user.index', compact('users'));
     }
 
     /**
@@ -50,7 +50,7 @@ class UserController extends Controller
 
         $genders = Gender::getObject();
 
-        return view('user::create', compact('form', 'genders'));
+        return view('user::user.create', compact('form', 'genders'));
     }
 
     /**
@@ -81,7 +81,7 @@ class UserController extends Controller
     {
         $user = $this->userRepository->find($id);
 
-        return view('user::detail', compact('user'));
+        return view('user::user.detail', compact('user'));
     }
 
     /**
@@ -100,7 +100,7 @@ class UserController extends Controller
         $user = $this->userRepository->find($id);
         $genders = Gender::getObject();
 
-        return view('user::edit', compact('form', 'user', 'genders'));
+        return view('user::user.edit', compact('form', 'user', 'genders'));
     }
 
     /**

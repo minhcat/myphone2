@@ -1,4 +1,4 @@
-@extends('user::layouts.master')
+@extends('user::user.layouts.master')
 
 @section('title-page', 'Users')
 
