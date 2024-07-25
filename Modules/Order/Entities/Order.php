@@ -5,6 +5,8 @@ namespace Modules\Order\Entities;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Transporter\Entities\TransporterCase;
+use Modules\User\Entities\Address;
 use Modules\User\Entities\User;
 
 class Order extends Model
@@ -35,6 +37,42 @@ class Order extends Model
     public function details()
     {
         return $this->hasMany(OrderDetail::class);
+    }
+
+    public function cases()
+    {
+        return $this->belongsToMany(TransporterCase::class);
+    }
+
+    public function addresses() 
+    {
+        return $this->belongsToMany(Address::class);
+    }
+
+    public function case() : Attribute
+    {
+        return Attribute::make(
+            get: function() {
+                $cases = $this->cases;
+                if ($cases->isEmpty()) {
+                    return null;
+                }
+                return $cases[0];
+            }
+        );
+    }
+
+    public function address() : Attribute
+    {
+        return Attribute::make(
+            get: function() {
+                $addresses = $this->addresses;
+                if ($addresses->isEmpty()) {
+                    return null;
+                }
+                return $addresses[0];
+            }
+        );
     }
 
     public function quantity() : Attribute
