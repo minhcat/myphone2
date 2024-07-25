@@ -192,5 +192,30 @@ class OrderSeeder extends Seeder
                 'quantity'      => 1,
             ],
         ]);
+
+        DB::table('order_transporter_case')->truncate();
+
+        DB::table('order_transporter_case')->insert([
+            [
+                'order_id'              => 1,
+                'transporter_case_id'   => 1,
+            ],
+            [
+                'order_id'              => 2,
+                'transporter_case_id'   => 2,
+            ],
+            [
+                'order_id'              => 3,
+                'transporter_case_id'   => 3,
+            ],
+            [
+                'order_id'              => 4,
+                'transporter_case_id'   => 4,
+            ],
+            [
+                'order_id'              => 5,
+                'transporter_case_id'   => 5,
+            ],
+        ]);
     }
 }
