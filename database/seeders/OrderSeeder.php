@@ -21,7 +21,7 @@ class OrderSeeder extends Seeder
         DB::table('orders')->insert([
             [
                 'code'                  => '#1234',
-                'user_id'               => 1,
+                'author_id'             => 1,
                 'address_id'            => 1,
                 'transporter_case_id'   => 1,
                 'status'                => OrderStatus::COMPLETED,
@@ -36,7 +36,7 @@ class OrderSeeder extends Seeder
             ],
             [
                 'code'                  => '#2345',
-                'user_id'               => 2,
+                'author_id'             => 2,
                 'address_id'            => 3,
                 'transporter_case_id'   => 1,
                 'status'                => OrderStatus::CANCELLED,
@@ -51,7 +51,7 @@ class OrderSeeder extends Seeder
             ],
             [
                 'code'                  => '#3456',
-                'user_id'               => 3,
+                'author_id'             => 3,
                 'address_id'            => 5,
                 'transporter_case_id'   => 1,
                 'status'                => OrderStatus::SHIPPING,
@@ -66,7 +66,7 @@ class OrderSeeder extends Seeder
             ],
             [
                 'code'                  => '#4567',
-                'user_id'               => 4,
+                'author_id'             => 4,
                 'address_id'            => 7,
                 'transporter_case_id'   => 1,
                 'status'                => OrderStatus::APPROVED,
@@ -81,7 +81,7 @@ class OrderSeeder extends Seeder
             ],
             [
                 'code'                  => '#5678',
-                'user_id'               => 5,
+                'author_id'             => 5,
                 'address_id'            => 9,
                 'transporter_case_id'   => 1,
                 'status'                => OrderStatus::PENDING,

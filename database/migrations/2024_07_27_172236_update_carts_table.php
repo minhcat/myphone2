@@ -13,8 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->string('transporter_case_id')->nullable()->after('address_id');
+        Schema::table('carts', function (Blueprint $table) {
             $table->renameColumn('user_id', 'author_id');
         });
     }
@@ -26,8 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn('transporter_case_id');
+        Schema::table('carts', function (Blueprint $table) {
             $table->renameColumn('author_id', 'user_id');
         });
     }

@@ -15,7 +15,7 @@ class Order extends Model
 
     protected $fillable = [
         'code',
-        'user_id',
+        'author_id',
         'address_id',
         'transporter_case_id',
         'voucher_code',
@@ -32,7 +32,7 @@ class Order extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     public function details()

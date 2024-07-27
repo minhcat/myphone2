@@ -36,16 +36,16 @@
                         <p class="px-2"><strong>Email:</strong> {{ $order->user->email }}</p>
                     </div>
                     <div class="col-lg-3">
-                        <p class="px-2"><strong>Address:</strong> 125 Phạm Văn Đồng</p>
-                        <p class="px-2"><strong>Ward:</strong> Hiệp Bình Chánh</p>
-                        <p class="px-2"><strong>District:</strong> Thủ Đức</p>
-                        <p class="px-2"><strong>City:</strong> Hồ Chí Minh</p>
+                        <p class="px-2"><strong>Address:</strong> {{ $order->address->content }}</p>
+                        <p class="px-2"><strong>Ward:</strong> {{ $order->address->ward->name }}</p>
+                        <p class="px-2"><strong>District:</strong> {{ $order->address->ward->district->name }}</p>
+                        <p class="px-2"><strong>City:</strong> {{ $order->address->ward->district->city->name }}</p>
                     </div>
                     <div class="col-lg-3">
-                        <p class="px-2"><strong>Transporter:</strong> GiaoHangNhanh</p>
-                        <p class="px-2"><strong>Quality:</strong> Best</p>
-                        <p class="px-2"><strong>Shipping Option:</strong> Quick</p>
-                        <p class="px-2"><strong>Payment Method:</strong> Cash on Delivery</p>
+                        <p class="px-2"><strong>Transporter:</strong> {{ $order->case->transporter->name }}</p>
+                        <p class="px-2"><strong>Quality:</strong> Best - todo</p>
+                        <p class="px-2"><strong>Shipping Option:</strong> {{ $order->case->name }}</p>
+                        <p class="px-2"><strong>Payment Method:</strong> Cash on Delivery - todo</p>
                     </div>
                 </div>
                 <table class="table table-bordered table-striped mt-4">
@@ -62,7 +62,7 @@
                         @foreach($order->details as $key => $detail)
                         <tr>
                             <td>{{ $key + 1 }}</td>
-                            <td>{{ $detail->product->name }}</td>
+                            <td>{{ $detail->target->name }}</td>
                             <td>{{ number_format($detail->price) }} vnđ</td>
                             <td>{{ $detail->quantity }}</td>
                             <td>{{ number_format($detail->quantity * $detail->price) }} vnđ</td>

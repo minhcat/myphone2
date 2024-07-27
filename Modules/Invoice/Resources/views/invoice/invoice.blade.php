@@ -42,10 +42,10 @@
                         <p class="px-2"><strong>City:</strong> Hồ Chí Minh</p>
                     </div>
                     <div class="col-lg-3">
-                        <p class="px-2"><strong>Transporter:</strong> GiaoHangNhanh</p>
-                        <p class="px-2"><strong>Quality:</strong> Best</p>
-                        <p class="px-2"><strong>Shipping Option:</strong> Quick</p>
-                        <p class="px-2"><strong>Payment Method:</strong> Cash on Delivery</p>
+                        <p class="px-2"><strong>Transporter:</strong> {{ $invoice->case->transporter->name }}</p>
+                        <p class="px-2"><strong>Quality:</strong> Best - todo</p>
+                        <p class="px-2"><strong>Shipping Option:</strong> {{ $invoice->case->name }}</p>
+                        <p class="px-2"><strong>Payment Method:</strong> Cash on Delivery - todo</p>
                     </div>
                 </div>
                 <table class="table table-bordered table-striped mt-4">
@@ -62,7 +62,7 @@
                         @foreach($invoice->details as $key => $detail)
                         <tr>
                             <td>{{ $key + 1 }}</td>
-                            <td>{{ $detail->product->name }}</td>
+                            <td>{{ $detail->target->name }}</td>
                             <td>{{ number_format($detail->price) }} vnđ</td>
                             <td>{{ $detail->quantity }}</td>
                             <td>{{ number_format($detail->quantity * $detail->price) }} vnđ</td>
