@@ -112,7 +112,7 @@ class CartController extends Controller
         $target_ids = [];
         $details = $request->input('details');
         foreach ($details as $target_id => $data) {
-            $target_ids[] = [$data['target_type'], $target_id];
+            $target_ids[] = [$data['target_type'], $target_id, $data['quantity']];
             if ($data['target_type'] == TargetType::VARIANT) {
                 $target = $this->variantRepository->find($target_id);
             } else {
@@ -128,7 +128,12 @@ class CartController extends Controller
         }
 
         foreach ($target_ids as $target) {
-            $this->cartDetailRepository->deleteWhere([['cart_id', $id], ['target_type', $target[0]], ['target_id', $target[1]]]);
+            $cart_detail = $this->cartDetailRepository->findWhere([['cart_id', $id], ['target_type', $target[0]], ['target_id', $target[1]]]);
+            if (isset($cart_detail) && $cart_detail->quantity == $target[2]) {
+                $this->cartDetailRepository->deleteWhere([['cart_id', $id], ['target_type', $target[0]], ['target_id', $target[1]]]);
+            } elseif (isset($cart_detail)) {
+                $this->cartDetailRepository->update($cart_detail->id, ['quantity' => $cart_detail->quantity - $target[2]]);
+            }
         }
 
         event(new CreateOrderEvent($order));

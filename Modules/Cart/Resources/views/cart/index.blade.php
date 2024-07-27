@@ -141,6 +141,26 @@
             $modal.find('span.total').data('total', total_price)
         });
 
+        $('.modal-add-order').on('change', '.products-add input.quantity', function() {
+            let id = $(this).parent().find('.btn-add').data('id');
+            let $modal = $('#modal-add-order-' + id);
+
+            let total = 0
+            let count = 0
+            $('#modal-add-order-' + id + ' .products-add input.quantity').each(function() {
+                let $btn = $(this).parent().find('.btn-add');
+                let price = parseInt($btn.data('price'));
+                let quantity = parseInt($btn.parents('.input-group').find('input').val());
+                count += quantity
+                total += (price * quantity)
+            })
+
+            $modal.find('span.quantity').text(count)
+            $modal.find('span.quantity').data('quantity', count)
+            $modal.find('span.total').text(number_format(total))
+            $modal.find('span.total').data('total', total)
+        })
+
         $('.modal-add-order .modal-footer .btn-primary').click(function() {
             let id = $(this).data('id');
             $('#modal-add-order-' + id + ' .modal-body form').submit()
