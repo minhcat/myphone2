@@ -25,4 +25,8 @@ class AddressRepository extends AbstractRepository
         }
         return $query->where($this->searchFieldName, 'LIKE', "%$search%")->paginate($take);
     }
+
+    public function getByUserId($user_id) {
+        return $this->model->where('author_id', $user_id)->orderBy($this->orderBy, $this->orderType)->get();
+    }
 }

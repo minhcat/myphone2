@@ -13,12 +13,65 @@
                 <p>Total: <span class="total">0</span></p>
                 <form action="{{ route('admin.cart.order', $cart->id) }}" method="POST">
                     @csrf
-                    <input type="hidden" name="address_id" value="1">
-                    <div class="products products-add"></div>
-                    <div class="form-group">
-                        <label for="voucher_code">Voucher</label>
-                        <input type="text" class="form-control" id="voucher_code" name="voucher_code" value="">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="voucher_code">Voucher</label>
+                                <input type="text" class="form-control" id="voucher_code" name="voucher_code" value="">
+                            </div>
+                        </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="transporter_id_{{ $cart->id }}">Transporter</label>
+                                <select class="transporter form-control" name="transporter_id" id="transporter_id_{{ $cart->id }}">
+                                    <option value="0" disabled selected>-- choose transporter --</option>
+                                    @foreach($transporters as $transporter)
+                                        <option value="{{ $transporter->id }}">{{ $transporter->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 transporter-col">
+                            <div class="form-group">
+                                <label for="transporter_case_id_{{ $cart->id }}">Case</label>
+                                <select class="form-control" name="transporter_case_id" id="transporter_case_id_{{ $cart->id }}">
+                                    <option value="0" disabled selected>-- choose case --</option>
+                                    @foreach($cases as $case)
+                                        <option value="{{ $case->id }}">{{ $case->name_more }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        @foreach($transporters as $transporter)
+                            <div class="col-lg-6 transporter-col transporter-{{ $transporter->id }} hidden">
+                                <div class="form-group">
+                                    <label for="transporter_case_id_{{ $transporter->id }}_{{ $cart->id }}">Case</label>
+                                    <select class="form-control" name="transporter_case_id" id="transporter_case_id_{{ $transporter->id }}_{{ $cart->id }}">
+                                        <option value="0" disabled selected>-- choose case --</option>
+                                        @foreach($transporter->cases as $case)
+                                            <option value="{{ $case->id }}">{{ $case->name_more }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="address_id">Address</label>
+                                <select name="address_id" id="address_id" class="form-control">
+                                    <option value="0" disabled selected>-- choose address --</option>
+                                    @foreach($cart->user->addresses as $address)
+                                        <option value="{{ $address->id }}">{{ $address->content }}, {{ $address->ward->name_more }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="products products-add"></div>
                 </form>
                 <hr>
                 <div class="products products-minus">
@@ -39,3 +92,16 @@
         </div>
     </div>
 </div>
+
+@push('script')
+    <script>
+        $(function() {
+            $('#modal-add-order-{{ $cart->id }} select.transporter').change(function() {
+                let value = $(this).val()
+                $('#modal-add-order-{{ $cart->id }} .transporter-col').addClass('hidden')
+                $('#modal-add-order-{{ $cart->id }} .transporter-col select').val(0)
+                $('#modal-add-order-{{ $cart->id }} .transporter-col.transporter-'+value).removeClass('hidden')
+            })
+        })
+    </script>
+@endpush

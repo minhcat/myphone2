@@ -27,4 +27,9 @@ class User extends Model
     {
         return $this->firstname . ' ' . $this->lastname;
     }
+
+    public function addresses()
+    {
+        return $this->hasMany(Address::class, 'author_id');
+    }
 }

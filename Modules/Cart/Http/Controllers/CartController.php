@@ -14,6 +14,9 @@ use Modules\Order\Repositories\OrderDetailRepository;
 use Modules\Order\Repositories\OrderRepository;
 use Modules\Product\Repositories\ProductRepository;
 use Modules\Product\Repositories\VariationRepository;
+use Modules\Transporter\Repositories\TransporterCaseRepository;
+use Modules\Transporter\Repositories\TransporterRepository;
+use Modules\User\Repositories\AddressRepository;
 
 class CartController extends Controller
 {
@@ -35,6 +38,12 @@ class CartController extends Controller
     /** @var \Modules\Product\Repositories\VariationRepository */
     protected $variantRepository;
 
+    /** @var \Modules\Transporter\Repositories\TransporterRepository */
+    protected $transporterRepository;
+
+    /** @var \Modules\Transporter\Repositories\TransporterCaseRepository */
+    protected $transporterCaseRepository;
+
     /**
      * Create new Cart Controller instance.
      */
@@ -46,6 +55,8 @@ class CartController extends Controller
         $this->orderDetailRepository = new OrderDetailRepository;
         $this->productRepository = new ProductRepository;
         $this->variantRepository = new VariationRepository;
+        $this->transporterRepository = new TransporterRepository;
+        $this->transporterCaseRepository = new TransporterCaseRepository;
 
         view()->share('menu', ['group' => 'invoice', 'active' => 'cart']);
     }
@@ -58,8 +69,10 @@ class CartController extends Controller
     {
         $search = $request->input('search');
         $carts  = $this->cartRepository->paginate($search);
+        $transporters = $this->transporterRepository->all();
+        $cases = $this->transporterCaseRepository->all();
 
-        return view('cart::cart.index', compact('carts'));
+        return view('cart::cart.index', compact('carts', 'transporters', 'cases'));
     }
 
     /**
@@ -88,11 +101,12 @@ class CartController extends Controller
 
         $cart = $this->cartRepository->find($id);
         $order = $this->orderRepository->create([
-            'user_id'       => $cart->user->id,
-            'address_id'    => $request->input('address_id'),
-            'voucher_code'  => $request->input('voucher_code'),
-            'status'        => OrderStatus::PENDING,
-            'note'          => $request->input('note') ?? '',
+            'user_id'               => $cart->user->id,
+            'address_id'            => $request->input('address_id'),
+            'transporter_case_id'   => $request->input('transporter_case_id'),
+            'voucher_code'          => $request->input('voucher_code'),
+            'status'                => OrderStatus::PENDING,
+            'note'                  => $request->input('note') ?? '',
         ]);
 
         $target_ids = [];

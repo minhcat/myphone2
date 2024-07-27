@@ -13,10 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('address_order', function (Blueprint $table) {
-            $table->id();
-            $table->integer('address_id')->unsigned();
-            $table->integer('order_id')->unsigned();
+        Schema::table('orders', function (Blueprint $table) {
+            $table->string('transporter_case_id')->nullable()->after('address_id');
         });
     }
 
@@ -27,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('address_order');
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropColumn('transporter_case_id');
+        });
     }
 };

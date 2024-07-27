@@ -5,3 +5,6 @@ change detail view to show view
 check todo comment
 delete index view not twice
 make help block require input (check user form)
+order table user_id not author_id
+update total cart after order (check if)
+update quantity cart modal order not change total

@@ -17,6 +17,7 @@ class Order extends Model
         'code',
         'user_id',
         'address_id',
+        'transporter_case_id',
         'voucher_code',
         'status',
         'note',
@@ -39,40 +40,14 @@ class Order extends Model
         return $this->hasMany(OrderDetail::class);
     }
 
-    public function cases()
+    public function case()
     {
-        return $this->belongsToMany(TransporterCase::class);
+        return $this->belongsTo(TransporterCase::class, 'transporter_case_id');
     }
 
-    public function addresses() 
+    public function address() 
     {
-        return $this->belongsToMany(Address::class);
-    }
-
-    public function case() : Attribute
-    {
-        return Attribute::make(
-            get: function() {
-                $cases = $this->cases;
-                if ($cases->isEmpty()) {
-                    return null;
-                }
-                return $cases[0];
-            }
-        );
-    }
-
-    public function address() : Attribute
-    {
-        return Attribute::make(
-            get: function() {
-                $addresses = $this->addresses;
-                if ($addresses->isEmpty()) {
-                    return null;
-                }
-                return $addresses[0];
-            }
-        );
+        return $this->belongsTo(Address::class);
     }
 
     public function quantity() : Attribute
