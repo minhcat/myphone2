@@ -34,7 +34,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini @yield('body-class')">
 <div class="wrapper">
 
   @include('themes.adminlte.header')
