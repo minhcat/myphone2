@@ -19,7 +19,7 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::get('/', [LoginController::class, 'index'])->name('index');
         Route::post('/', [LoginController::class, 'login'])->name('login');
         Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-        Route::get('/signup', [LoginController::class, 'signup'])->name('signup');
-        Route::post('/register', [LoginController::class, 'register'])->name('register');
+        Route::get('/register', [LoginController::class, 'register'])->name('register');
+        Route::post('/register', [LoginController::class, 'store'])->name('store');
     });
 });

@@ -1,5 +1,7 @@
 @extends('login::layouts.master')
 
+@section('title', 'MyPhone - Admin Login')
+
 @section('style')
 <link rel="stylesheet" href="{{ asset('themes/adminlte/plugins/iCheck/square/blue.css') }}">
 @endsection
@@ -17,6 +19,12 @@
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 <h4>Danger</h4>
                 <p>{{ session('danger') }}</p>
+            </div>
+        @elseif (session('success'))
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4>Success</h4>
+                <p>{{ session('success') }}</p>
             </div>
         @endif
         @if(session('errors'))
@@ -59,7 +67,7 @@
             </div>
         </form>
     
-        <a href="register.html" class="text-center">Register a new admin</a>
+        <a href="{{ route('admin.login.register') }}" class="text-center">Register a new admin</a>
   
     </div>
     <!-- /.login-box-body -->

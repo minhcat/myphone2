@@ -31,7 +31,7 @@ class UserObserver
 
         $this->cartRepository->create([
             'code'      => '#'.$code ,
-            'user_id'   => $user->id,
+            'author_id' => $user->id,
         ]);
     }
 
@@ -43,6 +43,6 @@ class UserObserver
      */
     public function deleted(User $user)
     {
-        $this->cartRepository->deleteWhere(['user_id' => $user->id]);
+        $this->cartRepository->deleteWhere(['author_id' => $user->id]);
     }
 }

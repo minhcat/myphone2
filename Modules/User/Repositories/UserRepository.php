@@ -17,6 +17,7 @@ class UserRepository extends AbstractRepository
     protected function convertDataCreate($data, $more = [])
     {
         $data['is_admin'] = isset($data['is_admin']) && $data['is_admin'] == 'on';
+        $data['password'] = bcrypt($data['password']);
 
         return parent::convertDataCreate($data, $more);
     }
