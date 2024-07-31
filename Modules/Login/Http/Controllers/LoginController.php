@@ -31,6 +31,10 @@ class LoginController extends Controller
         if (Auth::check()) {
             return redirect()->route('admin');
         }
+
+        if (!session()->has('url.intended') && url()->previous() != url()->current()) {
+            session()->flash('url.intended' , url()->previous());
+        }
         return view('login::index');
     }
 
@@ -51,9 +55,18 @@ class LoginController extends Controller
             'password'  => $credentials_with_account['password']
         ];
 
-        if (Auth::attempt($credentials_with_account)) {
-            return redirect()->route('admin')->with('success', __('notification.login.success'));
-        } elseif (Auth::attempt($credentials_with_email)) {
+        $remember = $request->input('remember') ? true : false;
+
+        $login_success = false;
+        if (Auth::attempt($credentials_with_account, $remember)) {
+            $login_success = true;
+        } elseif (Auth::attempt($credentials_with_email, $remember)) {
+            $login_success = false;
+        }
+
+        if ($login_success && session()->has('url.intended')) {
+            return redirect(session('url.intended'))->with('success', __('notification.login.success'));
+        } elseif ($login_success) {
             return redirect()->route('admin')->with('success', __('notification.login.success'));
         }
         return redirect()->back()->with('danger', 'Email/account or password is not match');
