@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\User\Http\Controllers\AddressController;
 use Modules\User\Http\Controllers\UserController;
 
-Route::prefix('admin')->name('admin.')->group(function() {
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
     Route::prefix('users')->name('user.')->group(function() {
         Route::prefix('{user_id}/addresses')->name('address.')->group(function() {
             Route::get('/', [AddressController::class, 'index'])->name('index');

@@ -14,7 +14,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Brand\Http\Controllers\BrandController;
 
-Route::prefix('admin')->name('admin.')->group(function() {
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
     Route::prefix('brands')->name('brand.')->group(function() {
         Route::get('/', [BrandController::class, 'index'])->name('index');
         Route::get('/create', [BrandController::class, 'create'])->name('create');

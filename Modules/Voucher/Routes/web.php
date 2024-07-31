@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Voucher\Http\Controllers\VoucherCodeController;
 use Modules\Voucher\Http\Controllers\VoucherController;
 
-Route::prefix('admin')->name('admin.')->group(function() {
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
     Route::prefix('vouchers')->name('voucher.')->group(function() {
         Route::prefix('/{voucher_id}/codes')->name('code.')->group(function() {
             Route::get('/', [VoucherCodeController::class, 'index'])->name('index');

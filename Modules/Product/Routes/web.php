@@ -16,7 +16,7 @@ use Modules\Product\Http\Controllers\DetailController;
 use Modules\Product\Http\Controllers\ProductController;
 use Modules\Product\Http\Controllers\VariationController;
 
-Route::prefix('admin')->name('admin.')->group(function() {
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
     Route::prefix('products')->name('product.')->group(function() {
         Route::prefix('/{product_id}/variations')->name('variation.')->group(function() {
             Route::get('/', [VariationController::class, 'index'])->name('index');

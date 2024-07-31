@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Specification\Http\Controllers\InformationController;
 use Modules\Specification\Http\Controllers\SpecificationController;
 
-Route::prefix('admin')->name('admin.')->group(function() {
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
     Route::prefix('specifications')->name('specification.')->group(function() {
         Route::prefix('/{specification_id}/informations')->name('information.')->group(function() {
             Route::get('/', [InformationController::class, 'index'])->name('index');

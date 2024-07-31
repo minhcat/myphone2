@@ -14,7 +14,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\TransportFee\Http\Controllers\TransportFeeController;
 
-Route::prefix('admin')->name('admin.')->group(function() {
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
     Route::prefix('transport_fees')->name('transport_fee.')->group(function() {
         Route::get('/', [TransportFeeController::class, 'index'])->name('index');
         Route::get('/create', [TransportFeeController::class, 'create'])->name('create');

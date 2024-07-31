@@ -16,7 +16,7 @@ use Modules\City\Http\Controllers\CityController;
 use Modules\City\Http\Controllers\DistrictController;
 use Modules\City\Http\Controllers\WardController;
 
-Route::prefix('admin')->name('admin.')->group(function() {
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
     Route::prefix('cities')->name('city.')->group(function() {
         Route::prefix('/{city_id}/districts')->name('district.')->group(function() {
             Route::prefix('/{district_id}/wards')->name('ward.')->group(function() {

@@ -19,4 +19,4 @@ Route::get('/', function () {
 
 Route::get('/admin', function () {
     return view('themes.adminlte.master');
-})->name('admin');
+})->name('admin')->middleware('auth');

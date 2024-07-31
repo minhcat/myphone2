@@ -16,7 +16,7 @@ use Modules\Gift\Http\Controllers\GiftController;
 use Modules\Gift\Http\Controllers\GiftProductController;
 use Modules\Gift\Http\Controllers\GiftProductItemController;
 
-Route::prefix('admin')->name('admin.')->group(function() {
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
     Route::prefix('gifts')->name('gift.')->group(function() {
         Route::prefix('/{gift_id}/products')->name('product.')->group(function() {
             Route::prefix('/{gift_product_id}/items')->name('item.')->group(function() {

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Transporter\Http\Controllers\TransporterCaseController;
 use Modules\Transporter\Http\Controllers\TransporterController;
 
-Route::prefix('admin')->name('admin.')->group(function() {
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
     Route::prefix('transporters')->name('transporter.')->group(function() {
         Route::prefix('{transporter_id}/cases')->name('case.')->group(function() {
             Route::get('/', [TransporterCaseController::class, 'index'])->name('index');
