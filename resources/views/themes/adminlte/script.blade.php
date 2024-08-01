@@ -38,6 +38,7 @@
 <script src="{{ asset('themes/adminlte/dist/js/pages/dashboard.js') }}"></script>
 <!-- Common script -->
 <script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/form.js') }}"></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the

@@ -28,8 +28,8 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="name">Name <span class="text-red">*</span></label>
-                                <input id="name" type="text" class="form-control" placeholder="input name" name="name" value="{{ $product->name ?? '' }}" autocomplete="phone">
-                                <span class="help-block hidden">Name is require</span>
+                                <input id="name" type="text" class="form-control input-required" placeholder="input name" name="name" value="{{ $product->name ?? '' }}" autocomplete="phone">
+                                <span class="help-block hidden require">Name is require</span>
                             </div>
                         </div>
                     </div>
@@ -37,8 +37,8 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="price">Price <span class="text-red">*</span></label>
-                                <input id="price" type="text" class="form-control" placeholder="input price" name="price" value="{{ $product->price ?? '' }}">
-                                <span class="help-block hidden">Price is require</span>
+                                <input id="price" type="text" class="form-control input-required" placeholder="input price" name="price" value="{{ $product->price ?? '' }}">
+                                <span class="help-block hidden require">Price is require</span>
                             </div>
                         </div>
                     </div>

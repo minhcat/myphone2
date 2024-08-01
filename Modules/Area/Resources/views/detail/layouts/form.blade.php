@@ -16,12 +16,14 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="territory_type">Target Type <span class="text-red">*</span></label>
-                                <select id="territory_type" class="form-control" aria-placeholder="not select" name="territory_type">
+                                <label for="territory_type">Territory Type <span class="text-red">*</span></label>
+                                <select id="territory_type" class="form-control select-required" aria-placeholder="not select" name="territory_type">
+                                    <option disabled selected value="0">-- choose territory type --</option>
                                     @foreach($territory_types as $territory_type)
                                         <option value="{{ $territory_type->code }}" {{ $area_detail->territory_type === $territory_type->code ? 'selected' : '' }}>{{ $territory_type->name }}</option>
                                     @endforeach
                                 </select>
+                                <span class="help-block require hidden">Territory type is required</span>
                             </div>
                         </div>
                     </div>
@@ -29,7 +31,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="city_id">City <span class="text-red">*</span></label>
-                                <select id="city_id" class="form-control" aria-placeholder="not select" name="city_id">
+                                <select id="city_id" class="form-control select-required" aria-placeholder="not select" name="city_id">
                                     <option disabled selected value="0">-- choose city --</option>
                                     @foreach($cities as $city)
                                         @if ($area_detail->territory_type == TerritoryType::CITY && $area_detail->territory_id === $city->id)
@@ -39,6 +41,7 @@
                                         @endif
                                     @endforeach
                                 </select>
+                                <span class="help-block require hidden">City is required</span>
                             </div>
                         </div>
                     </div>
@@ -46,7 +49,7 @@
                         <div class="col-lg-6 district-col">
                             <div class="form-group">
                                 <label for="district_id">District <span class="text-red">*</span></label>
-                                <select id="district_id" class="form-control" aria-placeholder="not select" name="district_id">
+                                <select id="district_id" class="form-control select-required" aria-placeholder="not select" name="district_id">
                                     <option disabled selected value="0">-- choose district --</option>
                                     @foreach($districts as $district)
                                         @if ($area_detail->territory_type == TerritoryType::DISTRICT && $area_detail->territory_id === $district->id)
@@ -56,18 +59,20 @@
                                         @endif
                                     @endforeach
                                 </select>
+                                <span class="help-block require hidden">District is required</span>
                             </div>
                         </div>
                         @foreach($cities as $city)
                             <div class="col-lg-6 district-col district-city-col district-col-city{{ $city->id }} hidden">
                                 <div class="form-group">
                                     <label for="city_district_id_{{ $city->id }}">District <span class="text-red">*</span></label>
-                                    <select id="city_district_id_{{ $city->id }}" class="form-control" aria-placeholder="not select" name="district_id">
+                                    <select id="city_district_id_{{ $city->id }}" class="form-control select-required" aria-placeholder="not select" name="district_id">
                                         <option disabled selected value="0">-- choose district --</option>
                                         @foreach($city->districts as $city_district)
                                             <option value="{{ $city_district->id }}">{{ $city_district->name_more }}</option>
                                         @endforeach
                                     </select>
+                                    <span class="help-block require hidden">District is required</span>
                                 </div>
                             </div>
                         @endforeach
@@ -87,7 +92,7 @@
                         <div class="col-lg-4 ward-col">
                             <div class="form-group">
                                 <label for="ward_id">Ward <span class="text-red">*</span></label>
-                                <select id="ward_id" class="form-control" aria-placeholder="not select" name="ward_id">
+                                <select id="ward_id" class="form-control select-required" aria-placeholder="not select" name="ward_id">
                                     <option disabled selected value="0">-- choose ward --</option>
                                     @foreach($wards as $ward)
                                         @if ($area_detail->territory_type == TerritoryType::WARD && $area_detail->territory_id === $ward->id)
@@ -97,18 +102,20 @@
                                         @endif
                                     @endforeach
                                 </select>
+                                <span class="help-block require hidden">Ward is required</span>
                             </div>
                         </div>
                         @foreach($districts as $district)
                             <div class="col-lg-4 ward-col ward-district-col ward-col-district{{ $district->id }} hidden">
                                 <div class="form-group">
                                     <label for="district_ward_id_{{ $district->id }}">Ward <span class="text-red">*</span></label>
-                                    <select id="district_ward_id_{{ $district->id }}" class="form-control" aria-placeholder="not select" name="ward_id">
+                                    <select id="district_ward_id_{{ $district->id }}" class="form-control select-required" aria-placeholder="not select" name="ward_id">
                                         <option disabled selected value="0">-- choose ward --</option>
                                         @foreach($district->wards as $district_ward)
                                             <option value="{{ $district_ward->id }}">{{ $district_ward->name_more }}</option>
                                         @endforeach
                                     </select>
+                                    <span class="help-block require hidden">Ward is required</span>
                                 </div>
                             </div>
                         @endforeach
@@ -127,24 +134,26 @@
                             <div class="col-lg-4 ward-col ward-col-city{{ $city->id }} hidden">
                                 <div class="form-group">
                                     <label for="city_ward_id_{{ $city->id }}">Ward <span class="text-red">*</span></label>
-                                    <select id="city_ward_id_{{ $city->id }}" class="form-control" aria-placeholder="not select" name="ward_id">
+                                    <select id="city_ward_id_{{ $city->id }}" class="form-control select-required" aria-placeholder="not select" name="ward_id">
                                         <option disabled selected value="0">-- choose ward --</option>
                                         @foreach($city->wards as $city_ward)
                                             <option value="{{ $city_ward->id }}">{{ $city_ward->name_more }}</option>
                                         @endforeach
                                     </select>
+                                    <span class="help-block require hidden">Ward is required</span>
                                 </div>
                             </div>
                             @foreach($city->districts as $city_district)
                                 <div class="col-lg-4 ward-col ward-district-city-col ward-col-city{{ $city->id }} ward-col-district{{ $city_district->id }} hidden">
                                     <div class="form-group">
                                         <label for="city_district_ward_id_{{ $city_district->id }}">Ward <span class="text-red">*</span></label>
-                                        <select id="city_district_ward_id_{{ $city_district->id }}" class="form-control" aria-placeholder="not select" name="ward_id">
+                                        <select id="city_district_ward_id_{{ $city_district->id }}" class="form-control select-required" aria-placeholder="not select" name="ward_id">
                                             <option disabled selected value="0">-- choose ward --</option>
                                             @foreach($city_district->wards as $city_district_ward)
                                                 <option value="{{ $city_district_ward->id }}">{{ $city_district_ward->name }}</option>
                                             @endforeach
                                         </select>
+                                        <span class="help-block require hidden">Ward is required</span>
                                     </div>
                                 </div>
                             @endforeach

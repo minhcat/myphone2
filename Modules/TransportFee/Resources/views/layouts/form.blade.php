@@ -17,7 +17,8 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="name">Name <span class="text-red">*</span></label>
-                                <input id="name" type="text" class="form-control" name="name" value="{{ $transport_fee->name }}" autocomplete="name">
+                                <input id="name" type="text" class="form-control input-required" name="name" value="{{ $transport_fee->name }}" autocomplete="name">
+                                <span class="help-block require hidden">Name is required</span>
                             </div>
                         </div>
                     </div>
@@ -33,12 +34,13 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="area_id">Area <span class="text-red">*</span></label>
-                                <select class="form-control" name="area_id" id="area_id">
+                                <select class="form-control select-required" name="area_id" id="area_id">
                                     <option value="0" disabled selected>-- choose area --</option>
                                     @foreach($areas as $area)
                                         <option value="{{ $area->id }}" {{ $transport_fee->area_id === $area->id ? 'selected' : '' }}>{{ $area->name }}</option>
                                     @endforeach
                                 </select>
+                                <span class="help-block require hidden">Area is required</span>
                             </div>
                         </div>
                     </div>
@@ -46,24 +48,26 @@
                         <div class="col-lg-6 case-col">
                             <div class="form-group">
                                 <label for="transporter_case_id">Transporter Case <span class="text-red">*</span></label>
-                                <select class="form-control" name="transporter_case_id" id="transporter_case_id">
+                                <select class="form-control select-required" name="transporter_case_id" id="transporter_case_id">
                                     <option value="0" disabled selected>-- choose case --</option>
                                     @foreach($transporter_cases as $transporter_case)
                                         <option value="{{ $transporter_case->id }}" {{ $transport_fee->transporter_case_id === $transporter_case->id ? 'selected' : '' }}>{{ $transporter_case->name_more }}</option>
                                     @endforeach
                                 </select>
+                                <span class="help-block require hidden">Transporter case is required</span>
                             </div>
                         </div>
                         @foreach($transporters as $transporter)
                             <div class="col-lg-6 case-col transporter-{{ $transporter->id }} hidden">
                                 <div class="form-group">
                                     <label for="transporter_case_id">Transporter Case <span class="text-red">*</span></label>
-                                    <select class="form-control" name="transporter_case_id" id="transporter_case_id">
+                                    <select class="form-control select-required" name="transporter_case_id" id="transporter_case_id">
                                         <option value="0" disabled selected>-- choose case --</option>
                                         @foreach($transporter->cases as $transporter_case2)
                                             <option value="{{ $transporter_case2->id }}" {{ $transport_fee->transporter_case_id === $transporter_case2->id ? 'selected' : '' }}>{{ $transporter_case2->name_more }}</option>
                                         @endforeach
                                     </select>
+                                    <span class="help-block require hidden">Transporter case is required</span>
                                 </div>
                             </div>
                         @endforeach
@@ -121,7 +125,8 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="cost">Cost <span class="text-red">*</span></label>
-                                <input type="number" id="cost" class="form-control" name="cost" value="{{ $transport_fee->cost }}">
+                                <input type="number" id="cost" class="form-control input-required" name="cost" value="{{ $transport_fee->cost }}">
+                                <span class="help-block require hidden">Cost is required</span>
                             </div>
                         </div>
                     </div>

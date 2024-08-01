@@ -17,7 +17,8 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="code">Code <span class="text-red">*</span></label>
-                                <input id="code" type="text" class="form-control" name="code" value="{{ $voucher_code->code }}" autocomplete="code">
+                                <input id="code" type="text" class="form-control input-required" name="code" value="{{ $voucher_code->code }}" autocomplete="code">
+                                <span class="help-block require hidden">Code is require</span>
                             </div>
                         </div>
                     </div>

@@ -15,8 +15,8 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Account <span class="text-red">*</span></label>
-                                <input type="text" class="form-control" placeholder="input account" name="account" value="{{ $user->account }}">
-                                <span class="help-block hidden">Account is require</span>
+                                <input type="text" class="form-control input-required" placeholder="input account" name="account" value="{{ $user->account }}">
+                                <span class="help-block require hidden">Account is require</span>
                             </div>
                         </div>
                     </div>
@@ -24,7 +24,9 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Email <span class="text-red">*</span></label>
-                                <input type="text" class="form-control" placeholder="input email" name="email" value="{{ $user->email }}">
+                                <input type="text" class="form-control input-required input-email" placeholder="input email" name="email" value="{{ $user->email }}">
+                                <span class="help-block require hidden">Email is require</span>
+                                <span class="help-block email hidden">Email is invalid</span>
                             </div>
                         </div>
                     </div>
@@ -32,17 +34,17 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Firstname <span class="text-red">*</span></label>
-                                <input type="text" class="form-control" placeholder="input firstname" name="firstname" value="{{ $user->firstname }}">
-                                <span class="help-block hidden">Firstname is require</span>
+                                <input id="firstname" type="text" class="form-control input-required" placeholder="input firstname" name="firstname" value="{{ $user->firstname }}">
+                                <span class="help-block require hidden">Firstname is require</span>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="">Lastname <span class="text-red">*</span></label>
-                                <input type="text" class="form-control" placeholder="input lastname" name="lastname" value="{{ $user->lastname }}">
-                                <span class="help-block hidden">Lastname is require</span>
+                                <label for="lastname">Lastname <span class="text-red">*</span></label>
+                                <input id="lastname" type="text" class="form-control input-required" placeholder="input lastname" name="lastname" value="{{ $user->lastname }}">
+                                <span class="help-block require hidden">Lastname is require</span>
                             </div>
                         </div>
                     </div>

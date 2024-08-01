@@ -17,7 +17,8 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Value <span class="text-red">*</span></label>
-                                <input type="text" class="form-control" name="value" value="{{ $information->value }}">
+                                <input type="text" class="form-control input-required" name="value" value="{{ $information->value }}">
+                                <span class="help-block require hidden">Value is required</span>
                             </div>
                         </div>
                     </div>

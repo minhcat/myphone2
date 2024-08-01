@@ -25,7 +25,8 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="attribute">Price <span class="text-red">*</span></label>
-                                <input id="attribute" type="number" class="form-control" name="price" value="{{ $variation->price }}">
+                                <input id="attribute" type="number" class="form-control input-required" name="price" value="{{ $variation->price }}">
+                                <span class="help-block require hidden">Price is required</span>
                             </div>
                         </div>
                     </div>

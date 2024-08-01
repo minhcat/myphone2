@@ -17,7 +17,7 @@
                         <div class="col-lg-6 product-col {{ $detail->target_type !== TargetType::PRODUCT && $form['title'] === 'Edit' ? 'hidden' : '' }}">
                             <div class="form-group">
                                 <label for="target_id">Product <span class="text-red">*</span></label>
-                                <select id="target_id" class="form-control" aria-placeholder="not select" name="target_id">
+                                <select id="target_id" class="form-control select-required" aria-placeholder="not select" name="target_id">
                                     <option disabled selected data-price="0">-- choose product --</option>
                                     @foreach($products as $product)
                                         @if ($detail->target_type === TargetType::PRODUCT)
@@ -27,12 +27,13 @@
                                         @endif
                                     @endforeach
                                 </select>
+                                <span class="help-block require hidden">Product is required</span>
                             </div>
                         </div>
                         <div class="col-lg-6 variant-col {{ $detail->target_type !== TargetType::VARIANT ? 'hidden' : '' }}">
                             <div class="form-group">
                                 <label for="target_id">Variant <span class="text-red">*</span></label>
-                                <select id="target_id" class="form-control" aria-placeholder="not select" name="target_id">
+                                <select id="target_id" class="form-control select-required" aria-placeholder="not select" name="target_id">
                                     <option disabled selected data-price="0">-- choose variant --</option>
                                     @foreach($variants as $variant)
                                         @if ($detail->target_type === TargetType::VARIANT)
@@ -42,11 +43,12 @@
                                         @endif
                                     @endforeach
                                 </select>
+                                <span class="help-block require hidden">Variant is required</span>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="target_type">Target Type <span class="text-red">*</span></label>
+                                <label for="target_type">Target Type</label>
                                 <select id="target_type" class="form-control" aria-placeholder="not select" name="target_type">
                                     @foreach($target_types as $target_type)
                                         <option value="{{ $target_type->code }}" {{ $detail->target_type === $target_type->code ? 'selected' : '' }}>{{ $target_type->name }}</option>

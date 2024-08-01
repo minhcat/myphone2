@@ -15,8 +15,8 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="content">Content <span class="text-red">*</span></label>
-                                <input type="text" class="form-control" placeholder="input content" name="content" value="{{ $address->content }}">
-                                <span class="help-block hidden">Content is require</span>
+                                <input type="text" class="form-control input-required" placeholder="input content" name="content" value="{{ $address->content }}">
+                                <span class="help-block require hidden">Content is require</span>
                             </div>
                         </div>
                     </div>
@@ -24,7 +24,7 @@
                         <div class="col-lg-4 ward-col">
                             <div class="form-group">
                                 <label for="ward_id">Ward <span class="text-red">*</span></label>
-                                <select id="ward_id" class="form-control" aria-placeholder="not select" name="ward_id">
+                                <select id="ward_id" class="form-control select-required" aria-placeholder="not select" name="ward_id">
                                     <option disabled selected value="0">-- choose ward --</option>
                                     @foreach($wards as $ward)
                                         @if ($address->ward_id === $ward->id)
@@ -34,18 +34,20 @@
                                         @endif
                                     @endforeach
                                 </select>
+                                <span class="help-block require hidden">Ward is required</span>
                             </div>
                         </div>
                         @foreach($districts as $district)
                             <div class="col-lg-4 ward-col ward-district-col ward-col-district{{ $district->id }} hidden">
                                 <div class="form-group">
                                     <label for="district_ward_id_{{ $district->id }}">Ward <span class="text-red">*</span></label>
-                                    <select id="district_ward_id_{{ $district->id }}" class="form-control" aria-placeholder="not select" name="ward_id">
+                                    <select id="district_ward_id_{{ $district->id }}" class="form-control select-required" aria-placeholder="not select" name="ward_id">
                                         <option disabled selected value="0">-- choose ward --</option>
                                         @foreach($district->wards as $district_ward)
                                             <option value="{{ $district_ward->id }}">{{ $district_ward->name_more }}</option>
                                         @endforeach
                                     </select>
+                                    <span class="help-block require hidden">Ward is required</span>
                                 </div>
                             </div>
                         @endforeach
@@ -64,24 +66,26 @@
                             <div class="col-lg-4 ward-col ward-col-city{{ $city->id }} hidden">
                                 <div class="form-group">
                                     <label for="city_ward_id_{{ $city->id }}">Ward <span class="text-red">*</span></label>
-                                    <select id="city_ward_id_{{ $city->id }}" class="form-control" aria-placeholder="not select" name="ward_id">
+                                    <select id="city_ward_id_{{ $city->id }}" class="form-control select-required" aria-placeholder="not select" name="ward_id">
                                         <option disabled selected value="0">-- choose ward --</option>
                                         @foreach($city->wards as $city_ward)
                                             <option value="{{ $city_ward->id }}">{{ $city_ward->name_more }}</option>
                                         @endforeach
                                     </select>
+                                    <span class="help-block require hidden">Ward is required</span>
                                 </div>
                             </div>
                             @foreach($city->districts as $city_district)
                                 <div class="col-lg-4 ward-col ward-district-city-col ward-col-city{{ $city->id }} ward-col-district{{ $city_district->id }} hidden">
                                     <div class="form-group">
                                         <label for="city_district_ward_id_{{ $city_district->id }}">Ward <span class="text-red">*</span></label>
-                                        <select id="city_district_ward_id_{{ $city_district->id }}" class="form-control" aria-placeholder="not select" name="ward_id">
+                                        <select id="city_district_ward_id_{{ $city_district->id }}" class="form-control select-required" aria-placeholder="not select" name="ward_id">
                                             <option disabled selected value="0">-- choose ward --</option>
                                             @foreach($city_district->wards as $city_district_ward)
                                                 <option value="{{ $city_district_ward->id }}">{{ $city_district_ward->name }}</option>
                                             @endforeach
                                         </select>
+                                        <span class="help-block require hidden">Ward is required</span>
                                     </div>
                                 </div>
                             @endforeach
@@ -123,7 +127,7 @@
     <script>
         $(function() {
             // ward row
-            $('select#city_id_3').change(function() {
+            $('select#city_id').change(function() {
                 let value = $(this).val()
                 $('.ward-row .district-col').addClass('hidden')
                 $('.ward-row .ward-col').addClass('hidden')
