@@ -74,7 +74,7 @@ class InformationController extends Controller
     {
         $information = $this->informationRepository->find($id);
 
-        return view('specification::information.detail', compact('information', 'specification_id'));
+        return view('specification::information.show', compact('information', 'specification_id'));
     }
 
     /**

@@ -74,7 +74,7 @@ class CityController extends Controller
     {
         $city = $this->cityRepository->find($id);
 
-        return view('city::city.detail', compact('city'));
+        return view('city::city.show', compact('city'));
     }
 
     /**

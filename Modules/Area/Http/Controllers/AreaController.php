@@ -74,7 +74,7 @@ class AreaController extends Controller
     {
         $area = $this->areaRepository->find($id);
 
-        return view('area::area.detail', compact('area'));
+        return view('area::area.show', compact('area'));
     }
 
     /**

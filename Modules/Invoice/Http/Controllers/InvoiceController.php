@@ -43,7 +43,7 @@ class InvoiceController extends Controller
     {
         $invoice = $this->invoiceRepository->find($id);
 
-        return view('invoice::invoice.detail', compact('invoice'));
+        return view('invoice::invoice.show', compact('invoice'));
     }
 
     /**

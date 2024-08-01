@@ -43,7 +43,7 @@ class OrderController extends Controller
     {
         $order = $this->orderRepository->find($id);
 
-        return view('order::order.detail', compact('order'));
+        return view('order::order.show', compact('order'));
     }
 
     /**

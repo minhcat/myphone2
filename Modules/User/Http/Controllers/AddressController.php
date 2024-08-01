@@ -93,7 +93,7 @@ class AddressController extends Controller
     {
         $address = $this->addressRepository->find($id);
 
-        return view('user::address.detail', compact('address', 'user_id'));
+        return view('user::address.show', compact('address', 'user_id'));
     }
 
     /**

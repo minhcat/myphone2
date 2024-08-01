@@ -92,7 +92,7 @@ class VariationController extends Controller
 
         $attributes = $this->attributeRepository->all();
 
-        return view('product::variation.detail', compact('variation', 'attributes', 'product_id'));
+        return view('product::variation.show', compact('variation', 'attributes', 'product_id'));
     }
 
     /**

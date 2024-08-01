@@ -84,7 +84,7 @@ class CartController extends Controller
     {
         $cart = $this->cartRepository->find($id);
 
-        return view('cart::cart.detail', compact('cart'));
+        return view('cart::cart.show', compact('cart'));
     }
 
     /**

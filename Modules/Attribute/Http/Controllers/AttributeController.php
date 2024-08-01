@@ -2,7 +2,6 @@
 
 namespace Modules\Attribute\Http\Controllers;
 
-use App\Repositories\AbstractRepository;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -80,7 +79,7 @@ class AttributeController extends Controller
     {
         $attribute = $this->attributeRepository->find($id);
 
-        return view('attribute::attribute.detail', compact('attribute'));
+        return view('attribute::attribute.show', compact('attribute'));
     }
 
     /**

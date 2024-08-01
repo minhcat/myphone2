@@ -81,7 +81,7 @@ class VoucherCodeController extends Controller
     {
         $voucher_code = $this->voucherCodeRepository->find($id);
 
-        return view('voucher::code.detail', compact('voucher_code', 'voucher_id'));
+        return view('voucher::code.show', compact('voucher_code', 'voucher_id'));
     }
 
     /**

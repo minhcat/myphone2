@@ -71,8 +71,8 @@
                 </div>
             </div>
             <div class="box-footer">
-                <a href="{{ route('product.variation.index', $product_id) }}" class="btn btn-default">Back</a>
-                <a href="{{ route('product.variation.edit', ['product_id' => $product_id, 'id' => $variation->id]) }}" class="btn btn-primary">Edit</a>
+                <a href="{{ route('admin.product.variation.index', $product_id) }}" class="btn btn-default">Back</a>
+                <a href="{{ route('admin.product.variation.edit', ['product_id' => $product_id, 'id' => $variation->id]) }}" class="btn btn-primary">Edit</a>
             </div>
         </div>
     </div>

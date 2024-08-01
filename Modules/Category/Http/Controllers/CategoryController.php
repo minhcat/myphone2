@@ -74,7 +74,7 @@ class CategoryController extends Controller
     {
         $category = $this->categoryRepository->find($id);
 
-        return view('category::detail', compact('category'));
+        return view('category::show', compact('category'));
     }
 
     /**

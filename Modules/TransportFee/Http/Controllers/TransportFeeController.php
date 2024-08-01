@@ -102,7 +102,7 @@ class TransportFeeController extends Controller
     {
         $transport_fee = $this->transportFeeRepository->find($id);
 
-        return view('transportfee::detail', compact('transport_fee'));
+        return view('transportfee::show', compact('transport_fee'));
     }
 
     /**

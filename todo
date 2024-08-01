@@ -1,10 +1,8 @@
 handle search with detail list paginate (not code) has relation name
 add country brand to setting
 make factory user, product data
-change detail view to show view
 check todo comment
 delete index view not twice
-make help block require input (check user form)
 add back button in child index view (check option index)
 check input author_id with Auth id
 remove {{-- --}} if has

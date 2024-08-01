@@ -81,7 +81,7 @@ class UserController extends Controller
     {
         $user = $this->userRepository->find($id);
 
-        return view('user::user.detail', compact('user'));
+        return view('user::user.show', compact('user'));
     }
 
     /**

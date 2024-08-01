@@ -74,7 +74,7 @@ class SpecificationController extends Controller
     {
         $specification = $this->specificationRepository->find($id);
 
-        return view('specification::specification.detail', compact('specification'));
+        return view('specification::specification.show', compact('specification'));
     }
 
     /**

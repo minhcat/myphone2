@@ -79,7 +79,7 @@ class SaleController extends Controller
     {
         $sale = $this->saleRepository->find($id);
 
-        return view('sale::sale.detail', compact('sale'));
+        return view('sale::sale.show', compact('sale'));
     }
 
     /**

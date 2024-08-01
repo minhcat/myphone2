@@ -2,7 +2,6 @@
 
 namespace Modules\Attribute\Http\Controllers;
 
-use App\Repositories\AbstractRepository;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -75,7 +74,7 @@ class OptionController extends Controller
     {
         $option = $this->optionRepository->find($id);
 
-        return view('attribute::option.detail', compact('option', 'attribute_id'));
+        return view('attribute::option.show', compact('option', 'attribute_id'));
     }
 
     /**

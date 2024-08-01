@@ -74,7 +74,7 @@ class TagController extends Controller
     {
         $tag = $this->tagRepository->find($id);
 
-        return view('tag::detail', compact('tag'));
+        return view('tag::show', compact('tag'));
     }
 
     /**

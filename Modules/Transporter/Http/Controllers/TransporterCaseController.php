@@ -78,7 +78,7 @@ class TransporterCaseController extends Controller
     {
         $transporter_case = $this->transporterCaseRepository->find($id);
 
-        return view('transporter::case.detail', compact('transporter_case', 'transporter_id'));
+        return view('transporter::case.show', compact('transporter_case', 'transporter_id'));
     }
 
     /**

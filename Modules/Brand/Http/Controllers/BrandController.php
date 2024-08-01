@@ -74,7 +74,7 @@ class BrandController extends Controller
     {
         $brand = $this->brandRepository->find($id);
 
-        return view('brand::detail', compact('brand'));
+        return view('brand::show', compact('brand'));
     }
 
     /**

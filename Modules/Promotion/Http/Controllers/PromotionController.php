@@ -81,7 +81,7 @@ class PromotionController extends Controller
     {
         $promotion = $this->promotionRepository->find($id);
 
-        return view('promotion::detail', compact('promotion'));
+        return view('promotion::show', compact('promotion'));
     }
 
     /**

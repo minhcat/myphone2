@@ -79,7 +79,7 @@ class VoucherController extends Controller
     {
         $voucher = $this->voucherRepository->find($id);
 
-        return view('voucher::voucher.detail', compact('voucher'));
+        return view('voucher::voucher.show', compact('voucher'));
     }
 
     /**

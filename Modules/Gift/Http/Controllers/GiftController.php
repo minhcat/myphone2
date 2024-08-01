@@ -75,7 +75,7 @@ class GiftController extends Controller
     {
         $gift = $this->giftRepository->find($id);
 
-        return view('gift::gift.detail', compact('gift'));
+        return view('gift::gift.show', compact('gift'));
     }
 
     /**

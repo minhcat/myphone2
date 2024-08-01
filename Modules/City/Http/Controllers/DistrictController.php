@@ -74,7 +74,7 @@ class DistrictController extends Controller
     {
         $district = $this->districtRepository->find($id);
 
-        return view('city::district.detail', compact('district', 'city_id'));
+        return view('city::district.show', compact('district', 'city_id'));
     }
 
     /**

@@ -76,7 +76,7 @@ class WardController extends Controller
     {
         $ward = $this->wardRepository->find($id);
 
-        return view('city::ward.detail', compact('city_id', 'district_id', 'ward'));
+        return view('city::ward.show', compact('city_id', 'district_id', 'ward'));
     }
 
     /**
