@@ -18,7 +18,6 @@ return new class extends Migration
             $table->integer('transport_fee_area_id')->unsigned();
             $table->integer('transporter_case_id')->unsigned();
             $table->integer('author_id')->unsigned();
-            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

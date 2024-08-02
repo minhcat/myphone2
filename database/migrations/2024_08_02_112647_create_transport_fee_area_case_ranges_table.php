@@ -23,7 +23,6 @@ return new class extends Migration
             $table->integer('total_range_top')->unsigned()->nullable();
             $table->integer('author_id')->unsigned();
             $table->integer('cost');
-            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

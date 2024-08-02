@@ -48,7 +48,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_id'          => 1,
                 'area_id'                   => 4,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -56,7 +55,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_id'          => 1,
                 'area_id'                   => 5,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -64,7 +62,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_id'          => 1,
                 'area_id'                   => 6,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -72,7 +69,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_id'          => 2,
                 'area_id'                   => 4,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -80,7 +76,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_id'          => 2,
                 'area_id'                   => 5,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -88,7 +83,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_id'          => 2,
                 'area_id'                   => 6,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -96,7 +90,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_id'          => 3,
                 'area_id'                   => 4,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -104,7 +97,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_id'          => 3,
                 'area_id'                   => 5,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -112,7 +104,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_id'          => 3,
                 'area_id'                   => 6,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -125,7 +116,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_area_id'     => 1,
                 'transporter_case_id'       => 6,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -133,7 +123,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_area_id'     => 1,
                 'transporter_case_id'       => 7,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -141,7 +130,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_area_id'     => 2,
                 'transporter_case_id'       => 6,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -149,7 +137,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_area_id'     => 2,
                 'transporter_case_id'       => 7,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -157,7 +144,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_area_id'     => 3,
                 'transporter_case_id'       => 6,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -165,7 +151,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_area_id'     => 3,
                 'transporter_case_id'       => 7,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -173,7 +158,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_area_id'     => 4,
                 'transporter_case_id'       => 6,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -181,7 +165,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_area_id'     => 4,
                 'transporter_case_id'       => 7,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -189,7 +172,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_area_id'     => 5,
                 'transporter_case_id'       => 6,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -197,7 +179,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_area_id'     => 5,
                 'transporter_case_id'       => 7,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -205,7 +186,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_area_id'     => 6,
                 'transporter_case_id'       => 6,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -213,7 +193,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_area_id'     => 6,
                 'transporter_case_id'       => 7,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -221,7 +200,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_area_id'     => 7,
                 'transporter_case_id'       => 6,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -229,7 +207,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_area_id'     => 7,
                 'transporter_case_id'       => 7,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -237,7 +214,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_area_id'     => 8,
                 'transporter_case_id'       => 6,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -245,7 +221,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_area_id'     => 8,
                 'transporter_case_id'       => 7,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -253,7 +228,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_area_id'     => 9,
                 'transporter_case_id'       => 6,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -261,7 +235,6 @@ class TransportFeeSeeder extends Seeder
             [
                 'transport_fee_area_id'     => 9,
                 'transporter_case_id'       => 7,
-                'description'               => Lorem::paragraph(3),
                 'author_id'                 => 1,
                 'created_at'                => now()->format('Y-m-d H:i:s'),
                 'updated_at'                => now()->format('Y-m-d H:i:s'),
@@ -278,7 +251,6 @@ class TransportFeeSeeder extends Seeder
                 'total_range_top_type'          => TotalRangeType::NOT_EQUAL,
                 'total_range_top'               => 5000000,
                 'cost'                          => 86000,
-                'description'                   => Lorem::paragraph(3),
                 'author_id'                     => 1,
                 'created_at'                    => now()->format('Y-m-d H:i:s'),
                 'updated_at'                    => now()->format('Y-m-d H:i:s'),
@@ -290,7 +262,6 @@ class TransportFeeSeeder extends Seeder
                 'total_range_top_type'          => TotalRangeType::NOT_EQUAL,
                 'total_range_top'               => 15000000,
                 'cost'                          => 46000,
-                'description'                   => Lorem::paragraph(3),
                 'author_id'                     => 1,
                 'created_at'                    => now()->format('Y-m-d H:i:s'),
                 'updated_at'                    => now()->format('Y-m-d H:i:s'),
@@ -302,7 +273,6 @@ class TransportFeeSeeder extends Seeder
                 'total_range_top_type'          => TotalRangeType::NOT_EQUAL,
                 'total_range_top'               => null,
                 'cost'                          => 26000,
-                'description'                   => Lorem::paragraph(3),
                 'author_id'                     => 1,
                 'created_at'                    => now()->format('Y-m-d H:i:s'),
                 'updated_at'                    => now()->format('Y-m-d H:i:s'),
@@ -314,7 +284,6 @@ class TransportFeeSeeder extends Seeder
                 'total_range_top_type'          => TotalRangeType::NOT_EQUAL,
                 'total_range_top'               => 5000000,
                 'cost'                          => 145000,
-                'description'                   => Lorem::paragraph(3),
                 'author_id'                     => 1,
                 'created_at'                    => now()->format('Y-m-d H:i:s'),
                 'updated_at'                    => now()->format('Y-m-d H:i:s'),
@@ -326,7 +295,6 @@ class TransportFeeSeeder extends Seeder
                 'total_range_top_type'          => TotalRangeType::NOT_EQUAL,
                 'total_range_top'               => 15000000,
                 'cost'                          => 85000,
-                'description'                   => Lorem::paragraph(3),
                 'author_id'                     => 1,
                 'created_at'                    => now()->format('Y-m-d H:i:s'),
                 'updated_at'                    => now()->format('Y-m-d H:i:s'),
@@ -338,7 +306,6 @@ class TransportFeeSeeder extends Seeder
                 'total_range_top_type'          => TotalRangeType::NOT_EQUAL,
                 'total_range_top'               => null,
                 'cost'                          => 45000,
-                'description'                   => Lorem::paragraph(3),
                 'author_id'                     => 1,
                 'created_at'                    => now()->format('Y-m-d H:i:s'),
                 'updated_at'                    => now()->format('Y-m-d H:i:s'),
@@ -350,7 +317,6 @@ class TransportFeeSeeder extends Seeder
                 'total_range_top_type'          => TotalRangeType::NOT_EQUAL,
                 'total_range_top'               => 5000000,
                 'cost'                          => 44000,
-                'description'                   => Lorem::paragraph(3),
                 'author_id'                     => 1,
                 'created_at'                    => now()->format('Y-m-d H:i:s'),
                 'updated_at'                    => now()->format('Y-m-d H:i:s'),
@@ -362,7 +328,6 @@ class TransportFeeSeeder extends Seeder
                 'total_range_top_type'          => TotalRangeType::NOT_EQUAL,
                 'total_range_top'               => 15000000,
                 'cost'                          => 24000,
-                'description'                   => Lorem::paragraph(3),
                 'author_id'                     => 1,
                 'created_at'                    => now()->format('Y-m-d H:i:s'),
                 'updated_at'                    => now()->format('Y-m-d H:i:s'),
@@ -374,7 +339,6 @@ class TransportFeeSeeder extends Seeder
                 'total_range_top_type'          => TotalRangeType::NOT_EQUAL,
                 'total_range_top'               => null,
                 'cost'                          => 14000,
-                'description'                   => Lorem::paragraph(3),
                 'author_id'                     => 1,
                 'created_at'                    => now()->format('Y-m-d H:i:s'),
                 'updated_at'                    => now()->format('Y-m-d H:i:s'),
@@ -386,7 +350,6 @@ class TransportFeeSeeder extends Seeder
                 'total_range_top_type'          => TotalRangeType::NOT_EQUAL,
                 'total_range_top'               => 5000000,
                 'cost'                          => 83000,
-                'description'                   => Lorem::paragraph(3),
                 'author_id'                     => 1,
                 'created_at'                    => now()->format('Y-m-d H:i:s'),
                 'updated_at'                    => now()->format('Y-m-d H:i:s'),
@@ -398,7 +361,6 @@ class TransportFeeSeeder extends Seeder
                 'total_range_top_type'          => TotalRangeType::NOT_EQUAL,
                 'total_range_top'               => 15000000,
                 'cost'                          => 43000,
-                'description'                   => Lorem::paragraph(3),
                 'author_id'                     => 1,
                 'created_at'                    => now()->format('Y-m-d H:i:s'),
                 'updated_at'                    => now()->format('Y-m-d H:i:s'),
@@ -410,7 +372,6 @@ class TransportFeeSeeder extends Seeder
                 'total_range_top_type'          => TotalRangeType::NOT_EQUAL,
                 'total_range_top'               => null,
                 'cost'                          => 23000,
-                'description'                   => Lorem::paragraph(3),
                 'author_id'                     => 1,
                 'created_at'                    => now()->format('Y-m-d H:i:s'),
                 'updated_at'                    => now()->format('Y-m-d H:i:s'),
