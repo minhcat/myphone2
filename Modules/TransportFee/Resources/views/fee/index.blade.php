@@ -1,4 +1,4 @@
-@extends('transportfee::layouts.master')
+@extends('transportfee::fee.layouts.master')
 
 @section('title-page', 'Transporter')
 
@@ -42,10 +42,8 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Author</th>
-                                <th>Area</th>
-                                <th>Case</th>
-                                <th>Total Range</th>
-                                <th>Cost</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
                                 <th style="width: 175px">Action</th>
                             </tr>
                         </thead>
@@ -59,10 +57,8 @@
                                     @else
                                     <td></td>
                                     @endif
-                                    <td><a href="{{ route('admin.area.show', $transport_fee->area_id) }}">{{ $transport_fee->area->name }}</a></td>
-                                    <td><a href="{{ route('admin.transporter.case.show', ['transporter_id' => $transport_fee->case->transporter_id, 'id' => $transport_fee->case->id]) }}">{{ $transport_fee->case->name }}</a></td>
-                                    <td>{{ $transport_fee->total_range }}</td>
-                                    <td>{{ number_format($transport_fee->cost) }}</td>
+                                    <td>{{ $transport_fee->created_at->format('H:i:s d/m/Y') }}</td>
+                                    <td>{{ $transport_fee->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>
                                         <a class="btn btn-primary" href="{{ route('admin.transport_fee.edit', $transport_fee->id) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-transport_fee-delete" data-id="{{ $transport_fee->id }}"><i class="fa fa-trash"></i> Delete</button>
@@ -84,7 +80,7 @@
     </div>
 </div>
 
-@include('transportfee::layouts.modal', [
+@include('transportfee::fee.layouts.modal', [
     'modal'             => [
         'id'            => 'modal-transport_fee-delete',
         'title'         => 'Delete Transporter',

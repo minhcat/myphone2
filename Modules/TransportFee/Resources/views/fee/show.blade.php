@@ -1,4 +1,4 @@
-@extends('transportfee::layouts.master')
+@extends('transportfee::fee.layouts.master')
 
 @section('title-page', 'Transport Fees')
 

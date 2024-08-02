@@ -1,4 +1,4 @@
-@extends('transportfee::layouts.master')
+@extends('transportfee::fee.layouts.master')
 
 @section('title-page', 'Transport Fees')
 
@@ -15,5 +15,5 @@
 @endsection
 
 @section('content')
-    @include('transportfee::layouts.form')
+    @include('transportfee::fee.layouts.form')
 @endsection

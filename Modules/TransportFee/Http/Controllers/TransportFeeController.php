@@ -47,7 +47,7 @@ class TransportFeeController extends Controller
         $search = $request->input('search');
         $transport_fees = $this->transportFeeRepository->paginate($search);
 
-        return view('transportfee::index', compact('transport_fees'));
+        return view('transportfee::fee.index', compact('transport_fees'));
     }
 
     /**
@@ -66,7 +66,7 @@ class TransportFeeController extends Controller
         $transporters = $this->transporterRepository->all();
         $transporter_cases = $this->transporterCaseRepository->all();
 
-        return view('transportfee::create', compact('form', 'areas', 'total_range_types', 'transporters', 'transporter_cases'));
+        return view('transportfee::fee.create', compact('form', 'areas', 'total_range_types', 'transporters', 'transporter_cases'));
     }
 
     /**
@@ -102,7 +102,7 @@ class TransportFeeController extends Controller
     {
         $transport_fee = $this->transportFeeRepository->find($id);
 
-        return view('transportfee::show', compact('transport_fee'));
+        return view('transportfee::fee.show', compact('transport_fee'));
     }
 
     /**
@@ -123,7 +123,7 @@ class TransportFeeController extends Controller
         $transporter_cases = $this->transporterCaseRepository->all();
         $transport_fee = $this->transportFeeRepository->find($id);
 
-        return view('transportfee::edit', compact(
+        return view('transportfee::fee.edit', compact(
             'form', 'areas', 'total_range_types', 'transporters', 'transporter_cases', 'transport_fee'
         ));
     }
