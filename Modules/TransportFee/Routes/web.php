@@ -12,10 +12,21 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use Modules\TransportFee\Http\Controllers\TransportFeeAreaController;
 use Modules\TransportFee\Http\Controllers\TransportFeeController;
 
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
     Route::prefix('transport_fees')->name('transport_fee.')->group(function() {
+        Route::prefix('{transport_fee_id}/areas')->name('area.')->group(function() {
+            Route::get('/', [TransportFeeAreaController::class, 'index'])->name('index');
+            Route::get('/create', [TransportFeeAreaController::class, 'create'])->name('create');
+            Route::post('/', [TransportFeeAreaController::class, 'store'])->name('store');
+            Route::get('/{id}', [TransportFeeAreaController::class, 'show'])->name('show');
+            Route::get('/{id}/edit', [TransportFeeAreaController::class, 'edit'])->name('edit');
+            Route::put('/{id}', [TransportFeeAreaController::class, 'update'])->name('update');
+            Route::delete('/{id}', [TransportFeeAreaController::class, 'destroy'])->name('delete');
+        });
+
         Route::get('/', [TransportFeeController::class, 'index'])->name('index');
         Route::get('/create', [TransportFeeController::class, 'create'])->name('create');
         Route::post('/', [TransportFeeController::class, 'store'])->name('store');
