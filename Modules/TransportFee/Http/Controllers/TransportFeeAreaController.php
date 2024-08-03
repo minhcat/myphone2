@@ -73,16 +73,6 @@ class TransportFeeAreaController extends Controller
     }
 
     /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('transportfee::show');
-    }
-
-    /**
      * Show the form for editing the specified resource.
      * @param int $id
      * @return Renderable
@@ -124,8 +114,12 @@ class TransportFeeAreaController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($transport_fee_id, $id)
     {
-        //
+        $this->transportFeeAreaRepository->delete($id);
+
+        return redirect()
+        ->route('admin.transport_fee.area.index', $transport_fee_id)
+        ->with('success', __('notification.delete.success', ['model' => 'transport fee area']));
     }
 }
