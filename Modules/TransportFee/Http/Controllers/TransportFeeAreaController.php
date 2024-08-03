@@ -9,7 +9,7 @@ use Modules\TransportFee\Repositories\TransportFeeAreaRepository;
 
 class TransportFeeAreaController extends Controller
 {
-    /** @var \Modules\TransportFee\Repositories\TransportFeeRepository */
+    /** @var \Modules\TransportFee\Repositories\TransportFeeAreaRepository */
     protected $transportFeeAreaRepository;
 
     /**
@@ -26,9 +26,11 @@ class TransportFeeAreaController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index($transport_fee_id)
     {
-        return view('transportfee::index');
+        $transport_fee_areas = $this->transportFeeAreaRepository->paginateByTransportFeeId($transport_fee_id);
+
+        return view('transportfee::area.index', compact('transport_fee_areas', 'transport_fee_id'));
     }
 
     /**
