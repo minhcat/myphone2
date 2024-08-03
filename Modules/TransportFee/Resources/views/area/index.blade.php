@@ -21,7 +21,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
-                <a href="{{ route('admin.transport_fee.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                <a href="{{ route('admin.transport_fee.area.create', $transport_fee_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
             </div>
             <div class="box-body">
                 <div class="table-header hidden">
