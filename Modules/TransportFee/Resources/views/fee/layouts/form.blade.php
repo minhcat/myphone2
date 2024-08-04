@@ -1,5 +1,5 @@
 @php
-    $transport_fee = isset($transport_fee) ? $transport_fee : new Modules\Transporter\Entities\Transporter;
+    $transport_fee = isset($transport_fee) ? $transport_fee : new Modules\TransportFee\Entities\TransportFee;
 @endphp
 <div class="row">
     <div class="col-lg-12">

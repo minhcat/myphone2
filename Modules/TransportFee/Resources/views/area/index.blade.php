@@ -86,8 +86,8 @@
 @include('transportfee::area.layouts.modal', [
     'modal'             => [
         'id'            => 'modal-transport-fee-area-delete',
-        'title'         => 'Delete Transporter',
-        'message'       => 'Are you sure to delete this transport fee!',
+        'title'         => 'Delete Transport Fee Area',
+        'message'       => 'Are you sure to delete this transport fee area!',
         'form'          => [
             'url'       => route('admin.transport_fee.area.delete', ['transport_fee_id' => $transport_fee_id, 'id' => ':id']),
             'method'    => 'DELETE',
