@@ -116,7 +116,7 @@ class TransportFeeAreaCaseController extends Controller
 
         return redirect()
         ->route('admin.transport_fee.area.case.index', compact('transport_fee_id', 'transport_fee_area_id'))
-        ->with('success', __('notification.create.success', ['model' => 'transport fee area case']));
+        ->with('success', __('notification.update.success', ['model' => 'transport fee area case']));
     }
 
     /**
@@ -124,8 +124,12 @@ class TransportFeeAreaCaseController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($transport_fee_id, $transport_fee_area_id, $id)
     {
-        //
+        $this->transportFeeAreaCaseRepository->delete($id);
+
+        return redirect()
+        ->route('admin.transport_fee.area.case.index', compact('transport_fee_id', 'transport_fee_area_id'))
+        ->with('success', __('notification.delete.success', ['model' => 'transport fee area case']));
     }
 }

@@ -115,14 +115,14 @@
             }
         })
 
-        let url_delete = $('#modal-transport-fee-case-delete form').attr('action');
+        let url_delete = $('#modal-transport-fee-area-case-delete form').attr('action');
         $('.btn-delete').click(function() {
             let id = $(this).data('id');
             let url = url_delete.replace(':id', id)
-            $('#modal-transport-fee-case-delete form').attr('action', url);
+            $('#modal-transport-fee-area-case-delete form').attr('action', url);
         })
         $('#modal-transport-fee-case-delete').on('hide.bs.modal', function() {
-            $('#modal-transport-fee-case-delete form').attr('action', url_delete);
+            $('#modal-transport-fee-area-case-delete form').attr('action', url_delete);
         })
     })
 </script>
