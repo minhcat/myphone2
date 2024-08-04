@@ -42,9 +42,16 @@ class TransportFeeAreaCaseController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function create($transport_fee_id, $transport_fee_area_id)
     {
-        return view('transportfee::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('admin.transport_fee.area.case.index', ['transport_fee_id' => $transport_fee_id, 'transport_fee_area_id' => $transport_fee_area_id]),
+            'method'    => 'POST'
+        ];
+        $cases = $this->caseRepository->all();
+
+        return view('transportfee::case.create', compact('form', 'cases', 'transport_fee_id', 'transport_fee_area_id'));
     }
 
     /**
@@ -52,9 +59,17 @@ class TransportFeeAreaCaseController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(Request $request, $transport_fee_id, $transport_fee_area_id)
     {
-        //
+        $request->validate([
+            'transporter_case_id'  => 'required'
+        ]);
+
+        $this->transportFeeAreaCaseRepository->create($request->all(), ['transport_fee_area_id' => $transport_fee_area_id]);
+
+        return redirect()
+        ->route('admin.transport_fee.area.case.index', compact('transport_fee_id', 'transport_fee_area_id'))
+        ->with('success', __('notification.create.success', ['model' => 'transport fee area case']));
     }
 
     /**
@@ -72,9 +87,17 @@ class TransportFeeAreaCaseController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit($transport_fee_id, $transport_fee_area_id, $id)
     {
-        return view('transportfee::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('admin.transport_fee.area.case.update', ['transport_fee_id' => $transport_fee_id, 'transport_fee_area_id' => $transport_fee_area_id, 'id' => $id]),
+            'method'    => 'PUT'
+        ];
+        $cases = $this->caseRepository->all();
+        $transport_fee_area_case = $this->transportFeeAreaCaseRepository->find($id);
+
+        return view('transportfee::case.edit', compact('form', 'transport_fee_area_case', 'cases', 'transport_fee_id', 'transport_fee_area_id'));
     }
 
     /**
@@ -83,9 +106,17 @@ class TransportFeeAreaCaseController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $transport_fee_id, $transport_fee_area_id, $id)
     {
-        //
+        $request->validate([
+            'transporter_case_id'  => 'required'
+        ]);
+
+        $this->transportFeeAreaCaseRepository->update($id, $request->all());
+
+        return redirect()
+        ->route('admin.transport_fee.area.case.index', compact('transport_fee_id', 'transport_fee_area_id'))
+        ->with('success', __('notification.create.success', ['model' => 'transport fee area case']));
     }
 
     /**
