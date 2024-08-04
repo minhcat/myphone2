@@ -8,3 +8,4 @@ check input author_id with Auth id
 remove {{-- --}} if has
 check gift not has product detail
 refactor transport fee with child case, range
+check title modal

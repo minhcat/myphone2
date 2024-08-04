@@ -31,9 +31,11 @@ class TransportFeeAreaCaseController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index($transport_fee_id, $transport_fee_area_id)
     {
-        return view('transportfee::index');
+        $transport_fee_area_cases = $this->transportFeeAreaCaseRepository->paginateByTransportFeeAreaId($transport_fee_area_id);
+
+        return view('transportfee::case.index', compact('transport_fee_area_cases', 'transport_fee_id', 'transport_fee_area_id'));
     }
 
     /**
