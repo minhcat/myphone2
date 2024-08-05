@@ -63,8 +63,8 @@
                                     <td>{{ $transport_fee_area_case_range->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $transport_fee_area_case_range->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{ route('admin.transport_fee.area.case.edit', ['transport_fee_id' => $transport_fee_id, 'transport_fee_area_id' => $transport_fee_area_id, 'id' => $transport_fee_area_case_range->id]) }}"><i class="fa fa-edit"></i> Edit</a>
-                                        <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-transport-fee-area-case-delete" data-id="{{ $transport_fee_area_case_range->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        <a class="btn btn-primary" href="{{ route('admin.transport_fee.area.case.range.edit', ['transport_fee_id' => $transport_fee_id, 'transport_fee_area_id' => $transport_fee_area_id, 'transport_fee_area_case_id' => $transport_fee_area_case_id, 'id' => $transport_fee_area_case_range->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-transport-fee-area-case-range-delete" data-id="{{ $transport_fee_area_case_range->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -114,14 +114,14 @@
             }
         })
 
-        let url_delete = $('#modal-transport-fee-area-case-delete form').attr('action');
+        let url_delete = $('#modal-transport-fee-area-case-range-delete form').attr('action');
         $('.btn-delete').click(function() {
             let id = $(this).data('id');
             let url = url_delete.replace(':id', id)
-            $('#modal-transport-fee-area-case-delete form').attr('action', url);
+            $('#modal-transport-fee-area-case-range-delete form').attr('action', url);
         })
         $('#modal-transport-fee-case-delete').on('hide.bs.modal', function() {
-            $('#modal-transport-fee-area-case-delete form').attr('action', url_delete);
+            $('#modal-transport-fee-area-case-range-delete form').attr('action', url_delete);
         })
     })
 </script>
