@@ -13,6 +13,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\TransportFee\Http\Controllers\TransportFeeAreaCaseController;
+use Modules\TransportFee\Http\Controllers\TransportFeeAreaCaseRangeController;
 use Modules\TransportFee\Http\Controllers\TransportFeeAreaController;
 use Modules\TransportFee\Http\Controllers\TransportFeeController;
 
@@ -20,6 +21,15 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
     Route::prefix('transport_fees')->name('transport_fee.')->group(function() {
         Route::prefix('{transport_fee_id}/areas')->name('area.')->group(function() {
             Route::prefix('{transport_fee_area_id}/cases')->name('case.')->group(function() {
+                Route::prefix('{transport_fee_area_case_id}/ranges')->name('range.')->group(function() {
+                    Route::get('/', [TransportFeeAreaCaseRangeController::class, 'index'])->name('index');
+                    Route::get('/create', [TransportFeeAreaCaseRangeController::class, 'create'])->name('create');
+                    Route::post('/', [TransportFeeAreaCaseRangeController::class, 'store'])->name('store');
+                    Route::get('/{id}/edit', [TransportFeeAreaCaseRangeController::class, 'edit'])->name('edit');
+                    Route::put('/{id}', [TransportFeeAreaCaseRangeController::class, 'update'])->name('update');
+                    Route::delete('/{id}', [TransportFeeAreaCaseRangeController::class, 'destroy'])->name('delete');
+                });
+
                 Route::get('/', [TransportFeeAreaCaseController::class, 'index'])->name('index');
                 Route::get('/create', [TransportFeeAreaCaseController::class, 'create'])->name('create');
                 Route::post('/', [TransportFeeAreaCaseController::class, 'store'])->name('store');
