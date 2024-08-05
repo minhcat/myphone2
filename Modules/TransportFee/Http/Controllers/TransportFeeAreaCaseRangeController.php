@@ -26,9 +26,11 @@ class TransportFeeAreaCaseRangeController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index($transport_fee_id, $transport_fee_area_id, $transport_fee_area_case_id)
     {
-        return view('transportfee::index');
+        $transport_fee_area_case_ranges = $this->transportFeeAreaCaseRangeRepository->paginateByTransportFeeAreaCaseId($transport_fee_area_case_id);
+
+        return view('transportfee::range.index', compact('transport_fee_area_case_ranges', 'transport_fee_id', 'transport_fee_area_id', 'transport_fee_area_case_id'));
     }
 
     /**
