@@ -89,7 +89,7 @@
 @include('area::detail.layouts.modal', [
     'modal'             => [
         'id'            => 'modal-area-detail-delete',
-        'title'         => 'Delete Area',
+        'title'         => 'Delete Area Detail',
         'message'       => 'Are you sure to delete this area detail!',
         'form'          => [
             'url'       => route('admin.area.detail.delete', ['area_id' => $area_id, 'id' => ':id']),

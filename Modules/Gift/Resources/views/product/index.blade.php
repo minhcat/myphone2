@@ -76,8 +76,8 @@
 @include('gift::product.layouts.modal', [
     'modal'             => [
         'id'            => 'modal-gift-product-delete',
-        'title'         => 'Delete Gift',
-        'message'       => 'Are you sure to delete this gift!',
+        'title'         => 'Delete Gift Product ',
+        'message'       => 'Are you sure to delete this gift product!',
         'form'          => [
             'url'       => route('admin.gift.product.delete', ['gift_id' => $gift_id, 'id' => ':id']),
             'method'    => 'DELETE',

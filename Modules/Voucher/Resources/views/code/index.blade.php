@@ -70,8 +70,8 @@
 @include('voucher::voucher.layouts.modal', [
     'modal'             => [
         'id'            => 'modal-voucher-code-delete',
-        'title'         => 'Delete Sale',
-        'message'       => 'Are you sure to delete this voucher!',
+        'title'         => 'Delete Voucher Code',
+        'message'       => 'Are you sure to delete this voucher code!',
         'form'          => [
             'url'       => route('admin.voucher.code.delete', ['voucher_id' => $voucher_id, 'id' => ':id']),
             'method'    => 'DELETE',

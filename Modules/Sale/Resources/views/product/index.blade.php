@@ -74,8 +74,8 @@
 @include('sale::sale.layouts.modal', [
     'modal'             => [
         'id'            => 'modal-sale-product-delete',
-        'title'         => 'Delete Sale',
-        'message'       => 'Are you sure to delete this sale!',
+        'title'         => 'Delete Sale Product',
+        'message'       => 'Are you sure to delete this sale product!',
         'form'          => [
             'url'       => route('admin.sale.product.delete', ['sale_id' => $sale_id, 'id' => ':id']),
             'method'    => 'DELETE',

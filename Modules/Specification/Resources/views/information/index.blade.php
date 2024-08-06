@@ -84,7 +84,7 @@
 @include('specification::information.layouts.modal', [
     'modal'             => [
         'id'            => 'modal-information-delete',
-        'title'         => 'Delete Specification',
+        'title'         => 'Delete Information',
         'message'       => 'Are you sure to delete this information!',
         'form'          => [
             'url'       => route('admin.specification.information.delete', [

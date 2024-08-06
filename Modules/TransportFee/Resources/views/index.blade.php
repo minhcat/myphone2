@@ -87,7 +87,7 @@
 @include('transportfee::layouts.modal', [
     'modal'             => [
         'id'            => 'modal-transport_fee-delete',
-        'title'         => 'Delete Transporter',
+        'title'         => 'Delete Transport Fee',
         'message'       => 'Are you sure to delete this transport fee!',
         'form'          => [
             'url'       => route('admin.transport_fee.delete', ':id'),

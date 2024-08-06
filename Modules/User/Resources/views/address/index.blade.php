@@ -10,7 +10,7 @@
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
     <li><a href="{{ route('admin.user.index') }}">User</a></li>
-    <li><a href="{{ route('admin.user.address.index', $user_id) }}">User</a></li>
+    <li><a href="{{ route('admin.user.address.index', $user_id) }}">Address</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -80,7 +80,7 @@
 @include('user::address.layouts.modal', [
     'modal'             => [
         'id'            => 'modal-user-address-delete',
-        'title'         => 'Delete User',
+        'title'         => 'Delete Address',
         'message'       => 'Are you sure to delete this address!',
         'form'          => [
             'url'       => route('admin.user.address.delete', ['user_id' => $user_id, 'id' => ':id']),
