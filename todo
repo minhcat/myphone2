@@ -4,5 +4,3 @@ make factory user, product data
 check todo comment
 delete index view not twice
 add back button in child index view (check option index)
-check input author_id with Auth id
-check gift not has product detail

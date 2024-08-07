@@ -21,36 +21,42 @@ class VariationSeeder extends Seeder
         DB::table('variations')->insert([
             [
                 'code'          => '#1148',
+                'author_id'     => 1,
                 'description'   => Lorem::paragraph(3),
                 'price'         => 20000000,
                 'product_id'    => 1
             ],
             [
                 'code'          => '#1258',
+                'author_id'     => 1,
                 'description'   => Lorem::paragraph(3),
                 'price'         => 22000000,
                 'product_id'    => 1
             ],
             [
                 'code'          => '#1048',
+                'author_id'     => 1,
                 'description'   => Lorem::paragraph(3),
                 'price'         => 15000000,
                 'product_id'    => 1
             ],
             [
                 'code'          => '#1068',
+                'author_id'     => 1,
                 'description'   => Lorem::paragraph(3),
                 'price'         => 20000000,
                 'product_id'    => 2
             ],
             [
                 'code'          => '#1058',
+                'author_id'     => 1,
                 'description'   => Lorem::paragraph(3),
                 'price'         => 22000000,
                 'product_id'    => 2
             ],
             [
                 'code'          => '#1098',
+                'author_id'     => 1,
                 'description'   => Lorem::paragraph(3),
                 'price'         => 15000000,
                 'product_id'    => 2

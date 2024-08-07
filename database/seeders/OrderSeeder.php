@@ -102,6 +102,7 @@ class OrderSeeder extends Seeder
             // order 1
             [
                 'order_id'      => 1,
+                'author_id'     => 1,
                 'target_type'   => TargetType::PRODUCT,
                 'target_id'     => 1,
                 'price'         => 45000000,
@@ -109,6 +110,7 @@ class OrderSeeder extends Seeder
             ],
             [
                 'order_id'      => 1,
+                'author_id'     => 1,
                 'target_type'   => TargetType::PRODUCT,
                 'target_id'     => 2,
                 'price'         => 42000000,
@@ -116,6 +118,7 @@ class OrderSeeder extends Seeder
             ],
             [
                 'order_id'      => 1,
+                'author_id'     => 1,
                 'target_type'   => TargetType::PRODUCT,
                 'target_id'     => 3,
                 'price'         => 36000000,
@@ -124,6 +127,7 @@ class OrderSeeder extends Seeder
             // order 2
             [
                 'order_id'      => 2,
+                'author_id'     => 1,
                 'target_type'   => TargetType::PRODUCT,
                 'target_id'     => 4,
                 'price'         => 32000000,
@@ -131,6 +135,7 @@ class OrderSeeder extends Seeder
             ],
             [
                 'order_id'      => 2,
+                'author_id'     => 1,
                 'target_type'   => TargetType::PRODUCT,
                 'target_id'     => 5,
                 'price'         => 8000000,
@@ -138,6 +143,7 @@ class OrderSeeder extends Seeder
             ],
             [
                 'order_id'      => 2,
+                'author_id'     => 1,
                 'target_type'   => TargetType::PRODUCT,
                 'target_id'     => 6,
                 'price'         => 7000000,
@@ -146,6 +152,7 @@ class OrderSeeder extends Seeder
             // order 3
             [
                 'order_id'      => 3,
+                'author_id'     => 1,
                 'target_type'   => TargetType::PRODUCT,
                 'target_id'     => 7,
                 'price'         => 6000000,
@@ -153,6 +160,7 @@ class OrderSeeder extends Seeder
             ],
             [
                 'order_id'      => 3,
+                'author_id'     => 1,
                 'target_type'   => TargetType::PRODUCT,
                 'target_id'     => 8,
                 'price'         => 5000000,
@@ -160,6 +168,7 @@ class OrderSeeder extends Seeder
             ],
             [
                 'order_id'      => 3,
+                'author_id'     => 1,
                 'target_type'   => TargetType::PRODUCT,
                 'target_id'     => 9,
                 'price'         => 20000000,
@@ -168,6 +177,7 @@ class OrderSeeder extends Seeder
             // order 4
             [
                 'order_id'      => 4,
+                'author_id'     => 1,
                 'target_type'   => TargetType::PRODUCT,
                 'target_id'     => 7,
                 'price'         => 6000000,
@@ -175,6 +185,7 @@ class OrderSeeder extends Seeder
             ],
             [
                 'order_id'      => 4,
+                'author_id'     => 1,
                 'target_type'   => TargetType::PRODUCT,
                 'target_id'     => 8,
                 'price'         => 5000000,
@@ -183,6 +194,7 @@ class OrderSeeder extends Seeder
             // order 5
             [
                 'order_id'      => 5,
+                'author_id'     => 1,
                 'target_type'   => TargetType::PRODUCT,
                 'target_id'     => 7,
                 'price'         => 6000000,
@@ -190,6 +202,7 @@ class OrderSeeder extends Seeder
             ],
             [
                 'order_id'      => 5,
+                'author_id'     => 1,
                 'target_type'   => TargetType::PRODUCT,
                 'target_id'     => 8,
                 'price'         => 5000000,

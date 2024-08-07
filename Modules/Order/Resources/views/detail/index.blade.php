@@ -32,6 +32,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Product</th>
+                                <th>Author</th>
                                 <th>Quantity</th>
                                 <th>Price</th>
                                 <th>Total</th>
@@ -49,6 +50,7 @@
                                     @else
                                     <td><a href="{{ route('admin.product.variation.show', ['product_id' => $detail->target->product_id, 'id' => $detail->target_id]) }}">{{ $detail->target->name }}</a></td>
                                     @endif
+                                    <td><a href="{{ route('admin.user.show', $detail->author_id) }}">{{ $detail->user->fullname }}</a></td>
                                     <td>{{ $detail->quantity }}</td>
                                     <td>{{ number_format($detail->price) }}</td>
                                     <td>{{ number_format($detail->price * $detail->quantity) }}</td>

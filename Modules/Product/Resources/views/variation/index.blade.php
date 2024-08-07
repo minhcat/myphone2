@@ -31,6 +31,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Code</th>
+                                <th>Author</th>
                                 <th>Price</th>
                                 @foreach($attributes as $attribute)
                                     <th>{{ $attribute->name }}</th>
@@ -43,6 +44,7 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td><a href="{{ route('admin.product.variation.show', ['product_id' => $product_id, 'id' => $variation->id]) }}">{{ $variation->code }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $variation->author_id) }}">{{ $variation->user->fullname }}</a></td>
                                     <td>{{ $variation->price }}</td>
                                     @foreach($attributes as $attribute)
                                         <td>

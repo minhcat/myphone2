@@ -6,14 +6,20 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Attribute\Entities\Option;
+use Modules\User\Entities\User;
 
 class Variation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['code', 'price', 'description', 'product_id'];
+    protected $fillable = ['code', 'price', 'description', 'product_id', 'author_id'];
 
     public $timestamps = false;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'author_id');
+    }
 
     public function options()
     {

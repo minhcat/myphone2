@@ -74,7 +74,7 @@
                     </div>
 
                     <input type="hidden" name="product_id" value="{{ $product_id }}">
-                    <input type="hidden" name="id" value="{{ $variation->id }}">
+                    <input type="hidden" name="author_id" value="{{ Auth::check() ? Auth::user()->id : 1 }}">
                 </div>
                 <div class="box-footer">
                     <a href="{{ route('admin.product.variation.index', $product_id) }}" class="btn btn-default">Back</a>
