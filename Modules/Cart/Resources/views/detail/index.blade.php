@@ -33,6 +33,7 @@
                                 <th>Quantity</th>
                                 <th>Price</th>
                                 <th>Total</th>
+                                <th>Author</th>
                                 <th style="width: 175px">Action</th>
                             </tr>
                         </thead>
@@ -48,6 +49,11 @@
                                     <td>{{ $detail->quantity }}</td>
                                     <td>{{ $detail->price }}</td>
                                     <td>{{ $detail->price * $detail->quantity }}</td>
+                                    @if ($detail->user)
+                                    <td><a href="{{ route('admin.user.show', $detail->user->id) }}">{{ $detail->user->fullname }}</a></td>
+                                    @else
+                                    <td></td>
+                                    @endif
                                     <td>
                                         <a class="btn btn-primary" href="{{ route('admin.cart.detail.edit', ['cart_id' => $cart_id, 'id' => $detail->id]) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-cart-detail-delete" data-id="{{ $detail->id }}"><i class="fa fa-trash"></i> Delete</button>

@@ -81,6 +81,7 @@
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" name="author_id" value="{{ Auth::check() ? Auth::user()->id : 1 }}">
                 </div>
                 <div class="box-footer">
                     <a href="{{ route('admin.cart.detail.index', $cart_id) }}" class="btn btn-default">Back</a>

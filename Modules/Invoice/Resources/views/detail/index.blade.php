@@ -32,6 +32,7 @@
                                 <th>Quantity</th>
                                 <th>Price</th>
                                 <th>Total</th>
+                                <th>Author</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,6 +47,11 @@
                                     <td>{{ $detail->quantity }}</td>
                                     <td>{{ $detail->price }}</td>
                                     <td>{{ $detail->price * $detail->quantity }}</td>
+                                    @if ($detail->user)
+                                    <td><a href="{{ route('admin.user.show', $detail->user->id) }}">{{ $detail->user->fullname }}</a></td>
+                                    @else
+                                    <td></td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>

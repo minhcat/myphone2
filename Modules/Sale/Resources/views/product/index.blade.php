@@ -34,6 +34,7 @@
                                 <th>Discount Value</th>
                                 <th>Discount Minimum</th>
                                 <th>Discount Maximum</th>
+                                <th>Author</th>
                                 <th style="width: 175px">Action</th>
                             </tr>
                         </thead>
@@ -50,6 +51,11 @@
                                     <td>{{ number_format($sale_product->discount_value_show) }}</td>
                                     <td>{{ $sale_product->discount_minimum_show }}</td>
                                     <td>{{ $sale_product->discount_maximum_show }}</td>
+                                    @if ($sale_product->user)
+                                    <td><a href="{{ route('admin.user.show', $sale_product->user->id) }}">{{ $sale_product->user->fullname }}</a></td>
+                                    @else
+                                    <td></td>
+                                    @endif
                                     <td style="text-align: right">
                                         <a class="btn btn-primary" href="{{ route('admin.sale.product.edit', ['sale_id' => $sale_id, 'id' => $sale_product->id]) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-sale-product-delete" data-id="{{ $sale_product->id }}"><i class="fa fa-trash"></i> Delete</button>

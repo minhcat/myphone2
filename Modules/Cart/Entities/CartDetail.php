@@ -7,14 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\Variation;
+use Modules\User\Entities\User;
 
 class CartDetail extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['cart_id', 'target_type', 'target_id', 'price', 'quantity'];
+    protected $fillable = ['cart_id', 'target_type', 'target_id', 'price', 'author_id', 'quantity'];
 
     public $timestamps = false;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'author_id');
+    }
 
     public function target()
     {
