@@ -29,7 +29,7 @@
                             <div class="filter">
                                 <label for="search">
                                     Search:
-                                    <input type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.user.index') }}">
+                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.user.index') }}">
                                 </label>
                             </div>
                         </div>
@@ -117,7 +117,6 @@
             let id = $(this).data('id');
             let url = url_delete.replace(':id', id)
             $('#modal-user-delete form').attr('action', url);
-            console.log(url)
         })
         $('#modal-user-delete').on('hide.bs.modal', function() {
             $('#modal-user-delete form').attr('action', url_delete);
