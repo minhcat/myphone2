@@ -31,7 +31,7 @@
                             <div class="filter">
                                 <label for="search">
                                     Search:
-                                    <input type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.user.address.index', $user_id) }}">
+                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.user.address.index', $user_id) }}">
                                 </label>
                             </div>
                         </div>
