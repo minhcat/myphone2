@@ -14,7 +14,7 @@
       <img src="{{ asset('themes/adminlte/dist/img/avatar5.png') }}" class="img-circle" alt="User Image">
     </div>
     <div class="pull-left info">
-      <p>Minh Cát</p>
+      <p>{{ Auth::user()->fullname }}</p>
       <!-- Status -->
       <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
     </div>
