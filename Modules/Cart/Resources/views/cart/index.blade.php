@@ -43,7 +43,7 @@
                                 <th>User</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th>Detail</th>
+                                <th>Details</th>
                                 <th>Quantity</th>
                                 <th>Total</th>
                                 <th style="width: 100px">Action</th>
@@ -61,7 +61,7 @@
                                     @endif
                                     <td>{{ $cart->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $cart->updated_at->format('H:i:s d/m/Y') }}</td>
-                                    <td><a href="{{ route('admin.cart.detail.index', $cart->id) }}">detail</a></td>
+                                    <td><a href="{{ route('admin.cart.detail.index', $cart->id) }}">list</a></td>
                                     <td>{{ $cart->quantity }}</td>
                                     <td>{{ number_format($cart->total) }}</td>
                                     <td>

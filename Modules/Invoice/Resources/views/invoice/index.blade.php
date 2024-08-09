@@ -41,7 +41,7 @@
                                 <th>#</th>
                                 <th>Code</th>
                                 <th>Author</th>
-                                <th>Detail</th>
+                                <th>Details</th>
                                 <th>Quantity</th>
                                 <th>Subtotal</th>
                                 <th>Transport Fee</th>
@@ -56,7 +56,7 @@
                                     <td>{{ $key + 1 }}</td>
                                     <td><a href="{{ route('admin.invoice.show', $invoice->id) }}">{{ $invoice->code }}</a></td>
                                     <td>@if (!is_null($invoice->user)) <a href="{{ route('admin.user.show', $invoice->user->id) }}">{{ $invoice->user->fullname }}</a>@endif</td>
-                                    <td><a href="{{ route('admin.invoice.detail.index', $invoice->id) }}">Detail</a></td>
+                                    <td><a href="{{ route('admin.invoice.detail.index', $invoice->id) }}">list</a></td>
                                     <td>{{ $invoice->quantity }}</td>
                                     <td>{{ number_format($invoice->subtotal) }}</td>
                                     <td>{{ number_format($invoice->transport_fee) }}</td>

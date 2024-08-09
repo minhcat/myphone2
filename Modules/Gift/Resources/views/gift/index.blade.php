@@ -42,7 +42,7 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Author</th>
-                                <th>List</th>
+                                <th>Products</th>
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Status</th>

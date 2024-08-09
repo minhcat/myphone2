@@ -45,7 +45,7 @@
                                 <th>Category</th>
                                 <th>Price</th>
                                 <th>Author</th>
-                                <th>Variation</th>
+                                <th>Variations</th>
                                 <th>Detail</th>
                                 <th style="width: 175px">Action</th>
                             </tr>

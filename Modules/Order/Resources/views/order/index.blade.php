@@ -41,7 +41,7 @@
                                 <th>#</th>
                                 <th>Code</th>
                                 <th>User</th>
-                                <th>Detail</th>
+                                <th>Details</th>
                                 <th>Quantity</th>
                                 <th>Subtotal</th>
                                 <th>Transport Fee</th>
@@ -61,7 +61,7 @@
                                     @else
                                     <td></td>
                                     @endif
-                                    <td><a href="{{ route('admin.order.detail.index', $order->id) }}">detail</a></td>
+                                    <td><a href="{{ route('admin.order.detail.index', $order->id) }}">list</a></td>
                                     <td>{{ $order->quantity }}</td>
                                     <td>{{ number_format($order->subtotal) }}</td>
                                     <td>{{ number_format($order->transport_fee) }}</td>

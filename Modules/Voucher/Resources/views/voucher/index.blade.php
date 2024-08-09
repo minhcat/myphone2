@@ -42,7 +42,7 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Author</th>
-                                <th>List</th>
+                                <th>Codes</th>
                                 <th>Discount Target</th>
                                 <th>Discount Type</th>
                                 <th>Start Date</th>

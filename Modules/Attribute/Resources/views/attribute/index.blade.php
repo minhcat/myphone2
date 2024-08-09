@@ -44,7 +44,7 @@
                                 <th>Author</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th>List</th>
+                                <th>Options</th>
                                 <th style="width: 175px">Action</th>
                             </tr>
                         </thead>
@@ -56,7 +56,7 @@
                                     <td>@if (!is_null($attribute->user)) <a href="{{ route('admin.user.show', $attribute->user->id) }}">{{ $attribute->user->fullname }}</a>@endif</td>
                                     <td>{{ $attribute->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $attribute->updated_at->format('H:i:s d/m/Y') }}</td>
-                                    <td><a href="{{ route('admin.attribute.option.index', $attribute->id) }}">options</a></td>
+                                    <td><a href="{{ route('admin.attribute.option.index', $attribute->id) }}">list</a></td>
                                     <td>
                                         <a class="btn btn-primary" href="{{ route('admin.attribute.edit', $attribute->id) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-attribute-delete" data-id="{{ $attribute->id }}"><i class="fa fa-trash"></i> Delete</button>

@@ -44,7 +44,7 @@
                                 <th>Author</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th>List</th>
+                                <th>Informations</th>
                                 <th style="width: 175px">Action</th>
                             </tr>
                         </thead>
@@ -60,7 +60,7 @@
                                     @endif
                                     <td>{{ $specification->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $specification->updated_at->format('H:i:s d/m/Y') }}</td>
-                                    <td><a href="{{ route('admin.specification.information.index', $specification->id) }}">info</a></td>
+                                    <td><a href="{{ route('admin.specification.information.index', $specification->id) }}">list</a></td>
                                     <td>
                                         <a class="btn btn-primary" href="{{ route('admin.specification.edit', $specification->id) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-specification-delete" data-id="{{ $specification->id }}"><i class="fa fa-trash"></i> Delete</button>
