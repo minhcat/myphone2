@@ -23,6 +23,7 @@
             <div class="box-header with-border">
                 <div class="box-title">List</div>
                 <a href="{{ route('admin.gift.product.item.create', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id]) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                <a href="{{ route('admin.gift.product.index', $gift_id) }}" class="btn btn-default pull-right mr-1"><i class="fa fa-arrow-left"></i> Back</a>
             </div>
             <div class="box-body">
                 <div class="table-body">

@@ -22,6 +22,7 @@
             <div class="box-header with-border">
                 <div class="box-title">List</div>
                 <a href="{{ route('admin.city.district.create', $city_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                <a href="{{ route('admin.city.index') }}" class="btn btn-default pull-right mr-1"><i class="fa fa-arrow-left"></i> Back</a>
             </div>
             <div class="box-body">
                 <div class="table-header">
