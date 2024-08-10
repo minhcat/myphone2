@@ -13,7 +13,7 @@ class AreaController extends Controller
     protected $areaRepository;
 
     /**
-     * Create new Brand Controller instance.
+     * Create new area controller instance.
      */
     public function __construct()
     {

@@ -13,7 +13,7 @@ class OptionController extends Controller
     protected $optionRepository;
 
     /**
-     * Create a new Attribute controller instance.
+     * Create a new option controller instance.
      */
     public function __construct()
     {

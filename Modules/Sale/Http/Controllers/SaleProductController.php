@@ -24,7 +24,7 @@ class SaleProductController extends Controller
     protected $variantRepository;
 
     /**
-     * Create a new Product controller instance.
+     * Create a new sale product controller instance.
      */
     public function __construct()
     {

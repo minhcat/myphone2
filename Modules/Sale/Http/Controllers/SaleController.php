@@ -16,7 +16,7 @@ class SaleController extends Controller
     protected $saleRepository;
 
     /**
-     * Create a new Product controller instance.
+     * Create a new sale controller instance.
      */
     public function __construct()
     {

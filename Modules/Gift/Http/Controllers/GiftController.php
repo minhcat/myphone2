@@ -14,7 +14,7 @@ class GiftController extends Controller
     protected $giftRepository;
 
     /**
-     * Create a new Product controller instance.
+     * Create a new gift controller instance.
      */
     public function __construct()
     {

@@ -13,7 +13,7 @@ class TransporterController extends Controller
     protected $transporterRepository;
 
     /**
-     * Create a new Information controller instance.
+     * Create a new transporter controller instance.
      */
     public function __construct()
     {

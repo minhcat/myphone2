@@ -21,7 +21,7 @@ class VariationController extends Controller
     protected $attributeRepository;
 
     /**
-     * Create a new Variation controller instance.
+     * Create a new variation controller instance.
      */
     public function __construct()
     {

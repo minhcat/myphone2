@@ -13,7 +13,7 @@ class SpecificationController extends Controller
     protected $specificationRepository;
 
     /**
-     * Create a new Specification controller instance.
+     * Create a new specification controller instance.
      */
     public function __construct()
     {

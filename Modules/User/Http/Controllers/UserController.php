@@ -15,7 +15,7 @@ class UserController extends Controller
     protected $userRepository;
 
     /**
-     * Create a new Product controller instance.
+     * Create a new user controller instance.
      */
     public function __construct()
     {

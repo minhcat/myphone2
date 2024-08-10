@@ -13,7 +13,7 @@ class InvoiceController extends Controller
     protected $invoiceRepository;
 
     /**
-     * Create new Cart Controller instance.
+     * Create new invoice controller instance.
      */
     public function __construct()
     {

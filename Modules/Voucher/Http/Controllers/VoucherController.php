@@ -16,7 +16,7 @@ class VoucherController extends Controller
     protected $voucherRepository;
 
     /**
-     * Create a new Product controller instance.
+     * Create a new voucher controller instance.
      */
     public function __construct()
     {

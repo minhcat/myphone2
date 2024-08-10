@@ -14,7 +14,7 @@ class TransporterCaseController extends Controller
     protected $transporterCaseRepository;
 
     /**
-     * Create a new Information controller instance.
+     * Create a new transporter case controller instance.
      */
     public function __construct()
     {

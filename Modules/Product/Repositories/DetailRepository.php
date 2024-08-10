@@ -3,6 +3,7 @@
 namespace Modules\Product\Repositories;
 
 use App\Repositories\AbstractRepository;
+use Illuminate\Support\Facades\Auth;
 use Modules\Product\Entities\Detail;
 
 class DetailRepository extends AbstractRepository
@@ -28,7 +29,7 @@ class DetailRepository extends AbstractRepository
                 'product_id'        => $product_id,
                 'specification_id'  => $data['specification'][$key],
                 'information_id'    => $item,
-                'author_id'         => 1, // todo: use Auth::user->id
+                'author_id'         => Auth::user()->id,
                 'created_at'        => now()->format('Y-m-d H:i:s'),
                 'updated_at'        => now()->format('Y-m-d H:i:s'),
             ];

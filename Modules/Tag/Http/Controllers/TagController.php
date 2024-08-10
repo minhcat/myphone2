@@ -9,11 +9,11 @@ use Modules\Tag\Repositories\TagRepository;
 
 class TagController extends Controller
 {
-    /** @var \Modules\Specification\Repositories\InformationRepository */   // todo: update true repository
+    /** @var \Modules\Tag\Repositories\TagRepository */
     protected $tagRepository;
 
     /**
-     * Create a new Information controller instance.
+     * Create a new tag controller instance.
      */
     public function __construct()
     {

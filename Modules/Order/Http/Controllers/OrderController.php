@@ -13,7 +13,7 @@ class OrderController extends Controller
     protected $orderRepository;
 
     /**
-     * Create new Order Controller instance.
+     * Create new order controller instance.
      */
     public function __construct()
     {

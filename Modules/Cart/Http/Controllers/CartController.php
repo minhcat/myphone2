@@ -45,7 +45,7 @@ class CartController extends Controller
     protected $transporterCaseRepository;
 
     /**
-     * Create new Cart Controller instance.
+     * Create new cart controller instance.
      */
     public function __construct()
     {

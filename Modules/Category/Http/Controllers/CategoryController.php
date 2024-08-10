@@ -13,7 +13,7 @@ class CategoryController extends Controller
     protected $categoryRepository;
 
     /**
-     * Create new Brand Controller instance.
+     * Create new category Controller instance.
      */
     public function __construct()
     {

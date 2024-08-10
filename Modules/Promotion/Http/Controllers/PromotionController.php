@@ -17,7 +17,7 @@ class PromotionController extends Controller
     protected $promotionRepository;
 
     /**
-     * Create a new Product controller instance.
+     * Create a new promotion controller instance.
      */
     public function __construct()
     {

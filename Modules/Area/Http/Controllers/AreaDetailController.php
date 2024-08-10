@@ -27,7 +27,7 @@ class AreaDetailController extends Controller
     protected $wardRepository;
 
     /**
-     * Create new Brand Controller instance.
+     * Create new area detail controller instance.
      */
     public function __construct()
     {

@@ -9,11 +9,11 @@ use Modules\Brand\Repositories\BrandRepository;
 
 class BrandController extends Controller
 {
-    /** @var \App\Repositories\AbstractRepository */ // todo: change comment
+    /** @var \Modules\Brand\Repositories\BrandRepository */
     protected $brandRepository;
 
     /**
-     * Create new Brand Controller instance.
+     * Create new brand controller instance.
      */
     public function __construct()
     {

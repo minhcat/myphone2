@@ -13,7 +13,7 @@ class CityController extends Controller
     protected $cityRepository;
 
     /**
-     * Create a new Product controller instance.
+     * Create a new city controller instance.
      */
     public function __construct()
     {

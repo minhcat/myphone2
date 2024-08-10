@@ -13,7 +13,7 @@ class InformationController extends Controller
     protected $informationRepository;
 
     /**
-     * Create a new Information controller instance.
+     * Create a new information controller instance.
      */
     public function __construct()
     {

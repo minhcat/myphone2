@@ -13,7 +13,7 @@ class WardController extends Controller
     protected $wardRepository;
 
     /**
-     * Create a new Product controller instance.
+     * Create a new ward controller instance.
      */
     public function __construct()
     {

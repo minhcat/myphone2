@@ -13,7 +13,7 @@ class InvoiceDetailController extends Controller
     protected $invoiceDetailRepository;
 
     /**
-     * Create new Cart Controller instance.
+     * Create new invoice detail controller instance.
      */
     public function __construct()
     {

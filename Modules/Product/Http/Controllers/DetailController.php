@@ -21,7 +21,7 @@ class DetailController extends Controller
     protected $productRepository;
 
     /**
-     * Create a new Detail controller instance.
+     * Create a new detail controller instance.
      */
     public function __construct()
     {

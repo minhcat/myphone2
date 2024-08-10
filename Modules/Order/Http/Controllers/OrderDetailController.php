@@ -22,7 +22,7 @@ class OrderDetailController extends Controller
     protected $variantRepository;
 
     /**
-     * Create new Order Controller instance.
+     * Create new order detail controller instance.
      */
     public function __construct()
     {

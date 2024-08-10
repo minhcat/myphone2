@@ -26,7 +26,7 @@ class TransportFeeController extends Controller
     protected $transporterCaseRepository;
 
     /**
-     * Create a new Information controller instance.
+     * Create a new transport fee controller instance.
      */
     public function __construct()
     {

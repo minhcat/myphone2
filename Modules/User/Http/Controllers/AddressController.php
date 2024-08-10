@@ -25,7 +25,7 @@ class AddressController extends Controller
     protected $wardRepository;
 
     /**
-     * Create a new Product controller instance.
+     * Create a new address controller instance.
      */
     public function __construct()
     {

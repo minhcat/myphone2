@@ -22,7 +22,7 @@ class GiftProductItemController extends Controller
     protected $variantRepository;
 
     /**
-     * Create a new Product controller instance.
+     * Create a new gift product item controller instance.
      */
     public function __construct()
     {

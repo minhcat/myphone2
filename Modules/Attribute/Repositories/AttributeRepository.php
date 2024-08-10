@@ -12,13 +12,6 @@ class AttributeRepository extends AbstractRepository
         return new Attribute();
     }
 
-    protected function convertDataCreate($data, $more = [])
-    {
-        $data['author_id'] = 1; // todo: use Auth
-
-        return parent::convertDataCreate($data, $more);
-    }
-
     protected function convertDataUpdate($data, $more = [])
     {
         if (!isset($data['note']) || !$data['note']) {

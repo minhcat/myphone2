@@ -25,7 +25,7 @@ class ProductController extends Controller
     protected $tagRepository;
 
     /**
-     * Create a new Product controller instance.
+     * Create a new product controller instance.
      */
     public function __construct()
     {

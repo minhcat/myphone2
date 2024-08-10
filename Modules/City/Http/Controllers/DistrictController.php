@@ -13,7 +13,7 @@ class DistrictController extends Controller
     protected $districtRepository;
 
     /**
-     * Create a new Product controller instance.
+     * Create a new district controller instance.
      */
     public function __construct()
     {

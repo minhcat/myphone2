@@ -22,7 +22,7 @@ class CartDetailController extends Controller
     protected $variantRepository;
 
     /**
-     * Create new Cart Controller instance.
+     * Create new cart detail Controller instance.
      */
     public function __construct()
     {
