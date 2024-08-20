@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\Gender;
+use App\Faker\UserFaker;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -17,12 +19,20 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $userfaker = new UserFaker();
+
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'account'           => $userfaker->account,
+            'firstname'         => $userfaker->firstname,
+            'lastname'          => $userfaker->lastname,
+            'gender'            => $userfaker->gender,
+            'job'               => $userfaker->job,
+            'email'             => $userfaker->email,
+            'password'          => bcrypt('123456'),
+            'is_admin'          => true,
+            'remember_token'    => null,
+            'created_at'        => now()->format('Y-m-d H:i:s'),
+            'updated_at'        => now()->format('Y-m-d H:i:s'),
         ];
     }
 
