@@ -148,7 +148,7 @@ if (!function_exists('convert_stdtime')) {
     }
 }
 
-if (!function_exists('generateSeederData')) {
+if (!function_exists('generate_seeder_data')) {
     function generate_seeder_data(array $array, $option = null) {
         $length = [];
         foreach ($array as $field => $values) {
@@ -188,5 +188,45 @@ if (!function_exists('generateSeederData')) {
         }
 
         return $data;
+    }
+}
+
+if (!function_exists('convert_vn2latin')) {
+    function convert_vn2latin($string) {
+        $vn_unicode_chars  = [
+            "à","á","ạ","ả","ã","â","ầ","ấ","ậ","ẩ","ẫ","ă", "ằ","ắ","ặ","ẳ","ẵ",
+            "è","é","ẹ","ẻ","ẽ","ê","ề","ế","ệ","ể","ễ",
+            "ì","í","ị","ỉ","ĩ",
+            "ò","ó","ọ","ỏ","õ","ô","ồ","ố","ộ","ổ","ỗ","ơ" ,"ờ","ớ","ợ","ở","ỡ",
+            "ù","ú","ụ","ủ","ũ","ư","ừ","ứ","ự","ử","ữ",
+            "ỳ","ý","ỵ","ỷ","ỹ",
+            "đ",
+            "Á","À","Ạ","Ả","Ã","Â","Ầ","Ấ","Ậ","Ẩ","Ẫ","Ă" ,"Ẳ","Ẵ","Ặ","Ẳ","Ẵ",
+            "È","É","Ẹ","Ẻ","Ẽ","Ê","Ề","Ế","Ệ","Ể","Ễ",
+            "Ì","Í","Ị","Ỉ","Ĩ",
+            "Ó","Ò","Ọ","Ỏ","Õ","Ô","Ố","Ồ","Ộ","Ổ","Ỗ","Ơ" ,"Ớ","Ờ","Ợ","Ở","Ỡ",
+            "Ù","Ú","Ụ","Ủ","Ũ","Ư","Ừ","Ứ","Ự","Ử","Ữ",
+            "Ỳ","Ý","Ỵ","Ỷ","Ỹ",
+            "Đ"
+        ];
+
+        $latin_unicode_chars = [
+            "a","a","a","a","a","a","a","a","a","a","a" ,"a","a","a","a","a","a",
+            "e","e","e","e","e","e","e","e","e","e","e",
+            "i","i","i","i","i",
+            "o","o","o","o","o","o","o","o","o","o","o","o" ,"o","o","o","o","o",
+            "u","u","u","u","u","u","u","u","u","u","u",
+            "y","y","y","y","y",
+            "d",
+            "A","A","A","A","A","A","A","A","A","A","A","A" ,"A","A","A","A","A",
+            "E","E","E","E","E","E","E","E","E","E","E",
+            "I","I","I","I","I",
+            "O","O","O","O","O","O","O","O","O","O","O","O" ,"O","O","O","O","O",
+            "U","U","U","U","U","U","U","U","U","U","U",
+            "Y","Y","Y","Y","Y",
+            "D"
+        ];
+
+        return str_replace($vn_unicode_chars, $latin_unicode_chars, $string);
     }
 }
