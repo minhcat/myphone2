@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Faker\Traits;
+namespace Database\Fakers\Traits;
 
 use App\Enums\FakerConditionType;
 

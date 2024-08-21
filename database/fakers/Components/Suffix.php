@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Faker\Components;
+namespace Database\Fakers\Components;
 
 use App\Faker\Traits\CheckConditions;
 use App\Faker\Traits\CheckWiths;

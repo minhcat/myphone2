@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Faker\Components;
+namespace Database\Fakers\Components;
 
-use App\Faker\Traits\CheckConditions;
-use App\Faker\Traits\CheckWiths;
+use Database\Fakers\Traits\CheckConditions;
+use Database\Fakers\Traits\CheckWiths;
 
 class Prefix
 {

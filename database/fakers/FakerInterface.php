@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Faker;
+namespace Database\Fakers;
 
 interface FakerInterface
 {

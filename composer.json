@@ -27,6 +27,7 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
+            "Database\\Fakers\\": "database/fakers/",
             "Modules\\": "Modules/"
         },
         "files": [

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Faker\Components;
+namespace Database\Fakers\Components;
 
-use App\Faker\Traits\CheckConditions;
+use Database\Fakers\Traits\CheckConditions;
 
 class Value
 {

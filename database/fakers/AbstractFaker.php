@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Faker;
+namespace Database\Fakers;
 
-use App\Faker\Components\Attribute;
+use Database\Fakers\Components\Attribute;
 
 abstract class AbstractFaker implements FakerInterface
 {

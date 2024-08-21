@@ -2,10 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Enums\Gender;
-use App\Faker\UserFaker;
+use Database\Fakers\UserFaker;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>

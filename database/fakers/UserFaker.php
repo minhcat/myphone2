@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Faker;
-
-use Modules\User\Entities\User;
+namespace Database\Fakers;
 
 class UserFaker extends AbstractFaker
 {
