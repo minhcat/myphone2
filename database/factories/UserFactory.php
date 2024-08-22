@@ -4,12 +4,14 @@ namespace Database\Factories;
 
 use Database\Fakers\UserFaker;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\User\Entities\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
 class UserFactory extends Factory
 {
+    protected $model = User::class;
     /**
      * Define the model's default state.
      *

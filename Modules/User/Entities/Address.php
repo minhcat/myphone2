@@ -2,6 +2,7 @@
 
 namespace Modules\User\Entities;
 
+use Database\Factories\AddressFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\City\Entities\Ward;
@@ -20,5 +21,10 @@ class Address extends Model
     public function ward()
     {
         return $this->belongsTo(Ward::class);
+    }
+
+    public static function newFactory()
+    {
+        return new AddressFactory();
     }
 }
