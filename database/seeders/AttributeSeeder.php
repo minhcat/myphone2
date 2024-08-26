@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use Faker\Provider\Lorem;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Modules\Attribute\Entities\Attribute;
 use Modules\Attribute\Entities\Option;
 
