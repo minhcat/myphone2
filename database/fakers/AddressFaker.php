@@ -54,9 +54,9 @@ class AddressFaker extends AbstractFaker
 
         $models = $repository->all();
         $models_not_choose = $models->whereNotIn('id', $session_array)->values();
-        $user_ids = $models_not_choose->pluck('id');
+        $model_ids = $models_not_choose->pluck('id');
 
-        $max = $user_ids->count() - 1;
+        $max = $model_ids->count() - 1;
         $rand = rand(0, $max);
         $id = $models_not_choose[$rand]->id;
 

@@ -2,7 +2,7 @@
 
 namespace Modules\Product\Entities;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use Database\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Brand\Entities\Brand;
@@ -56,5 +56,10 @@ class Product extends Model
     public function getPriceFormatAttribute()
     {
         return number_format($this->price);
+    }
+
+    public static function newFactory()
+    {
+        return new ProductFactory();
     }
 }
