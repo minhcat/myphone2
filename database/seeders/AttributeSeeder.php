@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Faker\Provider\Lorem;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Modules\Attribute\Entities\Attribute;
+use Modules\Attribute\Entities\Option;
 
 class AttributeSeeder extends Seeder
 {
@@ -15,110 +17,12 @@ class AttributeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('attributes')->truncate();
+        Attribute::truncate();
 
-        DB::table('attributes')->insert([
-            [
-                'name'          => 'color',
-                'description'   => Lorem::paragraph(3),
-                'note'          => Lorem::paragraph(1),
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'          => 'style',
-                'description'   => Lorem::paragraph(3),
-                'note'          => Lorem::paragraph(1),
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'          => 'size',
-                'description'   => Lorem::paragraph(3),
-                'note'          => Lorem::paragraph(1),
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-        ]);
+        Attribute::insert(config('seeder.attribute'));
 
-        DB::table('options')->truncate();
+        Option::truncate();
 
-        DB::table('options')->insert([
-            [
-                'value'         => 'red',
-                'description'   => Lorem::paragraph(1),
-                'attribute_id'  => 1,
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s')
-            ],
-            [
-                'value'         => 'blue',
-                'description'   => Lorem::paragraph(1),
-                'attribute_id'  => 1,
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s')
-            ],
-            [
-                'value'         => 'black',
-                'description'   => Lorem::paragraph(1),
-                'attribute_id'  => 1,
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s')
-            ],
-            [
-                'value'         => 'white',
-                'description'   => Lorem::paragraph(1),
-                'attribute_id'  => 1,
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s')
-            ],
-            [
-                'value'         => 'classic',
-                'description'   => Lorem::paragraph(1),
-                'attribute_id'  => 2,
-                'author_id'     => 2,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s')
-            ],
-            [
-                'value'         => 'modern',
-                'description'   => Lorem::paragraph(1),
-                'attribute_id'  => 2,
-                'author_id'     => 2,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s')
-            ],
-            [
-                'value'         => 'mini',
-                'description'   => Lorem::paragraph(1),
-                'attribute_id'  => 3,
-                'author_id'     => 3,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s')
-            ],
-            [
-                'value'         => 'normal',
-                'description'   => Lorem::paragraph(1),
-                'attribute_id'  => 3,
-                'author_id'     => 3,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s')
-            ],
-            [
-                'value'         => 'large',
-                'description'   => Lorem::paragraph(1),
-                'attribute_id'  => 3,
-                'author_id'     => 3,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s')
-            ],
-        ]);
+        Option::insert(config('seeder.option'));
     }
 }
