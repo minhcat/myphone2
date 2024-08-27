@@ -4,13 +4,22 @@ namespace Database\Fakers;
 
 use Database\Fakers\Components\Attribute;
 
-abstract class AbstractFaker implements FakerInterface
+abstract class AbstractFaker
 {
+    protected $name;
+    protected $generate_type;
     protected $attributes = [];
 
-    public function __construct($data)
+    abstract public function getData();
+
+    public function __construct()
     {
-        foreach ($data as $attribute) {
+        $data = $this->getData();
+
+        $this->name = $data['name'];
+        $this->generate_type = $data['generate_type'];
+
+        foreach ($data['attributes'] as $attribute) {
             $this->attributes[] = new Attribute($attribute);
         }
 

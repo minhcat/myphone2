@@ -15,8 +15,12 @@ class AddressFaker extends AbstractFaker
         $this->wardRepository = new WardRepository;
         $this->userRepository = new UserRepository;
 
-        $data = config('faker.address');
-        return parent::__construct($data);
+        return parent::__construct();
+    }
+
+    public function getData()
+    {
+        return require database_path().'/fakers/Data/address/address.php';
     }
 
     public function generate()

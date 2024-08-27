@@ -15,8 +15,12 @@ class ProductFaker extends AbstractFaker
         $this->brandRepository = new BrandRepository;
         $this->userRepository = new UserRepository;
 
-        $data = config('faker.product');
-        return parent::__construct($data);
+        return parent::__construct();
+    }
+
+    public function getData()
+    {
+        return require database_path().'/fakers/Data/product/product.php';
     }
 
     public function generate()

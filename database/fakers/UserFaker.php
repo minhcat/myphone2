@@ -4,10 +4,9 @@ namespace Database\Fakers;
 
 class UserFaker extends AbstractFaker
 {
-    public function __construct()
+    public function getData()
     {
-        $data = config('faker.user');
-        return parent::__construct($data);
+        return require database_path().'/fakers/Data/user/user.php';
     }
 
     public function generate()
