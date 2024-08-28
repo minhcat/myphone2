@@ -2,17 +2,15 @@
 
 namespace Database\Fakers\Components;
 
-class Suffix
+class With
 {
-    protected $order;
-    protected $values = [];
+    protected $value;
+    protected $rate;
 
     public function __construct($data)
     {
-        $this->order    = $data['order'];
-        foreach ($data['values'] as $value) {
-            $this->values[] = new Value($value);
-        }
+        $this->value        = isset($data['value']) ? $data['value'] : '';
+        $this->rate         = isset($data['rate']) ? $data['rate'] : 1;
     }
 
     public function __get($name)

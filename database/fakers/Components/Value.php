@@ -3,14 +3,16 @@
 namespace Database\Fakers\Components;
 
 use Database\Fakers\Traits\CheckConditions;
+use Database\Fakers\Traits\CheckWiths;
 
 class Value
 {
-    use CheckConditions;
+    use CheckConditions, CheckWiths;
 
     protected $value;
     protected $rate;
     protected $conditions = [];
+    protected $withs = [];
 
     public function __construct($data)
     {
@@ -19,6 +21,11 @@ class Value
         if (isset($data['conditions'])) {
             foreach ($data['conditions'] as $conditions) {
                 $this->conditions[] = new Condition($conditions);
+            }
+        }
+        if (isset($data['withs']) && is_array($data['withs'])) {
+            foreach ($data['withs'] as $with) {
+                $this->withs[] = new With($with);
             }
         }
     }

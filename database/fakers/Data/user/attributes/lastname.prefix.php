@@ -5,161 +5,191 @@ use App\Enums\Gender;
 
 return [
     [
-        'value'                 => null,
-        'rate'                  => 0.05,
+        'order'                     => 1,
+        'values'                    => [
+            [
+                'value'                 => null,
+                'rate'                  => 0.05,
+            ],
+            [
+                'value'                 => 'Gia',
+                'rate'                  => 0.25,
+                'withs'                 => [
+                    [
+                        'value'         => 'Huy',
+                        'rate'          => 0.5
+                    ],
+                    [
+                        'value'         => 'Bảo',
+                        'rate'          => 0.5
+                    ],
+                    [
+                        'value'         => 'Đạt',
+                        'rate'          => 0.5
+                    ],
+                ],
+                'conditions'            => [
+                    [
+                        'attribute'     => 'gender',
+                        'value'         => Gender::MALE,
+                    ],
+                ],
+            ],
+            [
+                'value'                 => 'Văn',
+                'rate'                  => 0.2,
+                'conditions'            => [
+                    [
+                        'attribute'     => 'gender',
+                        'value'         => Gender::MALE,
+                    ],
+                ],
+            ],
+            [
+                'value'                 => 'Quốc',
+                'rate'                  => 0.2,
+                'conditions'            => [
+                    [
+                        'attribute'     => 'gender',
+                        'value'         => Gender::MALE,
+                    ],
+                ],
+            ],
+            [
+                'value'                 => 'Đức',
+                'rate'                  => 0.2,
+                'conditions'            => [
+                    [
+                        'attribute'     => 'gender',
+                        'value'         => Gender::MALE,
+                    ],
+                ],
+            ],
+            [
+                'value'                 => 'Mạnh',
+                'rate'                  => 0.2,
+                'conditions'            => [
+                    [
+                        'attribute'     => 'gender',
+                        'value'         => Gender::MALE,
+                    ],
+                ],
+            ],
+            [
+                'value'                 => 'Minh',
+                'rate'                  => 0.1,
+                'conditions'            => [
+                    [
+                        'attribute'     => 'gender',
+                        'value'         => Gender::MALE,
+                    ],
+                ],
+            ],
+            [
+                'value'                 => 'Hoàng',
+                'rate'                  => 0.1,
+                'conditions'            => [
+                    [
+                        'attribute'     => 'gender',
+                        'value'         => Gender::MALE,
+                    ],
+                ],
+            ],
+            [
+                'value'                 => 'Ngọc',
+                'rate'                  => 0.2,
+                'conditions'            => [
+                    [
+                        'attribute'     => 'gender',
+                        'value'         => Gender::FEMALE,
+                    ],
+                    [
+                        'attribute'     => 'lastname',
+                        'type'          => FakerConditionType::NOT_EQUAL,
+                        'value'         => 'Ngọc Anh',
+                    ],
+                ],
+            ],
+            [
+                'value'                 => 'Bích',
+                'rate'                  => 0.2,
+                'conditions'            => [
+                    [
+                        'attribute'     => 'gender',
+                        'value'         => Gender::FEMALE,
+                    ],
+                ],
+            ],
+            [
+                'value'                 => 'Diễm',
+                'rate'                  => 0.1,
+                'conditions'            => [
+                    [
+                        'attribute'     => 'gender',
+                        'value'         => Gender::FEMALE,
+                    ],
+                ],
+            ],
+            [
+                'value'                 => 'Kim',
+                'rate'                  => 0.2,
+                'conditions'            => [
+                    [
+                        'attribute'     => 'gender',
+                        'value'         => Gender::FEMALE,
+                    ],
+                    [
+                        'attribute'     => 'lastname',
+                        'type'          => FakerConditionType::NOT_EQUAL,
+                        'value'         => 'Kim Anh',
+                    ],
+                ],
+            ],
+            [
+                'value'                 => 'Hồng',
+                'rate'                  => 0.1,
+                'conditions'            => [
+                    [
+                        'attribute'     => 'gender',
+                        'value'         => [Gender::FEMALE, Gender::OTHER],
+                    ],
+                ],
+            ],
+            [
+                'value'                 => 'Thanh',
+                'rate'                  => 0.1,
+                'conditions'            => [
+                    [
+                        'attribute'     => 'gender',
+                        'value'         => [Gender::FEMALE, Gender::OTHER],
+                    ],
+                ],
+            ],
+        ]
     ],
     [
-        'value'                 => 'Gia',
-        'rate'                  => 0.25,
-        'withs'                 => [
+        'order'                         => 2,
+        'values'                        => [
             [
-                'value'         => 'Huy',
-                'rate'          => 0.5
+                'value'                 => null,
+                'rate'                  => 0.7,
+                'conditions'            => [
+                    [
+                        'attribute'     => 'gender',
+                        'value'         => Gender::FEMALE,
+                    ],
+                ]
             ],
             [
-                'value'         => 'Bảo',
-                'rate'          => 0.5
+                'value'                 => 'Thị',
+                'rate'                  => 0.3,
+                'conditions'            => [
+                    [
+                        'attribute'     => 'gender',
+                        'value'         => Gender::FEMALE,
+                    ],
+                ]
             ],
-            [
-                'value'         => 'Đạt',
-                'rate'          => 0.5
-            ],
-        ],
-        'conditions'            => [
-            [
-                'attribute'     => 'gender',
-                'value'         => Gender::MALE,
-            ],
-        ],
-    ],
-    [
-        'value'                 => 'Văn',
-        'rate'                  => 0.2,
-        'conditions'            => [
-            [
-                'attribute'     => 'gender',
-                'value'         => Gender::MALE,
-            ],
-        ],
-    ],
-    [
-        'value'                 => 'Quốc',
-        'rate'                  => 0.2,
-        'conditions'            => [
-            [
-                'attribute'     => 'gender',
-                'value'         => Gender::MALE,
-            ],
-        ],
-    ],
-    [
-        'value'                 => 'Đức',
-        'rate'                  => 0.2,
-        'conditions'            => [
-            [
-                'attribute'     => 'gender',
-                'value'         => Gender::MALE,
-            ],
-        ],
-    ],
-    [
-        'value'                 => 'Mạnh',
-        'rate'                  => 0.2,
-        'conditions'            => [
-            [
-                'attribute'     => 'gender',
-                'value'         => Gender::MALE,
-            ],
-        ],
-    ],
-    [
-        'value'                 => 'Minh',
-        'rate'                  => 0.1,
-        'conditions'            => [
-            [
-                'attribute'     => 'gender',
-                'value'         => Gender::MALE,
-            ],
-        ],
-    ],
-    [
-        'value'                 => 'Hoàng',
-        'rate'                  => 0.1,
-        'conditions'            => [
-            [
-                'attribute'     => 'gender',
-                'value'         => Gender::MALE,
-            ],
-        ],
-    ],
-    [
-        'value'                 => 'Thị',
-        'rate'                  => 0.2,
-        'conditions'            => [
-            [
-                'attribute'     => 'gender',
-                'value'         => Gender::FEMALE,
-            ],
-        ],
-    ],
-    [
-        'value'                 => 'Ngọc',
-        'rate'                  => 0.2,
-        'conditions'            => [
-            [
-                'attribute'     => 'gender',
-                'value'         => Gender::FEMALE,
-            ],
-            [
-                'attribute'     => 'lastname',
-                'type'          => FakerConditionType::NOT_EQUAL,
-                'value'         => 'Ngọc Anh',
-            ],
-        ],
-    ],
-    [
-        'value'                 => 'Bích',
-        'rate'                  => 0.2,
-        'conditions'            => [
-            [
-                'attribute'     => 'gender',
-                'value'         => Gender::FEMALE,
-            ],
-        ],
-    ],
-    [
-        'value'                 => 'Diễm',
-        'rate'                  => 0.1,
-        'conditions'            => [
-            [
-                'attribute'     => 'gender',
-                'value'         => Gender::FEMALE,
-            ],
-        ],
-    ],
-    [
-        'value'                 => 'Kim',
-        'rate'                  => 0.2,
-        'conditions'            => [
-            [
-                'attribute'     => 'gender',
-                'value'         => Gender::FEMALE,
-            ],
-            [
-                'attribute'     => 'lastname',
-                'type'          => FakerConditionType::NOT_EQUAL,
-                'value'         => 'Kim Anh',
-            ],
-        ],
-    ],
-    [
-        'value'                 => 'Hồng',
-        'rate'                  => 0.2,
-        'conditions'            => [
-            [
-                'attribute'     => 'gender',
-                'value'         => [Gender::FEMALE, Gender::OTHER],
-            ],
-        ],
+        ]
     ],
 ];

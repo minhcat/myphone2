@@ -29,6 +29,9 @@ class Attribute
                 $this->suffixes[] = new Suffix($suffix);
             }
         }
+
+        $this->orderFixes($this->prefixes);
+        $this->orderFixes($this->suffixes);
     }
 
     public function __get($name)
@@ -42,5 +45,12 @@ class Attribute
     public function setValue($value)
     {
         $this->value = $value;
+    }
+
+    protected function orderFixes(&$fixes)
+    {
+        usort($fixes, function($fix1, $fix2) {
+            return $fix1->order - $fix2->order;
+        });
     }
 }

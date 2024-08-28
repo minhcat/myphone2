@@ -109,17 +109,7 @@ return [
         ],
         // Gender Female
         [
-            'value'                 => 'Ngọc Anh',
-            'rate'                  => 0.1,
-            'conditions'            => [
-                [
-                    'attribute'     => 'gender',
-                    'value'         => Gender::FEMALE,
-                ],
-            ],
-        ],
-        [
-            'value'                 => 'Kim Anh',
+            'value'                 => 'Anh',
             'rate'                  => 0.1,
             'conditions'            => [
                 [
@@ -130,16 +120,6 @@ return [
         ],
         [
             'value'                 => 'Trang',
-            'rate'                  => 0.1,
-            'conditions'            => [
-                [
-                    'attribute'     => 'gender',
-                    'value'         => Gender::FEMALE,
-                ],
-            ],
-        ],
-        [
-            'value'                 => 'Thanh Trang',
             'rate'                  => 0.1,
             'conditions'            => [
                 [
