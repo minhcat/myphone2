@@ -76,80 +76,54 @@ abstract class AbstractFaker
         }
 
         if (count($attribute->prefixes) > 0) {
-            foreach ($attribute->prefixes as $prefix) {
-                $rand = lcg_value();
-                $rate = 0;
-                foreach ($prefix->values as $prefix_value) {
-                    if ($prefix_value->hasConditions()) {
-                        if ($prefix_value->checkConditions($this->attributes)) {
-                            if ($prefix_value->hasWiths()) {
-                                if ($prefix_value->checkWiths($attribute->value)) {
-                                    $rate += $prefix_value->rate;
-                                    if ($rand < $rate) {
-                                        $attribute->setValue($prefix_value->value . ' ' . $attribute->value);
-                                        break;
-                                    }
-                                }
-                            } else {
-                                $rate += $prefix_value->rate;
-                                if ($rand < $rate) {
-                                    $attribute->setValue($prefix_value->value . ' ' . $attribute->value);
-                                    break;
-                                }
-                            }
-                        }
-                    } elseif ($prefix_value->hasWiths()) {
-                        if ($prefix_value->checkWiths($attribute->value)) {
-                            $attribute->setValue($prefix_value->value . ' ' . $attribute->value);
-                            break;
-                        }
-                    } else {
-                        $rate += $prefix_value->rate;
-                        if ($rand < $rate && $prefix_value->value !== null) {
-                            $attribute->setValue($prefix_value->value . ' ' . $attribute->value);
-                            break;
-                        }
-                    }
-                }
-            }
+            $this->generateAttributeFixes($attribute, $attribute->prefixes, function ($value, $fixValue) {
+                return $fixValue . ' ' . $value;
+            });
         }
 
         if (count($attribute->suffixes) > 0) {
-            foreach ($attribute->suffixes as $suffix) {
-                $rand = lcg_value();
-                $rate = 0;
-                foreach ($suffix->values as $suffix_value) {
-                    if ($suffix_value->hasConditions()) {
-                        if ($suffix_value->checkConditions($this->attributes)) {
-                            if ($suffix_value->hasWiths()) {
-                                if ($suffix_value->checkWiths($attribute->value)) {
-                                    $rate += $suffix_value->rate;
-                                    if ($rand < $rate) {
-                                        $attribute->setValue($attribute->value . ' ' . $suffix_value->value);
-                                        break;
-                                    }
-                                }
-                            } else {
-                                $rate += $suffix_value->rate;
+            $this->generateAttributeFixes($attribute, $attribute->suffixes, function($value, $fixValue) {
+                return $value . ' ' . $fixValue;
+            });
+        }
+    }
+
+    protected function generateAttributeFixes($attribute, $fixes, $handleValue)
+    {
+        foreach ($fixes as $fix) {
+            $rand = lcg_value();
+            $rate = 0;
+            foreach ($fix->values as $fix_value) {
+                if ($fix_value->hasConditions()) {
+                    if ($fix_value->checkConditions($this->attributes)) {
+                        if ($fix_value->hasWiths()) {
+                            if ($fix_value->checkWiths($attribute->value)) {
+                                $rate += $fix_value->rate;
                                 if ($rand < $rate) {
-                                    $attribute->setValue($attribute->value . ' ' . $suffix_value->value);
+                                    $attribute->setValue(trim($handleValue($attribute->value, $fix_value->value)));
                                     break;
                                 }
                             }
-                        }
-                    } elseif ($suffix_value->hasWiths()) {
-                        if ($suffix_value->checkWiths($attribute->value)) {
-                            $attribute->setValue($attribute->value . ' ' . $suffix_value->value);
-                            break;
-                        }
-                    } else {
-                        $rate += $suffix_value->rate;
-                        if ($rand < $rate) {
-                            if ($suffix_value->value !== null) {
-                                $attribute->setValue($attribute->value . ' ' . $suffix_value->value);
+                        } else {
+                            $rate += $fix_value->rate;
+                            if ($rand < $rate) {
+                                $attribute->setValue(trim($handleValue($attribute->value, $fix_value->value)));
+                                break;
                             }
-                            break;
                         }
+                    }
+                } elseif ($fix_value->hasWiths()) {
+                    if ($fix_value->checkWiths($attribute->value)) {
+                        $attribute->setValue(trim($handleValue($attribute->value, $fix_value->value)));
+                        break;
+                    }
+                } else {
+                    $rate += $fix_value->rate;
+                    if ($rand < $rate) {
+                        if ($fix_value->value !== null) {
+                            $attribute->setValue(trim($handleValue($attribute->value, $fix_value->value)));
+                        }
+                        break;
                     }
                 }
             }
