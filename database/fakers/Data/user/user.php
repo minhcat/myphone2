@@ -1,8 +1,10 @@
 <?php
 
+use App\Enums\GenerateType;
+
 return [
     'name'              => 'user',
-    'generate_type'     => 'random',
+    'generate_type'     => GenerateType::RANDOM,
     'attributes'        => [
         require database_path().'\fakers\Data\user\attributes\gender.php',
         require database_path().'\fakers\Data\user\attributes\firstname.php',

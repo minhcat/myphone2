@@ -11,8 +11,8 @@ final class FakerConditionType extends AbstractEnum
     public static function getName($value)
     {
         switch ($value) {
-            case static::EQUAL:         return __('enum.condition_type.name.quantity');
-            case static::NOT_EQUAL:     return __('enum.condition_type.name.total');
+            case static::EQUAL:         return __('enum.faker_condition_type.name.quantity');
+            case static::NOT_EQUAL:     return __('enum.faker_condition_type.name.total');
             default:                    return $value;
         }
     }
@@ -20,8 +20,8 @@ final class FakerConditionType extends AbstractEnum
     public static function getLabel($value)
     {
         switch ($value) {
-            case static::EQUAL:         return __('enum.condition_type.label.quantity');
-            case static::NOT_EQUAL:     return __('enum.condition_type.label.total');
+            case static::EQUAL:         return __('enum.faker_condition_type.label.quantity');
+            case static::NOT_EQUAL:     return __('enum.faker_condition_type.label.total');
             default:                    return $value;
         }
     }
