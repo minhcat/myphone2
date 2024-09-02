@@ -5,6 +5,7 @@ return [
     'values'                        => [
         [
             'value'                 => 'PRO',
+            'max'                   => 1000,
             'rate'                  => 1
         ]
     ]

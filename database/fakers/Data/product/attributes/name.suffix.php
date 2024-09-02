@@ -7,6 +7,7 @@ return [
             [
                 'value'                 => '11',
                 'rate'                  => 0.2,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Iphone',
@@ -17,6 +18,7 @@ return [
             [
                 'value'                 => '11 Promax',
                 'rate'                  => 0.2,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Iphone',
@@ -27,6 +29,7 @@ return [
             [
                 'value'                 => '13',
                 'rate'                  => 0.2,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Iphone',
@@ -37,6 +40,7 @@ return [
             [
                 'value'                 => '13 Promax',
                 'rate'                  => 0.2,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Iphone',
@@ -47,6 +51,7 @@ return [
             [
                 'value'                 => '15',
                 'rate'                  => 0.1,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Iphone',
@@ -57,6 +62,7 @@ return [
             [
                 'value'                 => 'S23',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Samsung Galaxy',
@@ -67,6 +73,18 @@ return [
             [
                 'value'                 => 'S23 Ultra',
                 'rate'                  => 0.25,
+                'max'                   => 1,
+                'withs'                 => [
+                    [
+                        'value'         => 'Samsung Galaxy',
+                        'rate'          => 1
+                    ],
+                ]
+            ],
+            [
+                'value'                 => 'S24',
+                'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Samsung Galaxy',
@@ -77,6 +95,7 @@ return [
             [
                 'value'                 => 'Z Fold6',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Samsung Galaxy',
@@ -87,6 +106,7 @@ return [
             [
                 'value'                 => 'Z Flip6',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Samsung Galaxy',
@@ -97,6 +117,7 @@ return [
             [
                 'value'                 => '13',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Xiaomi Redmi',
@@ -111,6 +132,7 @@ return [
             [
                 'value'                 => 'Note 13',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Xiaomi Redmi',
@@ -125,6 +147,7 @@ return [
             [
                 'value'                 => 'Note 13 Pro',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Xiaomi Redmi',
@@ -139,6 +162,7 @@ return [
             [
                 'value'                 => '14 Ultra',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Xiaomi Redmi',
@@ -153,6 +177,7 @@ return [
             [
                 'value'                 => 'Find X5',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'OPPO',
@@ -163,6 +188,7 @@ return [
             [
                 'value'                 => 'Find X5 Pro',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'OPPO',
@@ -173,6 +199,18 @@ return [
             [
                 'value'                 => 'Find X6 Pro',
                 'rate'                  => 0.25,
+                'max'                   => 1,
+                'withs'                 => [
+                    [
+                        'value'         => 'OPPO',
+                        'rate'          => 1
+                    ],
+                ]
+            ],
+            [
+                'value'                 => 'Reno 11',
+                'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'OPPO',
@@ -183,6 +221,7 @@ return [
             [
                 'value'                 => 'Reno 12',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'OPPO',
@@ -193,6 +232,7 @@ return [
             [
                 'value'                 => 'V25e',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Vivo',
@@ -203,6 +243,7 @@ return [
             [
                 'value'                 => 'X100',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Vivo',
@@ -213,6 +254,7 @@ return [
             [
                 'value'                 => 'Y28',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Vivo',
@@ -223,6 +265,18 @@ return [
             [
                 'value'                 => 'Y03',
                 'rate'                  => 0.25,
+                'max'                   => 1,
+                'withs'                 => [
+                    [
+                        'value'         => 'Vivo',
+                        'rate'          => 1
+                    ],
+                ]
+            ],
+            [
+                'value'                 => 'V30',
+                'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Vivo',
@@ -233,6 +287,7 @@ return [
             [
                 'value'                 => '10',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Realme',
@@ -243,6 +298,18 @@ return [
             [
                 'value'                 => 'C65',
                 'rate'                  => 0.25,
+                'max'                   => 1,
+                'withs'                 => [
+                    [
+                        'value'         => 'Realme',
+                        'rate'          => 1
+                    ],
+                ]
+            ],
+            [
+                'value'                 => 'C67',
+                'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Realme',
@@ -253,6 +320,7 @@ return [
             [
                 'value'                 => 'Note 50',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Realme',
@@ -263,6 +331,7 @@ return [
             [
                 'value'                 => 'C60',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Realme',
@@ -273,6 +342,7 @@ return [
             [
                 'value'                 => 'G22',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Nokia',
@@ -283,6 +353,7 @@ return [
             [
                 'value'                 => 'C32',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Nokia',
@@ -293,6 +364,7 @@ return [
             [
                 'value'                 => '3210',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Nokia',
@@ -303,6 +375,7 @@ return [
             [
                 'value'                 => '220',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Nokia',
@@ -313,6 +386,8 @@ return [
             [
                 'value'                 => 'Joy 4',
                 'rate'                  => 0.25,
+                'max'                   => 1,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Vsmart',
@@ -323,6 +398,18 @@ return [
             [
                 'value'                 => 'Star 4',
                 'rate'                  => 0.25,
+                'max'                   => 1,
+                'withs'                 => [
+                    [
+                        'value'         => 'Vsmart',
+                        'rate'          => 1
+                    ],
+                ]
+            ],
+            [
+                'value'                 => 'Bee 2',
+                'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Vsmart',
@@ -333,6 +420,7 @@ return [
             [
                 'value'                 => 'Bee 3',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Vsmart',
@@ -343,6 +431,7 @@ return [
             [
                 'value'                 => 'Aris',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Vsmart',
@@ -353,6 +442,7 @@ return [
             [
                 'value'                 => 'ROG Phone 6',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Asus',
@@ -363,6 +453,7 @@ return [
             [
                 'value'                 => 'ROG Phone 8',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Asus',
@@ -373,6 +464,7 @@ return [
             [
                 'value'                 => 'Zenfone 10',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Asus',
@@ -383,6 +475,7 @@ return [
             [
                 'value'                 => 'Zenfone 11 Ultra',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Asus',
@@ -393,6 +486,7 @@ return [
             [
                 'value'                 => 'L6502',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Itel',
@@ -403,6 +497,7 @@ return [
             [
                 'value'                 => 'S23',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Itel',
@@ -413,6 +508,7 @@ return [
             [
                 'value'                 => 'RS4',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Itel',
@@ -423,6 +519,7 @@ return [
             [
                 'value'                 => 'it2600',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Itel',
@@ -433,6 +530,7 @@ return [
             [
                 'value'                 => 'F309',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Mobell',
@@ -443,6 +541,7 @@ return [
             [
                 'value'                 => 'F209',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Mobell',
@@ -453,6 +552,7 @@ return [
             [
                 'value'                 => 'Rock 4',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Mobell',
@@ -463,6 +563,7 @@ return [
             [
                 'value'                 => 'M331',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Mobell',
@@ -473,6 +574,7 @@ return [
             [
                 'value'                 => 'Fami 50',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Masstel',
@@ -483,6 +585,7 @@ return [
             [
                 'value'                 => 'IZI T6',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Masstel',
@@ -493,6 +596,7 @@ return [
             [
                 'value'                 => 'IZI 10',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Masstel',
@@ -503,6 +607,7 @@ return [
             [
                 'value'                 => 'Lux 10',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Masstel',
@@ -513,6 +618,7 @@ return [
             [
                 'value'                 => 'Aspire 5 Gaming',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Acer',
@@ -523,6 +629,7 @@ return [
             [
                 'value'                 => 'Aspire 6 Gaming',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Acer',
@@ -533,6 +640,7 @@ return [
             [
                 'value'                 => 'Aspire Lite 15',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Acer',
@@ -543,6 +651,7 @@ return [
             [
                 'value'                 => 'Aspire Nitro 5',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Acer',
@@ -553,6 +662,7 @@ return [
             [
                 'value'                 => 'Inspiron 15',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Dell',
@@ -563,6 +673,7 @@ return [
             [
                 'value'                 => 'Vostro 15',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Dell',
@@ -573,6 +684,7 @@ return [
             [
                 'value'                 => 'Precision 16',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Dell',
@@ -583,6 +695,7 @@ return [
             [
                 'value'                 => 'Latitude 3440',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Dell',
@@ -593,6 +706,7 @@ return [
             [
                 'value'                 => 'Ideapad Slim 3',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Lenovo',
@@ -603,6 +717,7 @@ return [
             [
                 'value'                 => 'LOQ 15',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Lenovo',
@@ -613,6 +728,7 @@ return [
             [
                 'value'                 => 'Thinkpad Gen 4',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Lenovo',
@@ -623,6 +739,7 @@ return [
             [
                 'value'                 => 'Legion 5',
                 'rate'                  => 0.25,
+                'max'                   => 1,
                 'withs'                 => [
                     [
                         'value'         => 'Lenovo',

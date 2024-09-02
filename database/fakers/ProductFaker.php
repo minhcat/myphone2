@@ -37,7 +37,7 @@ class ProductFaker extends AbstractFaker
 
     protected function generateBrandId()
     {
-        $this->brand_id = $this->getRandomResourceId($this->brandRepository, 'product_brand_ids', 5);
+        $this->brand_id = $this->getResourceId($this->brandRepository, 'product_brand_ids', 5);
     }
 
     protected function generateBrandName()
@@ -64,38 +64,6 @@ class ProductFaker extends AbstractFaker
 
     protected function generateAuthorId()
     {
-        $this->author_id = $this->getRandomResourceId($this->userRepository, 'product_user_ids', 5);
-    }
-
-    private function getRandomResourceId($repository, $session_name, $max_quantity = 1)
-    {
-        $session_array = [];
-        if (session()->has($session_name)) {
-            $session_array = session()->get($session_name);
-        }
-        $session_ids = array_filter($session_array, function($item) use ($max_quantity) {
-            if ($item[1] >= $max_quantity) {
-                return $item[0];
-            }
-        });
-
-        $models = $repository->all();
-        $models_not_choose = $models->whereNotIn('id', $session_ids)->values();
-        $model_ids = $models_not_choose->pluck('id');
-
-        $max = $model_ids->count() - 1;
-        $rand = rand(0, $max);
-        $id = $models_not_choose[$rand]->id;
-        $quantity = array_values(array_filter($session_array, function($item) use ($id) {
-            if ($item[0] == $id) {
-                return $item[1];
-            }
-        }));
-        $quantity = count($quantity) > 0 ? $quantity[0] : 1;
-
-        $session_array[] = [$id, $quantity];
-        session()->put($session_name, $session_array);
-
-        return $id;
+        $this->author_id = $this->getResourceId($this->userRepository, 'product_user_ids', 5);
     }
 }

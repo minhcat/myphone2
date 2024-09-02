@@ -7,6 +7,7 @@ return [
         [
             'value'                 => 'Iphone',
             'rate'                  => 1,
+            'max'                   => 5,
             'conditions'            => [
                 [
                     'attribute'     => 'brand_name',
@@ -17,6 +18,7 @@ return [
         [
             'value'                 => 'Samsung Galaxy',
             'rate'                  => 1,
+            'max'                   => 5,
             'conditions'            => [
                 [
                     'attribute'     => 'brand_name',
@@ -27,6 +29,7 @@ return [
         [
             'value'                 => 'Xiaomi',
             'rate'                  => 0.5,
+            'max'                   => 3,
             'conditions'            => [
                 [
                     'attribute'     => 'brand_name',
@@ -37,6 +40,7 @@ return [
         [
             'value'                 => 'Xiaomi Redmi',
             'rate'                  => 0.5,
+            'max'                   => 2,
             'conditions'            => [
                 [
                     'attribute'     => 'brand_name',
@@ -47,6 +51,7 @@ return [
         [
             'value'                 => 'OPPO',
             'rate'                  => 1,
+            'max'                   => 5,
             'conditions'            => [
                 [
                     'attribute'     => 'brand_name',
@@ -57,6 +62,7 @@ return [
         [
             'value'                 => 'Vivo',
             'rate'                  => 1,
+            'max'                   => 5,
             'conditions'            => [
                 [
                     'attribute'     => 'brand_name',
@@ -67,6 +73,7 @@ return [
         [
             'value'                 => 'Realme',
             'rate'                  => 1,
+            'max'                   => 5,
             'conditions'            => [
                 [
                     'attribute'     => 'brand_name',
@@ -77,6 +84,7 @@ return [
         [
             'value'                 => 'Nokia',
             'rate'                  => 1,
+            'max'                   => 5,
             'conditions'            => [
                 [
                     'attribute'     => 'brand_name',
@@ -87,6 +95,7 @@ return [
         [
             'value'                 => 'Mobell',
             'rate'                  => 1,
+            'max'                   => 5,
             'conditions'            => [
                 [
                     'attribute'     => 'brand_name',
@@ -97,6 +106,7 @@ return [
         [
             'value'                 => 'Vsmart',
             'rate'                  => 1,
+            'max'                   => 5,
             'conditions'            => [
                 [
                     'attribute'     => 'brand_name',
@@ -107,6 +117,7 @@ return [
         [
             'value'                 => 'Masstel',
             'rate'                  => 1,
+            'max'                   => 5,
             'conditions'            => [
                 [
                     'attribute'     => 'brand_name',
@@ -117,6 +128,7 @@ return [
         [
             'value'                 => 'Dell',
             'rate'                  => 1,
+            'max'                   => 5,
             'conditions'            => [
                 [
                     'attribute'     => 'brand_name',
@@ -127,6 +139,7 @@ return [
         [
             'value'                 => 'Asus',
             'rate'                  => 1,
+            'max'                   => 5,
             'conditions'            => [
                 [
                     'attribute'     => 'brand_name',
@@ -137,6 +150,7 @@ return [
         [
             'value'                 => 'Lenovo',
             'rate'                  => 1,
+            'max'                   => 5,
             'conditions'            => [
                 [
                     'attribute'     => 'brand_name',
@@ -147,6 +161,7 @@ return [
         [
             'value'                 => 'Acer',
             'rate'                  => 1,
+            'max'                   => 5,
             'conditions'            => [
                 [
                     'attribute'     => 'brand_name',
@@ -157,6 +172,7 @@ return [
         [
             'value'                 => 'Itel',
             'rate'                  => 1,
+            'max'                   => 5,
             'conditions'            => [
                 [
                     'attribute'     => 'brand_name',

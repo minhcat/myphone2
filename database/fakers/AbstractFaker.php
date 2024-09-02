@@ -2,11 +2,16 @@
 
 namespace Database\Fakers;
 
+use App\Enums\GenerateType;
 use Database\Fakers\Components\Attribute;
+use Database\Fakers\Traits\RandomGeneration;
+use Database\Fakers\Traits\SequentialGeneration;
 
 abstract class AbstractFaker
 {
-    protected $name;
+    use RandomGeneration, SequentialGeneration;
+
+    protected $faker_name;
     protected $generate_type;
     protected $attributes = [];
 
@@ -16,7 +21,7 @@ abstract class AbstractFaker
     {
         $data = $this->getData();
 
-        $this->name = $data['name'];
+        $this->faker_name = $data['name'];
         $this->generate_type = $data['generate_type'];
 
         foreach ($data['attributes'] as $attribute) {
@@ -33,6 +38,9 @@ abstract class AbstractFaker
                 return $attr->value;
             }
         }
+        if (property_exists($this, $attribute)) {
+            return $this->$attribute;
+        }
         return null;
     }
 
@@ -48,85 +56,23 @@ abstract class AbstractFaker
 
     public function generate()
     {
-        foreach ($this->attributes as $attribute) {
-            $this->generateAttribute($attribute);
+        if ($this->generate_type == GenerateType::RANDOM) {
+            foreach ($this->attributes as $attribute) {
+                $this->generateRandomAttribute($attribute);
+            }
+        } else {
+            foreach ($this->attributes as $attribute) {
+                $this->generateSequentialAttribute($attribute);
+            }
         }
     }
 
-    protected function generateAttribute($attribute)
+    protected function getResourceId($repository, $session_array, $max_quantity = 1)
     {
-        $rand = lcg_value();
-        $rate = 0;
-        foreach ($attribute->values as $value) {
-            if ($value->hasConditions()) {
-                if ($value->checkConditions($this->attributes)) {
-                    $rate += $value->rate;
-                    if ($rand < $rate) {
-                        $attribute->setValue($value->value);
-                        break;
-                    }
-                }
-            } else {
-                $rate += $value->rate;
-                if ($rand < $rate) {
-                    $attribute->setValue($value->value);
-                    break;
-                }
-            }
-        }
-
-        if (count($attribute->prefixes) > 0) {
-            $this->generateAttributeFixes($attribute, $attribute->prefixes, function ($value, $fixValue) {
-                return $fixValue . ' ' . $value;
-            });
-        }
-
-        if (count($attribute->suffixes) > 0) {
-            $this->generateAttributeFixes($attribute, $attribute->suffixes, function($value, $fixValue) {
-                return $value . ' ' . $fixValue;
-            });
-        }
-    }
-
-    protected function generateAttributeFixes($attribute, $fixes, $handleValue)
-    {
-        foreach ($fixes as $fix) {
-            $rand = lcg_value();
-            $rate = 0;
-            foreach ($fix->values as $fix_value) {
-                if ($fix_value->hasConditions()) {
-                    if ($fix_value->checkConditions($this->attributes)) {
-                        if ($fix_value->hasWiths()) {
-                            if ($fix_value->checkWiths($attribute->value)) {
-                                $rate += $fix_value->rate;
-                                if ($rand < $rate) {
-                                    $attribute->setValue(trim($handleValue($attribute->value, $fix_value->value)));
-                                    break;
-                                }
-                            }
-                        } else {
-                            $rate += $fix_value->rate;
-                            if ($rand < $rate) {
-                                $attribute->setValue(trim($handleValue($attribute->value, $fix_value->value)));
-                                break;
-                            }
-                        }
-                    }
-                } elseif ($fix_value->hasWiths()) {
-                    if ($fix_value->checkWiths($attribute->value)) {
-                        $attribute->setValue(trim($handleValue($attribute->value, $fix_value->value)));
-                        break;
-                    }
-                } else {
-                    $rate += $fix_value->rate;
-                    if ($rand < $rate) {
-                        if ($fix_value->value !== null) {
-                            $attribute->setValue(trim($handleValue($attribute->value, $fix_value->value)));
-                        }
-                        break;
-                    }
-                }
-            }
+        if ($this->generate_type == GenerateType::RANDOM) {
+            return $this->getRandomResourceId($repository, $session_array, $max_quantity);
+        } else {
+            return $this->getSequentialResourceId($repository, $session_array, $max_quantity);
         }
     }
 }
