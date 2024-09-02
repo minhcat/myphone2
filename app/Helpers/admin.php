@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\FixType;
 use App\Enums\OrderStatus;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\ViewErrorBag;
@@ -228,5 +229,34 @@ if (!function_exists('convert_vn2latin')) {
         ];
 
         return str_replace($vn_unicode_chars, $latin_unicode_chars, $string);
+    }
+}
+
+if (!function_exists('get_time_of_use_session')) {
+    function get_time_of_use_session($faker, $attribute, $value) {
+        $time_of_use = 0;
+        $session_name = $faker->faker_name . '.' . $attribute->name . '.' . $value->value . '.time';
+        if (session()->has($session_name)) {
+            $time_of_use = session($session_name);
+        }
+
+        return [$time_of_use, $session_name];
+    }
+}
+
+if (!function_exists('get_time_of_use_fix_session')) {
+    function get_time_of_use_fix_session($faker, $attribute, $fixvalue, $fixtype) {
+        if ($fixtype == FixType::PREFIX) {
+            $session_name = $faker->faker_name . '.' . $attribute->name . '.' . $attribute->origin . '.prefix.' . $fixvalue->value . '.time';
+        } else {
+            $session_name = $faker->faker_name . '.' . $attribute->name . '.' . $attribute->origin . '.suffix.' . $fixvalue->value . '.time';
+        }
+
+        $time_of_use = 0;
+        if (session()->has($session_name)) {
+            $time_of_use = session($session_name);
+        }
+
+        return [$time_of_use, $session_name];
     }
 }
