@@ -11,8 +11,8 @@ final class GenerateType extends AbstractEnum
     public static function getName($value)
     {
         switch ($value) {
-            case static::RANDOM:        return __('enum.condition_type.name.quantity');
-            case static::SEQUENTIAL:    return __('enum.condition_type.name.total');
+            case static::RANDOM:        return __('enum.generate_type.name.random');
+            case static::SEQUENTIAL:    return __('enum.generate_type.name.sequential');
             default:                    return $value;
         }
     }
@@ -20,8 +20,8 @@ final class GenerateType extends AbstractEnum
     public static function getLabel($value)
     {
         switch ($value) {
-            case static::RANDOM:        return __('enum.condition_type.label.quantity');
-            case static::SEQUENTIAL:    return __('enum.condition_type.label.total');
+            case static::RANDOM:        return __('enum.generate_type.label.random');
+            case static::SEQUENTIAL:    return __('enum.generate_type.label.sequential');
             default:                    return $value;
         }
     }
