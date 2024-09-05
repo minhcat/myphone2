@@ -3,3 +3,7 @@ add country brand to setting
 make factory user, product data
 make quality, payment method to transporter and order
 check todo comment
+
+handle multi prefix
+handle with max id
+compress data faker

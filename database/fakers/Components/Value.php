@@ -19,7 +19,7 @@ class Value
     {
         $this->value    = isset($data['value']) ? $data['value'] : '';
         $this->rate     = isset($data['rate']) ? $data['rate'] : 1;
-        $this->max      = isset($data['max']) ? $data['max'] : 5;
+        $this->max      = isset($data['max']) ? $data['max'] : 1000;
         if (isset($data['conditions'])) {
             foreach ($data['conditions'] as $conditions) {
                 $this->conditions[] = new Condition($conditions);

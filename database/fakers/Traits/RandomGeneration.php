@@ -113,7 +113,7 @@ trait RandomGeneration
         }
     }
 
-    protected function getRandomResourceId($repository, $session_name, $max_quantity = 1)
+    protected function getRandomResourceId($repository, $session_name, $max_quantity = 1000)
     {
         $session_array = [];
         if (session()->has($session_name)) {
