@@ -41,7 +41,6 @@ trait SequentialGeneration
     {
         foreach ($fixes as $fix) {
             foreach ($fix->values as $fix_value) {
-                dump($fix_value->space);
                 if ($fix_value->hasConditions()) {
                     if ($fix_value->checkConditions($this->attributes)) {
                         if ($fix_value->hasWiths()) {
