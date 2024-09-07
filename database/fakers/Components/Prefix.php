@@ -9,6 +9,8 @@ class Prefix
 
     public function __construct($data)
     {
+        $data = array_merge(config('faker.defaults.prefix'), $data);
+
         $this->order  = $data['order'];
         foreach ($data['values'] as $value) {
             $this->values[] = new Value($value);

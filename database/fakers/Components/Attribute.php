@@ -19,6 +19,8 @@ class Attribute
 
     public function __construct($data)
     {
+        $data = array_merge(config('faker.defaults.attribute'), $data);
+
         $this->name = $data['attribute'];
         $this->generate_type = isset($data['generate_type']) ? $data['generate_type'] : GenerateType::RANDOM;
 

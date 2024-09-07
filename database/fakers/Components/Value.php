@@ -17,6 +17,8 @@ class Value
 
     public function __construct($data)
     {
+        $data = array_merge(config('faker.defaults.value'), $data);
+
         $this->value    = isset($data['value']) ? $data['value'] : '';
         $this->rate     = isset($data['rate']) ? $data['rate'] : 1;
         $this->max      = isset($data['max']) ? $data['max'] : 1000;

@@ -20,7 +20,7 @@ abstract class AbstractFaker
 
     public function __construct()
     {
-        $data = $this->getData();
+        $data = array_merge(config('faker.defaults.faker'), $this->getData());
 
         $this->faker_name = $data['name'];
         $this->generate_type = $data['generate_type'];

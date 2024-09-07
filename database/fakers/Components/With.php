@@ -9,6 +9,8 @@ class With
 
     public function __construct($data)
     {
+        $data = array_merge(config('faker.defaults.with'), $data);
+
         $this->value        = isset($data['value']) ? $data['value'] : '';
         $this->rate         = isset($data['rate']) ? $data['rate'] : 1;
     }
