@@ -39,4 +39,11 @@ class Value
         }
         return null;
     }
+
+    public function __set($name, $value)
+    {
+        if ($name == 'value') {
+            $this->value = $value;
+        }
+    }
 }

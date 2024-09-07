@@ -89,11 +89,14 @@ trait RandomGeneration
                     }
                 } elseif ($fix_value->hasWiths()) {
                     if ($fix_value->checkWiths($attribute->value)) {
-                        [$time_of_use, $session_name] = get_time_of_use_fix_session($this, $attribute, $fix_value, $fixtype);
-                        if ($time_of_use < $fix_value->max) {
-                            $attribute->addFix($fix_value->value, $fixtype);
-                            session()->put($session_name, $time_of_use + 1);
-                            break;
+                        $rate += $fix_value->rate;
+                        if ($rand < $rate) {
+                            [$time_of_use, $session_name] = get_time_of_use_fix_session($this, $attribute, $fix_value, $fixtype);
+                            if ($time_of_use < $fix_value->max) {
+                                $attribute->addFix($fix_value->value, $fixtype);
+                                session()->put($session_name, $time_of_use + 1);
+                                break;
+                            }
                         }
                     }
                 } else {

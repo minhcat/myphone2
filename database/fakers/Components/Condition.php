@@ -7,12 +7,14 @@ use App\Enums\FakerConditionType;
 class Condition
 {
     protected $attribute;
+    protected $column;
     protected $type;
     protected $value;
 
     public function __construct($data)
     {
-        $this->attribute = $data['attribute'];
+        $this->attribute = isset($data['attribute']) ? $data['attribute'] : null;
+        $this->column    = isset($data['column']) ? $data['column'] : null;
         $this->type      = isset($data['type']) ? $data['type'] : FakerConditionType::EQUAL;
         $this->value     = $data['value'];
     }

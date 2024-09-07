@@ -23,14 +23,16 @@ class ProductFaker extends AbstractFaker
         return require database_path().'/fakers/Data/product/product.php';
     }
 
-    public function generate()
+    protected function beforeGenerate()
     {
-        $this->generateBrandId();
-        $this->generateBrandName();
+        $this->buildResourceId($this->brandRepository, 'brand_id');
+    }
+
+    protected function afterGenerate()
+    {
         $this->generateAuthorId();
-
-        parent::generate();
-
+        $this->generateBrandName();
+        $this->generateAttribute('name');
         $this->generateSlug();
         $this->generateSKUNumber();
     }

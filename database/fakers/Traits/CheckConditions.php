@@ -19,7 +19,7 @@ trait CheckConditions
         $check = true;
         foreach ($this->conditions as $condition) {
             foreach ($attributes as $attr) {
-                if ($condition->attribute == $attr->name) {
+                if ($condition->attribute === $attr->name) {
                     if ($condition->type == FakerConditionType::EQUAL) {
                         if (is_array($condition->value)) {
                             foreach ($condition->value as $cvalue) {

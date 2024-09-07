@@ -44,7 +44,7 @@ trait SequentialGeneration
                 if ($fix_value->hasConditions()) {
                     if ($fix_value->checkConditions($this->attributes)) {
                         if ($fix_value->hasWiths()) {
-                            if ($fix_value->checkWiths($attribute->value)) {
+                            if ($fix_value->checkWiths($attribute->value, false)) {
                                 [$time_of_use, $session_name] = get_time_of_use_fix_session($this, $attribute, $fixtype, $fix_value);
                                 if ($time_of_use < $fix_value->max) {
                                     $attribute->addFix($fix_value->value, $fixtype);
@@ -62,7 +62,7 @@ trait SequentialGeneration
                         }
                     }
                 } elseif ($fix_value->hasWiths()) {
-                    if ($fix_value->checkWiths($attribute->value)) {
+                    if ($fix_value->checkWiths($attribute->value, false)) {
                         [$time_of_use, $session_name] = get_time_of_use_fix_session($this, $attribute, $fixtype, $fix_value);
                         if ($time_of_use < $fix_value->max) {
                             $attribute->addFix($fix_value->value, $fixtype);
