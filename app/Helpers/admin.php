@@ -247,9 +247,17 @@ if (!function_exists('get_time_of_use_session')) {
 if (!function_exists('get_time_of_use_fix_session')) {
     function get_time_of_use_fix_session($faker, $attribute, $fixvalue, $fixtype) {
         if ($fixtype == FixType::PREFIX) {
-            $session_name = $faker->faker_name . '.' . $attribute->name . '.' . $attribute->origin . '.prefix.' . $fixvalue->value . '.time';
+            $prefix_str = '';
+            foreach ($attribute->prefixes_selected as $prefix) {
+                $prefix_str .= 'prefix.' . $prefix;
+            }
+            $session_name = $faker->faker_name . '.' . $attribute->name . '.' . $attribute->origin . $prefix_str . '.prefix.' . $fixvalue->value . '.time';
         } else {
-            $session_name = $faker->faker_name . '.' . $attribute->name . '.' . $attribute->origin . '.suffix.' . $fixvalue->value . '.time';
+            $suffix_str = '';
+            foreach ($attribute->suffixes_selected as $suffix) {
+                $suffix_str .= 'suffix.' . $suffix;
+            }
+            $session_name = $faker->faker_name . '.' . $attribute->name . '.' . $attribute->origin . $suffix_str . '.suffix.' . $fixvalue->value . '.time';
         }
 
         $time_of_use = 0;
