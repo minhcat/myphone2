@@ -15,9 +15,9 @@ class Condition
     {
         $data = array_merge(config('faker.defaults.condition'), $data);
 
-        $this->attribute = isset($data['attribute']) ? $data['attribute'] : null;
-        $this->column    = isset($data['column']) ? $data['column'] : null;
-        $this->type      = isset($data['type']) ? $data['type'] : FakerConditionType::EQUAL;
+        $this->attribute = $data['attribute'];
+        $this->column    = $data['column'];
+        $this->type      = $data['type'];
         $this->value     = $data['value'];
     }
 

@@ -29,6 +29,7 @@ return [
             'value'             => null,
             'rate'              => 1,
             'max'               => 1000,
+            'space'             => true
         ],
         'with'                  => [
             'value'             => null,
@@ -42,11 +43,9 @@ return [
         ],
         'prefix'                => [
             'order'             => 1,
-            'space'             => true
         ],
         'suffix'                => [
             'order'             => 1,
-            'space'             => true
         ],
     ],
 ];

@@ -69,7 +69,7 @@ trait RandomGeneration
                                 if ($rand < $rate) {
                                     [$time_of_use, $session_name] = get_time_of_use_fix_session($this, $attribute, $fix_value, $fixtype);
                                     if ($time_of_use < $fix_value->max) {
-                                        $attribute->addFix($fix_value->value, $fixtype);
+                                        $attribute->addFix($fix_value->value, $fixtype, $fix_value->space);
                                         session()->put($session_name, $time_of_use + 1);
                                         break;
                                     }
@@ -80,7 +80,7 @@ trait RandomGeneration
                             if ($rand < $rate) {
                                 [$time_of_use, $session_name] = get_time_of_use_fix_session($this, $attribute, $fix_value, $fixtype);
                                 if ($time_of_use < $fix_value->max) {
-                                    $attribute->addFix($fix_value->value, $fixtype);
+                                    $attribute->addFix($fix_value->value, $fixtype, $fix_value->space);
                                     session()->put($session_name, $time_of_use + 1);
                                     break;
                                 }
@@ -93,7 +93,7 @@ trait RandomGeneration
                         if ($rand < $rate) {
                             [$time_of_use, $session_name] = get_time_of_use_fix_session($this, $attribute, $fix_value, $fixtype);
                             if ($time_of_use < $fix_value->max) {
-                                $attribute->addFix($fix_value->value, $fixtype);
+                                $attribute->addFix($fix_value->value, $fixtype, $fix_value->space);
                                 session()->put($session_name, $time_of_use + 1);
                                 break;
                             }
@@ -105,7 +105,7 @@ trait RandomGeneration
                         [$time_of_use, $session_name] = get_time_of_use_fix_session($this, $attribute, $fix_value, $fixtype);
                         if ($time_of_use < $fix_value->max) {
                             if ($fix_value->value !== null) {
-                                $attribute->addFix($fix_value->value, $fixtype);
+                                $attribute->addFix($fix_value->value, $fixtype, $fix_value->space);
                                 session()->put($session_name, $time_of_use + 1);
                             }
                             break;

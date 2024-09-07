@@ -11,8 +11,8 @@ class With
     {
         $data = array_merge(config('faker.defaults.with'), $data);
 
-        $this->value        = isset($data['value']) ? $data['value'] : '';
-        $this->rate         = isset($data['rate']) ? $data['rate'] : 1;
+        $this->value = $data['value'];
+        $this->rate  = $data['rate'];
     }
 
     public function __get($name)

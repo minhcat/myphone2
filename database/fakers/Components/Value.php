@@ -14,14 +14,16 @@ class Value
     protected $conditions = [];
     protected $withs = [];
     protected $max;
+    protected $space;
 
     public function __construct($data)
     {
         $data = array_merge(config('faker.defaults.value'), $data);
 
-        $this->value    = isset($data['value']) ? $data['value'] : '';
-        $this->rate     = isset($data['rate']) ? $data['rate'] : 1;
-        $this->max      = isset($data['max']) ? $data['max'] : 1000;
+        $this->value    = $data['value'];
+        $this->rate     = $data['rate'];
+        $this->max      = $data['max'];
+        $this->space    = $data['space'];
         if (isset($data['conditions'])) {
             foreach ($data['conditions'] as $conditions) {
                 $this->conditions[] = new Condition($conditions);

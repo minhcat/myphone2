@@ -22,7 +22,7 @@ class Attribute
         $data = array_merge(config('faker.defaults.attribute'), $data);
 
         $this->name = $data['attribute'];
-        $this->generate_type = isset($data['generate_type']) ? $data['generate_type'] : GenerateType::RANDOM;
+        $this->generate_type = $data['generate_type'];
 
         foreach ($data['values'] as $value) {
             $this->values[] = new Value($value);
@@ -60,24 +60,32 @@ class Attribute
         $this->value = $value;
     }
 
-    public function addPrefix($prefix)
+    public function addPrefix($prefix, $space = true)
     {
         $this->prefixes_selected[] = $prefix;
-        $this->value = $prefix . ' ' . $this->value;
+        if ($space) {
+            $this->value = $prefix . ' ' . $this->value;
+        } else {
+            $this->value = $prefix . $this->value;
+        }
     }
 
-    public function addSuffix($suffix)
+    public function addSuffix($suffix, $space = true)
     {
         $this->suffixes_selected[] = $suffix;
-        $this->value = $this->value . ' ' . $suffix;
+        if ($space) {
+            $this->value = $this->value . ' ' . $suffix;
+        } else {
+            $this->value = $this->value . $suffix;
+        }
     }
 
-    public function addFix($fix, $fixtype)
+    public function addFix($fix, $fixtype, $space = true)
     {
         if ($fixtype == FixType::PREFIX) {
-            $this->addPrefix($fix);
+            $this->addPrefix($fix, $space);
         } else {
-            $this->addSuffix($fix);
+            $this->addSuffix($fix, $space);
         }
     }
 
