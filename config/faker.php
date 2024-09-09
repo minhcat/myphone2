@@ -22,7 +22,7 @@ return [
             'attribute'         => []
         ],
         'attribute'             => [
-            'name'              => null,
+            'attribute'         => null,
             'generate_type'     => GenerateType::RANDOM
         ],
         'value'                 => [

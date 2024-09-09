@@ -19,7 +19,6 @@ class UserFaker extends AbstractFaker
 
     protected function generateAccount()
     {
-
         $firstname = $this->getBasicName('firstname');
         $lastname  = $this->getBasicName('lastname');
     
