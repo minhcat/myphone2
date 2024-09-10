@@ -235,7 +235,8 @@ if (!function_exists('convert_vn2latin')) {
 if (!function_exists('get_time_of_use_session')) {
     function get_time_of_use_session($faker, $attribute, $value) {
         $time_of_use = 0;
-        $session_name = $faker->faker_name . '.' . $attribute->name . '.' . $value->value . '.time';
+        $val = $value->value === null || $value->value === '' ? 'none' : $value->value;
+        $session_name = $faker->faker_name . '.' . $attribute->name . '.' . $val . '.time';
         if (session()->has($session_name)) {
             $time_of_use = session($session_name);
         }
@@ -246,18 +247,26 @@ if (!function_exists('get_time_of_use_session')) {
 
 if (!function_exists('get_time_of_use_fix_session')) {
     function get_time_of_use_fix_session($faker, $attribute, $fixvalue, $fixtype) {
+        $val = $fixvalue->value === null || $fixvalue->value === '' ? 'none' : $fixvalue->value;
+        $org = $attribute->origin === null || $attribute->origin === '' ? 'none' : $attribute->origin;
+        $val = str_replace(' ', '-', $val);
+        $org = str_replace(' ', '-', $org);
         if ($fixtype == FixType::PREFIX) {
             $prefix_str = '';
             foreach ($attribute->prefixes_selected as $prefix) {
+                $prefix = $prefix == '' ? 'none' : $prefix;
                 $prefix_str .= 'prefix.' . $prefix;
             }
-            $session_name = $faker->faker_name . '.' . $attribute->name . '.' . $attribute->origin . $prefix_str . '.prefix.' . $fixvalue->value . '.time';
+            $prefix_str = $prefix_str !== '' ? '.'.$prefix_str : $prefix_str;
+            $session_name = $faker->faker_name . '.' . $attribute->name . '.' . $org . $prefix_str . '.prefix.' . $val . '.time';
         } else {
             $suffix_str = '';
             foreach ($attribute->suffixes_selected as $suffix) {
+                $suffix = $suffix == '' ? 'none' : $suffix;
                 $suffix_str .= 'suffix.' . $suffix;
             }
-            $session_name = $faker->faker_name . '.' . $attribute->name . '.' . $attribute->origin . $suffix_str . '.suffix.' . $fixvalue->value . '.time';
+            $suffix_str = $suffix_str !== '' ? '.'.$suffix_str : $suffix_str;
+            $session_name = $faker->faker_name . '.' . $attribute->name . '.' . $org . $suffix_str . '.suffix.' . $val . '.time';
         }
 
         $time_of_use = 0;

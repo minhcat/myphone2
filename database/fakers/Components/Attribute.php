@@ -52,7 +52,7 @@ class Attribute
         return null;
     }
 
-    public function setValue($value, $origin = false)
+    public function setValue($value, $origin = true)
     {
         if ($origin) {
             $this->origin = $value;
