@@ -277,3 +277,26 @@ if (!function_exists('get_time_of_use_fix_session')) {
         return [$time_of_use, $session_name];
     }
 }
+
+if (!function_exists('array_flatten')) {
+    function array_flatten(array $array) {
+        $result = [];
+        foreach ($array as $list) {
+            foreach ($list as $item) {
+                $result[] = $item;
+            }
+        }
+        return $result;
+    }
+}
+
+if (!function_exists('require_list')) {
+    function require_list($paths = []) {
+        $result = [];
+        foreach ($paths as $path) {
+            $list = require $path;
+            $result[] = $list;
+        }
+        return array_flatten($result);
+    }
+}
