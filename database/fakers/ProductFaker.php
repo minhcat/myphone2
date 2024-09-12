@@ -66,6 +66,6 @@ class ProductFaker extends AbstractFaker
 
     protected function generateAuthorId()
     {
-        $this->author_id = $this->getResourceId($this->userRepository, 'product_user_ids', 5);
+        $this->author_id = $this->getResourceId($this->userRepository, 'product_user_ids', 10);
     }
 }

@@ -4,8 +4,7 @@ use App\Enums\GenerateType;
 
 return [
     'name'              => 'product',
-    // 'generate_type'     => GenerateType::SEQUENTIAL,
-    'generate_type'     => GenerateType::RANDOM,
+    'generate_type'     => GenerateType::SEQUENTIAL,
     'attributes'        => [
         require database_path().'\fakers\Data\product\attributes\brand_id.php',
         require database_path().'\fakers\Data\product\attributes\brand_name.php',
