@@ -2,6 +2,7 @@
 
 namespace Modules\Specification\Entities;
 
+use Database\Factories\SpecificationFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\User\Entities\User;
@@ -20,5 +21,10 @@ class Specification extends Model
     public function informations()
     {
         return $this->hasMany(Information::class);
+    }
+
+    public static function newFactory()
+    {
+        return new SpecificationFactory();
     }
 }

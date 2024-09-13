@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Faker\Provider\Lorem;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Modules\Specification\Entities\Specification;
 
 class SpecificationSeeder extends Seeder
 {
@@ -15,74 +16,78 @@ class SpecificationSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('specifications')->truncate();
+        Specification::truncate();
 
-        DB::table('specifications')->insert([
-            [
-                'name'          => 'CPU',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 1,
-                'note'          => Lorem::paragraph(1),
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'          => 'RAM',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 1,
-                'note'          => Lorem::paragraph(1),
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'          => 'Hard disk',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 1,
-                'note'          => Lorem::paragraph(1),
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'          => 'Graphics card',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 1,
-                'note'          => Lorem::paragraph(1),
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'          => 'OS',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 1,
-                'note'          => Lorem::paragraph(1),
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'          => 'Screen',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 2,
-                'note'          => Lorem::paragraph(1),
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'          => 'Battery',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 2,
-                'note'          => Lorem::paragraph(1),
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'          => 'Weight',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 2,
-                'note'          => Lorem::paragraph(1),
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-        ]);
+        Specification::factory(8)->create();
+
+        // DB::table('specifications')->truncate();
+
+        // DB::table('specifications')->insert([
+        //     [
+        //         'name'          => 'CPU',
+        //         'description'   => Lorem::paragraph(3),
+        //         'author_id'     => 1,
+        //         'note'          => Lorem::paragraph(1),
+        //         'created_at'    => now()->format('Y-m-d H:i:s'),
+        //         'updated_at'    => now()->format('Y-m-d H:i:s'),
+        //     ],
+        //     [
+        //         'name'          => 'RAM',
+        //         'description'   => Lorem::paragraph(3),
+        //         'author_id'     => 1,
+        //         'note'          => Lorem::paragraph(1),
+        //         'created_at'    => now()->format('Y-m-d H:i:s'),
+        //         'updated_at'    => now()->format('Y-m-d H:i:s'),
+        //     ],
+        //     [
+        //         'name'          => 'Hard disk',
+        //         'description'   => Lorem::paragraph(3),
+        //         'author_id'     => 1,
+        //         'note'          => Lorem::paragraph(1),
+        //         'created_at'    => now()->format('Y-m-d H:i:s'),
+        //         'updated_at'    => now()->format('Y-m-d H:i:s'),
+        //     ],
+        //     [
+        //         'name'          => 'Graphics card',
+        //         'description'   => Lorem::paragraph(3),
+        //         'author_id'     => 1,
+        //         'note'          => Lorem::paragraph(1),
+        //         'created_at'    => now()->format('Y-m-d H:i:s'),
+        //         'updated_at'    => now()->format('Y-m-d H:i:s'),
+        //     ],
+        //     [
+        //         'name'          => 'OS',
+        //         'description'   => Lorem::paragraph(3),
+        //         'author_id'     => 1,
+        //         'note'          => Lorem::paragraph(1),
+        //         'created_at'    => now()->format('Y-m-d H:i:s'),
+        //         'updated_at'    => now()->format('Y-m-d H:i:s'),
+        //     ],
+        //     [
+        //         'name'          => 'Screen',
+        //         'description'   => Lorem::paragraph(3),
+        //         'author_id'     => 2,
+        //         'note'          => Lorem::paragraph(1),
+        //         'created_at'    => now()->format('Y-m-d H:i:s'),
+        //         'updated_at'    => now()->format('Y-m-d H:i:s'),
+        //     ],
+        //     [
+        //         'name'          => 'Battery',
+        //         'description'   => Lorem::paragraph(3),
+        //         'author_id'     => 2,
+        //         'note'          => Lorem::paragraph(1),
+        //         'created_at'    => now()->format('Y-m-d H:i:s'),
+        //         'updated_at'    => now()->format('Y-m-d H:i:s'),
+        //     ],
+        //     [
+        //         'name'          => 'Weight',
+        //         'description'   => Lorem::paragraph(3),
+        //         'author_id'     => 2,
+        //         'note'          => Lorem::paragraph(1),
+        //         'created_at'    => now()->format('Y-m-d H:i:s'),
+        //         'updated_at'    => now()->format('Y-m-d H:i:s'),
+        //     ],
+        // ]);
 
         DB::table('informations')->truncate();
 

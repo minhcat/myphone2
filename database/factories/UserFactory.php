@@ -12,6 +12,7 @@ use Modules\User\Entities\User;
 class UserFactory extends Factory
 {
     protected $model = User::class;
+
     /**
      * Define the model's default state.
      *
@@ -19,15 +20,15 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $userfaker = new UserFaker();
+        $user = new UserFaker();
 
         return [
-            'account'           => $userfaker->account,
-            'firstname'         => $userfaker->firstname,
-            'lastname'          => $userfaker->lastname,
-            'gender'            => $userfaker->gender,
-            'job'               => $userfaker->job,
-            'email'             => $userfaker->email,
+            'account'           => $user->account,
+            'firstname'         => $user->firstname,
+            'lastname'          => $user->lastname,
+            'gender'            => $user->gender,
+            'job'               => $user->job,
+            'email'             => $user->email,
             'password'          => bcrypt('123456'),
             'is_admin'          => true,
             'remember_token'    => null,

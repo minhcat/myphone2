@@ -41,11 +41,11 @@ class AddressFaker extends AbstractFaker
 
     protected function generateAuthorId()
     {
-        $this->author_id = $this->getRandomResourceId($this->userRepository, 'address_author_ids');
+        $this->author_id = $this->getResourceId($this->userRepository, 'address_author_ids');
     }
 
     protected function generateWardId()
     {
-        $this->ward_id = $this->getRandomResourceId($this->wardRepository, 'address_ward_ids');
+        $this->ward_id = $this->getResourceId($this->wardRepository, 'address_ward_ids');
     }
 }

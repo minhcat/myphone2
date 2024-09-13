@@ -20,12 +20,12 @@ class AddressFactory extends Factory
      */
     public function definition()
     {
-        $addressfaker = new AddressFaker();
+        $address = new AddressFaker();
 
         return [
-            'content'       => $addressfaker->content,
-            'ward_id'       => $addressfaker->ward_id,
-            'author_id'     => $addressfaker->author_id,
+            'content'       => $address->content,
+            'ward_id'       => $address->ward_id,
+            'author_id'     => $address->author_id,
             'created_at'    => now()->format('Y-m-d H:i:s'),
             'updated_at'    => now()->format('Y-m-d H:i:s'),
         ];
