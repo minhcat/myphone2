@@ -24,6 +24,8 @@ class Attribute
         $this->name = $data['attribute'];
         $this->generate_type = $data['generate_type'];
 
+        $data = $this->uncompress($data);
+
         foreach ($data['values'] as $value) {
             $this->values[] = new Value($value);
         }
@@ -42,6 +44,45 @@ class Attribute
 
         $this->orderFixes($this->prefixes);
         $this->orderFixes($this->suffixes);
+    }
+
+    protected function uncompress($data)
+    {
+        if (isset($data['is_compress']) && $data['is_compress']) {
+            $data['values_compress'] = $data['values'];
+            $data['values'] = [];
+            if (isset($data['values_compress']['length'])) {
+                $length = $data['values_compress']['length'];
+            } else {
+                $min = INF;
+                foreach ($data['values_compress'] as $item) {
+                    if (is_array($item) && count($item) < $min) {
+                        $min = count($item);
+                    }
+                }
+                $length = $min;
+            }
+
+            for ($i = 0; $i < $length; $i++) {
+                if (is_array($data['values_compress']['value'])) {
+                    $value = $data['values_compress']['value'][$i];
+                } else {
+                    $value = $data['values_compress']['value'];
+                }
+
+                if (is_array($data['values_compress']['rate'])) {
+                    $rate = $data['values_compress']['rate'][$i];
+                } else {
+                    $rate = $data['values_compress']['rate'];
+                }
+                $data['values'][] = [
+                    'value' =>  $value,
+                    'rate'  =>  $rate,
+                ];
+            }
+        }
+
+        return $data;
     }
 
     public function __get($name)
