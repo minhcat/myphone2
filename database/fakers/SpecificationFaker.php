@@ -27,6 +27,6 @@ class SpecificationFaker extends AbstractFaker
 
     protected function generateAuthorId()
     {
-        $this->author_id = $this->getResourceId($this->userRepository, 'address_author_ids');
+        $this->author_id = $this->getResourceId($this->userRepository, 'specification_author_ids');
     }
 }
