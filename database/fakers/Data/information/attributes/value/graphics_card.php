@@ -1,59 +1,20 @@
 <?php
 
-return [
-    [
-        'value'             => 'Apple GPU',
-        'rate'              => 0.2,
-        'max'               => 1,
-        'conditions'        => [
-            [
-                'attribute' => 'specification_name',
-                'value'     => 'Graphics card'
-            ]
-        ]
+return uncompress([
+    'value'             => [
+        'Apple GPU',
+        'Adreno 740',
+        'Mali G52',
+        'Intel UHD Graphics',
+        'Intel Iris Xe Graphics',
     ],
-    [
-        'value'             => 'Adreno 740',
-        'rate'              => 0.2,
-        'max'               => 1,
-        'conditions'        => [
-            [
-                'attribute' => 'specification_name',
-                'value'     => 'Graphics card'
-            ]
+    'rate'              => 0.2,
+    'max'               => 1,
+    'conditions'        => [
+        [
+            'attribute' => 'specification_name',
+            'value'     => 'Graphics card'
         ]
-    ],
-    [
-        'value'             => 'Mali G52',
-        'rate'              => 0.2,
-        'max'               => 1,
-        'conditions'        => [
-            [
-                'attribute' => 'specification_name',
-                'value'     => 'Graphics card'
-            ]
-        ]
-    ],
-    [
-        'value'             => 'Intel UHD Graphics',
-        'rate'              => 0.2,
-        'max'               => 1,
-        'conditions'        => [
-            [
-                'attribute' => 'specification_name',
-                'value'     => 'Graphics card'
-            ]
-        ]
-    ],
-    [
-        'value'             => 'Intel Iris Xe Graphics',
-        'rate'              => 0.2,
-        'max'               => 1,
-        'conditions'        => [
-            [
-                'attribute' => 'specification_name',
-                'value'     => 'Graphics card'
-            ]
-        ]
-    ],
-];
+    ]
+]);
+

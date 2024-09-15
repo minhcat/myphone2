@@ -1,81 +1,21 @@
 <?php
 
-return [
-    [
-        'value'             => '100 g',
-        'rate'              => 0.1428,
-        'max'               => 1,
-        'conditions'        => [
-            [
-                'attribute' => 'specification_name',
-                'value'     => 'Weight'
-            ]
-        ]
+return uncompress([
+    'value'             => [
+        '100 g',
+        '150 g',
+        '200 g',
+        '220 g',
+        '1.7 kg',
+        '2.3 kg',
+        '3.5 kg',
     ],
-    [
-        'value'             => '150 g',
-        'rate'              => 0.1428,
-        'max'               => 1,
-        'conditions'        => [
-            [
-                'attribute' => 'specification_name',
-                'value'     => 'Weight'
-            ]
+    'rate'              => 0.1428,
+    'max'               => 1,
+    'conditions'        => [
+        [
+            'attribute' => 'specification_name',
+            'value'     => 'Weight'
         ]
-    ],
-    [
-        'value'             => '200 g',
-        'rate'              => 0.1428,
-        'max'               => 1,
-        'conditions'        => [
-            [
-                'attribute' => 'specification_name',
-                'value'     => 'Weight'
-            ]
-        ]
-    ],
-    [
-        'value'             => '220 g',
-        'rate'              => 0.1428,
-        'max'               => 1,
-        'conditions'        => [
-            [
-                'attribute' => 'specification_name',
-                'value'     => 'Weight'
-            ]
-        ]
-    ],
-    [
-        'value'             => '1.7 kg',
-        'rate'              => 0.1428,
-        'max'               => 1,
-        'conditions'        => [
-            [
-                'attribute' => 'specification_name',
-                'value'     => 'Weight'
-            ]
-        ]
-    ],
-    [
-        'value'             => '2.3 kg',
-        'rate'              => 0.1428,
-        'max'               => 1,
-        'conditions'        => [
-            [
-                'attribute' => 'specification_name',
-                'value'     => 'Weight'
-            ]
-        ]
-    ],
-    [
-        'value'             => '3.5 kg',
-        'rate'              => 0.1428,
-        'max'               => 1,
-        'conditions'        => [
-            [
-                'attribute' => 'specification_name',
-                'value'     => 'Weight'
-            ]
-        ]
-    ],
-];
+    ]
+]);

@@ -300,3 +300,51 @@ if (!function_exists('require_list')) {
         return array_flatten($result);
     }
 }
+
+if (!function_exists('uncompress')) {
+    function uncompress($data, $length = null) {
+        $data_compress = $data;
+        $data_uncompress = [];
+        if ($length === null && isset($data_compress['length'])) {
+            $length = $data_compress['length'];
+        } elseif ($length === null) {
+            $min = INF;
+            foreach ($data_compress as $key => $item) {
+                if (is_array($item) && $key !== 'conditions' && count($item) < $min) {
+                    $min = count($item);
+                }
+            }
+            $length = $min;
+        }
+
+        for ($i = 0; $i < $length; $i++) {
+            if (is_array($data_compress['value'])) {
+                $value = $data_compress['value'][$i];
+            } else {
+                $value = $data_compress['value'];
+            }
+
+            if (is_array($data_compress['rate'])) {
+                $rate = $data_compress['rate'][$i];
+            } else {
+                $rate = $data_compress['rate'];
+            }
+
+            if (isset($data_compress['max']) && is_array($data_compress['max'])) {
+                $max = $data_compress['max'][$i];
+            } elseif (isset($data_compress['max'])) {
+                $max = $data_compress['max'];
+            } else {
+                $max = 1000;
+            }
+            $data_uncompress[] = [
+                'value'         => $value,
+                'rate'          => $rate,
+                'max'           => $max,
+                'conditions'    => optional($data_compress)['conditions']
+            ];
+        }
+
+        return $data_uncompress;
+    }
+}

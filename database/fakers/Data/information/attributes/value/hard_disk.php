@@ -1,48 +1,18 @@
 <?php
 
-return [
-    [
-        'value'             => '128 GB',
-        'rate'              => 0.25,
-        'max'               => 1,
-        'conditions'        => [
-            [
-                'attribute' => 'specification_name',
-                'value'     => 'Hard disk'
-            ]
-        ]
+return uncompress([
+    'value'             => [
+        '128 GB',
+        '256 GB',
+        '512 GB',
+        '1 TB',
     ],
-    [
-        'value'             => '256 GB',
-        'rate'              => 0.25,
-        'max'               => 1,
-        'conditions'        => [
-            [
-                'attribute' => 'specification_name',
-                'value'     => 'Hard disk'
-            ]
+    'rate'              => 0.25,
+    'max'               => 1,
+    'conditions'        => [
+        [
+            'attribute' => 'specification_name',
+            'value'     => 'Hard disk'
         ]
-    ],
-    [
-        'value'             => '512 GB',
-        'rate'              => 0.25,
-        'max'               => 1,
-        'conditions'        => [
-            [
-                'attribute' => 'specification_name',
-                'value'     => 'Hard disk'
-            ]
-        ]
-    ],
-    [
-        'value'             => '1 TB',
-        'rate'              => 0.25,
-        'max'               => 1,
-        'conditions'        => [
-            [
-                'attribute' => 'specification_name',
-                'value'     => 'Hard disk'
-            ]
-        ]
-    ],
-];
+    ]
+]);
