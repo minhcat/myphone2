@@ -11,6 +11,7 @@ class Attribute
     protected $generate_type;
     protected $values = [];
     protected $value;
+    protected $loop;
     protected $origin;
     protected $prefixes = [];
     protected $suffixes = [];
@@ -23,6 +24,7 @@ class Attribute
 
         $this->name = $data['attribute'];
         $this->generate_type = $data['generate_type'];
+        $this->loop = $data['loop'];
 
         $data = $this->uncompress($data);
 

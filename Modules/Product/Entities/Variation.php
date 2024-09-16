@@ -2,6 +2,7 @@
 
 namespace Modules\Product\Entities;
 
+use Database\Factories\VariationFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -49,5 +50,10 @@ class Variation extends Model
                 return $product->name . ' (' . $option_name . ')';
             }
         );
+    }
+
+    public static function newFactory()
+    {
+        return new VariationFactory();
     }
 }
