@@ -324,6 +324,14 @@ return [
             'updated_at'    => now()->format('Y-m-d H:i:s')
         ],
         [
+            'value'         => 'standard',
+            'description'   => Lorem::paragraph(1),
+            'attribute_id'  => 2,
+            'author_id'     => 2,
+            'created_at'    => now()->format('Y-m-d H:i:s'),
+            'updated_at'    => now()->format('Y-m-d H:i:s')
+        ],
+        [
             'value'         => 'modern',
             'description'   => Lorem::paragraph(1),
             'attribute_id'  => 2,
