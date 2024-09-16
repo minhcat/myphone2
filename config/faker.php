@@ -23,6 +23,7 @@ return [
         ],
         'attribute'             => [
             'attribute'         => null,
+            'loop'              => null,
             'generate_type'     => GenerateType::RANDOM
         ],
         'value'                 => [

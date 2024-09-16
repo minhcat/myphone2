@@ -8,6 +8,10 @@ trait SequentialGeneration
 {
     protected function generateSequentialAttribute($attribute)
     {
+        if ($attribute->loop !== null) {
+            handle_loop_attribute_session($attribute->loop, $this, $attribute);
+        }
+
         foreach ($attribute->values as $value) {
             if ($value->hasConditions()) {
                 if ($value->checkConditions($this->attributes)) {

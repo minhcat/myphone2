@@ -278,6 +278,24 @@ if (!function_exists('get_time_of_use_fix_session')) {
     }
 }
 
+if (!function_exists('get_time_of_loop_session')) {
+    function get_time_of_loop_session($faker, $attribute) {
+        $time_of_loop = 0;
+        $session_name = $faker->faker_name . '.' . $attribute->name . '.loop';
+        if (session()->has($session_name)) {
+            $time_of_loop = session($session_name);
+        }
+
+        return [$time_of_loop, $session_name];
+    }
+}
+
+if (!function_exists('get_attribute_session')) {
+    function get_attribute_session($faker, $attribute) {
+        return $faker->faker_name . '.' . $attribute->name;
+    }
+}
+
 if (!function_exists('array_flatten')) {
     function array_flatten(array $array) {
         $result = [];
@@ -346,5 +364,17 @@ if (!function_exists('uncompress')) {
         }
 
         return $data_uncompress;
+    }
+}
+
+if (!function_exists('handle_loop_attribute_session')) {
+    function handle_loop_attribute_session($loop_max, $faker, $attribute) {
+        [$loop_time, $loop_session_name] = get_time_of_loop_session($faker, $attribute);
+        if ($loop_time >= $loop_max) {
+            $session_name = get_attribute_session($faker, $attribute);
+            $loop_time = 0;
+            session()->forget($session_name);
+        }
+        session()->put($loop_session_name, $loop_time + 1);
     }
 }
