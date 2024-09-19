@@ -2,13 +2,14 @@
 
 namespace Modules\Attribute\Entities;
 
+use App\Models\Traits\ModelComparation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\User\Entities\User;
 
 class Attribute extends Model
 {
-    use HasFactory;
+    use HasFactory, ModelComparation;
 
     protected $fillable = [
         'name',

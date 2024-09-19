@@ -49,7 +49,7 @@ class VariationFaker extends AbstractFaker
 
     protected function generateProductId()
     {
-        $this->product_id = $this->getResourceId($this->productRepository, 'variation_product_ids', 10);
+        $this->product_id = $this->getResourceId($this->productRepository, 'variation_product_ids', 36);
     }
 
     protected function generatePrice()

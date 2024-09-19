@@ -41,4 +41,9 @@ class VariationRepository extends AbstractRepository
 
         return $variation;
     }
+
+    public function findWhereNotIn($column, $list)
+    {
+        return $this->model->whereNotIn($column, $list)->first();
+    }
 }
