@@ -2,6 +2,7 @@
 
 namespace Modules\Product\Entities;
 
+use Database\Factories\DetailFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Specification\Entities\Information;
@@ -20,5 +21,10 @@ class Detail extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public static function newFactory()
+    {
+        return new DetailFactory();
     }
 }
