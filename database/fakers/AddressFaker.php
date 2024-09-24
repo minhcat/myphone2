@@ -46,6 +46,6 @@ class AddressFaker extends AbstractFaker
 
     protected function generateWardId()
     {
-        $this->ward_id = $this->getResourceId($this->wardRepository, 'address_ward_ids');
+        $this->ward_id = $this->getResourceId($this->wardRepository, 'address_ward_ids', 10);
     }
 }
