@@ -34,6 +34,11 @@ abstract class AbstractRepository implements RepositoryInterface
         return $this->model->where($where)->skip($skip)->take($take)->get();
     }
 
+    public function first($where = [])
+    {
+        return $this->model->where($where)->first();
+    }
+
     public function paginate($search = null, $take = self::TAKE_DEFAULT, $field = null)
     {
         $query = $this->model->orderBy($this->orderBy, $this->orderType);
