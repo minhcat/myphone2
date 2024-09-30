@@ -378,3 +378,21 @@ if (!function_exists('handle_loop_attribute_session')) {
         session()->put($loop_session_name, $loop_time + 1);
     }
 }
+
+if (!function_exists('array_get')) {
+    function array_get(string $string, array $array, $default = null) {
+        try {
+            if (strpos($string, '.')) {
+                $keys = explode('.', $string);
+                $result = $array;
+                foreach ($keys as $key) {
+                    $result = $result[$key];
+                }
+                return $result;
+            }
+            return $array[$string];
+        } catch (Exception $e) {
+            return $default;
+        }
+    }
+}
