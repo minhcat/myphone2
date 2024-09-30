@@ -35,9 +35,20 @@ return [
         ],
     ],
     [
+        'value'                 => 'Vsmart Live',
+        'rate'                  => 1,
+        'max'                   => 3,
+        'conditions'            => [
+            [
+                'attribute'     => 'brand_name',
+                'value'         => 'Vsmart'
+            ],
+        ],
+    ],
+    [
         'value'                 => 'Vsmart Aris',
         'rate'                  => 1,
-        'max'                   => 1,
+        'max'                   => 3,
         'conditions'            => [
             [
                 'attribute'     => 'brand_name',

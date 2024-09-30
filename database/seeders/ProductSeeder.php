@@ -14,11 +14,9 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        session()->flush();
-
         Product::truncate();
 
-        Product::factory(120)->create();
+        Product::factory(215)->create();
 
         Product::insert(config('seeder.product'));
     }

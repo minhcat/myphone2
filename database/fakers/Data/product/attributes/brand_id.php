@@ -5,7 +5,7 @@ return [
     'values'                        => [
         [
             'value'                 => null,
-            'max'                   => 15,
+            'max'                   => 20,
             'rate'                  => 0.2,
             'conditions'            => [
                 [
@@ -49,7 +49,7 @@ return [
         ],
         [
             'value'                 => null,
-            'max'                   => 10,
+            'max'                   => 15,
             'rate'                  => 0.1,
             'conditions'            => [
                 [

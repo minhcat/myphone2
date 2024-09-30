@@ -56,4 +56,59 @@ return [
             ],
         ]
     ],
+    [
+        'value'                 => '3',
+        'rate'                  => 0.1,
+        'max'                   => 1,
+        'withs'                 => [
+            [
+                'value'         => 'Ipad',
+                'rate'          => 1
+            ],
+        ]
+    ],
+    [
+        'value'                 => '4',
+        'rate'                  => 0.1,
+        'max'                   => 1,
+        'withs'                 => [
+            [
+                'value'         => 'Ipad',
+                'rate'          => 1
+            ],
+        ]
+    ],
+    [
+        'value'                 => '5',
+        'rate'                  => 0.1,
+        'max'                   => 1,
+        'withs'                 => [
+            [
+                'value'         => 'Ipad',
+                'rate'          => 1
+            ],
+        ]
+    ],
+    [
+        'value'                 => '6',
+        'rate'                  => 0.1,
+        'max'                   => 1,
+        'withs'                 => [
+            [
+                'value'         => 'Ipad',
+                'rate'          => 1
+            ],
+        ]
+    ],
+    [
+        'value'                 => '10',
+        'rate'                  => 0.1,
+        'max'                   => 1,
+        'withs'                 => [
+            [
+                'value'         => 'Ipad',
+                'rate'          => 1
+            ],
+        ]
+    ],
 ];
