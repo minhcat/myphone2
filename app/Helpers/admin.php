@@ -2,6 +2,7 @@
 
 use App\Enums\FixType;
 use App\Enums\OrderStatus;
+use Faker\Provider\Lorem;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\ViewErrorBag;
 use Modules\Order\Entities\Order;
@@ -394,5 +395,25 @@ if (!function_exists('array_get')) {
         } catch (Exception $e) {
             return $default;
         }
+    }
+}
+
+if (!function_exists('update_seeder')) {
+    function update_seeder(array $data, array $option = []) {
+        foreach ($data as $key => $item) {
+            if (array_search('timestamp', $option) !== false || array_search('created_at', $option) !== false) {
+                $data[$key]['created_at'] = now()->format('Y-m-d H:i:s');
+            }
+            if (array_search('timestamp', $option) !== false || array_search('updated_at', $option) !== false) {
+                $data[$key]['updated_at'] = now()->format('Y-m-d H:i:s');
+            }
+            if (array_search('description', $option) !== false) {
+                $data[$key]['description'] = Lorem::paragraph(4);
+            }
+            if (array_search('note', $option) !== false) {
+                $data[$key]['note'] = Lorem::paragraph(1);
+            }
+        }
+        return $data;
     }
 }
