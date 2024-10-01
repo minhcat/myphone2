@@ -37,6 +37,26 @@ class CategoryProductFaker extends AbstractFaker implements ConditionGenerationC
         return 'category_produt';
     }
 
+    public function getResourceRepository1()
+    {
+        return $this->productRepository;
+    }
+
+    public function getResourceRepository2()
+    {
+        return $this->categoryRepository;
+    }
+
+    public function getAttributeName1()
+    {
+        return 'product_id';
+    }
+
+    public function getAttributeName2()
+    {
+        return 'category_id';
+    }
+
     public function beforeGenerate()
     {
         $this->conditionGenerate($this->productRepository, $this->categoryRepository);

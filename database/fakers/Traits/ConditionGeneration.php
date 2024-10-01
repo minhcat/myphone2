@@ -4,26 +4,28 @@ namespace Database\Fakers\Traits;
 
 trait ConditionGeneration
 {
-    public function conditionGenerate($resourceRepository, $resourceRepository2)
+    public function conditionGenerate()
     {
+        $resourceRepository1 = $this->getResourceRepository1();
+        $resourceRepository2 = $this->getResourceRepository2();
         $data = $this->getConditionData();
-        $resources = $resourceRepository->all();
+        $resources1 = $resourceRepository1->all();
 
-        foreach ($resources as $resource) {
+        foreach ($resources1 as $resource1) {
             foreach ($data as $resouce2_name => $resource2_data) {
-                if (!$this->checkExist($resouce2_name, $resource, $resourceRepository2)) {
+                if (!$this->checkExist($resouce2_name, $resource1, $resourceRepository2)) {
                     continue;
                 }
 
-                if (!$this->checkCondition('has', $resource2_data, $resource)) {
+                if (!$this->checkCondition('has', $resource2_data, $resource1)) {
                     continue;
                 }
 
-                if (!$this->checkCondition('not', $resource2_data, $resource)) {
+                if (!$this->checkCondition('not', $resource2_data, $resource1)) {
                     continue;
                 }
     
-                $this->generateData($resouce2_name, $resource);
+                $this->generateData($resouce2_name, $resource1, $resourceRepository2);
                 break 2;
             }
         }
@@ -69,18 +71,20 @@ trait ConditionGeneration
         return $type === 'not' ? !$check : $check;
     }
 
-    private function checkExist($cate_name, $resource, $resourceRepository2)
+    private function checkExist($cate_name, $resource1, $resourceRepository2)
     {
-        $resource2_id = $resourceRepository2->first([['name', $cate_name]])->id;
-        $session_name = $this->getFakerName().'.check_exist.'.$resource->id.'.'.$resource2_id;
+        $resource_id2 = $resourceRepository2->first([['name', $cate_name]])->id;
+        $session_name = $this->getFakerName().'.check_exist.'.$resource1->id.'.'.$resource_id2;
         return session()->get($session_name, true);
     }
 
-    private function generateData($cate_name, $product) {
-        $category_id = $this->categoryRepository->first([['name', $cate_name]])->id;
-        $session_name = $this->getFakerName().'.check_exist.'.$product->id.'.'.$category_id;
-        $this->product_id = $product->id;
-        $this->category_id = $category_id;
+    private function generateData($cate_name, $resource, $resourceRepository2) {
+        $resouce_id2 = $resourceRepository2->first([['name', $cate_name]])->id;
+        $session_name = $this->getFakerName().'.check_exist.'.$resource->id.'.'.$resouce_id2;
+        $attribute_name1 = $this->getAttributeName1();
+        $attribute_name2 = $this->getAttributeName2();
+        $this->$attribute_name1 = $resource->id;
+        $this->$attribute_name2 = $resouce_id2;
         session()->put($session_name, false);
     }
 }
