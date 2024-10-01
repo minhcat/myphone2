@@ -31,8 +31,8 @@ trait ConditionGeneration
         }
     }
 
-    private function checkCondition($type, $cate, $resource) {
-        $data = array_get($type, $cate, []);
+    private function checkCondition($type, $data, $resource) {
+        $data = array_get($type, $data, []);
         $check = false;
         foreach ($data as $names) {
             $check = false;
@@ -71,15 +71,15 @@ trait ConditionGeneration
         return $type === 'not' ? !$check : $check;
     }
 
-    private function checkExist($cate_name, $resource1, $resourceRepository2)
+    private function checkExist($resource_name2, $resource1, $resourceRepository2)
     {
-        $resource_id2 = $resourceRepository2->first([['name', $cate_name]])->id;
+        $resource_id2 = $resourceRepository2->first([['name', $resource_name2]])->id;
         $session_name = $this->getFakerName().'.check_exist.'.$resource1->id.'.'.$resource_id2;
         return session()->get($session_name, true);
     }
 
-    private function generateData($cate_name, $resource, $resourceRepository2) {
-        $resouce_id2 = $resourceRepository2->first([['name', $cate_name]])->id;
+    private function generateData($resource_name2, $resource, $resourceRepository2) {
+        $resouce_id2 = $resourceRepository2->first([['name', $resource_name2]])->id;
         $session_name = $this->getFakerName().'.check_exist.'.$resource->id.'.'.$resouce_id2;
         $attribute_name1 = $this->getAttributeName1();
         $attribute_name2 = $this->getAttributeName2();
