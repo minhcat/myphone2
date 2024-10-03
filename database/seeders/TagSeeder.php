@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Faker\Provider\Lorem;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Modules\Tag\Entities\ProductTag;
+use Modules\Tag\Entities\Tag;
 
 class TagSeeder extends Seeder
 {
@@ -15,140 +15,12 @@ class TagSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('tags')->truncate();
+        Tag::truncate();
 
-        DB::table('tags')->insert([
-            [
-                'name'          => 'new',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'          => 'modern',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'          => 'classic',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'          => 'sales',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'          => 'hot',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'          => 'cheap',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'          => 'expensive',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'          => 'high-end',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'          => 'mid-range',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'          => 'lightweight',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-        ]);
+        Tag::insert(config('seeder.tag'));
 
-        DB::table('product_tag')->truncate();
+        ProductTag::truncate();
 
-        DB::table('product_tag')->insert([
-            [
-                'product_id'    => 1,
-                'tag_id'        => 1,
-            ],
-            [
-                'product_id'    => 1,
-                'tag_id'        => 2,
-            ],
-            [
-                'product_id'    => 1,
-                'tag_id'        => 3,
-            ],
-            [
-                'product_id'    => 2,
-                'tag_id'        => 1,
-            ],
-            [
-                'product_id'    => 2,
-                'tag_id'        => 2,
-            ],
-            [
-                'product_id'    => 2,
-                'tag_id'        => 4,
-            ],
-            [
-                'product_id'    => 3,
-                'tag_id'        => 1,
-            ],
-            [
-                'product_id'    => 3,
-                'tag_id'        => 2,
-            ],
-            [
-                'product_id'    => 3,
-                'tag_id'        => 5,
-            ],
-            [
-                'product_id'    => 4,
-                'tag_id'        => 1,
-            ],
-            [
-                'product_id'    => 4,
-                'tag_id'        => 2,
-            ],
-            [
-                'product_id'    => 4,
-                'tag_id'        => 5,
-            ],
-            [
-                'product_id'    => 5,
-                'tag_id'        => 1,
-            ],
-            [
-                'product_id'    => 5,
-                'tag_id'        => 2,
-            ],
-        ]);
+        ProductTag::factory(1000)->create();
     }
 }

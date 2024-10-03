@@ -12,6 +12,9 @@ trait ConditionGeneration
         $resources1 = $resourceRepository1->all();
 
         foreach ($resources1 as $resource1) {
+            if ($this->checkCompleted($resource1)) {
+                continue;
+            }
             foreach ($data as $resouce2_name => $resource2_data) {
                 if (!$this->checkExist($resouce2_name, $resource1, $resourceRepository2)) {
                     continue;
@@ -28,11 +31,15 @@ trait ConditionGeneration
                 $this->generateData($resouce2_name, $resource1, $resourceRepository2);
                 break 2;
             }
+            $this->saveCompleted($resource1);
         }
     }
 
     private function checkCondition($type, $data, $resource) {
         $data = array_get($type, $data, []);
+        if (empty($data)) {
+            return true;
+        }
         $check = false;
         foreach ($data as $names) {
             $check = false;
@@ -86,5 +93,17 @@ trait ConditionGeneration
         $this->$attribute_name1 = $resource->id;
         $this->$attribute_name2 = $resouce_id2;
         session()->put($session_name, false);
+    }
+
+    private function checkCompleted($resource)
+    {
+        $session_name = $this->getFakerName().'.check_completed.'.$resource->id;
+        return session()->get($session_name, false);
+    }
+
+    private function saveCompleted($resource)
+    {
+        $session_name = $this->getFakerName().'.check_completed.'.$resource->id;
+        return session()->put($session_name, true);
     }
 }

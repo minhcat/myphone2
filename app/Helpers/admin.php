@@ -6,6 +6,8 @@ use Faker\Provider\Lorem;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\ViewErrorBag;
 use Modules\Order\Entities\Order;
+use Modules\Product\Repositories\ProductRepository;
+use Modules\Specification\Repositories\InformationRepository;
 
 if (!function_exists('flatten')) {
     function flatten(array $array) {
@@ -415,5 +417,32 @@ if (!function_exists('update_seeder')) {
             }
         }
         return $data;
+    }
+}
+
+if (!function_exists('count_lightweight_product')) {
+    function count_lightweight_product() {
+        $count = 0;
+        $productRepository = new ProductRepository();
+        $informationRepository = new InformationRepository();
+        $products = $productRepository->all();
+        $informations = $informationRepository->getWhereIn('value', ['100 g', '150 g', '200 g', '220 g', '1.7 kg']);
+        $information_ids = $informations->pluck('id')->toArray();
+
+        foreach ($products as $product) {
+            foreach ($product->details as $detail) {
+                if (array_search($detail->information->id, $information_ids) !== false) {
+                    $count ++;
+                }
+            }
+        }
+
+        return $count;
+    }
+}
+
+if (!function_exists('count_available_product')) {
+    function count_available_product() {
+        return 650 + count_lightweight_product();
     }
 }

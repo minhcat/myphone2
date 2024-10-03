@@ -14,6 +14,11 @@ class InformationRepository extends AbstractRepository
         return new Information();
     }
 
+    public function getWhereIn(string $field, array $in)
+    {
+        return $this->model->whereIn($field, $in)->get();
+    }
+
     public function paginateBySpecificationId($specification_id, $search = null, $take = self::TAKE_DEFAULT, $field = null)
     {
         $query = $this->model->orderBy($this->orderBy, $this->orderType);

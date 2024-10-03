@@ -48,6 +48,11 @@ class Product extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function details()
+    {
+        return $this->hasMany(Detail::class);
+    }
+
     public function getSkuAttribute()
     {
         return $this->sku_prefix . '-' . $this->sku_number;
