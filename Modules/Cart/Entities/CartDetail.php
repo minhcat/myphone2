@@ -3,6 +3,7 @@
 namespace Modules\Cart\Entities;
 
 use App\Enums\TargetType;
+use Database\Factories\CartDetailFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Product\Entities\Product;
@@ -33,5 +34,10 @@ class CartDetail extends Model
     public function cart()
     {
         return $this->belongsTo(Cart::class);
+    }
+
+    public static function newFactory()
+    {
+        return new CartDetailFactory();
     }
 }

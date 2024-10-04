@@ -2,6 +2,7 @@
 
 namespace Modules\Cart\Entities;
 
+use Database\Factories\CartFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -39,5 +40,10 @@ class Cart extends Model
                 return calc_total($this, $attributes);
             },
         );
+    }
+
+    public static function newFactory()
+    {
+        return new CartFactory();
     }
 }
