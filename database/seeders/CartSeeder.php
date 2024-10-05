@@ -17,10 +17,10 @@ class CartSeeder extends Seeder
     {
         Cart::truncate();
 
-        Cart::factory(52)->create();
+        Cart::factory(50)->create();
 
         CartDetail::truncate();
 
-        CartDetail::factory(156)->create();
+        CartDetail::factory(150)->create();
     }
 }
