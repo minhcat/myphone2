@@ -2,6 +2,7 @@
 
 namespace Modules\Order\Entities;
 
+use Database\Factories\OrderFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -66,5 +67,26 @@ class Order extends Model
                 return calc_total($this, $attributes);
             },
         );
+    }
+
+    public static function newFactory()
+    {
+        return new OrderFactory();
+    }
+
+    public function updateSubTotal()
+    {
+        $this->update([
+            'subtotal'      => $this->subtotal_detail,
+            'total'         => $this->subtotal_detail,
+        ]);
+    }
+
+    public static function updateSubTotalBulk()
+    {
+        $orders = static::all();
+        foreach ($orders as $order) {
+            $order->updateSubTotal();
+        }
     }
 }

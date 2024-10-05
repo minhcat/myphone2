@@ -102,6 +102,9 @@ trait SequentialGeneration
 
         $models = $repository->all();
         $models_not_choose = $models->whereNotIn('id', $session_ids)->values();
+        if ($models_not_choose->isEmpty()) {
+            return null;
+        }
         $id = $models_not_choose[0]->id;
 
         $flag = true;
