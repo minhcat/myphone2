@@ -19,10 +19,10 @@ class UserSeeder extends Seeder
 
         User::insert(config('seeder.user'));
 
-        User::factory(50)->create();
+        User::factory(48)->create();
 
         Address::truncate();
 
-        Address::factory(50)->create();
+        Address::factory(100)->create();
     }
 }
