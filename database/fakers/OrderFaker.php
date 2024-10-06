@@ -31,6 +31,7 @@ class OrderFaker extends AbstractFaker
         $this->generateCode();
         $this->generateAuthorId();
         $this->generateAddressId();
+        $this->generateTransporterCaseId();
     }
 
     protected function generateAuthorId()
