@@ -2,6 +2,7 @@
 
 namespace Modules\Invoice\Entities;
 
+use Database\Factories\InvoiceFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -57,5 +58,26 @@ class Invoice extends Model
                 return calc_total($this, $attributes);
             },
         );
+    }
+
+    public static function newFactory()
+    {
+        return new InvoiceFactory();
+    }
+
+    public function updateSubTotal()
+    {
+        $this->update([
+            'subtotal'      => $this->subtotal_detail,
+            'total'         => $this->subtotal_detail,
+        ]);
+    }
+
+    public static function updateSubTotalBulk()
+    {
+        $invoices = static::all();
+        foreach ($invoices as $invoice) {
+            $invoice->updateSubTotal();
+        }
     }
 }
