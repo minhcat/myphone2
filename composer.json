@@ -31,7 +31,8 @@
             "Modules\\": "Modules/"
         },
         "files": [
-            "app/Helpers/admin.php"
+            "app/Helpers/admin.php",
+            "app/Helpers/database.php"
         ]
     },
     "autoload-dev": {
