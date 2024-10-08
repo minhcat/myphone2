@@ -2,8 +2,6 @@
 
 namespace Database\Fakers\Components;
 
-use App\Enums\FakerConditionType;
-
 class Condition
 {
     protected $attribute;

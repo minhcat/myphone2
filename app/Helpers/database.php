@@ -51,6 +51,7 @@ if (!function_exists('get_time_of_use_session')) {
     function get_time_of_use_session($faker, $attribute, $value) {
         $time_of_use = 0;
         $val = $value->value === null || $value->value === '' ? 'none' : $value->value;
+        $val = $value->id === null ? $val : $value->id;
         $session_name = $faker->faker_name . '.' . $attribute->name . '.' . $val . '.time';
         if (session()->has($session_name)) {
             $time_of_use = session($session_name);
@@ -63,6 +64,7 @@ if (!function_exists('get_time_of_use_session')) {
 if (!function_exists('get_time_of_use_fix_session')) {
     function get_time_of_use_fix_session($faker, $attribute, $fixvalue, $fixtype) {
         $val = $fixvalue->value === null || $fixvalue->value === '' ? 'none' : $fixvalue->value;
+        $val = $fixvalue->id === null ? $val : $fixvalue->id;
         $org = $attribute->origin === null || $attribute->origin === '' ? 'none' : $attribute->origin;
         $val = str_replace(' ', '-', $val);
         $org = str_replace(' ', '-', $org);
@@ -157,15 +159,67 @@ if (!function_exists('uncompress')) {
             } else {
                 $max = 1000;
             }
+
+            if (isset($data_compress['conditions_compress'])) {
+                $conditions = $data_compress['conditions_compress'][$i];
+            } else {
+                $conditions = optional($data_compress)['conditions'];
+            }
+
             $data_uncompress[] = [
                 'value'         => $value,
                 'rate'          => $rate,
                 'max'           => $max,
-                'conditions'    => optional($data_compress)['conditions']
+                'conditions'    => $conditions
             ];
         }
 
         return $data_uncompress;
+    }
+}
+
+if (!function_exists('uncompress_conditions')) {
+    function uncompress_conditions($data, $length = null) {
+        $result = [];
+        foreach ($data as $data_condition) {
+            $data_compress = $data_condition;
+            $data_uncompress = [];
+            if ($length === null && isset($data_compress['length'])) {
+                $length = $data_compress['length'];
+            } elseif ($length === null) {
+                $min = INF;
+                foreach ($data_compress as $item) {
+                    if (is_array($item) && count($item) < $min) {
+                        $min = count($item);
+                    }
+                }
+                $length = $min;
+            }
+
+            for ($i = 0; $i < $length; $i++) {
+                if (is_array($data_compress['attribute'])) {
+                    $attribute = $data_compress['attribute'][$i];
+                } else {
+                    $attribute = $data_compress['attribute'];
+                }
+    
+                if (is_array($data_compress['value'])) {
+                    $value = $data_compress['value'][$i];
+                } else {
+                    $value = $data_compress['value'];
+                }
+    
+                if (isset($result[$i])) {
+                    $result[$i] = [];
+                }
+                $result[$i][] = [
+                    'attribute'     => $attribute,
+                    'value'         => $value,
+                ];
+            }
+        }
+
+        return $result;
     }
 }
 
@@ -253,6 +307,16 @@ if (!function_exists('array_multiply')) {
                 $array[] = $item;
             }
         }
+        return $array;
+    }
+}
+
+if (!function_exists('add_id_to_objects')) {
+    function add_id_to_objects(array $array) {
+        foreach ($array as $key => $item) {
+            $array[$key]['id'] = $key;
+        }
+
         return $array;
     }
 }

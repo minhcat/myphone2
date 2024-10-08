@@ -27,6 +27,7 @@ class Attribute
         $this->loop = $data['loop'];
 
         $data = $this->uncompress($data);
+        $data = $this->addValueIndex($data);
 
         foreach ($data['values'] as $value) {
             $this->values[] = new Value($value);
@@ -52,6 +53,15 @@ class Attribute
     {
         if (isset($data['is_compress']) && $data['is_compress']) {
             $data['values'] = uncompress($data['values']);
+        }
+
+        return $data;
+    }
+
+    protected function addValueIndex($data)
+    {
+        if (isset($data['add_id']) && $data['add_id']) {
+            $data['values'] = add_id_to_objects($data['values']);
         }
 
         return $data;

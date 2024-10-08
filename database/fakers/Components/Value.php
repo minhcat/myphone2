@@ -9,6 +9,7 @@ class Value
 {
     use CheckConditions, CheckWiths;
 
+    protected $id;
     protected $value;
     protected $rate;
     protected $conditions = [];
@@ -20,6 +21,7 @@ class Value
     {
         $data = array_merge(config('faker.defaults.value'), $data);
 
+        $this->id       = $data['id'];
         $this->value    = $data['value'];
         $this->rate     = $data['rate'];
         $this->max      = $data['max'];

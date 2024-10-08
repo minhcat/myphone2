@@ -24,9 +24,10 @@ return [
         'attribute'             => [
             'attribute'         => null,
             'loop'              => null,
-            'generate_type'     => GenerateType::RANDOM
+            'generate_type'     => null,
         ],
         'value'                 => [
+            'id'                => null,
             'value'             => null,
             'rate'              => 1,
             'max'               => 1000,

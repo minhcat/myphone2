@@ -93,7 +93,11 @@ abstract class AbstractFaker
             return;
         }
 
-        if ($this->generate_type == GenerateType::RANDOM) {
+        if ($attribute->generate_type === GenerateType::RANDOM) {
+            $this->generateRandomAttribute($attribute);
+        } elseif ($attribute->generate_type === GenerateType::SEQUENTIAL) {
+            $this->generateSequentialAttribute($attribute);
+        } elseif ($this->generate_type === GenerateType::RANDOM) {
             $this->generateRandomAttribute($attribute);
         } else {
             $this->generateSequentialAttribute($attribute);
