@@ -3,6 +3,7 @@
 namespace Modules\Sale\Entities;
 
 use App\Enums\TargetType;
+use Database\Factories\SaleProductFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -103,5 +104,10 @@ class SaleProduct extends Model
                 return $attributes['discount_minimum'];
             }
         );
+    }
+
+    public static function newFactory()
+    {
+        return new SaleProductFactory();
     }
 }

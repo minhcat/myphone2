@@ -63,7 +63,7 @@
                                     @endif
                                     <td><a href="{{ route('admin.sale.product.index', $sale->id) }}">list</a></td>
                                     <td>{!! generate_label($sale->discount_type, new DiscountType) !!}</td>
-                                    <td>{{ $sale->discount_value }}</td>
+                                    <td>{{ number_format($sale->discount_value) }}</td>
                                     <td>{{ $sale->start_datetime?->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $sale->end_datetime?->format('H:i:s d/m/Y') }}</td>
                                     <td>{!! generate_label($sale->status, new PromotionStatus) !!}</td>
