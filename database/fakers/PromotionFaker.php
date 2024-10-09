@@ -9,13 +9,11 @@ use Modules\User\Repositories\UserRepository;
 class PromotionFaker extends AbstractFaker
 {
     protected $userRepository;
-    protected $addressRepository;
     protected $transporterCaseRepository;
 
     public function __construct()
     {
         $this->userRepository = new UserRepository;
-        $this->addressRepository = new AddressRepository;
         $this->transporterCaseRepository = new TransporterCaseRepository;
 
         return parent::__construct();
