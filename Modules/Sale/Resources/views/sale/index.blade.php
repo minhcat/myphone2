@@ -43,8 +43,8 @@
                                 <th>Name</th>
                                 <th>Author</th>
                                 <th>Products</th>
-                                <th>Discount Target</th>
                                 <th>Discount Type</th>
+                                <th>Discount Value</th>
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Status</th>
@@ -62,8 +62,8 @@
                                     <td></td>
                                     @endif
                                     <td><a href="{{ route('admin.sale.product.index', $sale->id) }}">list</a></td>
-                                    <td>{!! generate_label($sale->discount_target, new DiscountTarget) !!}</td>
                                     <td>{!! generate_label($sale->discount_type, new DiscountType) !!}</td>
+                                    <td>{{ $sale->discount_value }}</td>
                                     <td>{{ $sale->start_datetime?->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $sale->end_datetime?->format('H:i:s d/m/Y') }}</td>
                                     <td>{!! generate_label($sale->status, new PromotionStatus) !!}</td>
