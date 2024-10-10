@@ -183,7 +183,6 @@ if (!function_exists('uncompress_conditions')) {
         $result = [];
         foreach ($data as $data_condition) {
             $data_compress = $data_condition;
-            $data_uncompress = [];
             if ($length === null && isset($data_compress['length'])) {
                 $length = $data_compress['length'];
             } elseif ($length === null) {
@@ -318,5 +317,19 @@ if (!function_exists('add_id_to_objects')) {
         }
 
         return $array;
+    }
+}
+
+if (!function_exists('str_rand')) {
+    function str_rand($length = 1) {
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        }
+
+        return $randomString;
     }
 }

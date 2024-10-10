@@ -2,6 +2,7 @@
 
 namespace Modules\Voucher\Entities;
 
+use Database\Factories\VoucherFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -91,5 +92,10 @@ class Voucher extends Model
                 return null;
             },
         );
+    }
+
+    public static function newFactory()
+    {
+        return new VoucherFactory();
     }
 }
