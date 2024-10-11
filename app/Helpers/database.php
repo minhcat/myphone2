@@ -47,6 +47,7 @@ if (!function_exists('generate_seeder_data')) {
         return $data;
     }
 }
+
 if (!function_exists('get_time_of_use_session')) {
     function get_time_of_use_session($faker, $attribute, $value) {
         $time_of_use = 0;
@@ -58,6 +59,20 @@ if (!function_exists('get_time_of_use_session')) {
         }
 
         return [$time_of_use, $session_name];
+    }
+}
+
+if (!function_exists('reset_time_of_use_session')) {
+    function reset_time_of_use_session($faker, $time_to_reset = 1) {
+        $session_name = 'time_reset.' . $faker->faker_name;
+        $time_of_use = session($session_name, 0);
+
+        if ($time_of_use >= $time_to_reset) {
+            session()->forget($faker->faker_name);
+            session()->put($session_name, 1);
+        } else {
+            session()->put($session_name, $time_of_use + 1);
+        }
     }
 }
 
