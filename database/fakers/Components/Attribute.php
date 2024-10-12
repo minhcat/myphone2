@@ -3,7 +3,6 @@
 namespace Database\Fakers\Components;
 
 use App\Enums\FixType;
-use App\Enums\GenerateType;
 
 class Attribute
 {
@@ -29,21 +28,9 @@ class Attribute
         $data = $this->uncompress($data);
         $data = $this->addValueIndex($data);
 
-        foreach ($data['values'] as $value) {
-            $this->values[] = new Value($value);
-        }
-
-        if (isset($data['prefixes']) && is_array($data['prefixes'])) {
-            foreach ($data['prefixes'] as $prefix) {
-                $this->prefixes[] = new Prefix($prefix);
-            }
-        }
-
-        if (isset($data['suffixes']) && is_array($data['suffixes'])) {
-            foreach ($data['suffixes'] as $suffix) {
-                $this->suffixes[] = new Suffix($suffix);
-            }
-        }
+        $this->setValueData($data);
+        $this->setPrefixData($data);
+        $this->setSuffixData($data);
 
         $this->orderFixes($this->prefixes);
         $this->orderFixes($this->suffixes);
@@ -81,6 +68,31 @@ class Attribute
             $this->origin = $value;
         }
         $this->value = $value;
+    }
+
+    public function setValueData($data)
+    {
+        foreach ($data['values'] as $value) {
+            $this->values[] = new Value($value);
+        }
+    }
+
+    public function setPrefixData($data)
+    {
+        if (isset($data['prefixes']) && is_array($data['prefixes'])) {
+            foreach ($data['prefixes'] as $prefix) {
+                $this->prefixes[] = new Prefix($prefix);
+            }
+        }
+    }
+
+    public function setSuffixData($data)
+    {
+        if (isset($data['suffixes']) && is_array($data['suffixes'])) {
+            foreach ($data['suffixes'] as $suffix) {
+                $this->suffixes[] = new Suffix($suffix);
+            }
+        }
     }
 
     public function addPrefix($prefix, $space = true)
