@@ -2,6 +2,7 @@
 
 namespace Modules\City\Entities;
 
+use Database\Factories\CityFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\User\Entities\User;
@@ -25,5 +26,10 @@ class City extends Model
     public function wards()
     {
         return $this->hasManyThrough(Ward::class, District::class);
+    }
+
+    public static function newFactory()
+    {
+        return new CityFactory();
     }
 }

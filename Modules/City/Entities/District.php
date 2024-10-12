@@ -2,6 +2,7 @@
 
 namespace Modules\City\Entities;
 
+use Database\Factories\DistrictFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -36,5 +37,10 @@ class District extends Model
                 return $attributes['name'] . ', ' . $city->shortname;
             }
         );
+    }
+
+    public static function newFactory()
+    {
+        return new DistrictFactory();
     }
 }

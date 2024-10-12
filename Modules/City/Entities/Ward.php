@@ -2,6 +2,7 @@
 
 namespace Modules\City\Entities;
 
+use Database\Factories\WardFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -31,5 +32,10 @@ class Ward extends Model
                 return $attributes['name'] . ', ' . $district->shortname . ', ' . $district->city->shortname;
             }
         );
+    }
+
+    public static function newFactory()
+    {
+        return new WardFactory();
     }
 }
