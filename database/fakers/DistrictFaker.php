@@ -74,9 +74,12 @@ class DistrictFaker extends AbstractFaker
         $data = $this->getTerritoryData('name');
 
         $districts = [];
+        $index = 0;
         foreach ($data as $items) {
             foreach ($items as $district_name => $item) {
+                $index ++;
                 $districts[] = [
+                    'id'        => $index,
                     'value'     => $district_name,
                     'rate'      => 1,
                     'max'       => 1,

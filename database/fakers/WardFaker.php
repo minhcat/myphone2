@@ -42,7 +42,7 @@ class WardFaker extends AbstractFaker
 
     protected function generateAuthorId()
     {
-        $this->author_id = $this->getResourceId($this->userRepository, 'ward_author_ids', 5);
+        $this->author_id = $this->getResourceId($this->userRepository, 'ward_author_ids', 20);
     }
 
     protected function buildDistrictIdAttribute()
