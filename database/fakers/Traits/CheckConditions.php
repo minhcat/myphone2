@@ -22,11 +22,15 @@ trait CheckConditions
                 if ($condition->attribute === $attr->name) {
                     if ($condition->type == FakerConditionType::EQUAL) {
                         if (is_array($condition->value)) {
+                            $check = false;
                             foreach ($condition->value as $cvalue) {
-                                if ($cvalue !== $attr->value) {
-                                    $check = false;
-                                    break 3;
+                                if ($cvalue === $attr->value) {
+                                    $check = true;
+                                    break 2;
                                 }
+                            }
+                            if (!$check) {
+                                break 2;
                             }
                         } else if ($condition->value !== $attr->value) {
                             $check = false;
