@@ -3,6 +3,7 @@
 namespace Modules\Area\Entities;
 
 use App\Enums\TerritoryType;
+use Database\Factories\AreaDetailFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\City\Entities\City;
@@ -30,5 +31,10 @@ class AreaDetail extends Model
         } else {
             return $this->belongsTo(Ward::class, 'territory_id');
         }
+    }
+
+    public static function newFactory()
+    {
+        return new AreaDetailFactory();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Modules\Area\Entities;
 
+use Database\Factories\AreaFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\User\Entities\User;
@@ -20,5 +21,10 @@ class Area extends Model
     public function details()
     {
         return $this->hasMany(AreaDetail::class);
+    }
+
+    public static function newFactory()
+    {
+        return new AreaFactory();
     }
 }
