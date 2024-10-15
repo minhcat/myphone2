@@ -39,6 +39,7 @@ return [
         ],
         'condition'             => [
             'attribute'         => null,
+            'repository'        => null,
             'column'            => null,
             'type'              => FakerConditionType::EQUAL,
             'value'             => null,

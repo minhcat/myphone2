@@ -29,7 +29,7 @@ class GiftProductItemFaker extends AbstractFaker
     public function beforeGenerate()
     {
         reset_time_of_use_session($this, 2);
-        $this->buildResourceId($this->productRepository, 'target_id');
+        $this->buildResourceId('target_id', $this->productRepository);
     }
     
     public function afterGenerate()

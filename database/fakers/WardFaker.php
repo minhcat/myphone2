@@ -67,7 +67,7 @@ class WardFaker extends AbstractFaker
         }
 
         $this->attribute('district_id')->setValueData(['values' => $districts]);
-        $this->buildResourceId($this->districtRepository, 'district_id');
+        $this->buildResourceId('district_id', $this->districtRepository);
     }
 
     protected function buildNameAttribute()

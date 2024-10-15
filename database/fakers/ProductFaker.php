@@ -25,7 +25,7 @@ class ProductFaker extends AbstractFaker
 
     protected function beforeGenerate()
     {
-        $this->buildResourceId($this->brandRepository, 'brand_id');
+        $this->buildResourceId('brand_id', $this->brandRepository);
     }
 
     protected function afterGenerate()

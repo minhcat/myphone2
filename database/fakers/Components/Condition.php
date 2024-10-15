@@ -5,6 +5,7 @@ namespace Database\Fakers\Components;
 class Condition
 {
     protected $attribute;
+    protected $repository;
     protected $column;
     protected $type;
     protected $value;
@@ -13,10 +14,11 @@ class Condition
     {
         $data = array_merge(config('faker.defaults.condition'), $data);
 
-        $this->attribute = $data['attribute'];
-        $this->column    = $data['column'];
-        $this->type      = $data['type'];
-        $this->value     = $data['value'];
+        $this->attribute  = $data['attribute'];
+        $this->repository = $data['repository'];
+        $this->column     = $data['column'];
+        $this->type       = $data['type'];
+        $this->value      = $data['value'];
     }
 
     public function __get($name)

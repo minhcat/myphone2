@@ -26,7 +26,7 @@ class InformationFaker extends AbstractFaker
     public function beforeGenerate()
     {
         $this->generateAuthorId();
-        $this->buildResourceId($this->specificationRepository, 'specification_id');
+        $this->buildResourceId('specification_id', $this->specificationRepository);
     }
     
     public function afterGenerate()

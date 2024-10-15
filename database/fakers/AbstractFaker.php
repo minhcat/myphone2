@@ -113,14 +113,19 @@ abstract class AbstractFaker
         }
     }
 
-    protected function buildResourceId($repository, $attribute_name)
+    protected function buildResourceId($attribute_name, $repository = null)
     {
-        $models = $repository->all();
-
         foreach ($this->attributes as $attribute) {
             if ($attribute->name === $attribute_name) {
                 foreach ($attribute->values as $value) {
                     foreach ($value->conditions as $condition) {
+                        if ($repository !== null) {
+                            $models = $repository->all();
+                        } elseif ($condition->repository !== null) {
+                            $models = (new $condition->repository)->all();
+                        } else {
+                            return;
+                        }
                         foreach ($models as $model) {
                             if ($model[$condition->column] !== null) {
                                 if ($condition->type === FakerConditionType::EQUAL && $model[$condition->column] === $condition->value)  {

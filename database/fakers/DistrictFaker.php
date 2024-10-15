@@ -66,7 +66,7 @@ class DistrictFaker extends AbstractFaker
         }
 
         $this->attribute('city_id')->setValueData(['values' => $cities]);
-        $this->buildResourceId($this->cityRepository, 'city_id');
+        $this->buildResourceId('city_id', $this->cityRepository);
     }
 
     protected function buildNameAttribute()
