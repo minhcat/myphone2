@@ -94,10 +94,34 @@ return [
             'TT.Định Quán', 'Phú Cường', 'Túc Trưng', 'Phú Túc', 'Suối Nho', 'La Ngà', 'Phú Ngọc',
             'Thanh Sơn', 'Ngọc Định', 'Gia Canh', 'Phú Lợi', 'Phú Tân', 'Phú Vinh', 'Phú Hòa'
         ],
-        'Tân Phú (ĐN)'           => [
+        'Tân Phú (ĐN)'      => [
             'TT.Tân Phú', 'Phú Thịnh', 'Phú Bình', 'Phú Xuân', 'Phú Thanh', 'Phú Lộc',
             'Phú Điền', 'Phú Trung', 'Phú Lâm', 'Phú An', 'Phú Lập', 'Trà Cổ',
             'Nam Cát Tiên', 'Thanh Sơn', 'Núi Tượng', 'Đắc Lua', 'Phú Sơn', 'Tà Lài'
+        ],
+    ],
+    'Bắc Ninh'              => [
+        'TP.Bắc Ninh'       => [
+            'Đại Phúc', 'Đáp Cầu', 'Hạp Lĩnh', 'Hòa Long', 'Khắc Niệm', 'Khúc Xuyên',
+            'Nam Sơn', 'Ninh Xá', 'Phong Khê', 'Suối Hoa', 'Tiền An', 'Thị Cầu', 'Vạn An',
+            'Vân Dương', 'Vệ An', 'Võ Cường', 'Vũ Ninh', 'Kinh Bắc', 'Kim Chân',
+        ],
+        'TX.Từ Sơn'         => [
+            'Châu Khê', 'Đình Bảng', 'Đông Ngàn', 'Đồng Kỵ', 'Đồng Nguyên', 'Hương Mạc',
+            'Phù Chẩn', 'Phù Khê', 'Tam Sơn', 'Tân Hồng', 'Trang Hạ', 'Tương Giang'
+        ],
+        'Yên Phong'         => [
+            'Hòa Tiến', 'Yên Phụ', 'Văn Môn', 'Tam Giang', 'Đông Tiến', 'Đông Thọ', 'Trung Nghĩa',
+            'Long Châu', 'Yên Trung', 'Đông Phong', 'Thụy Hòa', 'Dũng Liệt', 'Tam Đa'
+        ],
+        'Quế Võ'            => [
+            'Bằng An', 'Bồng Lai', 'Cách Bi', 'Đại Xuân', 'Nhân Hòa', 'Phố Mới', 'Phù Lương',
+            'Phương Liễu', 'Phượng Mao', 'Quế Tân', 'Việt Hùng', 'Châu Phong', 'Chi Lăng', 'Đào Viên',
+            'Đức Long', 'Hán Quảng', 'Mộ Đạo', 'Ngọc Xá', 'Phù Lãng', 'Việt Thống', 'Yên Giả'
+        ],
+        'Tiên Du'           => [
+            'Cảnh Hưng', 'Đại Đồng', 'Hiên Vân', 'Hoàn Sơn', 'Lạc Vệ', 'Liên Bão',
+            'Minh Đạo', 'Nội Duệ', 'Phật Tích', 'Phú Lâm', 'Tân Chi', 'Tri Phương', 'Việt Đoàn'
         ],
     ],
 ];

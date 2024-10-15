@@ -18,14 +18,14 @@ class CitySeeder extends Seeder
     {
         City::truncate();
 
-        City::factory(3)->create();
+        City::factory(4)->create();
 
         District::truncate();
 
-        District::factory(21)->create();
+        District::factory(26)->create();
 
         Ward::truncate();
     
-        Ward::factory(314)->create();
+        Ward::factory(392)->create();
     }
 }
