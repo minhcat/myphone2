@@ -2,11 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Enums\EstimateTimeType;
-use Faker\Provider\Lorem;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Modules\Transporter\Entities\Transporter;
+use Modules\Transporter\Entities\TransporterCase;
 
 class TransporterSeeder extends Seeder
 {
@@ -17,105 +15,12 @@ class TransporterSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('transporters')->truncate();
+        Transporter::truncate();
 
-        DB::table('transporters')->insert([
-            [
-                'name'          => 'GiaoHangNhanh',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'          => 'VietnamPost',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'          => 'J&T Express',
-                'description'   => Lorem::paragraph(3),
-                'author_id'     => 1,
-                'created_at'    => now()->format('Y-m-d H:i:s'),
-                'updated_at'    => now()->format('Y-m-d H:i:s'),
-            ],
-        ]);
+        Transporter::factory(3)->create();
 
-        DB::table('transporter_cases')->truncate();
+        TransporterCase::truncate();
 
-        DB::table('transporter_cases')->insert([
-            [
-                'name'                  => 'Normal',
-                'description'           => Lorem::paragraph(3),
-                'transporter_id'        => 3,
-                'estimate_time_type'    => EstimateTimeType::DAY,
-                'estimate_time'         => 2,
-                'author_id'             => 1,
-                'created_at'            => now()->format('Y-m-d H:i:s'),
-                'updated_at'            => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'                  => 'Fast',
-                'description'           => Lorem::paragraph(3),
-                'transporter_id'        => 3,
-                'estimate_time_type'    => EstimateTimeType::HOUR,
-                'estimate_time'         => 6,
-                'author_id'             => 1,
-                'created_at'            => now()->format('Y-m-d H:i:s'),
-                'updated_at'            => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'                  => 'Cheap',
-                'description'           => Lorem::paragraph(3),
-                'transporter_id'        => 3,
-                'estimate_time_type'    => EstimateTimeType::DAY,
-                'estimate_time'         => 4,
-                'author_id'             => 1,
-                'created_at'            => now()->format('Y-m-d H:i:s'),
-                'updated_at'            => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'                  => 'Normal',
-                'description'           => Lorem::paragraph(3),
-                'transporter_id'        => 2,
-                'estimate_time_type'    => EstimateTimeType::DAY,
-                'estimate_time'         => 2,
-                'author_id'             => 1,
-                'created_at'            => now()->format('Y-m-d H:i:s'),
-                'updated_at'            => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'                  => 'Fast',
-                'description'           => Lorem::paragraph(3),
-                'transporter_id'        => 2,
-                'estimate_time_type'    => EstimateTimeType::DAY,
-                'estimate_time'         => 1,
-                'author_id'             => 1,
-                'created_at'            => now()->format('Y-m-d H:i:s'),
-                'updated_at'            => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'                  => 'Normal',
-                'description'           => Lorem::paragraph(3),
-                'transporter_id'        => 1,
-                'estimate_time_type'    => EstimateTimeType::DAY,
-                'estimate_time'         => 2,
-                'author_id'             => 1,
-                'created_at'            => now()->format('Y-m-d H:i:s'),
-                'updated_at'            => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'name'                  => 'Fast',
-                'description'           => Lorem::paragraph(3),
-                'transporter_id'        => 1,
-                'estimate_time_type'    => EstimateTimeType::DAY,
-                'estimate_time'         => 1,
-                'author_id'             => 1,
-                'created_at'            => now()->format('Y-m-d H:i:s'),
-                'updated_at'            => now()->format('Y-m-d H:i:s'),
-            ],
-        ]);
+        TransporterCase::factory(9)->create();
     }
 }

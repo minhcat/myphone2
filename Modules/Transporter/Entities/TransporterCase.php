@@ -3,6 +3,7 @@
 namespace Modules\Transporter\Entities;
 
 use App\Enums\EstimateTimeType;
+use Database\Factories\TransporterCaseFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -55,5 +56,10 @@ class TransporterCase extends Model
                 return $this->name . ' - ' . $this->transporter->name;
             }
         );
+    }
+
+    public static function newFactory()
+    {
+        return new TransporterCaseFactory();
     }
 }
