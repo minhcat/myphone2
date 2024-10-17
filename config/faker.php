@@ -25,6 +25,7 @@ return [
             'attribute'         => null,
             'loop'              => null,
             'generate_type'     => null,
+            'auto_generate'     => true,
         ],
         'value'                 => [
             'id'                => null,

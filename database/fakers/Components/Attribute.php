@@ -8,6 +8,7 @@ class Attribute
 {
     protected $name;
     protected $generate_type;
+    protected $auto_generate;
     protected $values = [];
     protected $value;
     protected $loop;
@@ -23,6 +24,7 @@ class Attribute
 
         $this->name = $data['attribute'];
         $this->generate_type = $data['generate_type'];
+        $this->auto_generate = $data['auto_generate'];
         $this->loop = $data['loop'];
 
         $data = $this->uncompress($data);

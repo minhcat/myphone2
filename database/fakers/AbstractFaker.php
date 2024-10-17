@@ -73,7 +73,9 @@ abstract class AbstractFaker
     protected function generate()
     {
         foreach ($this->attributes as $attribute) {
-            $this->generateAttribute($attribute);
+            if ($attribute->auto_generate) {
+                $this->generateAttribute($attribute);
+            }
         }
     }
 
@@ -90,17 +92,17 @@ abstract class AbstractFaker
             }
         }
         if ($flag) {
-            return;
+            return null;
         }
 
         if ($attribute->generate_type === GenerateType::RANDOM) {
-            $this->generateRandomAttribute($attribute);
+            return $this->generateRandomAttribute($attribute);
         } elseif ($attribute->generate_type === GenerateType::SEQUENTIAL) {
-            $this->generateSequentialAttribute($attribute);
+            return $this->generateSequentialAttribute($attribute);
         } elseif ($this->generate_type === GenerateType::RANDOM) {
-            $this->generateRandomAttribute($attribute);
+            return $this->generateRandomAttribute($attribute);
         } else {
-            $this->generateSequentialAttribute($attribute);
+            return $this->generateSequentialAttribute($attribute);
         }
     }
 
