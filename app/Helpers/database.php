@@ -76,6 +76,34 @@ if (!function_exists('reset_time_of_use_session')) {
     }
 }
 
+if (!function_exists('reset_time_of_use_attribute_session')) {
+    function reset_time_of_use_attribute_session($faker, $attribute, $time_to_reset = 1) {
+        $session_name = 'time_reset.' . $faker->faker_name . '.' . $attribute->name;
+        $time_of_use = session($session_name, 0);
+
+        if ($time_of_use >= $time_to_reset) {
+            session()->forget($faker->faker_name . '.' . $attribute->name);
+            session()->put($session_name, 1);
+        } else {
+            session()->put($session_name, $time_of_use + 1);
+        }
+    }
+}
+
+if (!function_exists('reset_session')) {
+    function reset_session($session_name, $time_to_reset = 1) {
+        $session_time_reset = 'time_reset.'.$session_name;
+        $time_of_use = session($session_time_reset, 0);
+
+        if ($time_of_use >= $time_to_reset) {
+            session()->forget($session_name);
+            session()->put($session_time_reset, 1);
+        } else {
+            session()->put($session_time_reset, $time_of_use + 1);
+        }
+    }
+}
+
 if (!function_exists('get_time_of_use_fix_session')) {
     function get_time_of_use_fix_session($faker, $attribute, $fixvalue, $fixtype) {
         $val = $fixvalue->value === null || $fixvalue->value === '' ? 'none' : $fixvalue->value;
