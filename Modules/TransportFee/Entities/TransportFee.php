@@ -3,6 +3,7 @@
 namespace Modules\TransportFee\Entities;
 
 use App\Enums\TotalRangeType;
+use Database\Factories\TransportFeeFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -63,5 +64,10 @@ class TransportFee extends Model
                 return $result;
             }
         );
+    }
+
+    public static function newFactory()
+    {
+        return new TransportFeeFactory();
     }
 }
