@@ -100,7 +100,7 @@ trait SequentialGeneration
             return $item !== null;
         }));
 
-        $models = $repository->get($where);
+        $models = $repository->get($where, 0, 10000);
         $models_not_choose = $models->whereNotIn('id', $session_ids)->values();
         if ($models_not_choose->isEmpty()) {
             return null;
