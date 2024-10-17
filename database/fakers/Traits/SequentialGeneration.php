@@ -86,7 +86,7 @@ trait SequentialGeneration
         }
     }
 
-    protected function getSequentialResourceId($repository, $session_name, $max_quantity = 1)
+    protected function getSequentialResourceId($repository, $session_name, $max_quantity = 1, $where = [])
     {
         $session_array = [];
         if (session()->has($session_name)) {
@@ -100,7 +100,7 @@ trait SequentialGeneration
             return $item !== null;
         }));
 
-        $models = $repository->all();
+        $models = $repository->get($where);
         $models_not_choose = $models->whereNotIn('id', $session_ids)->values();
         if ($models_not_choose->isEmpty()) {
             return null;

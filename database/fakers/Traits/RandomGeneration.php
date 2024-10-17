@@ -116,7 +116,7 @@ trait RandomGeneration
         }
     }
 
-    protected function getRandomResourceId($repository, $session_name, $max_quantity = 1000)
+    protected function getRandomResourceId($repository, $session_name, $max_quantity = 1000, $where = [])
     {
         $session_array = [];
         if (session()->has($session_name)) {
@@ -130,7 +130,7 @@ trait RandomGeneration
             return $item !== null;
         }));
 
-        $models = $repository->all();
+        $models = $repository->get($where);
         $models_not_choose = $models->whereNotIn('id', $session_ids)->values();
         $model_ids = $models_not_choose->pluck('id');
         $max = $model_ids->count() - 1;

@@ -104,12 +104,12 @@ abstract class AbstractFaker
         }
     }
 
-    protected function getResourceId($repository, $session_name, $max_quantity = 1)
+    protected function getResourceId($repository, $session_name, $max_quantity = 1, $where = [])
     {
         if ($this->generate_type == GenerateType::RANDOM) {
-            return $this->getRandomResourceId($repository, $session_name, $max_quantity);
+            return $this->getRandomResourceId($repository, $session_name, $max_quantity, $where);
         } else {
-            return $this->getSequentialResourceId($repository, $session_name, $max_quantity);
+            return $this->getSequentialResourceId($repository, $session_name, $max_quantity, $where);
         }
     }
 
