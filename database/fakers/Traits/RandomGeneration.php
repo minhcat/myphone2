@@ -53,6 +53,8 @@ trait RandomGeneration
         if (count($attribute->suffixes) > 0) {
             $this->generateRandomAttributeFixes($attribute, $attribute->suffixes, FixType::SUFFIX);
         }
+
+        return $attribute->value;
     }
 
     protected function generateRandomAttributeFixes($attribute, $fixes, $fixtype)

@@ -39,6 +39,8 @@ trait SequentialGeneration
         if (count($attribute->suffixes) > 0) {
             $this->generateSequentialAttributeFixes($attribute, $attribute->suffixes, FixType::SUFFIX);
         }
+
+        return $attribute->value;
     }
 
     protected function generateSequentialAttributeFixes($attribute, $fixes, $fixtype = FixType::PREFIX)
