@@ -4,7 +4,7 @@ namespace Database\Fakers\Traits;
 
 trait ConditionGeneration
 {
-    public function conditionGenerate()
+    protected function conditionGenerate()
     {
         $resourceRepository1 = $this->getResourceRepository1();
         $resourceRepository2 = $this->getResourceRepository2();

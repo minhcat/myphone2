@@ -18,24 +18,24 @@ class TransporterCaseFaker extends AbstractFaker
         return parent::__construct();
     }
 
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/transporter_case/transporter_case.php';
     }
 
-    public function beforeGenerate()
+    protected function beforeGenerate()
     {
         reset_time_of_use_session($this, 3);
         $this->generateAuthorId();
         $this->generateTransporterId();
     }
 
-    protected function generateAuthorId()
+    private function generateAuthorId()
     {
         $this->author_id = $this->getResourceId($this->userRepository, 'transporter_case_author_ids', 20);
     }
     
-    protected function generateTransporterId()
+    private function generateTransporterId()
     {
         $this->transporter_id = $this->getResourceId($this->transporterRepository, 'transporter_case_transporter_ids', 3);
     }

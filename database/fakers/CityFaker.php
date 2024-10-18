@@ -15,7 +15,7 @@ class CityFaker extends AbstractFaker
         return parent::__construct();
     }
 
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/city/city.php';
     }
@@ -25,23 +25,23 @@ class CityFaker extends AbstractFaker
         return require database_path().'/fakers/Data/city/data/'.$file.'.php';
     }
 
-    public function beforeGenerate()
+    protected function beforeGenerate()
     {
         $this->buildNameAttribute();
         $this->buildShortnameAttribute();
     }
 
-    public function afterGenerate()
+    protected function afterGenerate()
     {
         $this->generateAuthorId();
     }
 
-    protected function generateAuthorId()
+    private function generateAuthorId()
     {
         $this->author_id = $this->getResourceId($this->userRepository, 'city_author_ids');
     }
 
-    protected function buildNameAttribute()
+    private function buildNameAttribute()
     {
         $data = $this->getTerritoryData('name');
 
@@ -57,7 +57,7 @@ class CityFaker extends AbstractFaker
         $this->attribute('name')->setValueData(['values' => $cities]);
     }
 
-    protected function buildShortnameAttribute()
+    private function buildShortnameAttribute()
     {
         $data = $this->getTerritoryData('shortname');
 

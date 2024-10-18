@@ -18,18 +18,18 @@ class AreaDetailFaker extends AbstractFaker
         return parent::__construct();
     }
 
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/area_detail/area_detail.php';
     }
 
-    public function beforeGenerate()
+    protected function beforeGenerate()
     {
         $this->buildResourceId('area_id', $this->areaRepository);
         $this->buildResourceId('territory_id');
     }
 
-    public function afterGenerate()
+    protected function afterGenerate()
     {
         $this->generateAuthorId();
         $this->generateAreaName();
@@ -37,12 +37,12 @@ class AreaDetailFaker extends AbstractFaker
         $this->generateAttribute('territory_id');
     }
 
-    protected function generateAuthorId()
+    private function generateAuthorId()
     {
         $this->author_id = $this->getResourceId($this->userRepository, 'area_detail_author_ids', 2);
     }
 
-    protected function generateAreaName()
+    private function generateAreaName()
     {
         $this->area_name = $this->areaRepository->find($this->area_id)?->name;
     }

@@ -21,12 +21,12 @@ class DetailFaker extends AbstractFaker
         return parent::__construct();
     }
 
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/detail/detail.php';
     }
 
-    public function beforeGenerate()
+    protected function beforeGenerate()
     {
         $this->generateAuthorId();
         $this->generateProductId();
@@ -34,17 +34,17 @@ class DetailFaker extends AbstractFaker
         $this->generateInformationId();
     }
 
-    protected function generateAuthorId()
+    private function generateAuthorId()
     {
         $this->author_id = $this->getResourceId($this->userRepository, 'detail_author_ids', 32);
     }
 
-    protected function generateProductId()
+    private function generateProductId()
     {
         $this->product_id = $this->getResourceId($this->productRepository, 'detail_product_ids', 8);
     }
 
-    protected function generateSpecificationId()
+    private function generateSpecificationId()
     {
         $specifications = $this->specificationRepository->all();
         foreach ($specifications as $specification) {
@@ -59,7 +59,7 @@ class DetailFaker extends AbstractFaker
         }
     }
 
-    protected function generateInformationId()
+    private function generateInformationId()
     {
         $specification = $this->specificationRepository->find($this->specification_id);
         $informations = optional($specification)->informations;

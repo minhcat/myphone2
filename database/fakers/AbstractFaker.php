@@ -16,7 +16,7 @@ abstract class AbstractFaker
     protected $generate_type;
     protected $attributes = [];
 
-    abstract public function getData();
+    abstract protected function getData();
 
     public function __construct()
     {

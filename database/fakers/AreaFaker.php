@@ -15,19 +15,19 @@ class AreaFaker extends AbstractFaker
         return parent::__construct();
     }
 
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/area/area.php';
     }
 
-    public function generate()
+    protected function generate()
     {
         parent::generate();
 
         $this->generateAuthorId();
     }
 
-    protected function generateAuthorId()
+    private function generateAuthorId()
     {
         $this->author_id = $this->getResourceId($this->userRepository, 'area_author_ids', 2);
     }

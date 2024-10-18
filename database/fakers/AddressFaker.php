@@ -18,33 +18,29 @@ class AddressFaker extends AbstractFaker
         return parent::__construct();
     }
 
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/address/address.php';
     }
 
-    public function generate()
+    protected function afterGenerate()
     {
-        parent::generate();
-
         $this->generateContent();
-
         $this->generateAuthorId();
-
         $this->generateWardId();
     }
 
-    protected function generateContent()
+    private function generateContent()
     {
         $this->content = rand(1, 150). ' ' . $this->content;
     }
 
-    protected function generateAuthorId()
+    private function generateAuthorId()
     {
         $this->author_id = $this->getResourceId($this->userRepository, 'address_author_ids', 2);
     }
 
-    protected function generateWardId()
+    private function generateWardId()
     {
         $this->ward_id = $this->getResourceId($this->wardRepository, 'address_ward_ids', 10);
     }

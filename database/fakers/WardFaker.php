@@ -18,7 +18,7 @@ class WardFaker extends AbstractFaker
         return parent::__construct();
     }
 
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/ward/ward.php';
     }
@@ -28,24 +28,24 @@ class WardFaker extends AbstractFaker
         return require database_path().'/fakers/Data/city/data/'.$file.'.php';
     }
 
-    public function beforeGenerate()
+    protected function beforeGenerate()
     {
         $this->buildNameAttribute();
         $this->buildShortnameAttribute();
         $this->buildDistrictIdAttribute();
     }
 
-    public function afterGenerate()
+    protected function afterGenerate()
     {
         $this->generateAuthorId();
     }
 
-    protected function generateAuthorId()
+    private function generateAuthorId()
     {
         $this->author_id = $this->getResourceId($this->userRepository, 'ward_author_ids', 20);
     }
 
-    protected function buildDistrictIdAttribute()
+    private function buildDistrictIdAttribute()
     {
         $data = $this->getTerritoryData('name');
 
@@ -70,7 +70,7 @@ class WardFaker extends AbstractFaker
         $this->buildResourceId('district_id', $this->districtRepository);
     }
 
-    protected function buildNameAttribute()
+    private function buildNameAttribute()
     {
         $data = $this->getTerritoryData('name');
 
@@ -93,7 +93,7 @@ class WardFaker extends AbstractFaker
         $this->attribute('name')->setValueData(['values' => $wards]);
     }
 
-    protected function buildShortnameAttribute()
+    private function buildShortnameAttribute()
     {
         $data = $this->getTerritoryData('shortname');
 

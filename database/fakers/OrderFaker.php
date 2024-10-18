@@ -21,12 +21,12 @@ class OrderFaker extends AbstractFaker
         return parent::__construct();
     }
 
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/order/order.php';
     }
     
-    public function afterGenerate()
+    protected function afterGenerate()
     {
         $this->generateCode();
         $this->generateAuthorId();
@@ -34,23 +34,23 @@ class OrderFaker extends AbstractFaker
         $this->generateTransporterCaseId();
     }
 
-    protected function generateAuthorId()
+    private function generateAuthorId()
     {
         $this->author_id = $this->getResourceId($this->userRepository, 'order_author_ids', 2);
     }
 
-    protected function generateAddressId()
+    private function generateAddressId()
     {
         $addresses = $this->addressRepository->get([['author_id', $this->author_id]]);
         $this->address_id = $addresses->random()->id;
     }
 
-    protected function generateTransporterCaseId()
+    private function generateTransporterCaseId()
     {
         $this->transporter_case_id = $this->getResourceId($this->transporterCaseRepository, 'order_transporter_case_ids', 15);
     }
 
-    protected function generateCode()
+    private function generateCode()
     {
         $code = session()->get('order.code.value', 1000);
         $this->code = '#' . ($code + 1);

@@ -18,7 +18,7 @@ class ProductFaker extends AbstractFaker
         return parent::__construct();
     }
 
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/product/product.php';
     }
@@ -37,22 +37,17 @@ class ProductFaker extends AbstractFaker
         $this->generateSKUNumber();
     }
 
-    protected function generateBrandId()
-    {
-        $this->brand_id = $this->getResourceId($this->brandRepository, 'product_brand_ids', 5);
-    }
-
-    protected function generateBrandName()
+    private function generateBrandName()
     {
         $this->brand_name = $this->brandRepository->find($this->brand_id)?->name;
     }
 
-    protected function generateSlug()
+    private function generateSlug()
     {
         $this->slug = str_replace(' ', '-', strtolower(trim($this->name)));
     }
 
-    protected function generateSKUNumber()
+    private function generateSKUNumber()
     {
         $session_sku_number = 1;
         if (session()->has('product_sku_number')) {
@@ -64,7 +59,7 @@ class ProductFaker extends AbstractFaker
         session()->put('product_sku_number', $session_sku_number + 1);
     }
 
-    protected function generateAuthorId()
+    private function generateAuthorId()
     {
         $this->author_id = $this->getResourceId($this->userRepository, 'product_user_ids', 10);
     }

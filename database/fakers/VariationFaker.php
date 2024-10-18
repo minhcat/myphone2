@@ -18,41 +18,41 @@ class VariationFaker extends AbstractFaker
         return parent::__construct();
     }
 
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/variation/variation.php';
     }
 
-    public function beforeGenerate()
+    protected function beforeGenerate()
     {
         $this->generateAuthorId();
         $this->generateProductId();
     }
     
-    public function afterGenerate()
+    protected function afterGenerate()
     {
         $this->generatePrice();
         $this->generateCode();
     }
 
-    protected function generateCode()
+    private function generateCode()
     {
         $code = session()->get('variation.code.value', 1000);
         $this->code = '#' . ($code + 1);
         session()->put('variation.code.value', $code + 1);
     }
 
-    protected function generateAuthorId()
+    private function generateAuthorId()
     {
         $this->author_id = $this->getResourceId($this->userRepository, 'variation_author_ids', 10);
     }
 
-    protected function generateProductId()
+    private function generateProductId()
     {
         $this->product_id = $this->getResourceId($this->productRepository, 'variation_product_ids', 36);
     }
 
-    protected function generatePrice()
+    private function generatePrice()
     {
         $product_price = $this->productRepository->find($this->product_id)->price;
         $price = ($this->price / 100) * $product_price;

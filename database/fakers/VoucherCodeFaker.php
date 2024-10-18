@@ -15,23 +15,23 @@ class VoucherCodeFaker extends AbstractFaker
         return parent::__construct();
     }
 
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/voucher_code/voucher_code.php';
     }
     
-    public function afterGenerate()
+    protected function afterGenerate()
     {
         $this->generateVoucherId();
         $this->generateCode();
     }
 
-    protected function generateVoucherId()
+    private function generateVoucherId()
     {
         $this->voucher_id = $this->getResourceId($this->voucherRepository, 'voucher_code_voucher_ids', 10);
     }
 
-    protected function generateCode()
+    private function generateCode()
     {
         $this->code = str_rand(3).rand(1000, 9999);
     }

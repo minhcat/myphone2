@@ -22,7 +22,7 @@ class CategoryProductFaker extends AbstractFaker implements ConditionGenerationC
         parent::__construct();
     }
 
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/category_product/category_product.php';
     }
@@ -35,6 +35,11 @@ class CategoryProductFaker extends AbstractFaker implements ConditionGenerationC
     public function getFakerName()
     {
         return 'category_produt';
+    }
+
+    protected function beforeGenerate()
+    {
+        $this->conditionGenerate($this->productRepository, $this->categoryRepository);
     }
 
     public function getResourceRepository1()
@@ -55,10 +60,5 @@ class CategoryProductFaker extends AbstractFaker implements ConditionGenerationC
     public function getAttributeName2()
     {
         return 'category_id';
-    }
-
-    public function beforeGenerate()
-    {
-        $this->conditionGenerate($this->productRepository, $this->categoryRepository);
     }
 }

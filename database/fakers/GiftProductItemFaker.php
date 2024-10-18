@@ -21,29 +21,29 @@ class GiftProductItemFaker extends AbstractFaker
         return parent::__construct();
     }
 
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/gift_product_item/gift_product_item.php';
     }
 
-    public function beforeGenerate()
+    protected function beforeGenerate()
     {
         reset_time_of_use_session($this, 2);
         $this->buildResourceId('target_id', $this->productRepository);
     }
     
-    public function afterGenerate()
+    protected function afterGenerate()
     {
         $this->generateAuthorId();
         $this->generateGiftProductId();
     }
 
-    protected function generateAuthorId()
+    private function generateAuthorId()
     {
         $this->author_id = $this->getResourceId($this->userRepository, 'gift_product_item_author_ids', 10);
     }
 
-    protected function generateGiftProductId()
+    private function generateGiftProductId()
     {
         $this->gift_product_id = $this->getResourceId($this->giftProductRepository, 'gift_product_item_gift_product_ids', 2);
     }

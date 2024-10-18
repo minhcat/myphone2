@@ -15,17 +15,17 @@ class SpecificationFaker extends AbstractFaker
         return parent::__construct();
     }
 
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/specification/specification.php';
     }
 
-    public function beforeGenerate()
+    protected function beforeGenerate()
     {
         $this->generateAuthorId();
     }
 
-    protected function generateAuthorId()
+    private function generateAuthorId()
     {
         $this->author_id = $this->getResourceId($this->userRepository, 'specification_author_ids');
     }

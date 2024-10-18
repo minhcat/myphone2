@@ -19,12 +19,12 @@ class OptionVariationFaker extends AbstractFaker
         return parent::__construct();
     }
 
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/option_variation/option_variation.php';
     }
 
-    public function generate()
+    protected function generate()
     {
         // generate variation id
         $variation_ids_choose = [];

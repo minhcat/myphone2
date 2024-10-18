@@ -21,12 +21,12 @@ class InvoiceDetailFaker extends AbstractFaker
         return parent::__construct();
     }
 
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/invoice_detail/invoice_detail.php';
     }
 
-    public function afterGenerate()
+    protected function afterGenerate()
     {
         $this->generateAuthorId();
         $this->generateInvoiceId();
@@ -34,17 +34,17 @@ class InvoiceDetailFaker extends AbstractFaker
         $this->generatePrice();
     }
 
-    protected function generateAuthorId()
+    private function generateAuthorId()
     {
         $this->author_id = $this->getResourceId($this->userRepository, 'invoice_detail_author_ids', 6);
     }
 
-    protected function generateInvoiceId()
+    private function generateInvoiceId()
     {
         $this->invoice_id = $this->getResourceId($this->invoiceRepository, 'invoice_detail_order_ids', 3);
     }
 
-    protected function generateTargetId()
+    private function generateTargetId()
     {
         $this->target_id = $this->getResourceId($this->productRepository, 'invoice_detail_target_ids');
 
@@ -54,7 +54,7 @@ class InvoiceDetailFaker extends AbstractFaker
         }
     }
 
-    protected function generatePrice()
+    private function generatePrice()
     {
         $target = $this->productRepository->find($this->target_id);
         $this->price = $target->price;

@@ -19,17 +19,17 @@ class PromotionFaker extends AbstractFaker
         return parent::__construct();
     }
 
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/promotion/promotion.php';
     }
     
-    public function afterGenerate()
+    protected function afterGenerate()
     {
         $this->generateAuthorId();
     }
 
-    protected function generateAuthorId()
+    private function generateAuthorId()
     {
         $this->author_id = $this->getResourceId($this->userRepository, 'promotion_author_ids', 10);
     }

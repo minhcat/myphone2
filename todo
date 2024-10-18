@@ -1,8 +1,5 @@
 handle search with detail list paginate (not code) has relation name
 add country brand to setting
-make factory user, product data
 make quality, payment method to transporter and order
 check todo comment
-update public private function faker
-make function generate created_at, updated_at seeder
 job update product tab - schedule cron job

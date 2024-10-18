@@ -4,20 +4,18 @@ namespace Database\Fakers;
 
 class UserFaker extends AbstractFaker
 {
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/user/user.php';
     }
 
-    public function generate()
+    protected function afterGenerate()
     {
-        parent::generate();
-
         $this->generateAccount();
         $this->generateEmail();
     }
 
-    protected function generateAccount()
+    private function generateAccount()
     {
         $firstname = $this->getBasicName('firstname');
         $lastname  = $this->getBasicName('lastname');
@@ -28,7 +26,7 @@ class UserFaker extends AbstractFaker
         $this->account = $account;
     }
 
-    protected function generateEmail()
+    private function generateEmail()
     {
         $firstname = $this->getBasicName('firstname');
         $lastname  = $this->getBasicName('lastname');

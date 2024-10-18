@@ -25,17 +25,17 @@ class TransportFeeFaker extends AbstractFaker
         return parent::__construct();
     }
 
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/transport_fee/transport_fee.php';
     }
 
-    public function beforeGenerate()
+    protected function beforeGenerate()
     {
         $this->buildResourceId('transporter_id', $this->transporterRepository);
     }
 
-    public function afterGenerate()
+    protected function afterGenerate()
     {
         $this->generateAuthorId();
         $this->generateAreaId();
@@ -45,24 +45,24 @@ class TransportFeeFaker extends AbstractFaker
         $this->generateCost();
     }
 
-    protected function generateAuthorId()
+    private function generateAuthorId()
     {
         $this->author_id = $this->getResourceId($this->userRepository, 'transport_fee_author_ids', 20);
     }
 
-    protected function generateAreaId()
+    private function generateAreaId()
     {
         reset_session('transport_fee_area_ids', 18);
         $this->area_id = $this->getResourceId($this->areaRepository, 'transport_fee_area_ids', 3);
     }
 
-    protected function generateTransporterCaseId()
+    private function generateTransporterCaseId()
     {
         reset_session('transport_fee_transporter_case_ids', 54);
         $this->transporter_case_id = $this->getResourceId($this->transporterCaseRepository, 'transport_fee_transporter_case_ids', 18, [['transporter_id', $this->transporter_id]]);
     }
 
-    protected function generateName()
+    private function generateName()
     {
         $session_name = 'transport_fee.index.' . $this->name . '.value';
         $index = session()->get($session_name, 1);
@@ -70,7 +70,7 @@ class TransportFeeFaker extends AbstractFaker
         session()->put($session_name, $index + 1);
     }
 
-    protected function generateRange()
+    private function generateRange()
     {
         reset_time_of_use_attribute_session($this, $this->attribute('range'), 3);
         $this->generateAttribute('range');

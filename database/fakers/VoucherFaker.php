@@ -15,17 +15,17 @@ class VoucherFaker extends AbstractFaker
         return parent::__construct();
     }
 
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/voucher/voucher.php';
     }
     
-    public function afterGenerate()
+    protected function afterGenerate()
     {
         $this->generateAuthorId();
     }
 
-    protected function generateAuthorId()
+    private function generateAuthorId()
     {
         $this->author_id = $this->getResourceId($this->userRepository, 'voucher_author_ids', 10);
     }

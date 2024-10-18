@@ -25,7 +25,7 @@ class ProductTagFaker extends AbstractFaker implements ConditionGenerationContra
         parent::__construct();
     }
 
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/product_tag/product_tag.php';
     }
@@ -60,14 +60,14 @@ class ProductTagFaker extends AbstractFaker implements ConditionGenerationContra
         return 'tag_id';
     }
 
-    public function beforeGenerate()
+    protected function beforeGenerate()
     {
         $this->conditionGenerate($this->productRepository, $this->tagRepository);
         $this->generateWithPrice();
         $this->generateWithWeight();
     }
 
-    public function generateWithPrice()
+    private function generateWithPrice()
     {
         if ($this->product_id === null || $this->tag_id === null) {
             $products = $this->productRepository->all();
@@ -90,7 +90,7 @@ class ProductTagFaker extends AbstractFaker implements ConditionGenerationContra
         }
     }
 
-    public function generateWithWeight()
+    private function generateWithWeight()
     {
         if ($this->product_id === null || $this->tag_id === null) {
             $products = $this->productRepository->all();

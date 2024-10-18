@@ -21,12 +21,12 @@ class CartDetailFaker extends AbstractFaker
         return parent::__construct();
     }
 
-    public function getData()
+    protected function getData()
     {
         return require database_path().'/fakers/Data/cart_detail/cart_detail.php';
     }
 
-    public function afterGenerate()
+    protected function afterGenerate()
     {
         $this->generateAuthorId();
         $this->generateCartId();
@@ -34,22 +34,22 @@ class CartDetailFaker extends AbstractFaker
         $this->generatePrice();
     }
 
-    protected function generateAuthorId()
+    private function generateAuthorId()
     {
         $this->author_id = $this->getResourceId($this->userRepository, 'cart_detail_author_ids', 3);
     }
 
-    protected function generateCartId()
+    private function generateCartId()
     {
         $this->cart_id = $this->getResourceId($this->cartRepository, 'cart_detail_cart_ids', 3);
     }
 
-    protected function generateTargetId()
+    private function generateTargetId()
     {
         $this->target_id = $this->getResourceId($this->productRepository, 'cart_detail_target_ids');
     }
 
-    protected function generatePrice()
+    private function generatePrice()
     {
         $target = $this->productRepository->find($this->target_id);
         $this->price = $target->price;
