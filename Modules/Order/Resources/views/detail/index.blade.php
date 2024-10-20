@@ -27,6 +27,18 @@
                 <a href="{{ route('admin.order.index') }}" class="btn btn-default pull-right mr-1"><i class="fa fa-arrow-left"></i> Back</a>
             </div>
             <div class="box-body">
+                <div class="table-header">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="filter" style="text-align: left">
+                                <label for="search">
+                                    Search:
+                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.order.detail.index', $order_id) }}">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="table-body">
                     <table class="table table-bordered table-striped mt-3 table-fix">
                         <thead>

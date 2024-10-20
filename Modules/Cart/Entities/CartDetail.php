@@ -31,6 +31,11 @@ class CartDetail extends Model
         return $this->belongsTo(Product::class, 'target_id');
     }
 
+    public function variation()
+    {
+        return $this->belongsTo(Variation::class, 'target_id');
+    }
+
     public function cart()
     {
         return $this->belongsTo(Cart::class);

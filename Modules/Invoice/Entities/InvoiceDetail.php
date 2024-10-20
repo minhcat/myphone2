@@ -31,6 +31,11 @@ class InvoiceDetail extends Model
         return $this->belongsTo(Product::class, 'target_id');
     }
 
+    public function variation()
+    {
+        return $this->belongsTo(Variation::class, 'target_id');
+    }
+
     public static function newFactory()
     {
         return new InvoiceDetailFactory();

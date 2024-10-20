@@ -37,9 +37,10 @@ class CartDetailController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index($cart_id)
+    public function index(Request $request, $cart_id)
     {
-        $details = $this->cartDetailRepository->paginateByCartId($cart_id);
+        $search = $request->input('search');
+        $details = $this->cartDetailRepository->paginateByCartId($cart_id, $search);
 
         return view('cart::detail.index', compact('details', 'cart_id'));
     }

@@ -24,6 +24,11 @@ class GiftProduct extends Model
         return $this->belongsTo(Product::class, 'target_id');
     }
 
+    public function variation()
+    {
+        return $this->belongsTo(Variation::class, 'target_id');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'author_id');

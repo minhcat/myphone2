@@ -10,6 +10,7 @@
 <ol class="breadcrumb">
     <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
     <li><a href="{{ route('admin.area.index') }}">Area</a></li>
+    <li><a href="{{ route('admin.area.detail.index', $area_id) }}">Detail</a></li>
     <li class="active">Index</li>
 </ol>
 @endsection
@@ -25,12 +26,12 @@
             </div>
             <div class="box-body">
                 <div class="table-header">
-                    <div class="row hidden">
+                    <div class="row">
                         <div class="col-lg-12">
                             <div class="filter">
                                 <label for="search">
                                     Search:
-                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.area.index') }}">
+                                    <input id="search" type="search" class="form-control input-sm" name="search" value="{{ request()->search }}" data-url="{{ route('admin.area.detail.index', $area_id) }}">
                                 </label>
                             </div>
                         </div>

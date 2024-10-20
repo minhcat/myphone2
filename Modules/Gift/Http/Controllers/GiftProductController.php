@@ -37,9 +37,10 @@ class GiftProductController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index($gift_id)
+    public function index(Request $request, $gift_id)
     {
-        $gift_products = $this->giftProductRepository->paginateByGiftId($gift_id);
+        $search = $request->input('search');
+        $gift_products = $this->giftProductRepository->paginateByGiftId($gift_id, $search);
 
         return view('gift::product.index', compact('gift_products', 'gift_id'));
     }

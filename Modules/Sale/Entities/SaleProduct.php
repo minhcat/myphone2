@@ -35,9 +35,14 @@ class SaleProduct extends Model
 
     public function target()
     {
-        if ($this->target_type === TargetType::PRODUCT) {
-            return $this->belongsTo(Product::class, 'target_id');
+        if ($this->target_type === TargetType::VARIANT) {
+            return $this->belongsTo(Variation::class, 'target_id');
         }
+        return $this->belongsTo(Product::class, 'target_id');
+    }
+
+    public function variation()
+    {
         return $this->belongsTo(Variation::class, 'target_id');
     }
 

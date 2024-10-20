@@ -37,9 +37,10 @@ class OrderDetailController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index($order_id)
+    public function index(Request $request, $order_id)
     {
-        $details = $this->orderDetailRepository->paginateByOrderId($order_id);
+        $search = $request->input('search');
+        $details = $this->orderDetailRepository->paginateByOrderId($order_id, $search);
 
         return view('order::detail.index', compact('details', 'order_id'));
     }

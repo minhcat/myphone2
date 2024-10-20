@@ -2,6 +2,7 @@
 
 namespace Modules\Sale\Repositories;
 
+use App\Enums\TargetType;
 use App\Repositories\AbstractRepository;
 use Modules\Sale\Entities\SaleProduct;
 
@@ -12,16 +13,27 @@ class SaleProductRepository extends AbstractRepository
         return new SaleProduct();
     }
 
-    public function paginateBySaleId($sale_id, $search = null, $take = self::TAKE_DEFAULT, $field = null)
+    public function paginateBySaleId($sale_id, $search = null, $take = self::TAKE_DEFAULT)
     {
-        $query = $this->model->where('sale_id', $sale_id)->orderBy($this->orderBy, $this->orderType);
-        if (is_null($search)) {
-            return $query->paginate($take);
+        if ($search !== null) {
+            return $this->model->where(function($query) use ($search) {
+                $query->where(function($query2) use ($search) {
+                    $query2->where('target_type', TargetType::PRODUCT)
+                    ->whereHas('target', function($query3) use ($search) {
+                        $query3->where('name', 'like', '%'.$search.'%');
+                    });
+                })->orWhere(function($query2) use ($search) {
+                    $query2->where('target_type', TargetType::VARIANT)
+                    ->whereHas('variation', function($query3) use ($search) {
+                        $query3->whereHas('product', function($query4) use ($search) {
+                            $query4->where('name', 'like', '%'.$search.'%');
+                        });
+                    });
+                });
+            })
+            ->orderBy($this->orderBy, $this->orderType)->where('sale_id', $sale_id)->paginate($take);
         }
-        if (!is_null($field)) {
-            return $query->where($field, 'LIKE', "%$search%")->paginate($take);
-        }
-        return $query->where($this->searchFieldName, 'LIKE', "%$search%")->paginate($take);
+        return $this->model->orderBy($this->orderBy, $this->orderType)->where('sale_id', $sale_id)->paginate($take);
     }
 
     protected function convertDataCreate($data, $more = [])

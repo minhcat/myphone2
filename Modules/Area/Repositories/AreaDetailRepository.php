@@ -13,16 +13,30 @@ class AreaDetailRepository extends AbstractRepository
         return new AreaDetail();
     }
 
-    public function paginateByAreaId($area_id, $search = null, $take = self::TAKE_DEFAULT, $field = null)
+    public function paginateByAreaId($area_id, $search = null, $take = self::TAKE_DEFAULT)
     {
-        $query = $this->model->where('area_id', $area_id)->orderBy($this->orderBy, $this->orderType);
-        if (is_null($search)) {
-            return $query->paginate($take);
+        if ($search !== null) {
+            return $this->model->where(function($query) use ($search) {
+                $query->where(function($query2) use ($search) {
+                    $query2->where('territory_type', TerritoryType::WARD)
+                    ->whereHas('territory', function($query3) use ($search) {
+                        $query3->where('name', 'like', '%'.$search.'%');
+                    });
+                })->orWhere(function($query2) use ($search) {
+                    $query2->where('territory_type', TerritoryType::DISTRICT)
+                    ->whereHas('district', function($query3) use ($search) {
+                        $query3->where('name', 'like', '%'.$search.'%');
+                    });
+                })->orWhere(function($query2) use ($search) {
+                    $query2->where('territory_type', TerritoryType::CITY)
+                    ->whereHas('city', function($query3) use ($search) {
+                        $query3->where('name', 'like', '%'.$search.'%');
+                    });
+                });
+            })
+            ->orderBy($this->orderBy, $this->orderType)->where('area_id', $area_id)->paginate($take);
         }
-        if (!is_null($field)) {
-            return $query->where($field, 'LIKE', "%$search%")->paginate($take);
-        }
-        return $query->where($this->searchFieldName, 'LIKE', "%$search%")->paginate($take);
+        return $this->model->where('area_id', $area_id)->orderBy($this->orderBy, $this->orderType)->paginate($take);
     }
 
     protected function convertDataCreate($data, $more = [])

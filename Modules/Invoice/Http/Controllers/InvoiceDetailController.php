@@ -26,9 +26,10 @@ class InvoiceDetailController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index($invoice_id)
+    public function index(Request $request, $invoice_id)
     {
-        $details = $this->invoiceDetailRepository->paginateByInvoiceId($invoice_id);
+        $search = $request->input('search');
+        $details = $this->invoiceDetailRepository->paginateByInvoiceId($invoice_id, $search);
 
         return view('invoice::detail.index', compact('details', 'invoice_id'));
     }

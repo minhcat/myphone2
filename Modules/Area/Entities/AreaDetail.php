@@ -24,13 +24,23 @@ class AreaDetail extends Model
 
     public function territory()
     {
-        if ($this->territory_type == TerritoryType::CITY) {
+        if ($this->territory_type === TerritoryType::CITY) {
             return $this->belongsTo(City::class, 'territory_id');
-        } elseif ($this->territory_type == TerritoryType::DISTRICT) {
+        } elseif ($this->territory_type === TerritoryType::DISTRICT) {
             return $this->belongsTo(District::class, 'territory_id');
         } else {
             return $this->belongsTo(Ward::class, 'territory_id');
         }
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'territory_id');
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'territory_id');
     }
 
     public static function newFactory()
