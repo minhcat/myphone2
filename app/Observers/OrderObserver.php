@@ -38,7 +38,7 @@ class OrderObserver
 
             $invoice = $this->invoiceRepository->create([
                 'code'          => '#'.$code,
-                'user_id'       => $order->user_id,
+                'author_id'     => $order->author_id,
                 'address_id'    => $order->address_id,
                 'subtotal'      => $order->subtotal,
                 'transport_fee' => $order->transport_fee,
@@ -53,6 +53,7 @@ class OrderObserver
             foreach ($details as $detail) {
                 $this->invoiceDetailRepository->create([
                     'invoice_id'    => $invoice->id,
+                    'author_id'     => $invoice->author_id,
                     'target_type'   => $detail->target_type,
                     'target_id'     => $detail->target_id,
                     'price'         => $detail->price,
