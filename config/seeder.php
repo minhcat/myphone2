@@ -339,4 +339,18 @@ return [
             'author_id'     => 1,
         ],
     ], ['timestamp', 'description']),
+    'role'                  => update_seeder([
+        [
+            'name'          => 'admin',
+            'author_id'     => 1,
+        ],
+        [
+            'name'          => 'entry staff',
+            'author_id'     => 1,
+        ],
+        [
+            'name'          => 'reviewer',
+            'author_id'     => 1,
+        ],
+    ], ['timestamp', 'description']),
 ];
