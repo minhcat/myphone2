@@ -17,5 +17,6 @@
     "Area": true,
     "Transporter": true,
     "TransportFee": true,
-    "Login": true
+    "Login": true,
+    "Role": true
 }
