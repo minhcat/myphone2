@@ -5,9 +5,23 @@ namespace Modules\Role\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Role\Repositories\RoleRepository;
 
 class RoleController extends Controller
 {
+    /** @var \Modules\Role\Repositories\RoleRepository */
+    protected $roleRepository;
+
+    /**
+     * Create a new promotion controller instance.
+     */
+    public function __construct()
+    {
+        $this->roleRepository = new RoleRepository();
+
+        view()->share('menu', ['group' => 'user', 'active' => 'role']);
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
