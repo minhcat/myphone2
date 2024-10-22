@@ -40,7 +40,13 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('role::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('admin.role.store'),
+            'method'    => 'POST'
+        ];
+
+        return view('role::create', compact('form'));
     }
 
     /**
@@ -50,7 +56,13 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'      => 'required'
+        ]);
+
+        $this->roleRepository->create($request->all());
+
+        return redirect()->route('admin.role.index')->with('success', __('notification.create.success', ['model' => 'role']));
     }
 
     /**
@@ -70,7 +82,15 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        return view('role::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('admin.role.update', $id),
+            'method'    => 'PUT'
+        ];
+
+        $role = $this->roleRepository->find($id);
+
+        return view('role::edit', compact('form', 'role'));
     }
 
     /**
@@ -81,7 +101,13 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'      => 'required'
+        ]);
+
+        $this->roleRepository->update($id, $request->all());
+
+        return redirect()->route('admin.role.index')->with('success', __('notification.update.success', ['model' => 'role']));
     }
 
     /**
