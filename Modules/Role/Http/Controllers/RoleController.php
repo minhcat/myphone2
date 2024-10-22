@@ -26,9 +26,12 @@ class RoleController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('role::index');
+        $search = $request->input('search');
+        $roles = $this->roleRepository->paginate($search);
+
+        return view('role::index', compact('roles'));
     }
 
     /**
