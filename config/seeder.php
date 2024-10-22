@@ -345,11 +345,11 @@ return [
             'author_id'     => 1,
         ],
         [
-            'name'          => 'entry staff',
+            'name'          => 'viewer',
             'author_id'     => 1,
         ],
         [
-            'name'          => 'reviewer',
+            'name'          => 'creator',
             'author_id'     => 1,
         ],
     ], ['timestamp', 'description']),

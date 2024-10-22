@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Modules\Role\Entities\Role;
+use Modules\Role\Entities\RoleUser;
 
 class RoleSeeder extends Seeder
 {
@@ -19,19 +19,8 @@ class RoleSeeder extends Seeder
 
         Role::insert(config('seeder.role'));
 
-        DB::table('role_user')->insert([
-            [
-                'role_id'   => 1,
-                'user_id'   => 1,
-            ],
-            [
-                'role_id'   => 2,
-                'user_id'   => 2,
-            ],
-            [
-                'role_id'   => 3,
-                'user_id'   => 3,
-            ],
-        ]);
+        RoleUser::truncate();
+
+        RoleUser::factory(50)->create();
     }
 }
