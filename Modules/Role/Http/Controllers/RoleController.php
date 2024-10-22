@@ -72,7 +72,9 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        return view('role::show');
+        $role = $this->roleRepository->find($id);
+
+        return view('role::show', compact('role'));
     }
 
     /**
@@ -117,6 +119,8 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->roleRepository->delete($id);
+
+        return redirect()->route('admin.role.index')->with('success', __('notification.delete.success', ['model' => 'role']));
     }
 }
