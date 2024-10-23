@@ -96,8 +96,8 @@
       </a>
       <ul class="treeview-menu" {!! $menu['group'] == 'user' ? 'style="display: block"' : '' !!}>
         <li class="{{ $menu['active'] == 'user' ? 'active' : '' }}"><a href="{{ route('admin.user.index') }}">User</a></li>
-        <li class="{{ $menu['active'] == 'user' ? 'active' : '' }}"><a href="{{ route('admin.role.index') }}">Role</a></li>
-        <li><a href="#">Permission</a></li>
+        <li class="{{ $menu['active'] == 'role' ? 'active' : '' }}"><a href="{{ route('admin.role.index') }}">Role</a></li>
+        <li class="{{ $menu['active'] == 'permission' ? 'active' : '' }}"><a href="{{ route('admin.permission.index') }}">Permission</a></li>
       </ul>
     </li>
     <li><a href="#"><i class="fa fa-gear"></i> <span>Config</span></a></li>

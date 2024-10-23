@@ -5,9 +5,23 @@ namespace Modules\Permission\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Permission\Repositories\PermissionRepository;
 
 class PermissionController extends Controller
 {
+    /** @var \Modules\Permission\Repositories\PermissionRepository */
+    protected $permissionRepository;
+
+    /**
+     * Create new category Controller instance.
+     */
+    public function __construct()
+    {
+        $this->permissionRepository = new PermissionRepository;
+
+        view()->share('menu', ['group' => 'user', 'active' => 'permission']);
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
