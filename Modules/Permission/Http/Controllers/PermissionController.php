@@ -26,9 +26,12 @@ class PermissionController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('permission::index');
+        $search = $request->input('search');
+        $permissions = $this->permissionRepository->paginate($search);
+
+        return view('permission::index', compact('permissions'));
     }
 
     /**

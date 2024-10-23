@@ -34,5 +34,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TransporterSeeder::class);
         $this->call(TransportFeeSeeder::class);
         $this->call(RoleSeeder::class);
+        $this->call(PermissionSeeder::class);
     }
 }
