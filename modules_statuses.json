@@ -18,5 +18,6 @@
     "Transporter": true,
     "TransportFee": true,
     "Login": true,
-    "Role": true
+    "Role": true,
+    "Permission": true
 }
