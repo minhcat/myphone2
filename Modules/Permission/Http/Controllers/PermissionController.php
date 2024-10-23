@@ -40,7 +40,13 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view('permission::create');
+        $form = [
+            'title'     => 'Create',
+            'url'       => route('admin.permission.store'),
+            'method'    => 'POST'
+        ];
+
+        return view('permission::create', compact('form'));
     }
 
     /**
@@ -50,7 +56,14 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'  => 'required',
+            'key'   => 'required|unique:permissions'
+        ]);
+
+        $this->permissionRepository->create($request->all());
+
+        return redirect()->route('admin.permission.index')->with('success', __('notification.create.success', ['model' => 'permission']));
     }
 
     /**
@@ -70,7 +83,15 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        return view('permission::edit');
+        $form = [
+            'title'     => 'Edit',
+            'url'       => route('admin.permission.update', $id),
+            'method'    => 'PUT'
+        ];
+
+        $permission = $this->permissionRepository->find($id);
+
+        return view('permission::edit', compact('form', 'permission'));
     }
 
     /**
@@ -81,7 +102,14 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'  => 'required',
+            'key'   => 'required|unique:permissions,key,'.$id
+        ]);
+
+        $this->permissionRepository->update($id, $request->all());
+
+        return redirect()->route('admin.permission.index')->with('success', __('notification.update.success', ['model' => 'permission']));
     }
 
     /**
