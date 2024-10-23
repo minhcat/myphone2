@@ -73,7 +73,9 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        return view('permission::show');
+        $permission = $this->permissionRepository->find($id);
+
+        return view('permission::show', compact('permission'));
     }
 
     /**
@@ -119,6 +121,8 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->permissionRepository->delete($id);
+
+        return redirect()->route('admin.permission.index')->with('success', __('notification.delete.success', ['model' => 'permission']));
     }
 }
