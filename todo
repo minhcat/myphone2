@@ -3,3 +3,5 @@ make quality, payment method to transporter and order
 check todo comment
 job update product tab - schedule cron job
 title create role is cities
+set take paginate to 10 or 15
+update user account in index view module
