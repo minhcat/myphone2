@@ -1,6 +1,6 @@
 @extends('role::layouts.master')
 
-@section('title-page', 'Role')
+@section('title-page', 'Roles')
 
 @section('small-info')
 <small>List of roles ({{ $roles->total() }})</small>
@@ -44,7 +44,7 @@
                                 <th>Author</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th style="width: 175px">Action</th>
+                                <th style="width: 273px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -60,6 +60,7 @@
                                     <td>{{ $role->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $role->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td style="text-align: right">
+                                        <a class="btn btn-success" href="{{ route('admin.role.edit_permission', $role->id) }}"><i class="fa fa-edit"></i> Permission</a>
                                         <a class="btn btn-primary" href="{{ route('admin.role.edit', $role->id) }}"><i class="fa fa-edit"></i> Edit</a>
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-role-delete" data-id="{{ $role->id }}"><i class="fa fa-trash"></i> Delete</button>
                                     </td>

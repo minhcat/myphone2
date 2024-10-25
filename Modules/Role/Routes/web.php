@@ -20,8 +20,10 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
         Route::get('/create', [RoleController::class, 'create'])->name('create');
         Route::get('/{id}', [RoleController::class, 'show'])->name('show');
         Route::get('/{id}/edit', [RoleController::class, 'edit'])->name('edit');
+        Route::get('/{id}/permission', [RoleController::class, 'editPermission'])->name('edit_permission');
         Route::post('/', [RoleController::class, 'store'])->name('store');
         Route::put('/{id}', [RoleController::class, 'update'])->name('update');
+        Route::put('/{id}/permission', [RoleController::class, 'updatePermission'])->name('update_permission');
         Route::delete('/{id}', [RoleController::class, 'destroy'])->name('delete');
     });
 });

@@ -4,6 +4,7 @@ namespace Modules\Role\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Permission\Entities\Permission;
 use Modules\User\Entities\User;
 
 class Role extends Model
@@ -15,5 +16,10 @@ class Role extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
     }
 }

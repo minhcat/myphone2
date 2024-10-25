@@ -5,6 +5,7 @@ namespace Modules\Role\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Permission\Repositories\PermissionRepository;
 use Modules\Role\Repositories\RoleRepository;
 
 class RoleController extends Controller
@@ -12,12 +13,16 @@ class RoleController extends Controller
     /** @var \Modules\Role\Repositories\RoleRepository */
     protected $roleRepository;
 
+    /** @var \Modules\Permission\Repositories\PermissionRepository */
+    protected $permissionRepository;
+
     /**
      * Create a new promotion controller instance.
      */
     public function __construct()
     {
         $this->roleRepository = new RoleRepository();
+        $this->permissionRepository = new PermissionRepository();
 
         view()->share('menu', ['group' => 'user', 'active' => 'role']);
     }
@@ -122,5 +127,31 @@ class RoleController extends Controller
         $this->roleRepository->delete($id);
 
         return redirect()->route('admin.role.index')->with('success', __('notification.delete.success', ['model' => 'role']));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     * @param int $id
+     * @return Renderable
+     */
+    public function editPermission($id)
+    {
+        $role = $this->roleRepository->find($id);
+        $permission_groups = $this->permissionRepository->all()->groupBy('table');
+
+        return view('role::permission', compact('role', 'permission_groups'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     * @param Request $request
+     * @param int $id
+     * @return Renderable
+     */
+    public function updatePermission(Request $request, $id)
+    {
+        $this->roleRepository->updatePermission($id, $request->input('permission'));
+
+        return redirect()->route('admin.role.index')->with('success', __('notification.update.success', ['model' => 'role']));
     }
 }

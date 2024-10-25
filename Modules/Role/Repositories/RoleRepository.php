@@ -11,4 +11,11 @@ class RoleRepository extends AbstractRepository
     {
         return new Role();
     }
+
+    public function updatePermission($role_id, $permission_data)
+    {
+        $role = $this->model->find($role_id);
+        $role->permissions()->detach();
+        $role->permissions()->attach(array_keys($permission_data));
+    }
 }

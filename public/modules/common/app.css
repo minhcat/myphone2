@@ -1,0 +1,16 @@
+table.table.fit-column {
+    border-collapse: collapse;
+}
+
+table.table.fit-column tr td {
+    white-space: nowrap;
+    min-width: 100px;
+}
+
+table.table.fit-column tr td.fit-width {
+    width: 100%;
+}
+
+.min-width-40px {
+    min-width: 40px !important;
+}
