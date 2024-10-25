@@ -33,6 +33,7 @@
                                     <th>Permission</th>
                                     <th>Order</th>
                                     <th>Approve</th>
+                                    <th>Browse</th>
                                     <th>Read</th>
                                     <th>Add</th>
                                     <th>Edit</th>
@@ -42,39 +43,43 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td>all</td>
-                                    <td><input class="all-group order" type="checkbox" data-action="order"></td>
-                                    <td><input class="all-group approve" type="checkbox" data-action="approve"></td>
-                                    <td><input class="all-group read" type="checkbox" data-action="read"></td>
-                                    <td><input class="all-group add" type="checkbox" data-action="add"></td>
-                                    <td><input class="all-group edit" type="checkbox" data-action="edit"></td>
-                                    <td><input class="all-group delete" type="checkbox" data-action="delete"></td>
-                                    <td><input class="all-group all" type="checkbox" data-action="all" data-group="all-group"></td>
+                                    <td class="min-width-40px">1</td>
+                                    <td class="fit-width">all</td>
+                                    <td><input class="group-all action-order" type="checkbox" data-action="order"></td>
+                                    <td><input class="group-all action-approve" type="checkbox" data-action="approve"></td>
+                                    <td><input class="group-all action-browse" type="checkbox" data-action="browse"></td>
+                                    <td><input class="group-all action-read" type="checkbox" data-action="read"></td>
+                                    <td><input class="group-all action-add" type="checkbox" data-action="add"></td>
+                                    <td><input class="group-all action-edit" type="checkbox" data-action="edit"></td>
+                                    <td><input class="group-all action-delete" type="checkbox" data-action="delete"></td>
+                                    <td><input class="group-all action-all" type="checkbox" data-action="all" data-group="all"></td>
                                 </tr>
                                 @php $key = 1; @endphp
-                                @foreach($permission_groups as $table_name => $permissions)
+                                @foreach($permission_groups as $group_name => $permissions)
                                     @php $key++; @endphp
                                     <tr>
                                         <td class="min-width-40px">{{ $key }}</td>
-                                        <td class="fit-width">{{ $table_name }}</td>
+                                        <td class="fit-width">{{ $group_name }}</td>
                                         @php 
-                                            $actions = [':order', ':approve', ':read', ':add', ':edit', ':delete'];
+                                            $actions = [':order', ':approve', ':browse', ':read', ':add', ':edit', ':delete'];
                                         @endphp
 
-                                        @for($i = 0; $i < 6; $i++)
+                                        @for($i = 0; $i < 7; $i++)
                                             @php
                                                 $check = true;
                                                 $action = $actions[$i];
+                                                $action2 = str_replace(':', '', $action);
                                             @endphp
                                             
                                             @foreach($permissions as $permission)
                                                 @if (str_contains($permission->key, $action))
                                                     <td>
                                                         <input
-                                                        class="{{ $table_name }} {{ str_replace(':', '', $action) }}"
+                                                        class="group-{{ $group_name }} action-{{ $action2 }}"
                                                         type="checkbox"
                                                         name="permission[{{ $permission->id }}]"
+                                                        data-action="{{ $action2 }}"
+                                                        data-group="{{ $group_name }}"
                                                         {{ in_array($permission->id, $role->permissions->pluck('id')->toArray()) ? 'checked' : '' }}>
                                                     </td>
 
@@ -90,7 +95,7 @@
                                                 <td></td>
                                             @endif
                                         @endfor
-                                        <td><input class="{{ $table_name }} all" data-group="{{ $table_name }}" type="checkbox" name="all"></td>
+                                        <td><input class="group-{{ $group_name }} action-all" data-group="{{ $group_name }}" data-action="all" type="checkbox" name="all"></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -110,21 +115,154 @@
 @push('script')
 <script>
     $(function() {
-        $('input.all-group').change(function() {
-            let action = $(this).data('action');
-            $('input.'+action).prop('checked', this.checked)
-            if (action == 'all') {
-                $('input.all').each(function() {
-                    let group = $(this).data('group')
-                    $('input.'+group).prop('checked', this.checked)
-                })
-            }
+        $('input.group-all.action-all').change(function() {
+            $('input').prop('checked', this.checked)
         })
-        $('input.all').change(function() {
-            console.log('all')
+        $('input.action-all').change(function() {
             let group = $(this).data('group')
-            $('input.'+group).prop('checked', this.checked)
+            $('input.group-'+group).prop('checked', this.checked)
         })
+        $('input.group-all').change(function() {
+            let action = $(this).data('action')
+            $('input.action-'+action).prop('checked', this.checked)
+        })
+        $('input').change(function() {
+            let group = $(this).data('group')
+            let check_group_all = true
+            $('input.group-'+group+':not(.action-all)').each(function() {
+                if (!this.checked) {
+                    check_group_all = false
+                    return false
+                }
+            })
+            $('input.action-all.group-'+group).prop('checked', check_group_all)
+
+            let action = $(this).data('action')
+            let check_action_all = true
+            $('input.action-'+action+':not(.group-all)').each(function() {
+                if (!this.checked) {
+                    check_action_all = false
+                    return false
+                }
+            })
+            $('input.group-all.action-'+action).prop('checked', check_action_all)
+
+            let check_all = true
+            $('input.group-all:not(.action-all)').each(function() {
+                if (!this.checked) {
+                    check_all = false
+                    return false
+                }
+            })
+            $('input.group-all.action-all').prop('checked', check_all)
+        })
+
+        function init_input_action_all() {
+            let actions = ['order', 'approve', 'browse', 'read', 'edit', 'delete']
+            actions.forEach(action => {
+                // debugger
+                let check_action_all = true
+                $('input.action-'+action+':not(.group-all)').each(function() {
+                    if (!this.checked) {
+                        check_action_all = false
+                        return false
+                    }
+                })
+                $('input.group-all.action-'+action).prop('checked', check_action_all)
+            });
+        }
+        init_input_action_all()
+
+        function init_input_group_all() {
+            let groups = [
+                'area', 'area_detail', 'attribute', 'attribute_option', 'brand', 'cart',
+                'cart_detail', 'category', 'city', 'city_district', 'city_district_ward',
+                'gift', 'gift_product', 'gift_product_item', 'invoice', 'invoice_detail',
+                'order', 'order_detail', 'permission', 'product', 'product_detail', 'product_variation',
+                'promotion', 'role', 'sale', 'sale_product', 'specification', 'specification_information',
+                'tag', 'transporter', 'transporter_case', 'transport_fee', 'user', 'user_address', 'voucher'
+            ]
+            groups.forEach(group => {
+                // debugger
+                let check_group_all = true
+                $('input.group-'+group+':not(.action-all)').each(function() {
+                    if (!this.checked) {
+                        check_group_all = false
+                        return false
+                    }
+                })
+                $('input.action-all.group-'+group).prop('checked', check_group_all)
+            });
+        }
+        init_input_group_all()
+        // $('input.group-all').change(function() {
+        //     let action = $(this).data('action');
+        //     $('input.action-'+action).prop('checked', this.checked)
+        //     if (action == 'all') {
+        //         $('input.action-all').each(function() {
+        //             let group = $(this).data('group')
+        //             $('input.group-'+group).prop('checked', this.checked)
+        //         })
+        //         return
+        //     }
+
+        //     $('input.action-'+action+':not(.action-all)').each(function() {
+        //         let group = $(this).data('group')
+        //         let check_group_all = true
+        //         $('input.group-'+group+':not(.action-all)').each(function() {
+        //             if (!this.checked) {
+        //                 check_group_all = false
+        //                 return false
+        //             }
+        //         })
+        //         $('input.action-all.group-'+group).prop('checked', check_group_all)
+        //     })
+        // })
+        // $('input.action-all').change(function() {
+        //     let group = $(this).data('group')
+        //     $('input.group-'+group).prop('checked', this.checked)
+        // })
+        // $('input:not(.group-all)').change(function() {
+        //     update_checkbox_group_all(this)
+        // })
+
+        // function update_checkbox_group_all(checkbox_change) {
+        //     let action = $(checkbox_change).data('action')
+        //     if (action == 'all') {
+        //         let check_action_all = true
+        //         $('input.action-'+action+':not(.group-all)').each(function() {
+        //             if (!this.checked) {
+        //                 check_action_all = false
+        //                 return false
+        //             }
+        //         })
+        //         $('input.group-all.action-'+action).prop('checked', check_action_all)
+
+        //         let group = $(checkbox_change).data('group')
+        //         $('input.group-'+group+':not(.action-all)').each(function() {
+        //             update_checkbox_group_all(this)
+        //         })
+        //     } else {
+        //         let check_action_all = true
+        //         $('input.action-'+action+':not(.group-all)').each(function() {
+        //             if (!this.checked) {
+        //                 check_action_all = false
+        //                 return false
+        //             }
+        //         })
+        //         $('input.group-all.action-'+action).prop('checked', check_action_all)
+    
+        //         let group = $(checkbox_change).data('group')
+        //         let check_group_all = true
+        //         $('input.group-'+group+':not(.action-all)').each(function() {
+        //             if (!this.checked) {
+        //                 check_group_all = false
+        //                 return false
+        //             }
+        //         })
+        //         $('input.action-all.group-'+group).prop('checked', check_group_all)
+        //     }
+        // }
     })
 </script>
 @endpush
