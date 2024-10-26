@@ -141,7 +141,9 @@
             </div>
             <div class="box-footer">
                 <a href="{{ route('admin.product.index') }}" class="btn btn-default">Back</a>
+                @can('product:edit')
                 <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-primary">Edit</a>
+                @endcan
             </div>
         </div>
     </div>
