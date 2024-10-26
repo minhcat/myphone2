@@ -2,7 +2,9 @@
 
 namespace Modules\Product\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Brand\Repositories\BrandRepository;
@@ -12,6 +14,8 @@ use Modules\Tag\Repositories\TagRepository;
 
 class ProductController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Product\Repositories\ProductRepository */
     protected $productRepository;
 
@@ -43,10 +47,16 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $search   = $request->input('search');
-        $products = $this->productRepository->paginate($search);
+        try {
+            $this->authorize('product:browse');
 
-        return view('product::product.index', compact('products'));
+            $search   = $request->input('search');
+            $products = $this->productRepository->paginate($search);
+
+            return view('product::product.index', compact('products'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin')->with('danger', __('notification.permission.fail', ['action' => 'browse product']));
+        }
     }
 
     /**
@@ -55,17 +65,23 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = $this->categoryRepository->getParents();
-        $tags = $this->tagRepository->all();
-        $brands = $this->brandRepository->all();
-
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.product.store'),
-            'method'    => 'POST',
-        ];
-
-        return view('product::product.create', compact('categories', 'tags', 'brands', 'form'));
+        try {
+            $this->authorize('product:add');
+            
+            $categories = $this->categoryRepository->getParents();
+            $tags = $this->tagRepository->all();
+            $brands = $this->brandRepository->all();
+    
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.product.store'),
+                'method'    => 'POST',
+            ];
+    
+            return view('product::product.create', compact('categories', 'tags', 'brands', 'form'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.product.index')->with('danger', __('notification.permission.fail', ['action' => 'add product']));
+        }
     }
 
     /**
@@ -75,14 +91,20 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'      => 'required',
-            'price'     => 'required|numeric'
-        ]);
+        try {
+            $this->authorize('product:add');
 
-        $this->productRepository->create($request->all());
-
-        return redirect()->route('admin.product.index')->with('success', __('notification.create.success', ['model' => 'product']));
+            $request->validate([
+                'name'      => 'required',
+                'price'     => 'required|numeric'
+            ]);
+    
+            $this->productRepository->create($request->all());
+    
+            return redirect()->route('admin.product.index')->with('success', __('notification.create.success', ['model' => 'product']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin')->with('danger', __('notification.permission.fail', ['action' => 'add product']));
+        }
     }
 
     /**
@@ -92,9 +114,14 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = $this->productRepository->find($id);
+        try {
+            $this->authorize('product:read');
+            $product = $this->productRepository->find($id);
 
-        return view('product::product.show', compact('product'));
+            return view('product::product.show', compact('product'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.product.index')->with('danger', __('notification.permission.fail', ['action' => 'read product']));
+        }
     }
 
     /**
@@ -104,19 +131,25 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $categories = $this->categoryRepository->getParents();
-        $tags = $this->tagRepository->all();
-        $brands = $this->brandRepository->all();
+        try {
+            $this->authorize('product:edit');
 
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.product.update', $id),
-            'method'    => 'PUT',
-        ];
-
-        $product = $this->productRepository->find($id);
-
-        return view('product::product.edit', compact('form', 'product', 'categories', 'tags', 'brands'));
+            $categories = $this->categoryRepository->getParents();
+            $tags = $this->tagRepository->all();
+            $brands = $this->brandRepository->all();
+    
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.product.update', $id),
+                'method'    => 'PUT',
+            ];
+    
+            $product = $this->productRepository->find($id);
+    
+            return view('product::product.edit', compact('form', 'product', 'categories', 'tags', 'brands'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.product.index')->with('danger', __('notification.permission.fail', ['action' => 'edit product']));
+        }
     }
 
     /**
@@ -127,14 +160,20 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name'      => 'required',
-            'price'     => 'required|numeric'
-        ]);
-
-        $this->productRepository->update($id, $request->all());
-
-        return redirect()->route('admin.product.index')->with('success', __('notification.update.success', ['model' => 'product']));
+        try {
+            $this->authorize('product:edit');
+    
+            $request->validate([
+                'name'      => 'required',
+                'price'     => 'required|numeric'
+            ]);
+    
+            $this->productRepository->update($id, $request->all());
+    
+            return redirect()->route('admin.product.index')->with('success', __('notification.update.success', ['model' => 'product']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.product.index')->with('danger', __('notification.permission.fail', ['action' => 'edit product']));
+        }
     }
 
     /**
@@ -144,8 +183,13 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $this->productRepository->delete($id);
-
-        return redirect()->route('admin.product.index')->with('success', __('notification.delete.success', ['model' => 'product']));
+        try {
+            $this->authorize('product:delete');
+            $this->productRepository->delete($id);
+    
+            return redirect()->route('admin.product.index')->with('success', __('notification.delete.success', ['model' => 'product']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.product.index')->with('danger', __('notification.permission.fail', ['action' => 'delete product']));
+        }
     }
 }

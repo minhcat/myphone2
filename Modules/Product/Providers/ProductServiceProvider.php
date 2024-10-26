@@ -3,7 +3,9 @@
 namespace Modules\Product\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\Product\Policies\ProductPolicy;
 
 class ProductServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class ProductServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +107,20 @@ class ProductServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        Gate::define('product:browse', [ProductPolicy::class, 'browse']);
+        Gate::define('product:read', [ProductPolicy::class, 'read']);
+        Gate::define('product:add', [ProductPolicy::class, 'add']);
+        Gate::define('product:edit', [ProductPolicy::class, 'edit']);
+        Gate::define('product:delete', [ProductPolicy::class, 'delete']);
     }
 }

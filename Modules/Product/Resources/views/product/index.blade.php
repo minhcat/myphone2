@@ -20,7 +20,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can ('product:add')
                 <a href="{{ route('admin.product.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -47,14 +49,20 @@
                                 <th>Author</th>
                                 <th>Variations</th>
                                 <th>Detail</th>
-                                <th style="width: 175px">Action</th>
+                                @canany(['product:edit', 'product:delete'])
+                                <th style="width: 1px">Action</th> 
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($products as $key => $product)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('product:read')
                                     <td><a href="{{ route('admin.product.show', $product->id) }}">{{ $product->name }}</a></td>
+                                    @else
+                                    <td>{{ $product->name }}</td>
+                                    @endcan
                                     <td>{{ optional($product->brand)->name }}</td>
                                     <td>
                                         @foreach($product->categories as $category)
@@ -73,10 +81,16 @@
                                     @endif
                                     <td><a href="{{ route('admin.product.variation.index', $product->id) }}">list</a></td>
                                     <td><a href="{{ route('admin.product.detail.index', $product->id) }}">view</a></td>
-                                    <td>
+                                    @canany(['product:edit', 'product:delete'])
+                                    <td class="nowrap">
+                                        @can('product:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.product.edit', $product->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('product:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-product-delete" data-id="{{ $product->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>
