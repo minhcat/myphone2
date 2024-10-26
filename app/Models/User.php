@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\Role\Entities\Role;
 
 class User extends Authenticatable
 {
@@ -46,5 +47,10 @@ class User extends Authenticatable
     public function getFullnameAttribute()
     {
         return $this->firstname . ' ' . $this->lastname;
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
     }
 }

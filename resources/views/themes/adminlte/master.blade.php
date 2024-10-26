@@ -62,6 +62,18 @@ desired effect
             <h4>Success</h4>
             <p>{{ session('success') }}</p>
           </div>
+        @elseif (session('danger'))
+          <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4>Danger</h4>
+            <p>{{ session('danger') }}</p>
+          </div>
+        @elseif (session('warning'))
+          <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4>Warning</h4>
+            <p>{{ session('warning') }}</p>
+          </div>
         @endif
         @if(session('errors'))
           <div class="alert alert-danger">

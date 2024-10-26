@@ -30,4 +30,7 @@ return [
         'fail'                  => 'Register unsuccessfully',
         'agree_terms_required'  => 'You must agree to the terms to register.'
     ],
+    'permission'                => [
+        'fail'                  => 'You are not allowed to :action '
+    ],
 ];

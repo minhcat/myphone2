@@ -173,3 +173,8 @@ table.table-fix tr td{
 .order-invoice .box .order-invoice-footer table tr.with-border-top{
     border-top: 1px solid #ddd;
 }
+
+/****** Library ******/
+.nowrap {
+    white-space: nowrap;
+}

@@ -199,3 +199,17 @@ if (!function_exists('array_flatten')) {
         return $result;
     }
 }
+
+
+if (!function_exists('check_permission')) {
+    function check_permission($user, $permission_key) {
+        foreach ($user->roles as $role) {
+            foreach ($role->permissions as $permission) {
+                if ($permission->key === $permission_key) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
