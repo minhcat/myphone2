@@ -2,6 +2,8 @@
 
 namespace Database\Fakers\Traits;
 
+use App\Enums\FakerConditionType;
+
 trait CheckWiths
 {
     public function hasWiths()
@@ -18,7 +20,8 @@ trait CheckWiths
         foreach ($this->withs as $with) {
             if (is_array($with->value)) {
                 foreach ($with->value as $with_value) {
-                    if ($with_value === $value) {
+                    if (($with->type === FakerConditionType::EQUAL && $with_value === $value) 
+                    || ($with->type === FakerConditionType::NOT_EQUAL && $with_value !== $value)) {
                         if ($rand_check) {
                             $rand = lcg_value();
                             $rate += $with->rate;
@@ -30,7 +33,8 @@ trait CheckWiths
                         }
                     }
                 }
-            } elseif ($with->value === $value) {
+            } elseif (($with->type === FakerConditionType::EQUAL && $with->value === $value)
+            || ($with->type === FakerConditionType::NOT_EQUAL && $with->value !== $value)) {
                 if ($rand_check) {
                     $rand = lcg_value();
                     $rate += $with->rate;

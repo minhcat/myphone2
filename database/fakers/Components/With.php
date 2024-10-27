@@ -6,6 +6,7 @@ class With
 {
     protected $value;
     protected $rate;
+    protected $type;
 
     public function __construct($data)
     {
@@ -13,6 +14,7 @@ class With
 
         $this->value = $data['value'];
         $this->rate  = $data['rate'];
+        $this->type  = $data['type'];
     }
 
     public function __get($name)
