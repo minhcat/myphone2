@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\FakerConditionType;
+
 return [
     'attribute'                     => 'key',
     'values'                        => [
@@ -89,7 +91,7 @@ return [
         ],
         [
             'value'                 => 'product_detail',
-            'max'                   => 5,
+            'max'                   => 2,
         ],
         [
             'value'                 => 'promotion', //
@@ -156,6 +158,13 @@ return [
                     'value'         => ':browse',
                     'space'         => false,
                     'max'           => 1,
+                    'withs'         => [
+                        [
+                            'type'  => FakerConditionType::NOT_EQUAL,
+                            'value' => 'product_detail',
+                            'rate'  => 1,
+                        ],
+                    ]
                 ],
                 [
                     'value'         => ':read',
@@ -166,6 +175,13 @@ return [
                     'value'         => ':add',
                     'space'         => false,
                     'max'           => 1,
+                    'withs'         => [
+                        [
+                            'type'  => FakerConditionType::NOT_EQUAL,
+                            'value' => 'product_detail',
+                            'rate'  => 1,
+                        ],
+                    ]
                 ],
                 [
                     'value'         => ':edit',
@@ -176,6 +192,13 @@ return [
                     'value'         => ':delete',
                     'space'         => false,
                     'max'           => 1,
+                    'withs'         => [
+                        [
+                            'type'  => FakerConditionType::NOT_EQUAL,
+                            'value' => 'product_detail',
+                            'rate'  => 1,
+                        ],
+                    ]
                 ],
                 [
                     'value'         => ':approve',
