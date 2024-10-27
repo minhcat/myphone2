@@ -3,7 +3,9 @@
 namespace Modules\Area\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\Area\Policies\AreaPolicy;
 
 class AreaServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class AreaServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +107,21 @@ class AreaServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        // area
+        Gate::define('area:browse', [AreaPolicy::class, 'browse']);
+        Gate::define('area:read', [AreaPolicy::class, 'read']);
+        Gate::define('area:add', [AreaPolicy::class, 'add']);
+        Gate::define('area:edit', [AreaPolicy::class, 'edit']);
+        Gate::define('area:delete', [AreaPolicy::class, 'delete']);
     }
 }

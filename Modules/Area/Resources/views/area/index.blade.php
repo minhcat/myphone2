@@ -20,7 +20,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('area:add')
                 <a href="{{ route('admin.area.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -45,14 +47,20 @@
                                 <th>Details</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th style="width: 175px">Action</th>
+                                @canany(['area:edit', 'area:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($areas as $key => $area)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('area:read')
                                     <td><a href="{{ route('admin.area.show', $area->id) }}">{{ $area->name }}</a></td>
+                                    @else
+                                    <td>{{ $area->name }}</td>
+                                    @endcan
                                     @if ($area->user)
                                     <td><a href="{{ route('admin.user.show', $area->user->id) }}">{{ $area->user->fullname }}</a></td>
                                     @else
@@ -61,10 +69,16 @@
                                     <td><a href="{{ route('admin.area.detail.index', $area->id) }}">list</a></td>
                                     <td>{{ $area->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $area->updated_at->format('H:i:s d/m/Y') }}</td>
-                                    <td>
+                                    @canany(['area:edit', 'area:delete'])
+                                    <td class="nowrap">
+                                        @can('area:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.area.edit', $area->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('area:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-area-delete" data-id="{{ $area->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>

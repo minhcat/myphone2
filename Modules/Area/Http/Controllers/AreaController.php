@@ -2,13 +2,17 @@
 
 namespace Modules\Area\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Area\Repositories\AreaRepository;
 
 class AreaController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Area\Repositories\AreaRepository */
     protected $areaRepository;
 
@@ -28,10 +32,16 @@ class AreaController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $areas = $this->areaRepository->paginate($search);
+        try {
+            $this->authorize('area:browse');
 
-        return view('area::area.index', compact('areas'));
+            $search = $request->input('search');
+            $areas = $this->areaRepository->paginate($search);
+    
+            return view('area::area.index', compact('areas'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin')->with('danger', __('notification.permission.fail', ['action' => 'browse area']));
+        }
     }
 
     /**
@@ -40,13 +50,19 @@ class AreaController extends Controller
      */
     public function create()
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.area.store'),
-            'method'    => 'POST'
-        ];
+        try {
+            $this->authorize('area:add');
 
-        return view('area::area.create', compact('form'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.area.store'),
+                'method'    => 'POST'
+            ];
+    
+            return view('area::area.create', compact('form'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.area.index')->with('danger', __('notification.permission.fail', ['action' => 'add area']));
+        }
     }
 
     /**
@@ -56,13 +72,19 @@ class AreaController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'  => 'required'
-        ]);
+        try {
+            $this->authorize('area:add');
 
-        $this->areaRepository->create($request->all());
-
-        return redirect()->route('admin.area.index')->with('success', __('notification.create.success', ['model' => 'area']));
+            $request->validate([
+                'name'  => 'required'
+            ]);
+    
+            $this->areaRepository->create($request->all());
+    
+            return redirect()->route('admin.area.index')->with('success', __('notification.create.success', ['model' => 'area']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.area.index')->with('danger', __('notification.permission.fail', ['action' => 'add area']));
+        }
     }
 
     /**
@@ -72,9 +94,14 @@ class AreaController extends Controller
      */
     public function show($id)
     {
-        $area = $this->areaRepository->find($id);
-
-        return view('area::area.show', compact('area'));
+        try {
+            $this->authorize('area:read');
+            $area = $this->areaRepository->find($id);
+    
+            return view('area::area.show', compact('area'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.area.index')->with('danger', __('notification.permission.fail', ['action' => 'read area']));
+        }
     }
 
     /**
@@ -84,15 +111,21 @@ class AreaController extends Controller
      */
     public function edit($id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.area.update', $id),
-            'method'    => 'PUT'
-        ];
+        try {
+            $this->authorize('area:edit');
 
-        $area = $this->areaRepository->find($id);
-
-        return view('area::area.edit', compact('form', 'area'));
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.area.update', $id),
+                'method'    => 'PUT'
+            ];
+    
+            $area = $this->areaRepository->find($id);
+    
+            return view('area::area.edit', compact('form', 'area'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.area.index')->with('danger', __('notification.permission.fail', ['action' => 'edit area']));
+        }
     }
 
     /**
@@ -103,13 +136,19 @@ class AreaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name'  => 'required'
-        ]);
+        try {
+            $this->authorize('area:edit');
 
-        $this->areaRepository->update($id, $request->all());
-
-        return redirect()->route('admin.area.index')->with('success', __('notification.update.success', ['model' => 'area']));
+            $request->validate([
+                'name'  => 'required'
+            ]);
+    
+            $this->areaRepository->update($id, $request->all());
+    
+            return redirect()->route('admin.area.index')->with('success', __('notification.update.success', ['model' => 'area']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.area.index')->with('danger', __('notification.permission.fail', ['action' => 'edit area']));
+        }
     }
 
     /**
@@ -119,8 +158,13 @@ class AreaController extends Controller
      */
     public function destroy($id)
     {
-        $this->areaRepository->delete($id);
-
-        return redirect()->route('admin.area.index')->with('success', __('notification.delete.success', ['model' => 'area']));
+        try {
+            $this->authorize('area:delete');
+            $this->areaRepository->delete($id);
+    
+            return redirect()->route('admin.area.index')->with('success', __('notification.delete.success', ['model' => 'area']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.area.index')->with('danger', __('notification.permission.fail', ['action' => 'delete area']));
+        }
     }
 }

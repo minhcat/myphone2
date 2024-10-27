@@ -75,7 +75,9 @@
             </div>
             <div class="box-footer">
                 <a href="{{ route('admin.area.index') }}" class="btn btn-default">Back</a>
-                <a href="{{ route('admin.area.edit', $area->id) }}" class="btn btn-primary">Edit</a>
+                @can('area:edit')
+                <a href="{{ route('admin.area.edit', $area->id) }}" class="btn btn-primary">Edit</a> 
+                @endcan
             </div>
         </div>
     </div>
