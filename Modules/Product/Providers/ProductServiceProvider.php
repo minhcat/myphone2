@@ -5,6 +5,7 @@ namespace Modules\Product\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
+use Modules\Product\Policies\DetailPolicy;
 use Modules\Product\Policies\ProductPolicy;
 
 class ProductServiceProvider extends ServiceProvider
@@ -117,10 +118,14 @@ class ProductServiceProvider extends ServiceProvider
 
     private function registerPermission()
     {
+        // product
         Gate::define('product:browse', [ProductPolicy::class, 'browse']);
         Gate::define('product:read', [ProductPolicy::class, 'read']);
         Gate::define('product:add', [ProductPolicy::class, 'add']);
         Gate::define('product:edit', [ProductPolicy::class, 'edit']);
         Gate::define('product:delete', [ProductPolicy::class, 'delete']);
+        // detail
+        Gate::define('product_detail:read', [DetailPolicy::class, 'read']);
+        Gate::define('product_detail:edit', [DetailPolicy::class, 'edit']);
     }
 }

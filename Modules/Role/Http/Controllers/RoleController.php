@@ -152,6 +152,6 @@ class RoleController extends Controller
     {
         $this->roleRepository->updatePermission($id, $request->input('permission'));
 
-        return redirect()->route('admin.role.index')->with('success', __('notification.update.success', ['model' => 'role']));
+        return redirect()->route('admin.role.edit_permission', $id)->with('success', __('notification.update.success', ['model' => 'role']));
     }
 }
