@@ -36,6 +36,7 @@ return [
         ],
         'with'                  => [
             'value'             => null,
+            'type'              => FakerConditionType::EQUAL,
             'rate'              => 1,
         ],
         'condition'             => [
