@@ -2,7 +2,9 @@
 
 namespace Modules\Product\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Product\Repositories\ProductRepository;
@@ -11,6 +13,8 @@ use Modules\Attribute\Repositories\AttributeRepository;
 
 class VariationController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Product\Repositories\VariationRepository */
     protected $variationRepository;
 
@@ -38,12 +42,20 @@ class VariationController extends Controller
      */
     public function index($product_id)
     {
-        $variations = $this->variationRepository->paginateByProductId($product_id);
-        $product = $this->productRepository->find($product_id);
-        $product_name = $product->name ?: '';
-        $attributes = $this->attributeRepository->all();
+        try {
+            $this->authorize('product_variation:browse');
 
-        return view('product::variation.index', compact('variations', 'attributes', 'product_id', 'product_name'));
+            $variations = $this->variationRepository->paginateByProductId($product_id);
+            $product = $this->productRepository->find($product_id);
+            $product_name = $product->name ?: '';
+            $attributes = $this->attributeRepository->all();
+    
+            return view('product::variation.index', compact('variations', 'attributes', 'product_id', 'product_name'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.product.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'browse product variation']));
+        }
     }
 
     /**
@@ -52,16 +64,23 @@ class VariationController extends Controller
      */
     public function create(Request $request, $product_id)
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.product.variation.store', $product_id),
-            'method'    => 'POST'
-        ];
+        try {
+            $this->authorize('product_variation:add');
 
-        $attributes = $this->attributeRepository->all();
-
-
-        return view('product::variation.create', compact('form', 'product_id', 'attributes'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.product.variation.store', $product_id),
+                'method'    => 'POST'
+            ];
+    
+            $attributes = $this->attributeRepository->all();
+    
+            return view('product::variation.create', compact('form', 'product_id', 'attributes'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.product.variation.index', $product_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'add product variation']));
+        }
     }
 
     /**
@@ -71,14 +90,24 @@ class VariationController extends Controller
      */
     public function store(Request $request, $product_id)
     {
-        $request->validate([
-            'code'      => 'required|unique:variations',
-            'price'     => 'required|numeric'
-        ]);
+        try {
+            $this->authorize('product_variation:add');
 
-        $this->variationRepository->create($request->all());
-
-        return redirect()->route('admin.product.variation.index', $product_id)->with('success', __('notification.create.success', ['model' => 'product variation']));
+            $request->validate([
+                'code'      => 'required|unique:variations',
+                'price'     => 'required|numeric'
+            ]);
+    
+            $this->variationRepository->create($request->all());
+    
+            return redirect()
+            ->route('admin.product.variation.index', $product_id)
+            ->with('success', __('notification.create.success', ['model' => 'product variation']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.product.variation.index', $product_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'add product variation']));
+        }
     }
 
     /**
@@ -88,11 +117,18 @@ class VariationController extends Controller
      */
     public function show($product_id, $id)
     {
-        $variation = $this->variationRepository->find($id);
+        try {
+            $this->authorize('product_variation:read');
 
-        $attributes = $this->attributeRepository->all();
-
-        return view('product::variation.show', compact('variation', 'attributes', 'product_id'));
+            $variation = $this->variationRepository->find($id);
+            $attributes = $this->attributeRepository->all();
+    
+            return view('product::variation.show', compact('variation', 'attributes', 'product_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.product.variation.index', $product_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'read product variation']));
+        }
     }
 
     /**
@@ -102,15 +138,23 @@ class VariationController extends Controller
      */
     public function edit($product_id, $id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.product.variation.update', ['product_id' => $product_id, 'id' => $id]),
-            'method'    => 'PUT'
-        ];
-        $variation = $this->variationRepository->find($id);
-        $attributes = $this->attributeRepository->all();
+        try {
+            $this->authorize('product_variation:edit');
 
-        return view('product::variation.edit', compact('form', 'variation', 'attributes', 'product_id'));
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.product.variation.update', ['product_id' => $product_id, 'id' => $id]),
+                'method'    => 'PUT'
+            ];
+            $variation = $this->variationRepository->find($id);
+            $attributes = $this->attributeRepository->all();
+    
+            return view('product::variation.edit', compact('form', 'variation', 'attributes', 'product_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.product.variation.index', $product_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit product variation']));
+        }
     }
 
     /**
@@ -121,14 +165,24 @@ class VariationController extends Controller
      */
     public function update(Request $request, $product_id, $id)
     {
-        $request->validate([
-            'code'      => 'required|unique:variations,code,'.$id,
-            'price'     => 'required|numeric'
-        ]);
+        try {
+            $this->authorize('product_variation:edit');
 
-        $this->variationRepository->update($id, $request->all());
-
-        return redirect()->route('admin.product.variation.index', $product_id)->with('success', __('notification.update.success', ['model' => 'product variation']));
+            $request->validate([
+                'code'      => 'required|unique:variations,code,'.$id,
+                'price'     => 'required|numeric'
+            ]);
+    
+            $this->variationRepository->update($id, $request->all());
+    
+            return redirect()
+            ->route('admin.product.variation.index', $product_id)
+            ->with('success', __('notification.update.success', ['model' => 'product variation']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.product.variation.index', $product_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit product variation']));
+        }
     }
 
     /**
@@ -138,8 +192,17 @@ class VariationController extends Controller
      */
     public function destroy($product_id, $id)
     {
-        $this->variationRepository->delete($id);
-
-        return redirect()->route('admin.product.variation.index', $product_id)->with('success', __('notification.delete.success', ['model' => 'product variation']));
+        try {
+            $this->authorize('product_variation:delete');
+            $this->variationRepository->delete($id);
+    
+            return redirect()
+            ->route('admin.product.variation.index', $product_id)
+            ->with('success', __('notification.delete.success', ['model' => 'product variation']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.product.variation.index', $product_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'delete product variation']));
+        }
     }
 }

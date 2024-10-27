@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Modules\Product\Policies\DetailPolicy;
 use Modules\Product\Policies\ProductPolicy;
+use Modules\Product\Policies\VariationPolicy;
 
 class ProductServiceProvider extends ServiceProvider
 {
@@ -127,5 +128,11 @@ class ProductServiceProvider extends ServiceProvider
         // detail
         Gate::define('product_detail:read', [DetailPolicy::class, 'read']);
         Gate::define('product_detail:edit', [DetailPolicy::class, 'edit']);
+        // variation
+        Gate::define('product_variation:browse', [VariationPolicy::class, 'browse']);
+        Gate::define('product_variation:read', [VariationPolicy::class, 'read']);
+        Gate::define('product_variation:add', [VariationPolicy::class, 'add']);
+        Gate::define('product_variation:edit', [VariationPolicy::class, 'edit']);
+        Gate::define('product_variation:delete', [VariationPolicy::class, 'delete']);
     }
 }

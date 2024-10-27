@@ -21,7 +21,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">{{ $product_name }}</div>
+                @can('product_variation:add')
                 <a href="{{ route('admin.product.variation.create', $product_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
                 <a href="{{ route('admin.product.index') }}" class="btn btn-default pull-right mr-1"><i class="fa fa-arrow-left"></i> Back</a>
             </div>
             <div class="box-body">
@@ -36,14 +38,20 @@
                                 @foreach($attributes as $attribute)
                                     <th>{{ $attribute->name }}</th>
                                 @endforeach
-                                <th style="width: 175px">Action</th>
+                                @canany(['product_variation:edit', 'product_variation:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($variations as $key => $variation)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('product_varition:read')
                                     <td><a href="{{ route('admin.product.variation.show', ['product_id' => $product_id, 'id' => $variation->id]) }}">{{ $variation->code }}</a></td>
+                                    @else
+                                    <td>{{ $variation->code }}</td>
+                                    @endcan
                                     <td><a href="{{ route('admin.user.show', $variation->author_id) }}">{{ $variation->user->fullname }}</a></td>
                                     <td>{{ $variation->price }}</td>
                                     @foreach($attributes as $attribute)
@@ -55,10 +63,16 @@
                                             @endforeach
                                         </td>
                                     @endforeach
-                                    <td>
+                                    @canany(['product_variation:edit', 'product_variation:delete'])
+                                    <td class="nowrap">
+                                        @can('product_variation:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.product.variation.edit', ['product_id' => $product_id, 'id' => $variation->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('product_variation:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-variation-delete" data-id="{{ $variation->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>
