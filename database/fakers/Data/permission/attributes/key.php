@@ -11,7 +11,7 @@ return [
         ],
         [
             'value'                 => 'area_detail',
-            'max'                   => 5,
+            'max'                   => 4,
         ],
         [
             'value'                 => 'attribute',
@@ -170,6 +170,13 @@ return [
                     'value'         => ':read',
                     'space'         => false,
                     'max'           => 1,
+                    'withs'         => [
+                        [
+                            'type'  => FakerConditionType::NOT_EQUAL,
+                            'value' => 'area_detail',
+                            'rate'  => 1,
+                        ],
+                    ]
                 ],
                 [
                     'value'         => ':add',

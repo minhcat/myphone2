@@ -3,7 +3,9 @@
 namespace Modules\Area\Http\Controllers;
 
 use App\Enums\TerritoryType;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Validation\Rule;
@@ -14,6 +16,8 @@ use Modules\City\Repositories\WardRepository;
 
 class AreaDetailController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Area\Repositories\AreaDetailRepository */
     protected $areaDetailRepository;
 
@@ -45,10 +49,18 @@ class AreaDetailController extends Controller
      */
     public function index(Request $request, $area_id)
     {
-        $search = $request->input('search');
-        $area_details = $this->areaDetailRepository->paginateByAreaId($area_id, $search);
+        try {
+            $this->authorize('area_detail:browse');
 
-        return view('area::detail.index', compact('area_details', 'area_id'));
+            $search = $request->input('search');
+            $area_details = $this->areaDetailRepository->paginateByAreaId($area_id, $search);
+
+            return view('area::detail.index', compact('area_details', 'area_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.area.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'browse area detail']));
+        }
     }
 
     /**
@@ -57,22 +69,30 @@ class AreaDetailController extends Controller
      */
     public function create($area_id)
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.area.detail.store', $area_id),
-            'method'    => 'POST'
-        ];
+        try {
+            $this->authorize('area_detail:add');
 
-        [$territory_types, $cities, $districts, $wards] = $this->getDataForm();
-
-        return view('area::detail.create', compact(
-            'form',
-            'area_id',
-            'territory_types',
-            'cities',
-            'districts',
-            'wards',
-        ));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.area.detail.store', $area_id),
+                'method'    => 'POST'
+            ];
+    
+            [$territory_types, $cities, $districts, $wards] = $this->getDataForm();
+    
+            return view('area::detail.create', compact(
+                'form',
+                'area_id',
+                'territory_types',
+                'cities',
+                'districts',
+                'wards',
+            ));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.area.detail.index', $area_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'add area detail']));
+        }
     }
 
     /**
@@ -82,16 +102,26 @@ class AreaDetailController extends Controller
      */
     public function store(Request $request, $area_id)
     {
-        $request->validate([
-            'territory_type'    => 'required',
-            'city_id'           => Rule::requiredIf($request->input('territory_type') == TerritoryType::CITY),
-            'district_id'       => Rule::requiredIf($request->input('territory_type') == TerritoryType::DISTRICT),
-            'ward_id'           => Rule::requiredIf($request->input('territory_type') == TerritoryType::WARD),
-        ]);
+        try {
+            $this->authorize('area_detail:add');
 
-        $this->areaDetailRepository->create($request->all(), ['area_id' => $area_id]);
-
-        return redirect()->route('admin.area.detail.index', $area_id)->with('success', __('notification.create.success', ['model' => 'area detail']));
+            $request->validate([
+                'territory_type'    => 'required',
+                'city_id'           => Rule::requiredIf($request->input('territory_type') == TerritoryType::CITY),
+                'district_id'       => Rule::requiredIf($request->input('territory_type') == TerritoryType::DISTRICT),
+                'ward_id'           => Rule::requiredIf($request->input('territory_type') == TerritoryType::WARD),
+            ]);
+    
+            $this->areaDetailRepository->create($request->all(), ['area_id' => $area_id]);
+    
+            return redirect()
+            ->route('admin.area.detail.index', $area_id)
+            ->with('success', __('notification.create.success', ['model' => 'area detail']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.area.detail.index', $area_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'add area detail']));
+        }
     }
 
     /**
@@ -101,24 +131,32 @@ class AreaDetailController extends Controller
      */
     public function edit($area_id, $id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.area.detail.update', ['area_id' => $area_id, 'id' => $id]),
-            'method'    => 'PUT'
-        ];
+        try {
+            $this->authorize('area_detail:edit');
 
-        $area_detail = $this->areaDetailRepository->find($id);
-        [$territory_types, $cities, $districts, $wards] = $this->getDataForm();
-
-        return view('area::detail.edit', compact(
-            'form',
-            'area_id',
-            'area_detail',
-            'territory_types',
-            'cities',
-            'districts',
-            'wards',
-        ));
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.area.detail.update', ['area_id' => $area_id, 'id' => $id]),
+                'method'    => 'PUT'
+            ];
+    
+            $area_detail = $this->areaDetailRepository->find($id);
+            [$territory_types, $cities, $districts, $wards] = $this->getDataForm();
+    
+            return view('area::detail.edit', compact(
+                'form',
+                'area_id',
+                'area_detail',
+                'territory_types',
+                'cities',
+                'districts',
+                'wards',
+            ));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.area.detail.index', $area_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit area detail']));
+        }
     }
 
     /**
@@ -129,16 +167,26 @@ class AreaDetailController extends Controller
      */
     public function update(Request $request, $area_id, $id)
     {
-        $request->validate([
-            'territory_type'    => 'required',
-            'city_id'           => Rule::requiredIf($request->input('territory_type') == TerritoryType::CITY),
-            'district_id'       => Rule::requiredIf($request->input('territory_type') == TerritoryType::DISTRICT),
-            'ward_id'           => Rule::requiredIf($request->input('territory_type') == TerritoryType::WARD),
-        ]);
+        try {
+            $this->authorize('area_detail:edit');
 
-        $this->areaDetailRepository->update($id, $request->all());
-
-        return redirect()->route('admin.area.detail.index', $area_id)->with('success', __('notification.update.success', ['model' => 'area detail']));
+            $request->validate([
+                'territory_type'    => 'required',
+                'city_id'           => Rule::requiredIf($request->input('territory_type') == TerritoryType::CITY),
+                'district_id'       => Rule::requiredIf($request->input('territory_type') == TerritoryType::DISTRICT),
+                'ward_id'           => Rule::requiredIf($request->input('territory_type') == TerritoryType::WARD),
+            ]);
+    
+            $this->areaDetailRepository->update($id, $request->all());
+    
+            return redirect()
+            ->route('admin.area.detail.index', $area_id)
+            ->with('success', __('notification.update.success', ['model' => 'area detail']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.area.detail.index', $area_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit area detail']));
+        }
     }
 
     /**
@@ -148,9 +196,19 @@ class AreaDetailController extends Controller
      */
     public function destroy($area_id, $id)
     {
-        $this->areaDetailRepository->delete($id);
+        try {
+            $this->authorize('area_detail:delete');
 
-        return redirect()->route('admin.area.detail.index', $area_id)->with('success', __('notification.delete.success', ['model' => 'area detail']));
+            $this->areaDetailRepository->delete($id);
+    
+            return redirect()
+            ->route('admin.area.detail.index', $area_id)
+            ->with('success', __('notification.delete.success', ['model' => 'area detail']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.area.detail.index', $area_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'delete area detail']));
+        }
     }
 
     private function getDataForm()

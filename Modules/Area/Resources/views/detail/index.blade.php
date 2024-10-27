@@ -21,7 +21,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('area_detail:add')
                 <a href="{{ route('admin.area.detail.create', $area_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
                 <a href="{{ route('admin.area.index') }}" class="btn btn-default pull-right mr-1"><i class="fa fa-arrow-left"></i> Back</a>
             </div>
             <div class="box-body">
@@ -46,7 +48,9 @@
                                 <th>Author</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th style="width: 175px">Action</th>
+                                @canany(['area_detail:edit', 'area_detail:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
@@ -67,10 +71,16 @@
                                     @endif
                                     <td>{{ $detail->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $detail->updated_at->format('H:i:s d/m/Y') }}</td>
-                                    <td>
+                                    @canany(['area_detail:edit', 'area_detail:delete'])
+                                    <td class="nowrap">
+                                        @can('area_detail:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.area.detail.edit', ['area_id' => $area_id, 'id' => $detail->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('area_detail:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-area-detail-delete" data-id="{{ $detail->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>

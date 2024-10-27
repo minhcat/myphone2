@@ -5,6 +5,7 @@ namespace Modules\Area\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
+use Modules\Area\Policies\AreaDetailPolicy;
 use Modules\Area\Policies\AreaPolicy;
 
 class AreaServiceProvider extends ServiceProvider
@@ -123,5 +124,10 @@ class AreaServiceProvider extends ServiceProvider
         Gate::define('area:add', [AreaPolicy::class, 'add']);
         Gate::define('area:edit', [AreaPolicy::class, 'edit']);
         Gate::define('area:delete', [AreaPolicy::class, 'delete']);
+        // area detail
+        Gate::define('area_detail:browse', [AreaDetailPolicy::class, 'browse']);
+        Gate::define('area_detail:add', [AreaDetailPolicy::class, 'add']);
+        Gate::define('area_detail:edit', [AreaDetailPolicy::class, 'edit']);
+        Gate::define('area_detail:delete', [AreaDetailPolicy::class, 'delete']);
     }
 }
