@@ -20,7 +20,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('attribute:add')
                 <a href="{{ route('admin.attribute.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -45,22 +47,34 @@
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 <th>Options</th>
-                                <th style="width: 175px">Action</th>
+                                @canany(['attribute:edit', 'attribute:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($attributes as $key => $attribute)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('attribute:read')
                                     <td><a href="{{ route('admin.attribute.show', $attribute->id) }}">{{ $attribute->name }}</a></td>
+                                    @else
+                                    <td>{{ $attribute->name }}</td>
+                                    @endcan
                                     <td>@if (!is_null($attribute->user)) <a href="{{ route('admin.user.show', $attribute->user->id) }}">{{ $attribute->user->fullname }}</a>@endif</td>
                                     <td>{{ $attribute->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $attribute->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td><a href="{{ route('admin.attribute.option.index', $attribute->id) }}">list</a></td>
-                                    <td>
+                                    @canany(['attribute:edit', 'attribute:delete'])
+                                    <td class="nowrap">
+                                        @can('attribute:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.attribute.edit', $attribute->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('attribute:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-attribute-delete" data-id="{{ $attribute->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>

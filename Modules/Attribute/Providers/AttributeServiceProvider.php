@@ -3,8 +3,9 @@
 namespace Modules\Attribute\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\Attribute\Policies\AttributePolicy;
 
 class AttributeServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,7 @@ class AttributeServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -111,5 +113,15 @@ class AttributeServiceProvider extends ServiceProvider
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        // attribute
+        Gate::define('attribute:browse', [AttributePolicy::class, 'browse']);
+        Gate::define('attribute:read', [AttributePolicy::class, 'read']);
+        Gate::define('attribute:add', [AttributePolicy::class, 'add']);
+        Gate::define('attribute:edit', [AttributePolicy::class, 'edit']);
+        Gate::define('attribute:delete', [AttributePolicy::class, 'delete']);
     }
 }

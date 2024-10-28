@@ -2,7 +2,9 @@
 
 namespace Modules\Attribute\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Attribute\Repositories\AttributeRepository;
@@ -10,6 +12,8 @@ use Modules\Attribute\Repositories\OptionRepository;
 
 class AttributeController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Attribute\Repositories\AttributeRepository */
     protected $attributeRepository;
 
@@ -33,10 +37,16 @@ class AttributeController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $attributes = $this->attributeRepository->paginate($search);
+        try {
+            $this->authorize('attribute:browse');
 
-        return view('attribute::attribute.index', compact('attributes'));
+            $search = $request->input('search');
+            $attributes = $this->attributeRepository->paginate($search);
+    
+            return view('attribute::attribute.index', compact('attributes'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin')->with('danger', __('notification.permission.fail', ['action' => 'browse attribute']));
+        }
     }
 
     /**
@@ -45,13 +55,19 @@ class AttributeController extends Controller
      */
     public function create()
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.attribute.store'),
-            'method'    => 'POST',
-        ];
+        try {
+            $this->authorize('attribute:add');
 
-        return view('attribute::attribute.create', compact('form'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.attribute.store'),
+                'method'    => 'POST',
+            ];
+    
+            return view('attribute::attribute.create', compact('form'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.attribute.index')->with('danger', __('notification.permission.fail', ['action' => 'add attribute']));
+        }
     }
 
     /**
@@ -61,13 +77,19 @@ class AttributeController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'  => 'required',
-        ]);
+        try {
+            $this->authorize('attribute:add');
 
-        $this->attributeRepository->create($request->all());
-
-        return redirect()->route('admin.attribute.index')->with('success', __('notification.create.success', ['model' => 'attribute']));
+            $request->validate([
+                'name'  => 'required',
+            ]);
+    
+            $this->attributeRepository->create($request->all());
+    
+            return redirect()->route('admin.attribute.index')->with('success', __('notification.create.success', ['model' => 'attribute']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.attribute.index')->with('danger', __('notification.permission.fail', ['action' => 'add attribute']));
+        }
     }
 
     /**
@@ -77,9 +99,15 @@ class AttributeController extends Controller
      */
     public function show($id)
     {
-        $attribute = $this->attributeRepository->find($id);
+        try {
+            $this->authorize('attribute:read');
 
-        return view('attribute::attribute.show', compact('attribute'));
+            $attribute = $this->attributeRepository->find($id);
+    
+            return view('attribute::attribute.show', compact('attribute'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.attribute.index')->with('danger', __('notification.permission.fail', ['action' => 'read attribute']));
+        }
     }
 
     /**
@@ -89,15 +117,21 @@ class AttributeController extends Controller
      */
     public function edit($id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.attribute.update', $id),
-            'method'    => 'PUT',
-        ];
+        try {
+            $this->authorize('attribute:edit');
 
-        $attribute = $this->attributeRepository->find($id);
-
-        return view('attribute::attribute.edit', compact('form', 'attribute'));
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.attribute.update', $id),
+                'method'    => 'PUT',
+            ];
+    
+            $attribute = $this->attributeRepository->find($id);
+    
+            return view('attribute::attribute.edit', compact('form', 'attribute'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.attribute.index')->with('danger', __('notification.permission.fail', ['action' => 'edit attribute']));
+        }
     }
 
     /**
@@ -108,13 +142,19 @@ class AttributeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name'  => 'required',
-        ]);
+        try {
+            $this->authorize('attribute:edit');
 
-        $this->attributeRepository->update($id, $request->all());
-
-        return redirect()->route('admin.attribute.index')->with('success', __('notification.update.success', ['model' => 'attribute']));
+            $request->validate([
+                'name'  => 'required',
+            ]);
+    
+            $this->attributeRepository->update($id, $request->all());
+    
+            return redirect()->route('admin.attribute.index')->with('success', __('notification.update.success', ['model' => 'attribute']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.attribute.index')->with('danger', __('notification.permission.fail', ['action' => 'edit attribute']));
+        }
     }
 
     /**
@@ -124,10 +164,16 @@ class AttributeController extends Controller
      */
     public function destroy($id)
     {
-        $this->attributeRepository->delete($id);
+        try {
+            $this->authorize('attribute:delete');
 
-        $this->optionRepository->deleteByAttributeId($id);
-
-        return redirect()->route('admin.attribute.index')->with('success', __('notification.delete.success', ['model' => 'attribute']));
+            $this->attributeRepository->delete($id);
+    
+            $this->optionRepository->deleteByAttributeId($id);
+    
+            return redirect()->route('admin.attribute.index')->with('success', __('notification.delete.success', ['model' => 'attribute']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.attribute.index')->with('danger', __('notification.permission.fail', ['action' => 'delete attribute']));
+        }
     }
 }
