@@ -2,13 +2,17 @@
 
 namespace Modules\Brand\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Brand\Repositories\BrandRepository;
 
 class BrandController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Brand\Repositories\BrandRepository */
     protected $brandRepository;
 
@@ -28,10 +32,16 @@ class BrandController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $brands = $this->brandRepository->paginate($search);
+        try {
+            $this->authorize('brand:browse');
 
-        return view('brand::index', compact('brands'));
+            $search = $request->input('search');
+            $brands = $this->brandRepository->paginate($search);
+    
+            return view('brand::index', compact('brands'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin')->with('danger', __('notification.permission.fail', ['action' => 'browse brand']));
+        }
     }
 
     /**
@@ -40,13 +50,19 @@ class BrandController extends Controller
      */
     public function create()
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.brand.store'),
-            'method'    => 'POST',
-        ];
+        try {
+            $this->authorize('brand:add');
 
-        return view('brand::create', compact('form'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.brand.store'),
+                'method'    => 'POST',
+            ];
+    
+            return view('brand::create', compact('form'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.brand.index')->with('danger', __('notification.permission.fail', ['action' => 'add brand']));
+        }
     }
 
     /**
@@ -56,13 +72,19 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'  => 'required',
-        ]);
+        try {
+            $this->authorize('brand:add');
 
-        $this->brandRepository->create($request->all());
-
-        return redirect()->route('admin.brand.index')->with('success', __('notification.create.success', ['model' => 'brand']));
+            $request->validate([
+                'name'  => 'required',
+            ]);
+    
+            $this->brandRepository->create($request->all());
+    
+            return redirect()->route('admin.brand.index')->with('success', __('notification.create.success', ['model' => 'brand']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.brand.index')->with('danger', __('notification.permission.fail', ['action' => 'add brand']));
+        }
     }
 
     /**
@@ -72,9 +94,15 @@ class BrandController extends Controller
      */
     public function show($id)
     {
-        $brand = $this->brandRepository->find($id);
+        try {
+            $this->authorize('brand:read');
 
-        return view('brand::show', compact('brand'));
+            $brand = $this->brandRepository->find($id);
+    
+            return view('brand::show', compact('brand'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.brand.index')->with('danger', __('notification.permission.fail', ['action' => 'read brand']));
+        }
     }
 
     /**
@@ -84,15 +112,21 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.brand.update', $id),
-            'method'    => 'PUT',
-        ];
+        try {
+            $this->authorize('brand:edit');
 
-        $brand = $this->brandRepository->find($id);
-
-        return view('brand::edit', compact('form', 'brand'));
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.brand.update', $id),
+                'method'    => 'PUT',
+            ];
+    
+            $brand = $this->brandRepository->find($id);
+    
+            return view('brand::edit', compact('form', 'brand'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.brand.index')->with('danger', __('notification.permission.fail', ['action' => 'edit brand']));
+        }
     }
 
     /**
@@ -103,13 +137,19 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name'  => 'required',
-        ]);
+        try {
+            $this->authorize('brand:edit');
 
-        $this->brandRepository->update($id, $request->all());
-
-        return redirect()->route('admin.brand.index')->with('success', __('notification.update.success', ['model' => 'brand']));
+            $request->validate([
+                'name'  => 'required',
+            ]);
+    
+            $this->brandRepository->update($id, $request->all());
+    
+            return redirect()->route('admin.brand.index')->with('success', __('notification.update.success', ['model' => 'brand']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.brand.index')->with('danger', __('notification.permission.fail', ['action' => 'edit brand']));
+        }
     }
 
     /**
@@ -119,8 +159,14 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        $this->brandRepository->delete($id);
+        try {
+            $this->authorize('brand:delete');
 
-        return redirect()->route('admin.brand.index')->with('success', __('notification.delete.success', ['model' => 'brand']));
+            $this->brandRepository->delete($id);
+    
+            return redirect()->route('admin.brand.index')->with('success', __('notification.delete.success', ['model' => 'brand']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.brand.index')->with('danger', __('notification.permission.fail', ['action' => 'delete brand']));
+        }
     }
 }

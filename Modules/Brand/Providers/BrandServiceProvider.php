@@ -3,7 +3,9 @@
 namespace Modules\Brand\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\Brand\Policies\BrandPolicy;
 
 class BrandServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class BrandServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +107,20 @@ class BrandServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        Gate::define('brand:browse', [BrandPolicy::class, 'browse']);
+        Gate::define('brand:read', [BrandPolicy::class, 'read']);
+        Gate::define('brand:add', [BrandPolicy::class, 'add']);
+        Gate::define('brand:edit', [BrandPolicy::class, 'edit']);
+        Gate::define('brand:delete', [BrandPolicy::class, 'delete']);
     }
 }
