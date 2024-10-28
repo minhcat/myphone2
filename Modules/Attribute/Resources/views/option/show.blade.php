@@ -76,7 +76,9 @@
             </div>
             <div class="box-footer">
                 <a href="{{ route('admin.attribute.option.index', $attribute_id) }}" class="btn btn-default">Back</a>
+                @can('attribute_option:edit')
                 <a href="{{ route('admin.attribute.option.edit', ['attribute_id' => $attribute_id, 'id' => $option->id]) }}" class="btn btn-primary">Edit</a>
+                @endcan
             </div>
         </div>
     </div>

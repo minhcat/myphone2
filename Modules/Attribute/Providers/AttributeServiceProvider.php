@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Modules\Attribute\Policies\AttributePolicy;
+use Modules\Attribute\Policies\OptionPolicy;
 
 class AttributeServiceProvider extends ServiceProvider
 {
@@ -123,5 +124,11 @@ class AttributeServiceProvider extends ServiceProvider
         Gate::define('attribute:add', [AttributePolicy::class, 'add']);
         Gate::define('attribute:edit', [AttributePolicy::class, 'edit']);
         Gate::define('attribute:delete', [AttributePolicy::class, 'delete']);
+        // option
+        Gate::define('attribute_option:browse', [OptionPolicy::class, 'browse']);
+        Gate::define('attribute_option:read', [OptionPolicy::class, 'read']);
+        Gate::define('attribute_option:add', [OptionPolicy::class, 'add']);
+        Gate::define('attribute_option:edit', [OptionPolicy::class, 'edit']);
+        Gate::define('attribute_option:delete', [OptionPolicy::class, 'delete']);
     }
 }

@@ -21,7 +21,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('attribute_option:add')
                 <a href="{{ route('admin.attribute.option.create', $attribute_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
                 <a href="{{ route('admin.attribute.index') }}" class="btn btn-default pull-right mr-1"><i class="fa fa-arrow-left"></i> Back</a>
             </div>
             <div class="box-body">
@@ -46,21 +48,33 @@
                                 <th>Author</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th style="width: 175px">Action</th>
+                                @canany(['attribute_option:edit', 'attribute_option:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($options as $key => $option)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('attribute_option:read')
                                     <td><a href="{{ route('admin.attribute.option.show', ['attribute_id' => $attribute_id, 'id' => $option->id]) }}">{{ $option->value }}</a></td>
+                                    @else
+                                    <td>{{ $option->value }}</td>
+                                    @endcan
                                     <td>@if (!is_null($option->user)) <a href="{{ route('admin.user.show', $option->user->id) }}">{{ $option->user->fullname }}</a>@endif</td>
                                     <td>{{ $option->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $option->updated_at->format('H:i:s d/m/Y') }}</td>
-                                    <td>
+                                    @canany(['attribute_option:edit', 'attribute_option:delete'])
+                                    <td class="nowrap">
+                                        @can('attribute_option:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.attribute.option.edit', ['attribute_id' => $attribute_id, 'id' => $option->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('attribute_option:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-option-delete" data-id="{{ $option->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>

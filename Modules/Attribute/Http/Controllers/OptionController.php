@@ -2,13 +2,17 @@
 
 namespace Modules\Attribute\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Attribute\Repositories\OptionRepository;
 
 class OptionController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Attribute\Repositories\OptionRepository */
     protected $optionRepository;
 
@@ -28,10 +32,18 @@ class OptionController extends Controller
      */
     public function index(Request $request, $attribute_id)
     {
-        $search = $request->input('search');
-        $options = $this->optionRepository->paginateByAttributeId($attribute_id, $search);
+        try {
+            $this->authorize('attribute_option:browse');
 
-        return view('attribute::option.index', compact('options', 'attribute_id'));
+            $search = $request->input('search');
+            $options = $this->optionRepository->paginateByAttributeId($attribute_id, $search);
+    
+            return view('attribute::option.index', compact('options', 'attribute_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.attribute.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'browse attribute option']));
+        }
     }
 
     /**
@@ -40,13 +52,21 @@ class OptionController extends Controller
      */
     public function create($attribute_id)
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.attribute.option.store', $attribute_id),
-            'method'    => 'POST',
-        ];
+        try {
+            $this->authorize('attribute_option:add');
 
-        return view('attribute::option.create', compact('form', 'attribute_id'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.attribute.option.store', $attribute_id),
+                'method'    => 'POST',
+            ];
+    
+            return view('attribute::option.create', compact('form', 'attribute_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.attribute.option.index', $attribute_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'add attribute option']));
+        }
     }
 
     /**
@@ -56,13 +76,23 @@ class OptionController extends Controller
      */
     public function store(Request $request, $attribute_id)
     {
-        $request->validate([
-            'value' => 'required|unique:options'
-        ]);
+        try {
+            $this->authorize('attribute_option:add');
 
-        $this->optionRepository->create($request->all(), ['attribute_id' => $attribute_id]);
-
-        return redirect()->route('admin.attribute.option.index', $attribute_id)->with('success', __('notification.create.success', ['model' => 'option']));
+            $request->validate([
+                'value' => 'required|unique:options'
+            ]);
+    
+            $this->optionRepository->create($request->all(), ['attribute_id' => $attribute_id]);
+    
+            return redirect()
+            ->route('admin.attribute.option.index', $attribute_id)
+            ->with('success', __('notification.create.success', ['model' => 'option']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.attribute.option.index', $attribute_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'add attribute option']));
+        }
     }
 
     /**
@@ -72,9 +102,17 @@ class OptionController extends Controller
      */
     public function show($attribute_id, $id)
     {
-        $option = $this->optionRepository->find($id);
+        try {
+            $this->authorize('attribute_option:read');
 
-        return view('attribute::option.show', compact('option', 'attribute_id'));
+            $option = $this->optionRepository->find($id);
+    
+            return view('attribute::option.show', compact('option', 'attribute_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.attribute.option.index', $attribute_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'read attribute option']));
+        }
     }
 
     /**
@@ -84,15 +122,23 @@ class OptionController extends Controller
      */
     public function edit($attribute_id, $id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.attribute.option.update', ['attribute_id' => $attribute_id, 'id' => $id]),
-            'method'    => 'PUT',
-        ];
+        try {
+            $this->authorize('attribute_option:edit');
 
-        $option = $this->optionRepository->find($id);
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.attribute.option.update', ['attribute_id' => $attribute_id, 'id' => $id]),
+                'method'    => 'PUT',
+            ];
 
-        return view('attribute::option.edit', compact('form', 'option', 'attribute_id'));
+            $option = $this->optionRepository->find($id);
+
+            return view('attribute::option.edit', compact('form', 'option', 'attribute_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.attribute.option.index', $attribute_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit attribute option']));
+        }
     }
 
     /**
@@ -103,13 +149,23 @@ class OptionController extends Controller
      */
     public function update(Request $request, $attribute_id, $id)
     {
-        $request->validate([
-            'value' => 'required|unique:options,value,'.$id
-        ]);
+        try {
+            $this->authorize('attribute_option:edit');
 
-        $this->optionRepository->update($id, $request->all(), ['attribute_id' => $attribute_id]);
+            $request->validate([
+                'value' => 'required|unique:options,value,'.$id
+            ]);
 
-        return redirect()->route('admin.attribute.option.index', $attribute_id)->with('success', __('notification.update.success', ['model' => 'option']));
+            $this->optionRepository->update($id, $request->all(), ['attribute_id' => $attribute_id]);
+
+            return redirect()
+            ->route('admin.attribute.option.index', $attribute_id)
+            ->with('success', __('notification.update.success', ['model' => 'option']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.attribute.option.index', $attribute_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit attribute option']));
+        }
     }
 
     /**
@@ -119,8 +175,18 @@ class OptionController extends Controller
      */
     public function destroy($attribute_id, $id)
     {
-        $this->optionRepository->delete($id);
+        try {
+            $this->authorize('attribute_option:delete');
 
-        return redirect()->route('admin.attribute.option.index', $attribute_id)->with('success', __('notification.delete.success', ['model' => 'option']));
+            $this->optionRepository->delete($id);
+    
+            return redirect()
+            ->route('admin.attribute.option.index', $attribute_id)
+            ->with('success', __('notification.delete.success', ['model' => 'option']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.attribute.option.index', $attribute_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'delete attribute option']));
+        }
     }
 }
