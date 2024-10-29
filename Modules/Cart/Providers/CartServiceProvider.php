@@ -3,7 +3,9 @@
 namespace Modules\Cart\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\Cart\Policies\CartPolicy;
 
 class CartServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class CartServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +107,19 @@ class CartServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        // cart
+        Gate::define('cart:browse', [CartPolicy::class, 'browse']);
+        Gate::define('cart:read', [CartPolicy::class, 'read']);
+        Gate::define('cart:order', [CartPolicy::class, 'order']);
     }
 }

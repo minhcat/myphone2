@@ -46,14 +46,20 @@
                                 <th>Details</th>
                                 <th>Quantity</th>
                                 <th>Total</th>
-                                <th style="width: 100px">Action</th>
+                                @can('cart:order')
+                                <th style="width: 1px">Action</th>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($carts as $key => $cart)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('cart:read')
                                     <td><a href="{{ route('admin.cart.show', $cart->id) }}">{{ $cart->code }}</a></td>
+                                    @else
+                                    <td>{{ $cart->code }}</td>
+                                    @endcan
                                     @if ($cart->user)
                                     <td><a href="{{ route('admin.user.show', $cart->user->id) }}">{{ $cart->user->fullname }}</a></td>
                                     @else
@@ -64,9 +70,11 @@
                                     <td><a href="{{ route('admin.cart.detail.index', $cart->id) }}">list</a></td>
                                     <td>{{ $cart->quantity }}</td>
                                     <td>{{ number_format($cart->total) }}</td>
-                                    <td>
+                                    @can('cart:order')
+                                    <td class="nowrap">
                                         <button class="btn btn-success" data-toggle="modal" data-target="#modal-add-order-{{ $cart->id }}"><i class="fa fa-shopping-cart"></i> Order</button>
                                     </td>
+                                    @endcan
                                 </tr>
                             @endforeach
                         </tbody>

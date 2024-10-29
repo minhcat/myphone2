@@ -5,7 +5,9 @@ namespace Modules\Cart\Http\Controllers;
 use App\Enums\OrderStatus;
 use App\Enums\TargetType;
 use App\Events\CreateOrderEvent;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Cart\Repositories\CartDetailRepository;
@@ -20,6 +22,8 @@ use Modules\User\Repositories\AddressRepository;
 
 class CartController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Cart\Repositories\CartRepository */
     protected $cartRepository;
 
@@ -67,12 +71,18 @@ class CartController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $carts  = $this->cartRepository->paginate($search);
-        $transporters = $this->transporterRepository->all();
-        $cases = $this->transporterCaseRepository->all();
+        try {
+            $this->authorize('cart:browse');
 
-        return view('cart::cart.index', compact('carts', 'transporters', 'cases'));
+            $search = $request->input('search');
+            $carts  = $this->cartRepository->paginate($search);
+            $transporters = $this->transporterRepository->all();
+            $cases = $this->transporterCaseRepository->all();
+    
+            return view('cart::cart.index', compact('carts', 'transporters', 'cases'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin')->with('danger', __('notification.permission.fail', ['action' => 'browse cart']));
+        }
     }
 
     /**
@@ -82,9 +92,14 @@ class CartController extends Controller
      */
     public function show($id)
     {
-        $cart = $this->cartRepository->find($id);
-
-        return view('cart::cart.show', compact('cart'));
+        try {
+            $this->authorize('cart:read');
+            $cart = $this->cartRepository->find($id);
+    
+            return view('cart::cart.show', compact('cart'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.cart.index')->with('danger', __('notification.permission.fail', ['action' => 'read cart']));
+        }
     }
 
     /**
@@ -95,49 +110,55 @@ class CartController extends Controller
      */
     public function order(Request $request, $id)
     {
-        $request->validate([
-            'address_id'    => 'required',
-        ]);
+        try {
+            $this->authorize('cart:order');
 
-        $cart = $this->cartRepository->find($id);
-        $order = $this->orderRepository->create([
-            'user_id'               => $cart->user->id,
-            'address_id'            => $request->input('address_id'),
-            'transporter_case_id'   => $request->input('transporter_case_id'),
-            'voucher_code'          => $request->input('voucher_code'),
-            'status'                => OrderStatus::PENDING,
-            'note'                  => $request->input('note') ?? '',
-        ]);
-
-        $target_ids = [];
-        $details = $request->input('details');
-        foreach ($details as $target_id => $data) {
-            $target_ids[] = [$data['target_type'], $target_id, $data['quantity']];
-            if ($data['target_type'] == TargetType::VARIANT) {
-                $target = $this->variantRepository->find($target_id);
-            } else {
-                $target = $this->productRepository->find($target_id);
-            }
-            $this->orderDetailRepository->create([
-                'order_id'      => $order->id,
-                'target_type'   => $data['target_type'],
-                'target_id'     => $target_id,
-                'quantity'      => $data['quantity'],
-                'price'         => $target->price,
+            $request->validate([
+                'address_id'    => 'required',
             ]);
-        }
-
-        foreach ($target_ids as $target) {
-            $cart_detail = $this->cartDetailRepository->findWhere([['cart_id', $id], ['target_type', $target[0]], ['target_id', $target[1]]]);
-            if (isset($cart_detail) && $cart_detail->quantity == $target[2]) {
-                $this->cartDetailRepository->deleteWhere([['cart_id', $id], ['target_type', $target[0]], ['target_id', $target[1]]]);
-            } elseif (isset($cart_detail)) {
-                $this->cartDetailRepository->update($cart_detail->id, ['quantity' => $cart_detail->quantity - $target[2]]);
+    
+            $cart = $this->cartRepository->find($id);
+            $order = $this->orderRepository->create([
+                'user_id'               => $cart->user->id,
+                'address_id'            => $request->input('address_id'),
+                'transporter_case_id'   => $request->input('transporter_case_id'),
+                'voucher_code'          => $request->input('voucher_code'),
+                'status'                => OrderStatus::PENDING,
+                'note'                  => $request->input('note') ?? '',
+            ]);
+    
+            $target_ids = [];
+            $details = $request->input('details');
+            foreach ($details as $target_id => $data) {
+                $target_ids[] = [$data['target_type'], $target_id, $data['quantity']];
+                if ($data['target_type'] == TargetType::VARIANT) {
+                    $target = $this->variantRepository->find($target_id);
+                } else {
+                    $target = $this->productRepository->find($target_id);
+                }
+                $this->orderDetailRepository->create([
+                    'order_id'      => $order->id,
+                    'target_type'   => $data['target_type'],
+                    'target_id'     => $target_id,
+                    'quantity'      => $data['quantity'],
+                    'price'         => $target->price,
+                ]);
             }
+    
+            foreach ($target_ids as $target) {
+                $cart_detail = $this->cartDetailRepository->findWhere([['cart_id', $id], ['target_type', $target[0]], ['target_id', $target[1]]]);
+                if (isset($cart_detail) && $cart_detail->quantity == $target[2]) {
+                    $this->cartDetailRepository->deleteWhere([['cart_id', $id], ['target_type', $target[0]], ['target_id', $target[1]]]);
+                } elseif (isset($cart_detail)) {
+                    $this->cartDetailRepository->update($cart_detail->id, ['quantity' => $cart_detail->quantity - $target[2]]);
+                }
+            }
+    
+            event(new CreateOrderEvent($order));
+    
+            return redirect()->route('admin.cart.index')->with('success', __('notification.create.success', ['model' => 'order']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.cart.index')->with('danger', __('notification.permission.fail', ['action' => 'order cart']));
         }
-
-        event(new CreateOrderEvent($order));
-
-        return redirect()->route('admin.cart.index')->with('success', __('notification.create.success', ['model' => 'order']));
     }
 }
