@@ -31,7 +31,7 @@ return [
         ],
         [
             'value'                 => 'cart_detail',
-            'max'                   => 5,
+            'max'                   => 4,
         ],
         [
             'value'                 => 'category',
@@ -173,7 +173,7 @@ return [
                     'withs'         => [
                         [
                             'type'  => FakerConditionType::NOT_EQUAL,
-                            'value' => 'area_detail',
+                            'value' => ['area_detail', 'cart_detail'],
                             'rate'  => 1,
                         ],
                     ]

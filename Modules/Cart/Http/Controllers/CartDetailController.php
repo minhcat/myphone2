@@ -3,7 +3,9 @@
 namespace Modules\Cart\Http\Controllers;
 
 use App\Enums\TargetType;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Cart\Repositories\CartDetailRepository;
@@ -12,6 +14,8 @@ use Modules\Product\Repositories\VariationRepository;
 
 class CartDetailController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Cart\Repositories\CartDetailRepository */
     protected $cartDetailRepository;
 
@@ -39,10 +43,16 @@ class CartDetailController extends Controller
      */
     public function index(Request $request, $cart_id)
     {
-        $search = $request->input('search');
-        $details = $this->cartDetailRepository->paginateByCartId($cart_id, $search);
+        try {
+            $this->authorize('cart_detail:browse');
 
-        return view('cart::detail.index', compact('details', 'cart_id'));
+            $search = $request->input('search');
+            $details = $this->cartDetailRepository->paginateByCartId($cart_id, $search);
+    
+            return view('cart::detail.index', compact('details', 'cart_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin')->with('danger', __('notification.permission.fail', ['action' => 'browse cart detail']));
+        }
     }
 
     /**
@@ -51,17 +61,25 @@ class CartDetailController extends Controller
      */
     public function create($cart_id)
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.cart.detail.store', $cart_id),
-            'method'    => 'POST',
-        ];
-        
-        $products = $this->productRepository->all();
-        $variants = $this->variantRepository->all();
-        $target_types = TargetType::getObject();
+        try {
+            $this->authorize('cart_detail:add');
 
-        return view('cart::detail.create', compact('products', 'form', 'cart_id', 'products', 'variants', 'target_types'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.cart.detail.store', $cart_id),
+                'method'    => 'POST',
+            ];
+            
+            $products = $this->productRepository->all();
+            $variants = $this->variantRepository->all();
+            $target_types = TargetType::getObject();
+    
+            return view('cart::detail.create', compact('products', 'form', 'cart_id', 'products', 'variants', 'target_types'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.cart.detail.index', $cart_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'add cart detail']));
+        }
     }
 
     /**
@@ -71,36 +89,48 @@ class CartDetailController extends Controller
      */
     public function store(Request $request, $cart_id)
     {
-        $request->validate([
-            'target_type'   => 'required',
-            'target_id'     => 'required',
-            'quantity'      => 'required|numeric'
-        ]);
+        try {
+            $this->authorize('cart_detail:add');
 
-        $target_type = $request->input('target_type');
-        if ($target_type == TargetType::VARIANT) {    // compare string and int
-            $target = $this->variantRepository->find($request->input('target_id'));
-        } else {
-            $target = $this->productRepository->find($request->input('target_id'));
+            $request->validate([
+                'target_type'   => 'required',
+                'target_id'     => 'required',
+                'quantity'      => 'required|numeric'
+            ]);
+    
+            $target_type = $request->input('target_type');
+            if ($target_type == TargetType::VARIANT) {    // compare string and int
+                $target = $this->variantRepository->find($request->input('target_id'));
+            } else {
+                $target = $this->productRepository->find($request->input('target_id'));
+            }
+    
+            $cart_detail = $this->cartDetailRepository->findWhere([
+                ['cart_id', $cart_id],
+                ['target_type', $target_type],
+                ['target_id', $target->id]
+            ]);
+    
+            if (!is_null($cart_detail)) {
+                $quantity = $cart_detail->quantity + intval($request->input('quantity'));
+    
+                $this->cartDetailRepository->update($cart_detail->id, ['quantity' => $quantity]);
+    
+                return redirect()
+                ->route('admin.cart.detail.index', $cart_id)
+                ->with('success', __('notification.create.success', ['model' => 'cart detail']));
+            }
+    
+            $this->cartDetailRepository->create($request->all(), ['cart_id' => $cart_id, 'price' => $target->price ?: 0]);
+    
+            return redirect()
+            ->route('admin.cart.detail.index', $cart_id)
+            ->with('success', __('notification.create.success', ['model' => 'cart detail']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.cart.detail.index', $cart_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'add cart detail']));
         }
-
-        $cart_detail = $this->cartDetailRepository->findWhere([
-            ['cart_id', $cart_id],
-            ['target_type', $target_type],
-            ['target_id', $target->id]
-        ]);
-
-        if (!is_null($cart_detail)) {
-            $quantity = $cart_detail->quantity + intval($request->input('quantity'));
-
-            $this->cartDetailRepository->update($cart_detail->id, ['quantity' => $quantity]);
-
-            return redirect()->route('admin.cart.detail.index', $cart_id)->with('success', __('notification.create.success', ['model' => 'cart detail']));
-        }
-
-        $this->cartDetailRepository->create($request->all(), ['cart_id' => $cart_id, 'price' => $target->price ?: 0]);
-
-        return redirect()->route('admin.cart.detail.index', $cart_id)->with('success', __('notification.create.success', ['model' => 'cart detail']));
     }
 
     /**
@@ -110,18 +140,26 @@ class CartDetailController extends Controller
      */
     public function edit($cart_id, $id)
     {
-        $form = [
-            'title'     => 'Update',
-            'url'       => route('admin.cart.detail.update', ['cart_id' => $cart_id, 'id' => $id]),
-            'method'    => 'PUT',
-        ];
+        try {
+            $this->authorize('cart_detail:edit');
 
-        $detail = $this->cartDetailRepository->find($id);
-        $products = $this->productRepository->all();
-        $variants = $this->variantRepository->all();
-        $target_types = TargetType::getObject();
-
-        return view('cart::detail.edit', compact('form', 'products', 'detail', 'cart_id', 'variants', 'target_types'));
+            $form = [
+                'title'     => 'Update',
+                'url'       => route('admin.cart.detail.update', ['cart_id' => $cart_id, 'id' => $id]),
+                'method'    => 'PUT',
+            ];
+    
+            $detail = $this->cartDetailRepository->find($id);
+            $products = $this->productRepository->all();
+            $variants = $this->variantRepository->all();
+            $target_types = TargetType::getObject();
+    
+            return view('cart::detail.edit', compact('form', 'products', 'detail', 'cart_id', 'variants', 'target_types'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.cart.detail.index', $cart_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit cart detail']));
+        }
     }
 
     /**
@@ -132,36 +170,48 @@ class CartDetailController extends Controller
      */
     public function update(Request $request, $cart_id, $id)
     {
-        $request->validate([
-            'target_type'   => 'required',
-            'target_id'     => 'required',
-            'quantity'      => 'required|numeric'
-        ]);
+        try {
+            $this->authorize('cart_detail:edit');
 
-        $target_type = $request->input('target_type');
-        if ($target_type == TargetType::VARIANT) {
-            $target = $this->variantRepository->find($request->input('target_id'));
-        } else {
-            $target = $this->productRepository->find($request->input('target_id'));
+            $request->validate([
+                'target_type'   => 'required',
+                'target_id'     => 'required',
+                'quantity'      => 'required|numeric'
+            ]);
+    
+            $target_type = $request->input('target_type');
+            if ($target_type == TargetType::VARIANT) {
+                $target = $this->variantRepository->find($request->input('target_id'));
+            } else {
+                $target = $this->productRepository->find($request->input('target_id'));
+            }
+    
+            $cart_detail = $this->cartDetailRepository->findWhere([
+                ['cart_id', $cart_id],
+                ['target_type', $target_type],
+                ['target_id', $target->id]
+            ]);
+    
+            if (!is_null($cart_detail)) {
+                $this->cartDetailRepository->update($cart_detail->id, ['quantity' => intval($request->input('quantity'))]);
+    
+                return redirect()
+                ->route('admin.cart.detail.index', $cart_id)
+                ->with('success', __('notification.update.success', ['model' => 'cart detail']));
+            }
+    
+            $this->cartDetailRepository->create($request->all(), ['cart_id' => $cart_id, 'price' => $target->price]);
+    
+            $this->cartDetailRepository->delete($id);
+    
+            return redirect()
+            ->route('admin.cart.detail.index', $cart_id)
+            ->with('success', __('notification.update.success', ['model' => 'cart detail']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.cart.detail.index', $cart_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit cart detail']));
         }
-
-        $cart_detail = $this->cartDetailRepository->findWhere([
-            ['cart_id', $cart_id],
-            ['target_type', $target_type],
-            ['target_id', $target->id]
-        ]);
-
-        if (!is_null($cart_detail)) {
-            $this->cartDetailRepository->update($cart_detail->id, ['quantity' => intval($request->input('quantity'))]);
-
-            return redirect()->route('admin.cart.detail.index', $cart_id)->with('success', __('notification.update.success', ['model' => 'cart detail']));
-        }
-
-        $this->cartDetailRepository->create($request->all(), ['cart_id' => $cart_id, 'price' => $target->price]);
-
-        $this->cartDetailRepository->delete($id);
-
-        return redirect()->route('admin.cart.detail.index', $cart_id)->with('success', __('notification.update.success', ['model' => 'cart detail']));
     }
 
     /**
@@ -171,8 +221,18 @@ class CartDetailController extends Controller
      */
     public function destroy($cart_id, $id)
     {
-        $this->cartDetailRepository->delete($id);
+        try {
+            $this->authorize('cart_detail:delete');
 
-        return redirect()->route('admin.cart.detail.index', $cart_id)->with('success', __('notification.delete.success', ['model' => 'cart detail']));
+            $this->cartDetailRepository->delete($id);
+    
+            return redirect()
+            ->route('admin.cart.detail.index', $cart_id)
+            ->with('success', __('notification.delete.success', ['model' => 'cart detail']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.cart.detail.index', $cart_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'delete cart detail']));
+        }
     }
 }

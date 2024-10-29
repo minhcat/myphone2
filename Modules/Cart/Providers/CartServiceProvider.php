@@ -5,6 +5,7 @@ namespace Modules\Cart\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
+use Modules\Cart\Policies\CartDetailPolicy;
 use Modules\Cart\Policies\CartPolicy;
 
 class CartServiceProvider extends ServiceProvider
@@ -121,5 +122,10 @@ class CartServiceProvider extends ServiceProvider
         Gate::define('cart:browse', [CartPolicy::class, 'browse']);
         Gate::define('cart:read', [CartPolicy::class, 'read']);
         Gate::define('cart:order', [CartPolicy::class, 'order']);
+        // cart detail
+        Gate::define('cart_detail:browse', [CartDetailPolicy::class, 'browse']);
+        Gate::define('cart_detail:add', [CartDetailPolicy::class, 'add']);
+        Gate::define('cart_detail:edit', [CartDetailPolicy::class, 'edit']);
+        Gate::define('cart_detail:delete', [CartDetailPolicy::class, 'delete']);
     }
 }

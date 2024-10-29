@@ -21,7 +21,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('cart_detail:add')
                 <a href="{{ route('admin.cart.detail.create', $cart_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
                 <a href="{{ route('admin.cart.index') }}" class="btn btn-default pull-right mr-1"><i class="fa fa-arrow-left"></i> Back</a>
             </div>
             <div class="box-body">
@@ -47,7 +49,9 @@
                                 <th>Price</th>
                                 <th>Total</th>
                                 <th>Author</th>
-                                <th style="width: 175px">Action</th>
+                                @canany(['cart_detail:edit', 'cart_detail:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
@@ -67,10 +71,16 @@
                                     @else
                                     <td></td>
                                     @endif
-                                    <td>
+                                    @canany (['cart_detail:edit', 'cart_detail:delete'])
+                                    <td class="nowrap">
+                                        @can('cart_detail:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.cart.detail.edit', ['cart_id' => $cart_id, 'id' => $detail->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('cart_detail:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-cart-detail-delete" data-id="{{ $detail->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>
