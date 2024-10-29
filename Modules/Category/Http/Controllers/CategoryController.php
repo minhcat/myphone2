@@ -2,13 +2,17 @@
 
 namespace Modules\Category\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Category\Repositories\CategoryRepository;
 
 class CategoryController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Category\Repositories\CategoryRepository */
     protected $categoryRepository;
 
@@ -28,10 +32,16 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $categories = $this->categoryRepository->paginate($search);
+        try {
+            $this->authorize('category:browse');
 
-        return view('category::index', compact('categories'));
+            $search = $request->input('search');
+            $categories = $this->categoryRepository->paginate($search);
+    
+            return view('category::index', compact('categories'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin')->with('danger', __('notification.permission.fail', ['action' => 'browse category']));
+        }
     }
 
     /**
@@ -40,13 +50,19 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.category.store'),
-            'method'    => 'POST',
-        ];
+        try {
+            $this->authorize('category:add');
 
-        return view('category::create', compact('form'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.category.store'),
+                'method'    => 'POST',
+            ];
+    
+            return view('category::create', compact('form'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.category.index')->with('danger', __('notification.permission.fail', ['action' => 'add category']));
+        }
     }
 
     /**
@@ -56,13 +72,19 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'  => 'required|unique:categories'
-        ]);
+        try {
+            $this->authorize('category:add');
 
-        $this->categoryRepository->create($request->all());
-
-        return redirect()->route('admin.category.index')->with('success', __('notification.create.success', ['model' => 'category']));
+            $request->validate([
+                'name'  => 'required|unique:categories'
+            ]);
+    
+            $this->categoryRepository->create($request->all());
+    
+            return redirect()->route('admin.category.index')->with('success', __('notification.create.success', ['model' => 'category']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.category.index')->with('danger', __('notification.permission.fail', ['action' => 'add category']));
+        }
     }
 
     /**
@@ -72,9 +94,15 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = $this->categoryRepository->find($id);
-
-        return view('category::show', compact('category'));
+        try {
+            $this->authorize('category:read');
+            
+            $category = $this->categoryRepository->find($id);
+    
+            return view('category::show', compact('category'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.category.index')->with('danger', __('notification.permission.fail', ['action' => 'read category']));
+        }
     }
 
     /**
@@ -84,15 +112,21 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.category.update', $id),
-            'method'    => 'PUT'
-        ];
+        try {
+            $this->authorize('category:edit');
 
-        $category = $this->categoryRepository->find($id);
-
-        return view('category::edit', compact('form', 'category'));
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.category.update', $id),
+                'method'    => 'PUT'
+            ];
+    
+            $category = $this->categoryRepository->find($id);
+    
+            return view('category::edit', compact('form', 'category'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.category.index')->with('danger', __('notification.permission.fail', ['action' => 'edit category']));
+        }
     }
 
     /**
@@ -103,13 +137,19 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name'  => 'required|unique:categories,name,'.$id
-        ]);
+        try {
+            $this->authorize('category:edit');
 
-        $this->categoryRepository->update($id, $request->all());
-
-        return redirect()->route('admin.category.index')->with('success', __('notification.update.success', ['model' => 'category']));
+            $request->validate([
+                'name'  => 'required|unique:categories,name,'.$id
+            ]);
+    
+            $this->categoryRepository->update($id, $request->all());
+    
+            return redirect()->route('admin.category.index')->with('success', __('notification.update.success', ['model' => 'category']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.category.index')->with('danger', __('notification.permission.fail', ['action' => 'edit category']));
+        }
     }
 
     /**
@@ -119,9 +159,15 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $this->categoryRepository->delete($id);
+        try {
+            $this->authorize('category:delete');
 
-        return redirect()->route('admin.category.index')->with('success', __('notification.delete.success', ['model' => 'category']));
+            $this->categoryRepository->delete($id);
+    
+            return redirect()->route('admin.category.index')->with('success', __('notification.delete.success', ['model' => 'category']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.category.index')->with('danger', __('notification.permission.fail', ['action' => 'delete category']));
+        }
     }
 
     /**
@@ -131,9 +177,15 @@ class CategoryController extends Controller
      */
     public function builder()
     {
-        $categories = $this->categoryRepository->getParents();
+        try {
+            $this->authorize('category:edit');
 
-        return view('category::builder', compact('categories'));
+            $categories = $this->categoryRepository->getParents();
+    
+            return view('category::builder', compact('categories'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.category.index')->with('danger', __('notification.permission.fail', ['action' => 'edit category']));
+        }
     }
 
     /**
@@ -143,17 +195,23 @@ class CategoryController extends Controller
      */
     public function build(Request $request) 
     {
-        $request->validate([
-            'categories'    => 'required',
-        ]);
+        try {
+            $this->authorize('category:edit');
 
-        $categories = json_decode($request->input('categories'));
-
-        $this->categoryRepository->order($categories);
-
-        return response()->json([
-            'type'      => 'Success',
-            'message'   => __('notification.build.success', ['model' => 'category'])
-        ]);
+            $request->validate([
+                'categories'    => 'required',
+            ]);
+    
+            $categories = json_decode($request->input('categories'));
+    
+            $this->categoryRepository->order($categories);
+    
+            return response()->json([
+                'type'      => 'Success',
+                'message'   => __('notification.build.success', ['model' => 'category'])
+            ]);
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.category.index')->with('danger', __('notification.permission.fail', ['action' => 'edit category']));
+        }
     }
 }

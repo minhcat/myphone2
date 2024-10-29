@@ -105,7 +105,9 @@
             </div>
             <div class="box-footer">
                 <a href="{{ route('admin.category.index') }}" class="btn btn-default">Back</a>
+                @can('category:edit')
                 <a href="{{ route('admin.category.edit', $category->id) }}" class="btn btn-primary">Edit</a>
+                @endcan
             </div>
         </div>
     </div>

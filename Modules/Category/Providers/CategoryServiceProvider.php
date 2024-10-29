@@ -4,6 +4,9 @@ namespace Modules\Category\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\Category\Policies\CategoryPolicy;
 
 class CategoryServiceProvider extends ServiceProvider
 {
@@ -27,6 +30,7 @@ class CategoryServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +108,20 @@ class CategoryServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        Gate::define('category:browse', [CategoryPolicy::class, 'browse']);
+        Gate::define('category:read', [CategoryPolicy::class, 'read']);
+        Gate::define('category:add', [CategoryPolicy::class, 'add']);
+        Gate::define('category:edit', [CategoryPolicy::class, 'edit']);
+        Gate::define('category:delete', [CategoryPolicy::class, 'delete']);
     }
 }

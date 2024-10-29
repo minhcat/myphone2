@@ -20,8 +20,12 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('category:add')
                 <a href="{{ route('admin.category.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
+                @can('category:edit')
                 <a href="{{ route('admin.category.builder') }}" class="btn btn-success pull-right mr-2"><i class="fa fa-cog"></i> Builder</a>
+                @endcan
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -46,22 +50,38 @@
                                 <th>Author</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th style="width: 175px">Action</th>
+                                @canany(['category:edit', 'category:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($categories as $key => $category)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('category:read')
                                     <td><a href="{{ route('admin.category.show', $category->id) }}">{{ $category->name }}</a></td>
+                                    @else
+                                    <td>{{ $category->name }}</td>
+                                    @endcan
+                                    @can('category:read')
                                     <td><a href="{{ route('admin.category.show', $category->id) }}">{{ optional($category->parent)->name }}</a></td>
+                                    @else
+                                    <td>{{ optional($category->parent)->name }}</td>
+                                    @endcan
                                     <td>@if (!is_null($category->user)) <a href="{{ route('admin.user.show', $category->user->id) }}">{{ $category->user->fullname }}</a>@endif</td>
                                     <td>{{ $category->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $category->updated_at->format('H:i:s d/m/Y') }}</td>
-                                    <td>
+                                    @canany(['category:edit', 'category:delete'])
+                                    <td class="nowrap">
+                                        @can('category:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.category.edit', $category->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('category:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-category-delete" data-id="{{ $category->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>
