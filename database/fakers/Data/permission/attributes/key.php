@@ -27,7 +27,7 @@ return [
         ],
         [
             'value'                 => 'cart',  //
-            'max'                   => 6,
+            'max'                   => 3,
         ],
         [
             'value'                 => 'cart_detail',
@@ -185,7 +185,7 @@ return [
                     'withs'         => [
                         [
                             'type'  => FakerConditionType::NOT_EQUAL,
-                            'value' => 'product_detail',
+                            'value' => ['product_detail', 'cart'],
                             'rate'  => 1,
                         ],
                     ]
@@ -194,6 +194,13 @@ return [
                     'value'         => ':edit',
                     'space'         => false,
                     'max'           => 1,
+                    'withs'         => [
+                        [
+                            'type'  => FakerConditionType::NOT_EQUAL,
+                            'value' => 'cart',
+                            'rate'  => 1,
+                        ],
+                    ]
                 ],
                 [
                     'value'         => ':delete',
@@ -202,7 +209,7 @@ return [
                     'withs'         => [
                         [
                             'type'  => FakerConditionType::NOT_EQUAL,
-                            'value' => 'product_detail',
+                            'value' => ['product_detail', 'cart'],
                             'rate'  => 1,
                         ],
                     ]

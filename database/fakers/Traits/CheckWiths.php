@@ -19,19 +19,36 @@ trait CheckWiths
         $rate = 0;
         foreach ($this->withs as $with) {
             if (is_array($with->value)) {
-                foreach ($with->value as $with_value) {
-                    if (($with->type === FakerConditionType::EQUAL && $with_value === $value) 
-                    || ($with->type === FakerConditionType::NOT_EQUAL && $with_value !== $value)) {
-                        if ($rand_check) {
-                            $rand = lcg_value();
-                            $rate += $with->rate;
-                            if ($rand < $rate) {
-                                return true;
-                            }
-                        } else {
-                            return true;
+                if ($with->type === FakerConditionType::NOT_EQUAL) {
+                    foreach ($with->value as $with_value) {
+                        if ($with_value == $value) {
+                            return false;
                         }
                     }
+                    if ($rand_check) {
+                        $rand = lcg_value();
+                        $rate += $with->rate;
+                        if ($rand < $rate) {
+                            return true;
+                        }
+                    } else {
+                        return true;
+                    }
+                } else {
+                    foreach ($with->value as $with_value) {
+                        if ($with_value === $value) {
+                            if ($rand_check) {
+                                $rand = lcg_value();
+                                $rate += $with->rate;
+                                if ($rand < $rate) {
+                                    return true;
+                                }
+                            } else {
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
                 }
             } elseif (($with->type === FakerConditionType::EQUAL && $with->value === $value)
             || ($with->type === FakerConditionType::NOT_EQUAL && $with->value !== $value)) {
