@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Modules\City\Policies\CityPolicy;
 use Modules\City\Policies\DistrictPolicy;
+use Modules\City\Policies\WardPolicy;
 
 class CityServiceProvider extends ServiceProvider
 {
@@ -130,5 +131,11 @@ class CityServiceProvider extends ServiceProvider
         Gate::define('district:add', [DistrictPolicy::class, 'add']);
         Gate::define('district:edit', [DistrictPolicy::class, 'edit']);
         Gate::define('district:delete', [DistrictPolicy::class, 'delete']);
+        // ward
+        Gate::define('ward:browse', [WardPolicy::class, 'browse']);
+        Gate::define('ward:read', [WardPolicy::class, 'read']);
+        Gate::define('ward:add', [WardPolicy::class, 'add']);
+        Gate::define('ward:edit', [WardPolicy::class, 'edit']);
+        Gate::define('ward:delete', [WardPolicy::class, 'delete']);
     }
 }

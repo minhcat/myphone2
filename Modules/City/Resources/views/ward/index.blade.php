@@ -22,7 +22,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('ward:add')
                 <a href="{{ route('admin.city.district.ward.create', ['city_id' => $city_id, 'district_id' => $district_id]) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
                 <a href="{{ route('admin.city.district.index', $city_id) }}" class="btn btn-default pull-right mr-1"><i class="fa fa-arrow-left"></i> Back</a>
             </div>
             <div class="box-body">
@@ -47,14 +49,20 @@
                                 <th>Author</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th style="width: 175px">Action</th>
+                                @canany(['ward:edit', 'ward:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($wards as $key => $ward)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('ward:read')
                                     <td><a href="{{ route('admin.city.district.ward.show', ['city_id' => $city_id, 'district_id' => $district_id, 'id' => $ward->id]) }}">{{ $ward->name }}</a></td>
+                                    @else
+                                    <td>{{ $ward->name }}</td>
+                                    @endcan
                                     @if ($ward->user)
                                     <td><a href="{{ route('admin.user.show', $ward->user->id) }}">{{ $ward->user->fullname }}</a></td>
                                     @else
@@ -62,10 +70,16 @@
                                     @endif
                                     <td>{{ $ward->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $ward->updated_at->format('H:i:s d/m/Y') }}</td>
-                                    <td>
+                                    @canany(['ward:edit', 'ward:delete'])
+                                    <td class="nowrap">
+                                        @can('ward:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.city.district.ward.edit', ['city_id' => $city_id, 'district_id' => $district_id, 'id' => $ward->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('ward:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-ward-delete" data-id="{{ $ward->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>

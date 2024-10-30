@@ -158,7 +158,9 @@ class DistrictController extends Controller
     
             $this->districtRepository->update($id, $request->all());
     
-            return redirect()->route('admin.city.district.index', $city_id)->with('success', __('notification.update.success', ['model' => 'district']));
+            return redirect()
+            ->route('admin.city.district.index', $city_id)
+            ->with('success', __('notification.update.success', ['model' => 'district']));
         } catch (AuthorizationException $exception) {
             return redirect()
             ->route('admin.city.district.index', $city_id)
@@ -178,7 +180,9 @@ class DistrictController extends Controller
 
             $this->districtRepository->delete($id);
     
-            return redirect()->route('admin.city.district.index', $city_id)->with('success', __('notification.delete.success', ['model' => 'district']));
+            return redirect()
+            ->route('admin.city.district.index', $city_id)
+            ->with('success', __('notification.delete.success', ['model' => 'district']));
         } catch (AuthorizationException $exception) {
             return redirect()
             ->route('admin.city.district.index', $city_id)
