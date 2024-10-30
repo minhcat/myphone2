@@ -2,13 +2,17 @@
 
 namespace Modules\City\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\City\Repositories\CityRepository;
 
 class CityController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\City\Repositories\CityRepository */
     protected $cityRepository;
 
@@ -28,10 +32,16 @@ class CityController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $cities = $this->cityRepository->paginate($search);
+        try {
+            $this->authorize('city:browse');
 
-        return view('city::city.index', compact('cities'));
+            $search = $request->input('search');
+            $cities = $this->cityRepository->paginate($search);
+    
+            return view('city::city.index', compact('cities'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin')->with('danger', __('notification.permission.fail', ['action' => 'browse city']));
+        }
     }
 
     /**
@@ -40,13 +50,19 @@ class CityController extends Controller
      */
     public function create()
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.city.store'),
-            'method'    => 'POST'
-        ];
+        try {
+            $this->authorize('city:add');
 
-        return view('city::city.create', compact('form'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.city.store'),
+                'method'    => 'POST'
+            ];
+    
+            return view('city::city.create', compact('form'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.city.index')->with('danger', __('notification.permission.fail', ['action' => 'add city']));
+        }
     }
 
     /**
@@ -56,13 +72,19 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'  => 'required'
-        ]);
+        try {
+            $this->authorize('city:add');
 
-        $this->cityRepository->create($request->all());
-
-        return redirect()->route('admin.city.index')->with('success', __('notification.create.success', ['model' => 'city']));
+            $request->validate([
+                'name'  => 'required'
+            ]);
+    
+            $this->cityRepository->create($request->all());
+    
+            return redirect()->route('admin.city.index')->with('success', __('notification.create.success', ['model' => 'city']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.city.index')->with('danger', __('notification.permission.fail', ['action' => 'add city']));
+        }
     }
 
     /**
@@ -72,9 +94,15 @@ class CityController extends Controller
      */
     public function show($id)
     {
-        $city = $this->cityRepository->find($id);
+        try {
+            $this->authorize('city:read');
 
-        return view('city::city.show', compact('city'));
+            $city = $this->cityRepository->find($id);
+    
+            return view('city::city.show', compact('city'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.city.index')->with('danger', __('notification.permission.fail', ['action' => 'read city']));
+        }
     }
 
     /**
@@ -84,15 +112,21 @@ class CityController extends Controller
      */
     public function edit($id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.city.update', $id),
-            'method'    => 'PUT'
-        ];
+        try {
+            $this->authorize('city:edit');
 
-        $city = $this->cityRepository->find($id);
-
-        return view('city::city.edit', compact('form', 'city'));
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.city.update', $id),
+                'method'    => 'PUT'
+            ];
+    
+            $city = $this->cityRepository->find($id);
+    
+            return view('city::city.edit', compact('form', 'city'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.city.index')->with('danger', __('notification.permission.fail', ['action' => 'edit city']));
+        }
     }
 
     /**
@@ -103,13 +137,19 @@ class CityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name'  => 'required'
-        ]);
+        try {
+            $this->authorize('city:edit');
 
-        $this->cityRepository->update($id, $request->all());
-
-        return redirect()->route('admin.city.index')->with('success', __('notification.update.success', ['model' => 'city']));
+            $request->validate([
+                'name'  => 'required'
+            ]);
+    
+            $this->cityRepository->update($id, $request->all());
+    
+            return redirect()->route('admin.city.index')->with('success', __('notification.update.success', ['model' => 'city']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.city.index')->with('danger', __('notification.permission.fail', ['action' => 'edit city']));
+        }
     }
 
     /**
@@ -119,8 +159,14 @@ class CityController extends Controller
      */
     public function destroy($id)
     {
-        $this->cityRepository->delete($id);
+        try {
+            $this->authorize('city:delete');
 
-        return redirect()->route('admin.city.index')->with('success', __('notification.delete.success', ['model' => 'city']));
+            $this->cityRepository->delete($id);
+    
+            return redirect()->route('admin.city.index')->with('success', __('notification.delete.success', ['model' => 'city']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.city.index')->with('danger', __('notification.permission.fail', ['action' => 'delete city']));
+        }
     }
 }

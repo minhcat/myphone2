@@ -4,6 +4,9 @@ namespace Modules\City\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\City\Policies\CityPolicy;
 
 class CityServiceProvider extends ServiceProvider
 {
@@ -27,6 +30,7 @@ class CityServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +108,21 @@ class CityServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        // city
+        Gate::define('city:browse', [CityPolicy::class, 'browse']);
+        Gate::define('city:read', [CityPolicy::class, 'read']);
+        Gate::define('city:add', [CityPolicy::class, 'add']);
+        Gate::define('city:edit', [CityPolicy::class, 'edit']);
+        Gate::define('city:delete', [CityPolicy::class, 'delete']);
     }
 }
