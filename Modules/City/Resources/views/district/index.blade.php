@@ -21,7 +21,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('district:add')
                 <a href="{{ route('admin.city.district.create', $city_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
                 <a href="{{ route('admin.city.index') }}" class="btn btn-default pull-right mr-1"><i class="fa fa-arrow-left"></i> Back</a>
             </div>
             <div class="box-body">
@@ -47,14 +49,20 @@
                                 <th>Wards</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th style="width: 175px">Action</th>
+                                @canany(['district:edit', 'district:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($districts as $key => $district)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('district:read')
                                     <td><a href="{{ route('admin.city.district.show', ['city_id' => $city_id, 'id' => $district->id]) }}">{{ $district->name }}</a></td>
+                                    @else
+                                    <td>{{ $district->name }}</td>
+                                    @endcan
                                     @if ($district->user)
                                     <td><a href="{{ route('admin.user.show', $district->user->id) }}">{{ $district->user->fullname }}</a></td>
                                     @else
@@ -63,10 +71,16 @@
                                     <td><a href="{{ route('admin.city.district.ward.index', ['city_id' => $city_id, 'district_id' => $district->id]) }}">list</a></td>
                                     <td>{{ $district->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $district->updated_at->format('H:i:s d/m/Y') }}</td>
-                                    <td>
+                                    @canany(['district:edit', 'district:delete'])
+                                    <td class="nowrap">
+                                        @can('district:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.city.district.edit', ['city_id' => $city_id, 'id' => $district->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('district:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-district-delete" data-id="{{ $district->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>

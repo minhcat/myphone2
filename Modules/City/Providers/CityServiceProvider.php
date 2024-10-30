@@ -3,10 +3,10 @@
 namespace Modules\City\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Modules\City\Policies\CityPolicy;
+use Modules\City\Policies\DistrictPolicy;
 
 class CityServiceProvider extends ServiceProvider
 {
@@ -124,5 +124,11 @@ class CityServiceProvider extends ServiceProvider
         Gate::define('city:add', [CityPolicy::class, 'add']);
         Gate::define('city:edit', [CityPolicy::class, 'edit']);
         Gate::define('city:delete', [CityPolicy::class, 'delete']);
+        // district
+        Gate::define('district:browse', [DistrictPolicy::class, 'browse']);
+        Gate::define('district:read', [DistrictPolicy::class, 'read']);
+        Gate::define('district:add', [DistrictPolicy::class, 'add']);
+        Gate::define('district:edit', [DistrictPolicy::class, 'edit']);
+        Gate::define('district:delete', [DistrictPolicy::class, 'delete']);
     }
 }

@@ -76,7 +76,9 @@
             </div>
             <div class="box-footer">
                 <a href="{{ route('admin.city.district.index', $city_id) }}" class="btn btn-default">Back</a>
+                @can('district:edit')
                 <a href="{{ route('admin.city.district.edit', ['city_id' => $city_id, 'id' => $district->id]) }}" class="btn btn-primary">Edit</a>
+                @endcan
             </div>
         </div>
     </div>

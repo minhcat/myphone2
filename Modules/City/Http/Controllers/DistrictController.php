@@ -2,13 +2,17 @@
 
 namespace Modules\City\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\City\Repositories\DistrictRepository;
 
 class DistrictController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\City\Repositories\DistrictRepository */
     protected $districtRepository;
 
@@ -28,10 +32,18 @@ class DistrictController extends Controller
      */
     public function index(Request $request, $city_id)
     {
-        $search = $request->input('search');
-        $districts = $this->districtRepository->paginateByCityId($city_id, $search);
+        try {
+            $this->authorize('district:browse');
 
-        return view('city::district.index', compact('city_id', 'districts'));
+            $search = $request->input('search');
+            $districts = $this->districtRepository->paginateByCityId($city_id, $search);
+    
+            return view('city::district.index', compact('city_id', 'districts'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.city.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'browse district']));
+        }
     }
 
     /**
@@ -40,13 +52,21 @@ class DistrictController extends Controller
      */
     public function create($city_id)
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.city.district.store', $city_id),
-            'method'    => 'POST'
-        ];
+        try {
+            $this->authorize('district:add');
 
-        return view('city::district.create', compact('form', 'city_id'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.city.district.store', $city_id),
+                'method'    => 'POST'
+            ];
+    
+            return view('city::district.create', compact('form', 'city_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.city.district.index', $city_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'add district']));
+        }
     }
 
     /**
@@ -56,13 +76,23 @@ class DistrictController extends Controller
      */
     public function store(Request $request, $city_id)
     {
-        $request->validate([
-            'name'  => 'required'
-        ]);
+        try {
+            $this->authorize('district:add');
 
-        $this->districtRepository->create($request->all(), ['city_id' => $city_id]);
-
-        return redirect()->route('admin.city.district.index', $city_id)->with('success', __('notification.create.success', ['model' => 'district']));
+            $request->validate([
+                'name'  => 'required'
+            ]);
+    
+            $this->districtRepository->create($request->all(), ['city_id' => $city_id]);
+    
+            return redirect()
+            ->route('admin.city.district.index', $city_id)
+            ->with('success', __('notification.create.success', ['model' => 'district']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.city.district.index', $city_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'add district']));
+        }
     }
 
     /**
@@ -72,9 +102,17 @@ class DistrictController extends Controller
      */
     public function show($city_id, $id)
     {
-        $district = $this->districtRepository->find($id);
+        try {
+            $this->authorize('district:read');
 
-        return view('city::district.show', compact('district', 'city_id'));
+            $district = $this->districtRepository->find($id);
+    
+            return view('city::district.show', compact('district', 'city_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.city.district.index', $city_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'read district']));
+        }
     }
 
     /**
@@ -84,15 +122,23 @@ class DistrictController extends Controller
      */
     public function edit($city_id, $id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.city.district.update', ['city_id' => $city_id, 'id' => $id]),
-            'method'    => 'PUT'
-        ];
+        try {
+            $this->authorize('district:edit');
 
-        $district = $this->districtRepository->find($id);
-
-        return view('city::district.edit', compact('form', 'district', 'city_id'));
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.city.district.update', ['city_id' => $city_id, 'id' => $id]),
+                'method'    => 'PUT'
+            ];
+    
+            $district = $this->districtRepository->find($id);
+    
+            return view('city::district.edit', compact('form', 'district', 'city_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.city.district.index', $city_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit district']));
+        }
     }
 
     /**
@@ -103,13 +149,21 @@ class DistrictController extends Controller
      */
     public function update(Request $request, $city_id, $id)
     {
-        $request->validate([
-            'name'  => 'required'
-        ]);
+        try {
+            $this->authorize('district:edit');
 
-        $this->districtRepository->update($id, $request->all());
-
-        return redirect()->route('admin.city.district.index', $city_id)->with('success', __('notification.update.success', ['model' => 'district']));
+            $request->validate([
+                'name'  => 'required'
+            ]);
+    
+            $this->districtRepository->update($id, $request->all());
+    
+            return redirect()->route('admin.city.district.index', $city_id)->with('success', __('notification.update.success', ['model' => 'district']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.city.district.index', $city_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit district']));
+        }
     }
 
     /**
@@ -119,8 +173,16 @@ class DistrictController extends Controller
      */
     public function destroy($city_id, $id)
     {
-        $this->districtRepository->delete($id);
+        try {
+            $this->authorize('district:delete');
 
-        return redirect()->route('admin.city.district.index', $city_id)->with('success', __('notification.delete.success', ['model' => 'district']));
+            $this->districtRepository->delete($id);
+    
+            return redirect()->route('admin.city.district.index', $city_id)->with('success', __('notification.delete.success', ['model' => 'district']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.city.district.index', $city_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'delete district']));
+        }
     }
 }
