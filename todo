@@ -5,3 +5,4 @@ job update product tab - schedule cron job
 set take paginate to 10 or 15
 update user account in index view module
 set height td table index view
+make change status method to module has approve

@@ -20,7 +20,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('gift:add')
                 <a href="{{ route('admin.gift.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -46,14 +48,20 @@
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Status</th>
-                                <th style="width: 274px">Action</th>
+                                @canany(['gift:approve', 'gift:edit', 'gift:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($gifts as $key => $gift)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('gift:read')
                                     <td><a href="{{ route('admin.gift.show', $gift->id) }}">{{ $gift->name }}</a></td>
+                                    @else
+                                    <td>{{ $gift->name }}</td>
+                                    @endcan
                                     @if ($gift->user)
                                     <td><a href="{{ route('admin.user.show', $gift->user->id) }}">{{ $gift->user->fullname }}</a></td>
                                     @else
@@ -63,11 +71,19 @@
                                     <td>{{ $gift->start_datetime?->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $gift->end_datetime?->format('H:i:s d/m/Y') }}</td>
                                     <td>{!! generate_label($gift->status, new PromotionStatus) !!}</td>
-                                    <td style="text-align: right">
+                                    @canany(['gift:approve', 'gift:edit', 'gift:delete'])
+                                    <td style="text-align: right" class="nowrap">
+                                        @can('gift:approve')
                                         {!! generate_button_update_status($gift->status, new PromotionStatus, ['toggle' => 'modal', 'target' => '#modal-gift-update', 'id' => $gift->id, 'status' => PromotionStatus::getNextStatus($gift->status)]) !!}
+                                        @endcan
+                                        @can('gift:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.gift.edit', $gift->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('gift:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-gift-delete" data-id="{{ $gift->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>

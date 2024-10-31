@@ -4,6 +4,9 @@ namespace Modules\Gift\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\Gift\Policies\GiftPolicy;
 
 class GiftServiceProvider extends ServiceProvider
 {
@@ -27,6 +30,7 @@ class GiftServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +108,22 @@ class GiftServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        // Gift
+        Gate::define('gift:browse', [GiftPolicy::class, 'browse']);
+        Gate::define('gift:read', [GiftPolicy::class, 'read']);
+        Gate::define('gift:add', [GiftPolicy::class, 'add']);
+        Gate::define('gift:edit', [GiftPolicy::class, 'edit']);
+        Gate::define('gift:delete', [GiftPolicy::class, 'delete']);
+        Gate::define('gift:approve', [GiftPolicy::class, 'approve']);
     }
 }

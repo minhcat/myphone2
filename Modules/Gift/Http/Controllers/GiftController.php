@@ -3,13 +3,17 @@
 namespace Modules\Gift\Http\Controllers;
 
 use App\Enums\PromotionStatus;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Gift\Repositories\GiftRepository;
 
 class GiftController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Gift\Repositories\GiftRepository */
     protected $giftRepository;
 
@@ -29,10 +33,16 @@ class GiftController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $gifts = $this->giftRepository->paginate($search);
+        try {
+            $this->authorize('gift:browse');
 
-        return view('gift::gift.index', compact('gifts'));
+            $search = $request->input('search');
+            $gifts = $this->giftRepository->paginate($search);
+    
+            return view('gift::gift.index', compact('gifts'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin')->with('danger', __('notification.permission.fail', ['action' => 'browse gift']));
+        }
     }
 
     /**
@@ -41,13 +51,19 @@ class GiftController extends Controller
      */
     public function create()
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.gift.store'),
-            'method'    => 'POST',
-        ];
+        try {
+            $this->authorize('gift:add');
 
-        return view('gift::gift.create', compact('form'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.gift.store'),
+                'method'    => 'POST',
+            ];
+    
+            return view('gift::gift.create', compact('form'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.gift.index')->with('danger', __('notification.permission.fail', ['action' => 'add gift']));
+        }
     }
 
     /**
@@ -57,13 +73,19 @@ class GiftController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'  => 'required'
-        ]);
+        try {
+            $this->authorize('gift:add');
 
-        $this->giftRepository->create($request->all(), ['status' => PromotionStatus::PENDING]);
-
-        return redirect()->route('admin.gift.index')->with('success', __('notification.create.success', ['model' => 'gift']));
+            $request->validate([
+                'name'  => 'required'
+            ]);
+    
+            $this->giftRepository->create($request->all(), ['status' => PromotionStatus::PENDING]);
+    
+            return redirect()->route('admin.gift.index')->with('success', __('notification.create.success', ['model' => 'gift']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.gift.index')->with('danger', __('notification.permission.fail', ['action' => 'add gift']));
+        }
     }
 
     /**
@@ -73,9 +95,15 @@ class GiftController extends Controller
      */
     public function show($id)
     {
-        $gift = $this->giftRepository->find($id);
+        try {
+            $this->authorize('gift:read');
 
-        return view('gift::gift.show', compact('gift'));
+            $gift = $this->giftRepository->find($id);
+    
+            return view('gift::gift.show', compact('gift'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.gift.index')->with('danger', __('notification.permission.fail', ['action' => 'read gift']));
+        }
     }
 
     /**
@@ -85,14 +113,20 @@ class GiftController extends Controller
      */
     public function edit($id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.gift.update', $id),
-            'method'    => 'PUT',
-        ];
-        $gift = $this->giftRepository->find($id);
+        try {
+            $this->authorize('gift:edit');
 
-        return view('gift::gift.edit', compact('form', 'gift'));
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.gift.update', $id),
+                'method'    => 'PUT',
+            ];
+            $gift = $this->giftRepository->find($id);
+    
+            return view('gift::gift.edit', compact('form', 'gift'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.gift.index')->with('danger', __('notification.permission.fail', ['action' => 'edit gift']));
+        }
     }
 
     /**
@@ -103,9 +137,15 @@ class GiftController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->giftRepository->update($id, $request->all());
+        try {
+            $this->authorize('gift:edit');
 
-        return redirect()->route('admin.gift.index')->with('success', __('notification.update.success', ['model' => 'gift']));
+            $this->giftRepository->update($id, $request->all());
+    
+            return redirect()->route('admin.gift.index')->with('success', __('notification.update.success', ['model' => 'gift']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.gift.index')->with('danger', __('notification.permission.fail', ['action' => 'edit gift']));
+        }
     }
 
     /**
@@ -115,8 +155,14 @@ class GiftController extends Controller
      */
     public function destroy($id)
     {
-        $this->giftRepository->delete($id);
+        try {
+            $this->authorize('gift:delete');
 
-        return redirect()->route('admin.gift.index')->with('sucess', __('notification.delete.success', ['model' => 'gift']));
+            $this->giftRepository->delete($id);
+    
+            return redirect()->route('admin.gift.index')->with('sucess', __('notification.delete.success', ['model' => 'gift']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.gift.index')->with('danger', __('notification.permission.fail', ['action' => 'delete gift']));
+        }
     }
 }
