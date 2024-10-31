@@ -22,7 +22,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('gift_product_item:add')
                 <a href="{{ route('admin.gift.product.item.create', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id]) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
                 <a href="{{ route('admin.gift.product.index', $gift_id) }}" class="btn btn-default pull-right mr-1"><i class="fa fa-arrow-left"></i> Back</a>
             </div>
             <div class="box-body">
@@ -48,7 +50,9 @@
                                 <th>Quantity</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th style="width: 175px">Action</th>
+                                @canany(['gift_product_item:edit', 'gift_product_item:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
@@ -64,15 +68,21 @@
                                     <td>{{ $gift_product_item->quantity === null ? '#' : $gift_product_item->quantity }}</td>
                                     <td>{{ $gift_product_item->created_at->format('H:i:s d-m-Y') }}</td>
                                     <td>{{ $gift_product_item->updated_at->format('H:i:s d-m-Y') }}</td>
-                                    <td style="text-align: right">
+                                    @canany(['gift_product_item:edit', 'gift_product_item:delete'])
+                                    <td style="text-align: right" class="nowrap">
+                                        @can('gift_product_item:edit')
                                         <a class="btn btn-primary"
                                         href="{{ route('admin.gift.product.item.edit', [
                                             'gift_id' => $gift_id,
                                             'gift_product_id' => $gift_product_id,
                                             'id' => $gift_product_item->id
                                         ]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('gift_product_item:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-gift-product-item-delete" data-id="{{ $gift_product_item->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>

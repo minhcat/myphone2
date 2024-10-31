@@ -3,7 +3,9 @@
 namespace Modules\Gift\Http\Controllers;
 
 use App\Enums\TargetType;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Gift\Repositories\GiftProductItemRepository;
@@ -12,6 +14,8 @@ use Modules\Product\Repositories\VariationRepository;
 
 class GiftProductItemController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Gift\Repositories\GiftProductItemRepository */
     protected $giftProductItemRepository;
 
@@ -39,10 +43,18 @@ class GiftProductItemController extends Controller
      */
     public function index(Request $request, $gift_id, $gift_product_id)
     {
-        $search = $request->input('search');
-        $gift_product_items = $this->giftProductItemRepository->paginateByGiftProductId($gift_product_id, $search);
+        try {
+            $this->authorize('gift_product_item:browse');
 
-        return view('gift::item.index', compact('gift_product_items', 'gift_id', 'gift_product_id'));
+            $search = $request->input('search');
+            $gift_product_items = $this->giftProductItemRepository->paginateByGiftProductId($gift_product_id, $search);
+    
+            return view('gift::item.index', compact('gift_product_items', 'gift_id', 'gift_product_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.gift.product.index', $gift_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'browse gift product item']));
+        }
     }
 
     /**
@@ -51,17 +63,25 @@ class GiftProductItemController extends Controller
      */
     public function create($gift_id, $gift_product_id)
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.gift.product.item.store', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id]),
-            'method'    => 'POST',
-        ];
+        try {
+            $this->authorize('gift_product_item:add');
 
-        $products = $this->productRepository->all();
-        $variants = $this->variantRepository->all();
-        $target_types = TargetType::getObject();
-
-        return view('gift::item.create', compact('form', 'gift_id', 'gift_product_id', 'products', 'variants', 'target_types'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.gift.product.item.store', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id]),
+                'method'    => 'POST',
+            ];
+    
+            $products = $this->productRepository->all();
+            $variants = $this->variantRepository->all();
+            $target_types = TargetType::getObject();
+    
+            return view('gift::item.create', compact('form', 'gift_id', 'gift_product_id', 'products', 'variants', 'target_types'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.gift.product.item.index', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id])
+            ->with('danger', __('notification.permission.fail', ['action' => 'add gift product item']));
+        }
     }
 
     /**
@@ -71,16 +91,24 @@ class GiftProductItemController extends Controller
      */
     public function store(Request $request, $gift_id, $gift_product_id)
     {
-        $request->validate([
-            'target_type'   => 'required',
-            'target_id'     => 'required',
-        ]);
+        try {
+            $this->authorize('gift_product_item:add');
 
-        $this->giftProductItemRepository->create($request->all(), ['gift_product_id' => $gift_product_id]);
-
-        return redirect()
-        ->route('admin.gift.product.item.index', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id])
-        ->with('success', __('notification.create.success', ['model' => 'gift product item']));
+            $request->validate([
+                'target_type'   => 'required',
+                'target_id'     => 'required',
+            ]);
+    
+            $this->giftProductItemRepository->create($request->all(), ['gift_product_id' => $gift_product_id]);
+    
+            return redirect()
+            ->route('admin.gift.product.item.index', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id])
+            ->with('success', __('notification.create.success', ['model' => 'gift product item']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.gift.product.item.index', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id])
+            ->with('danger', __('notification.permission.fail', ['action' => 'add gift product item']));
+        }
     }
 
     /**
@@ -90,18 +118,26 @@ class GiftProductItemController extends Controller
      */
     public function edit($gift_id, $gift_product_id, $id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.gift.product.item.update', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id, 'id' => $id]),
-            'method'    => 'PUT',
-        ];
+        try {
+            $this->authorize('gift_product_item:edit');
 
-        $products = $this->productRepository->all();
-        $variants = $this->variantRepository->all();
-        $target_types = TargetType::getObject();
-        $gift_product_item = $this->giftProductItemRepository->find($id);
-
-        return view('gift::item.edit', compact('form', 'products', 'variants', 'target_types', 'gift_id', 'gift_product_id', 'gift_product_item'));
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.gift.product.item.update', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id, 'id' => $id]),
+                'method'    => 'PUT',
+            ];
+    
+            $products = $this->productRepository->all();
+            $variants = $this->variantRepository->all();
+            $target_types = TargetType::getObject();
+            $gift_product_item = $this->giftProductItemRepository->find($id);
+    
+            return view('gift::item.edit', compact('form', 'products', 'variants', 'target_types', 'gift_id', 'gift_product_id', 'gift_product_item'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.gift.product.item.index', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id])
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit gift product item']));
+        }
     }
 
     /**
@@ -112,16 +148,24 @@ class GiftProductItemController extends Controller
      */
     public function update(Request $request, $gift_id, $gift_product_id, $id)
     {
-        $request->validate([
-            'target_type'   => 'required',
-            'target_id'     => 'required',
-        ]);
+        try {
+            $this->authorize('gift_product_item:edit');
 
-        $this->giftProductItemRepository->update($id, $request->all());
-
-        return redirect()
-        ->route('admin.gift.product.item.index', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id])
-        ->with('success', __('notification.update.success', ['model' => 'gift product item']));
+            $request->validate([
+                'target_type'   => 'required',
+                'target_id'     => 'required',
+            ]);
+    
+            $this->giftProductItemRepository->update($id, $request->all());
+    
+            return redirect()
+            ->route('admin.gift.product.item.index', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id])
+            ->with('success', __('notification.update.success', ['model' => 'gift product item']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.gift.product.item.index', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id])
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit gift product item']));
+        }
     }
 
     /**
@@ -131,10 +175,18 @@ class GiftProductItemController extends Controller
      */
     public function destroy($gift_id, $gift_product_id, $id)
     {
-        $this->giftProductItemRepository->delete($id);
+        try {
+            $this->authorize('gift_product_item:delete');
 
-        return redirect()
-        ->route('admin.gift.product.item.index', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id])
-        ->with('success', __('notification.delete.success', ['model' => 'gift product item']));
+            $this->giftProductItemRepository->delete($id);
+    
+            return redirect()
+            ->route('admin.gift.product.item.index', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id])
+            ->with('success', __('notification.delete.success', ['model' => 'gift product item']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.gift.product.item.index', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product_id])
+            ->with('danger', __('notification.permission.fail', ['action' => 'delete gift product item']));
+        }
     }
 }

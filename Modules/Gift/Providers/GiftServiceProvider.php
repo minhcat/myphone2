@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Modules\Gift\Policies\GiftPolicy;
+use Modules\Gift\Policies\GiftProductItemPolicy;
 use Modules\Gift\Policies\GiftProductPolicy;
 
 class GiftServiceProvider extends ServiceProvider
@@ -131,5 +132,10 @@ class GiftServiceProvider extends ServiceProvider
         Gate::define('gift_product:add', [GiftProductPolicy::class, 'add']);
         Gate::define('gift_product:edit', [GiftProductPolicy::class, 'edit']);
         Gate::define('gift_product:delete', [GiftProductPolicy::class, 'delete']);
+        // Gift Product Item
+        Gate::define('gift_product_item:browse', [GiftProductItemPolicy::class, 'browse']);
+        Gate::define('gift_product_item:add', [GiftProductItemPolicy::class, 'add']);
+        Gate::define('gift_product_item:edit', [GiftProductItemPolicy::class, 'edit']);
+        Gate::define('gift_product_item:delete', [GiftProductItemPolicy::class, 'delete']);
     }
 }
