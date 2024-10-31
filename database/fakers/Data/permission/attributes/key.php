@@ -55,7 +55,7 @@ return [
         ],
         [
             'value'                 => 'gift_product',
-            'max'                   => 5,
+            'max'                   => 4,
         ],
         [
             'value'                 => 'gift_product_item',
@@ -173,7 +173,7 @@ return [
                     'withs'         => [
                         [
                             'type'  => FakerConditionType::NOT_EQUAL,
-                            'value' => ['area_detail', 'cart_detail'],
+                            'value' => ['area_detail', 'cart_detail', 'gift_product'],
                             'rate'  => 1,
                         ],
                     ]
