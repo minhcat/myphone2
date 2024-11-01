@@ -54,7 +54,11 @@
                             @foreach ($invoices as $key => $invoice)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('invoice:read')
                                     <td><a href="{{ route('admin.invoice.show', $invoice->id) }}">{{ $invoice->code }}</a></td>
+                                    @else
+                                    <td>{{ $invoice->code }}</td>
+                                    @endcan
                                     <td>@if (!is_null($invoice->user)) <a href="{{ route('admin.user.show', $invoice->user->id) }}">{{ $invoice->user->fullname }}</a>@endif</td>
                                     <td><a href="{{ route('admin.invoice.detail.index', $invoice->id) }}">list</a></td>
                                     <td>{{ $invoice->quantity }}</td>

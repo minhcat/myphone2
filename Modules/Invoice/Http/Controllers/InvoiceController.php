@@ -2,13 +2,17 @@
 
 namespace Modules\Invoice\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Invoice\Repositories\InvoiceRepository;
 
 class InvoiceController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Invoice\Repositories\InvoiceRepository */
     protected $invoiceRepository;
 
@@ -28,10 +32,16 @@ class InvoiceController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $invoices = $this->invoiceRepository->paginate($search);
+        try {
+            $this->authorize('invoice:browse');
 
-        return view('invoice::invoice.index', compact('invoices'));
+            $search = $request->input('search');
+            $invoices = $this->invoiceRepository->paginate($search);
+
+            return view('invoice::invoice.index', compact('invoices'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin')->with('danger', __('notification.permission.fail', ['action' => 'browse invoice']));
+        }
     }
 
     /**
@@ -41,9 +51,15 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
-        $invoice = $this->invoiceRepository->find($id);
+        try {
+            $this->authorize('invoice:read');
 
-        return view('invoice::invoice.show', compact('invoice'));
+            $invoice = $this->invoiceRepository->find($id);
+
+            return view('invoice::invoice.show', compact('invoice'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.invoice.index')->with('danger', __('notification.permission.fail', ['action' => 'read invoice']));
+        }
     }
 
     /**
@@ -53,8 +69,14 @@ class InvoiceController extends Controller
      */
     public function showInvoice($id)
     {
-        $invoice = $this->invoiceRepository->find($id);
+        try {
+            $this->authorize('invoice:read');
 
-        return view('invoice::invoice.invoice', compact('invoice'));
+            $invoice = $this->invoiceRepository->find($id);
+
+            return view('invoice::invoice.invoice', compact('invoice'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.invoice.index')->with('danger', __('notification.permission.fail', ['action' => 'read invoice']));
+        }
     }
 }

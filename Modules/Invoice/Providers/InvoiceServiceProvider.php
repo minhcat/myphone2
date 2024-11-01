@@ -4,6 +4,9 @@ namespace Modules\Invoice\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\Invoice\Policies\InvoicePolicy;
 
 class InvoiceServiceProvider extends ServiceProvider
 {
@@ -27,6 +30,7 @@ class InvoiceServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +108,21 @@ class InvoiceServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        // Invoice
+        Gate::define('invoice:browse', [InvoicePolicy::class, 'browse']);
+        Gate::define('invoice:read', [InvoicePolicy::class, 'read']);
+        Gate::define('invoice:add', [InvoicePolicy::class, 'add']);
+        Gate::define('invoice:edit', [InvoicePolicy::class, 'edit']);
+        Gate::define('invoice:delete', [InvoicePolicy::class, 'delete']);
     }
 }

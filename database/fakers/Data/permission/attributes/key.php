@@ -63,7 +63,7 @@ return [
         ],
         [
             'value'                 => 'invoice',
-            'max'                   => 5,
+            'max'                   => 2,
         ],
         [
             'value'                 => 'invoice_detail',
@@ -185,7 +185,7 @@ return [
                     'withs'         => [
                         [
                             'type'  => FakerConditionType::NOT_EQUAL,
-                            'value' => ['product_detail', 'cart'],
+                            'value' => ['product_detail', 'cart', 'invoice'],
                             'rate'  => 1,
                         ],
                     ]
@@ -197,7 +197,7 @@ return [
                     'withs'         => [
                         [
                             'type'  => FakerConditionType::NOT_EQUAL,
-                            'value' => 'cart',
+                            'value' => ['cart', 'invoice'],
                             'rate'  => 1,
                         ],
                     ]
@@ -209,7 +209,7 @@ return [
                     'withs'         => [
                         [
                             'type'  => FakerConditionType::NOT_EQUAL,
-                            'value' => ['product_detail', 'cart'],
+                            'value' => ['product_detail', 'cart', 'invoice'],
                             'rate'  => 1,
                         ],
                     ]
