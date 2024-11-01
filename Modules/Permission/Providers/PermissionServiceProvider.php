@@ -4,6 +4,9 @@ namespace Modules\Permission\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\Permission\Policies\PermissionPolicy;
 
 class PermissionServiceProvider extends ServiceProvider
 {
@@ -27,6 +30,7 @@ class PermissionServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +108,21 @@ class PermissionServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        // Permission
+        Gate::define('permission:browse', [PermissionPolicy::class, 'browse']);
+        Gate::define('permission:read', [PermissionPolicy::class, 'read']);
+        Gate::define('permission:add', [PermissionPolicy::class, 'add']);
+        Gate::define('permission:edit', [PermissionPolicy::class, 'edit']);
+        Gate::define('permission:delete', [PermissionPolicy::class, 'delete']);
     }
 }

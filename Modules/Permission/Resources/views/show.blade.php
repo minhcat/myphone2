@@ -95,7 +95,9 @@
             </div>
             <div class="box-footer">
                 <a href="{{ route('admin.permission.index') }}" class="btn btn-default">Back</a>
+                @can('permission:edit')
                 <a href="{{ route('admin.permission.edit', $permission->id) }}" class="btn btn-primary">Edit</a>
+                @endcan
             </div>
         </div>
     </div>

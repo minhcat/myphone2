@@ -20,7 +20,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('permission:add')
                 <a href="{{ route('admin.permission.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -46,14 +48,20 @@
                                 <th>Author</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th style="width: 175px">Action</th>
+                                @canany(['permission:edit', 'permission:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($permissions as $key => $permission)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('permission:read')
                                     <td><a href="{{ route('admin.permission.show', $permission->id) }}">{{ $permission->name }}</a></td>
+                                    @else
+                                    <td>{{ $permission->name }}</td>
+                                    @endcan
                                     <td>{{ $permission->key }}</td>
                                     <td>{{ $permission->table }}</td>
                                     @if ($permission->user)
@@ -63,10 +71,16 @@
                                     @endif
                                     <td>{{ $permission->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $permission->updated_at->format('H:i:s d/m/Y') }}</td>
-                                    <td>
+                                    @canany(['permission:edit', 'permission:delete'])
+                                    <td class="nowrap">
+                                        @can('permission:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.permission.edit', $permission->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('permission:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-permission-delete" data-id="{{ $permission->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>

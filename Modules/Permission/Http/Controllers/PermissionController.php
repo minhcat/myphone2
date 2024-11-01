@@ -2,13 +2,17 @@
 
 namespace Modules\Permission\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Permission\Repositories\PermissionRepository;
 
 class PermissionController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Permission\Repositories\PermissionRepository */
     protected $permissionRepository;
 
@@ -28,10 +32,16 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $permissions = $this->permissionRepository->paginate($search);
+        try {
+            $this->authorize('permission:browse');
 
-        return view('permission::index', compact('permissions'));
+            $search = $request->input('search');
+            $permissions = $this->permissionRepository->paginate($search);
+
+            return view('permission::index', compact('permissions'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin')->with('danger', __('notification.permission.fail', ['action' => 'browse permission']));
+        }
     }
 
     /**
@@ -40,13 +50,19 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.permission.store'),
-            'method'    => 'POST'
-        ];
+        try {
+            $this->authorize('permission:add');
 
-        return view('permission::create', compact('form'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.permission.store'),
+                'method'    => 'POST'
+            ];
+
+            return view('permission::create', compact('form'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.permission.index')->with('danger', __('notification.permission.fail', ['action' => 'add permission']));
+        }
     }
 
     /**
@@ -56,14 +72,20 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'  => 'required',
-            'key'   => 'required|unique:permissions'
-        ]);
+        try {
+            $this->authorize('permission:add');
 
-        $this->permissionRepository->create($request->all());
+            $request->validate([
+                'name'  => 'required',
+                'key'   => 'required|unique:permissions'
+            ]);
 
-        return redirect()->route('admin.permission.index')->with('success', __('notification.create.success', ['model' => 'permission']));
+            $this->permissionRepository->create($request->all());
+
+            return redirect()->route('admin.permission.index')->with('success', __('notification.create.success', ['model' => 'permission']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.permission.index')->with('danger', __('notification.permission.fail', ['action' => 'add permission']));
+        }
     }
 
     /**
@@ -73,9 +95,15 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        $permission = $this->permissionRepository->find($id);
+        try {
+            $this->authorize('permission:read');
 
-        return view('permission::show', compact('permission'));
+            $permission = $this->permissionRepository->find($id);
+
+            return view('permission::show', compact('permission'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.permission.index')->with('danger', __('notification.permission.fail', ['action' => 'read permission']));
+        }
     }
 
     /**
@@ -85,15 +113,21 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.permission.update', $id),
-            'method'    => 'PUT'
-        ];
+        try {
+            $this->authorize('permission:edit');
 
-        $permission = $this->permissionRepository->find($id);
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.permission.update', $id),
+                'method'    => 'PUT'
+            ];
 
-        return view('permission::edit', compact('form', 'permission'));
+            $permission = $this->permissionRepository->find($id);
+
+            return view('permission::edit', compact('form', 'permission'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.permission.index')->with('danger', __('notification.permission.fail', ['action' => 'edit permission']));
+        }
     }
 
     /**
@@ -104,14 +138,20 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name'  => 'required',
-            'key'   => 'required|unique:permissions,key,'.$id
-        ]);
+        try {
+            $this->authorize('permission:edit');
 
-        $this->permissionRepository->update($id, $request->all());
+            $request->validate([
+                'name'  => 'required',
+                'key'   => 'required|unique:permissions,key,'.$id
+            ]);
 
-        return redirect()->route('admin.permission.index')->with('success', __('notification.update.success', ['model' => 'permission']));
+            $this->permissionRepository->update($id, $request->all());
+
+            return redirect()->route('admin.permission.index')->with('success', __('notification.update.success', ['model' => 'permission']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.permission.index')->with('danger', __('notification.permission.fail', ['action' => 'edit permission']));
+        }
     }
 
     /**
@@ -121,8 +161,14 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        $this->permissionRepository->delete($id);
+        try {
+            $this->authorize('permission:delete');
 
-        return redirect()->route('admin.permission.index')->with('success', __('notification.delete.success', ['model' => 'permission']));
+            $this->permissionRepository->delete($id);
+
+            return redirect()->route('admin.permission.index')->with('success', __('notification.delete.success', ['model' => 'permission']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.permission.index')->with('danger', __('notification.permission.fail', ['action' => 'delete permission']));
+        }
     }
 }
