@@ -3,7 +3,9 @@
 namespace Modules\Order\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\Order\Policies\OrderPolicy;
 
 class OrderServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class OrderServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +107,22 @@ class OrderServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        // Order
+        Gate::define('order:browse', [OrderPolicy::class, 'browse']);
+        Gate::define('order:read', [OrderPolicy::class, 'read']);
+        Gate::define('order:add', [OrderPolicy::class, 'add']);
+        Gate::define('order:edit', [OrderPolicy::class, 'edit']);
+        Gate::define('order:delete', [OrderPolicy::class, 'delete']);
+        Gate::define('order:approve', [OrderPolicy::class, 'approve']);
     }
 }

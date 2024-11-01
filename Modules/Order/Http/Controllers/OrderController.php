@@ -2,13 +2,17 @@
 
 namespace Modules\Order\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Order\Repositories\OrderRepository;
 
 class OrderController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Order\Repositories\OrderRepository */
     protected $orderRepository;
 
@@ -28,10 +32,16 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $orders = $this->orderRepository->paginate($search);
+        try {
+            $this->authorize('order:browse');
 
-        return view('order::order.index', compact('orders'));
+            $search = $request->input('search');
+            $orders = $this->orderRepository->paginate($search);
+    
+            return view('order::order.index', compact('orders'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin')->with('danger', __('notification.permission.fail', ['action' => 'browse order']));
+        }
     }
 
     /**
@@ -41,9 +51,17 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = $this->orderRepository->find($id);
+        try {
+            $this->authorize('order:read');
 
-        return view('order::order.show', compact('order'));
+            $order = $this->orderRepository->find($id);
+    
+            return view('order::order.show', compact('order'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.order.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'read order']));
+        }
     }
 
     /**
@@ -54,13 +72,21 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'status'  => 'required'
-        ]);
+        try {
+            $this->authorize('order:approve');
 
-        $this->orderRepository->update($id, $request->all());
-
-        return redirect()->route('admin.order.index')->with('success', __('notification.update.success', ['model' => 'order']));
+            $request->validate([
+                'status'  => 'required'
+            ]);
+    
+            $this->orderRepository->update($id, $request->all());
+    
+            return redirect()->route('admin.order.index')->with('success', __('notification.update.success', ['model' => 'order']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.order.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'approve order']));
+        }
     }
 
     /**
@@ -70,9 +96,17 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        $this->orderRepository->delete($id);
+        try {
+            $this->authorize('order:delete');
 
-        return redirect()->route('admin.order.index')->with('success', __('notification.delete.success', ['model' => 'order']));
+            $this->orderRepository->delete($id);
+    
+            return redirect()->route('admin.order.index')->with('success', __('notification.delete.success', ['model' => 'order']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.order.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'delete order']));
+        }
     }
 
     /**
@@ -82,8 +116,16 @@ class OrderController extends Controller
      */
     public function showInvoice($id)
     {
-        $order = $this->orderRepository->find($id);
+        try {
+            $this->authorize('order:read');
 
-        return view('order::order.invoice', compact('order'));
+            $order = $this->orderRepository->find($id);
+    
+            return view('order::order.invoice', compact('order'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.order.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'read order']));
+        }
     }
 }

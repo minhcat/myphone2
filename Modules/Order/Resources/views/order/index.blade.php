@@ -48,14 +48,20 @@
                                 <th>Discount</th>
                                 <th>Total</th>
                                 <th>Status</th>
-                                <th style="width: 200px">Action</th>
+                                @can('order:approve')
+                                <th style="width: 1px">Action</th>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($orders as $key => $order)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('order:read')
                                     <td><a href="{{ route('admin.order.show', $order->id) }}">{{ $order->code }}</a></td>
+                                    @else
+                                    <td>{{ $order->code }}</td>
+                                    @endcan
                                     @if ($order->user)
                                     <td><a href="{{ route('admin.user.show', $order->user->id) }}">{{ $order->user->fullname }}</a></td>
                                     @else
@@ -68,9 +74,11 @@
                                     <td>{{ number_format($order->discount) }}</td>
                                     <td>{{ number_format($order->total) }}</td>
                                     <td>{!! generate_label($order->status, new OrderStatus) !!}</td>
-                                    <td>
+                                    @can('order:approve')
+                                    <td class="nowrap">
                                         {!! generate_button_orderstatus($order->status, $order->id) !!}
                                     </td>
+                                    @endcan
                                 </tr>
                             @endforeach
                         </tbody>
