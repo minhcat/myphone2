@@ -2,13 +2,17 @@
 
 namespace Modules\Invoice\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Invoice\Repositories\InvoiceDetailRepository;
 
 class InvoiceDetailController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Invoice\Repositories\InvoiceDetailRepository */
     protected $invoiceDetailRepository;
 
@@ -28,9 +32,17 @@ class InvoiceDetailController extends Controller
      */
     public function index(Request $request, $invoice_id)
     {
-        $search = $request->input('search');
-        $details = $this->invoiceDetailRepository->paginateByInvoiceId($invoice_id, $search);
+        try {
+            $this->authorize('invoice_detail:browse');
 
-        return view('invoice::detail.index', compact('details', 'invoice_id'));
+            $search = $request->input('search');
+            $details = $this->invoiceDetailRepository->paginateByInvoiceId($invoice_id, $search);
+    
+            return view('invoice::detail.index', compact('details', 'invoice_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.invoice.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'browse invoice detail']));
+        }
     }
 }

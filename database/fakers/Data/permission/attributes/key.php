@@ -67,7 +67,7 @@ return [
         ],
         [
             'value'                 => 'invoice_detail',
-            'max'                   => 5,
+            'max'                   => 1,
         ],
         [
             'value'                 => 'order', //
@@ -173,7 +173,7 @@ return [
                     'withs'         => [
                         [
                             'type'  => FakerConditionType::NOT_EQUAL,
-                            'value' => ['area_detail', 'cart_detail', 'gift_product', 'gift_product_item'],
+                            'value' => ['area_detail', 'cart_detail', 'gift_product', 'gift_product_item', 'invoice_detail'],
                             'rate'  => 1,
                         ],
                     ]
@@ -185,7 +185,7 @@ return [
                     'withs'         => [
                         [
                             'type'  => FakerConditionType::NOT_EQUAL,
-                            'value' => ['product_detail', 'cart', 'invoice'],
+                            'value' => ['product_detail', 'cart', 'invoice', 'invoice_detail'],
                             'rate'  => 1,
                         ],
                     ]
@@ -197,7 +197,7 @@ return [
                     'withs'         => [
                         [
                             'type'  => FakerConditionType::NOT_EQUAL,
-                            'value' => ['cart', 'invoice'],
+                            'value' => ['cart', 'invoice', 'invoice_detail'],
                             'rate'  => 1,
                         ],
                     ]
@@ -209,7 +209,7 @@ return [
                     'withs'         => [
                         [
                             'type'  => FakerConditionType::NOT_EQUAL,
-                            'value' => ['product_detail', 'cart', 'invoice'],
+                            'value' => ['product_detail', 'cart', 'invoice', 'invoice_detail'],
                             'rate'  => 1,
                         ],
                     ]

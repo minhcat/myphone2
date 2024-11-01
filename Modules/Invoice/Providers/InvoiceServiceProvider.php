@@ -3,9 +3,9 @@
 namespace Modules\Invoice\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
+use Modules\Invoice\Policies\InvoiceDetailPolicy;
 use Modules\Invoice\Policies\InvoicePolicy;
 
 class InvoiceServiceProvider extends ServiceProvider
@@ -124,5 +124,11 @@ class InvoiceServiceProvider extends ServiceProvider
         Gate::define('invoice:add', [InvoicePolicy::class, 'add']);
         Gate::define('invoice:edit', [InvoicePolicy::class, 'edit']);
         Gate::define('invoice:delete', [InvoicePolicy::class, 'delete']);
+        // Invoice Detail
+        Gate::define('invoice_detail:browse', [InvoiceDetailPolicy::class, 'browse']);
+        Gate::define('invoice_detail:read', [InvoiceDetailPolicy::class, 'read']);
+        Gate::define('invoice_detail:add', [InvoiceDetailPolicy::class, 'add']);
+        Gate::define('invoice_detail:edit', [InvoiceDetailPolicy::class, 'edit']);
+        Gate::define('invoice_detail:delete', [InvoiceDetailPolicy::class, 'delete']);
     }
 }
