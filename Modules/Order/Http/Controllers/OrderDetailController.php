@@ -3,7 +3,9 @@
 namespace Modules\Order\Http\Controllers;
 
 use App\Enums\TargetType;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Order\Repositories\OrderDetailRepository;
@@ -12,6 +14,8 @@ use Modules\Product\Repositories\VariationRepository;
 
 class OrderDetailController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Order\Repositories\OrderDetailRepository */
     protected $orderDetailRepository;
 
@@ -39,10 +43,18 @@ class OrderDetailController extends Controller
      */
     public function index(Request $request, $order_id)
     {
-        $search = $request->input('search');
-        $details = $this->orderDetailRepository->paginateByOrderId($order_id, $search);
+        try {
+            $this->authorize('order_detail:browse');
 
-        return view('order::detail.index', compact('details', 'order_id'));
+            $search = $request->input('search');
+            $details = $this->orderDetailRepository->paginateByOrderId($order_id, $search);
+    
+            return view('order::detail.index', compact('details', 'order_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.order.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'browse order detail']));
+        }
     }
 
     /**
@@ -51,17 +63,25 @@ class OrderDetailController extends Controller
      */
     public function create($order_id)
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.order.detail.store', $order_id),
-            'method'    => 'POST',
-        ];
-        
-        $products = $this->productRepository->all();
-        $variants = $this->variantRepository->all();
-        $target_types = TargetType::getObject();
+        try {
+            $this->authorize('order_detail:add');
 
-        return view('order::detail.create', compact('products', 'form', 'order_id', 'variants', 'target_types'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.order.detail.store', $order_id),
+                'method'    => 'POST',
+            ];
+            
+            $products = $this->productRepository->all();
+            $variants = $this->variantRepository->all();
+            $target_types = TargetType::getObject();
+    
+            return view('order::detail.create', compact('products', 'form', 'order_id', 'variants', 'target_types'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.order.detail.index', $order_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'add order detail']));
+        }
     }
 
     /**
@@ -71,36 +91,44 @@ class OrderDetailController extends Controller
      */
     public function store(Request $request, $order_id)
     {
-        $request->validate([
-            'target_type'   => 'required',
-            'target_id'     => 'required',
-            'quantity'      => 'required|numeric'
-        ]);
+        try {
+            $this->authorize('order_detail:add');
 
-        $target_type = $request->input('target_type');
-        if ($target_type == TargetType::VARIANT) {
-            $target = $this->variantRepository->find($request->input('target_id'));
-        } else {
-            $target = $this->productRepository->find($request->input('target_id'));
-        }
-
-        $detail = $this->orderDetailRepository->findWhere([
-            ['order_id', $order_id],
-            ['target_type', $target_type],
-            ['target_id', $target->id]
-        ]);
-
-        if (!is_null($detail)) {
-            $quantity = $detail->quantity + intval($request->input('quantity'));
-
-            $this->orderDetailRepository->update($detail->id, ['quantity' => $quantity]);
-
+            $request->validate([
+                'target_type'   => 'required',
+                'target_id'     => 'required',
+                'quantity'      => 'required|numeric'
+            ]);
+    
+            $target_type = $request->input('target_type');
+            if ($target_type == TargetType::VARIANT) {
+                $target = $this->variantRepository->find($request->input('target_id'));
+            } else {
+                $target = $this->productRepository->find($request->input('target_id'));
+            }
+    
+            $detail = $this->orderDetailRepository->findWhere([
+                ['order_id', $order_id],
+                ['target_type', $target_type],
+                ['target_id', $target->id]
+            ]);
+    
+            if (!is_null($detail)) {
+                $quantity = $detail->quantity + intval($request->input('quantity'));
+    
+                $this->orderDetailRepository->update($detail->id, ['quantity' => $quantity]);
+    
+                return redirect()->route('admin.order.detail.index', $order_id)->with('success', __('notification.create.success', ['model' => 'order detail']));
+            }
+    
+            $this->orderDetailRepository->create($request->all(), ['price' => $target->price ?: 0, 'order_id' => $order_id]);
+    
             return redirect()->route('admin.order.detail.index', $order_id)->with('success', __('notification.create.success', ['model' => 'order detail']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.order.detail.index', $order_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'add order detail']));
         }
-
-        $this->orderDetailRepository->create($request->all(), ['price' => $target->price ?: 0, 'order_id' => $order_id]);
-
-        return redirect()->route('admin.order.detail.index', $order_id)->with('success', __('notification.create.success', ['model' => 'order detail']));
     }
 
     /**
@@ -120,18 +148,26 @@ class OrderDetailController extends Controller
      */
     public function edit($order_id, $id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.order.detail.update', ['order_id' => $order_id, 'id' => $id]),
-            'method'    => 'PUT'
-        ];
+        try {
+            $this->authorize('order_detail:edit');
 
-        $detail = $this->orderDetailRepository->find($id);
-        $products = $this->productRepository->all();
-        $variants = $this->variantRepository->all();
-        $target_types = TargetType::getObject();
-
-        return view('order::detail.edit', compact('detail', 'products', 'form', 'order_id', 'variants', 'target_types'));
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.order.detail.update', ['order_id' => $order_id, 'id' => $id]),
+                'method'    => 'PUT'
+            ];
+    
+            $detail = $this->orderDetailRepository->find($id);
+            $products = $this->productRepository->all();
+            $variants = $this->variantRepository->all();
+            $target_types = TargetType::getObject();
+    
+            return view('order::detail.edit', compact('detail', 'products', 'form', 'order_id', 'variants', 'target_types'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.order.detail.index', $order_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit order detail']));
+        }
     }
 
     /**
@@ -142,35 +178,43 @@ class OrderDetailController extends Controller
      */
     public function update(Request $request, $order_id, $id)
     {
-        $request->validate([
-            'target_type'   => 'required',
-            'target_id'     => 'required',
-            'quantity'      => 'required|numeric'
-        ]);
+        try {
+            $this->authorize('order_detail:edit');
 
-        $target_type = $request->input('target_type');
-        if ($target_type == TargetType::VARIANT) {
-            $target = $this->variantRepository->find($request->input('target_id'));
-        } else {
-            $target = $this->productRepository->find($request->input('target_id'));
-        }
-        $detail = $this->orderDetailRepository->findWhere([
-            ['target_type', $target_type],
-            ['target_id', $target->id],
-            ['order_id', $order_id]
-        ]);
-
-        if (!is_null($detail)) {
-            $this->orderDetailRepository->update($detail->id, ['quantity' => intval($request->input('quantity'))]);
-
+            $request->validate([
+                'target_type'   => 'required',
+                'target_id'     => 'required',
+                'quantity'      => 'required|numeric'
+            ]);
+    
+            $target_type = $request->input('target_type');
+            if ($target_type == TargetType::VARIANT) {
+                $target = $this->variantRepository->find($request->input('target_id'));
+            } else {
+                $target = $this->productRepository->find($request->input('target_id'));
+            }
+            $detail = $this->orderDetailRepository->findWhere([
+                ['target_type', $target_type],
+                ['target_id', $target->id],
+                ['order_id', $order_id]
+            ]);
+    
+            if (!is_null($detail)) {
+                $this->orderDetailRepository->update($detail->id, ['quantity' => intval($request->input('quantity'))]);
+    
+                return redirect()->route('admin.order.detail.index', $order_id)->with('success', __('notification.update.success', ['model' => 'order detail']));
+            }
+    
+            $this->orderDetailRepository->create($request->all(), ['price' => $target->price, 'order_id' => $order_id]);
+    
+            $this->orderDetailRepository->delete($id);
+    
             return redirect()->route('admin.order.detail.index', $order_id)->with('success', __('notification.update.success', ['model' => 'order detail']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.order.detail.index', $order_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit order detail']));
         }
-
-        $this->orderDetailRepository->create($request->all(), ['price' => $target->price, 'order_id' => $order_id]);
-
-        $this->orderDetailRepository->delete($id);
-
-        return redirect()->route('admin.order.detail.index', $order_id)->with('success', __('notification.update.success', ['model' => 'order detail']));
     }
 
     /**
@@ -180,8 +224,16 @@ class OrderDetailController extends Controller
      */
     public function destroy($order_id, $id)
     {
-        $this->orderDetailRepository->delete($id);
+        try {
+            $this->authorize('order_detail:delete');
 
-        return redirect()->route('admin.order.detail.index', $order_id)->with('success', __('notification.delete.success', ['model' => 'order detail']));
+            $this->orderDetailRepository->delete($id);
+    
+            return redirect()->route('admin.order.detail.index', $order_id)->with('success', __('notification.delete.success', ['model' => 'order detail']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.order.detail.index', $order_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'delete order detail']));
+        }
     }
 }

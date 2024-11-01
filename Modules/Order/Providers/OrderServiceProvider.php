@@ -5,6 +5,7 @@ namespace Modules\Order\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
+use Modules\Order\Policies\OrderDetailPolicy;
 use Modules\Order\Policies\OrderPolicy;
 
 class OrderServiceProvider extends ServiceProvider
@@ -124,5 +125,11 @@ class OrderServiceProvider extends ServiceProvider
         Gate::define('order:edit', [OrderPolicy::class, 'edit']);
         Gate::define('order:delete', [OrderPolicy::class, 'delete']);
         Gate::define('order:approve', [OrderPolicy::class, 'approve']);
+        // Order
+        Gate::define('order_detail:browse', [OrderDetailPolicy::class, 'browse']);
+        Gate::define('order_detail:read', [OrderDetailPolicy::class, 'read']);
+        Gate::define('order_detail:add', [OrderDetailPolicy::class, 'add']);
+        Gate::define('order_detail:edit', [OrderDetailPolicy::class, 'edit']);
+        Gate::define('order_detail:delete', [OrderDetailPolicy::class, 'delete']);
     }
 }

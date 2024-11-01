@@ -75,7 +75,7 @@ return [
         ],
         [
             'value'                 => 'order_detail',
-            'max'                   => 5,
+            'max'                   => 4,
         ],
         [
             'value'                 => 'permission',
@@ -173,7 +173,7 @@ return [
                     'withs'         => [
                         [
                             'type'  => FakerConditionType::NOT_EQUAL,
-                            'value' => ['area_detail', 'cart_detail', 'gift_product', 'gift_product_item', 'invoice_detail'],
+                            'value' => ['area_detail', 'cart_detail', 'gift_product', 'gift_product_item', 'invoice_detail', 'order_detail'],
                             'rate'  => 1,
                         ],
                     ]

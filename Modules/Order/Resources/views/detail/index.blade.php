@@ -21,9 +21,11 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('order_detail:add')
                 @if (check_can_edit_by_orderid($order_id))
                 <a href="{{ route('admin.order.detail.create', $order_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
                 @endif
+                @endcan
                 <a href="{{ route('admin.order.index') }}" class="btn btn-default pull-right mr-1"><i class="fa fa-arrow-left"></i> Back</a>
             </div>
             <div class="box-body">
@@ -49,9 +51,11 @@
                                 <th>Quantity</th>
                                 <th>Price</th>
                                 <th>Total</th>
+                                @canany(['order_detail:edit', 'order_detail:delete'])
                                 @if (check_can_edit_by_orderid($order_id))
-                                <th style="width: 175px">Action</th>
+                                <th style="width: 1px">Action</th>
                                 @endif
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
@@ -67,12 +71,18 @@
                                     <td>{{ $detail->quantity }}</td>
                                     <td>{{ number_format($detail->price) }}</td>
                                     <td>{{ number_format($detail->price * $detail->quantity) }}</td>
+                                    @canany(['order_detail:edit', 'order_detail:delete'])
                                     @if (check_can_edit_by_orderid($order_id))
-                                    <td>
+                                    <td class="nowrap">
+                                        @can('order_detail:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.order.detail.edit', ['order_id' => $order_id, 'id' => $detail->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('order_detail:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-order-detail-delete" data-id="{{ $detail->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
                                     @endif
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>
