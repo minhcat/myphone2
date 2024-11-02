@@ -4,6 +4,9 @@ namespace Modules\Sale\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\Sale\Policies\SalePolicy;
 
 class SaleServiceProvider extends ServiceProvider
 {
@@ -27,6 +30,7 @@ class SaleServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +108,22 @@ class SaleServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        // Sale
+        Gate::define('sale:browse', [SalePolicy::class, 'browse']);
+        Gate::define('sale:read', [SalePolicy::class, 'read']);
+        Gate::define('sale:add', [SalePolicy::class, 'add']);
+        Gate::define('sale:edit', [SalePolicy::class, 'edit']);
+        Gate::define('sale:delete', [SalePolicy::class, 'delete']);
+        Gate::define('sale:approve', [SalePolicy::class, 'approve']);
     }
 }

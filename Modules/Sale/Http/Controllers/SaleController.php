@@ -5,13 +5,17 @@ namespace Modules\Sale\Http\Controllers;
 use App\Enums\DiscountTarget;
 use App\Enums\DiscountType;
 use App\Enums\PromotionStatus;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Sale\Repositories\SaleRepository;
 
 class SaleController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Sale\Repositories\SaleRepository */
     protected $saleRepository;
 
@@ -31,10 +35,16 @@ class SaleController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $sales = $this->saleRepository->paginate($search);
+        try {
+            $this->authorize('sale:browse');
 
-        return view('sale::sale.index', compact('sales'));
+            $search = $request->input('search');
+            $sales = $this->saleRepository->paginate($search);
+    
+            return view('sale::sale.index', compact('sales'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin')->with('danger', __('notification.permission.fail', ['action' => 'browse sale']));
+        }
     }
 
     /**
@@ -43,15 +53,21 @@ class SaleController extends Controller
      */
     public function create()
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.sale.store'),
-            'method'    => 'POST',
-        ];
-        $discount_targets = DiscountTarget::getObject();
-        $discount_types = DiscountType::getObject();
-        
-        return view('sale::sale.create', compact('form', 'discount_targets', 'discount_types'));
+        try {
+            $this->authorize('sale:add');
+
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.sale.store'),
+                'method'    => 'POST',
+            ];
+            $discount_targets = DiscountTarget::getObject();
+            $discount_types = DiscountType::getObject();
+            
+            return view('sale::sale.create', compact('form', 'discount_targets', 'discount_types'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.sale.index')->with('danger', __('notification.permission.fail', ['action' => 'add sale']));
+        }
     }
 
     /**
@@ -61,13 +77,19 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'  => 'required'
-        ]);
+        try {
+            $this->authorize('sale:add');
 
-        $this->saleRepository->create($request->all(), ['status' => PromotionStatus::PENDING]);
-
-        return redirect()->route('admin.sale.index')->with('success', __('notification.create.success', ['model' => 'sale']));
+            $request->validate([
+                'name'  => 'required'
+            ]);
+    
+            $this->saleRepository->create($request->all(), ['status' => PromotionStatus::PENDING]);
+    
+            return redirect()->route('admin.sale.index')->with('success', __('notification.create.success', ['model' => 'sale']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.sale.index')->with('danger', __('notification.permission.fail', ['action' => 'add sale']));
+        }
     }
 
     /**
@@ -77,9 +99,15 @@ class SaleController extends Controller
      */
     public function show($id)
     {
-        $sale = $this->saleRepository->find($id);
+        try {
+            $this->authorize('sale:read');
 
-        return view('sale::sale.show', compact('sale'));
+            $sale = $this->saleRepository->find($id);
+    
+            return view('sale::sale.show', compact('sale'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.sale.index')->with('danger', __('notification.permission.fail', ['action' => 'read sale']));
+        }
     }
 
     /**
@@ -89,17 +117,23 @@ class SaleController extends Controller
      */
     public function edit($id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.sale.update', $id),
-            'method'    => 'PUT',
-        ];
+        try {
+            $this->authorize('sale:edit');
 
-        $sale = $this->saleRepository->find($id);
-        $discount_targets = DiscountTarget::getObject();
-        $discount_types = DiscountType::getObject();
-
-        return view('sale::sale.edit', compact('form', 'sale', 'discount_targets', 'discount_types'));
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.sale.update', $id),
+                'method'    => 'PUT',
+            ];
+    
+            $sale = $this->saleRepository->find($id);
+            $discount_targets = DiscountTarget::getObject();
+            $discount_types = DiscountType::getObject();
+    
+            return view('sale::sale.edit', compact('form', 'sale', 'discount_targets', 'discount_types'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.sale.index')->with('danger', __('notification.permission.fail', ['action' => 'edit sale']));
+        }
     }
 
     /**
@@ -110,9 +144,15 @@ class SaleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->saleRepository->update($id, $request->all());
+        try {
+            $this->authorize('sale:edit');
 
-        return redirect()->route('admin.sale.index')->with('success', __('notification.update.success', ['model' => 'sale']));
+            $this->saleRepository->update($id, $request->all());
+    
+            return redirect()->route('admin.sale.index')->with('success', __('notification.update.success', ['model' => 'sale']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.sale.index')->with('danger', __('notification.permission.fail', ['action' => 'edit sale']));
+        }
     }
 
     /**
@@ -122,8 +162,14 @@ class SaleController extends Controller
      */
     public function destroy($id)
     {
-        $this->saleRepository->delete($id);
+        try {
+            $this->authorize('sale:delete');
 
-        return redirect()->route('admin.sale.index')->with('success', __('notification.delete.success', ['model' => 'sale']));
+            $this->saleRepository->delete($id);
+    
+            return redirect()->route('admin.sale.index')->with('success', __('notification.delete.success', ['model' => 'sale']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.sale.index')->with('danger', __('notification.permission.fail', ['action' => 'delete sale']));
+        }
     }
 }

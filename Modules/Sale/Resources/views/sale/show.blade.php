@@ -155,7 +155,9 @@
             </div>
             <div class="box-footer">
                 <a href="{{ route('admin.sale.index') }}" class="btn btn-default">Back</a>
+                @can('sale:edit')
                 <a href="{{ route('admin.sale.edit', $sale->id) }}" class="btn btn-primary">Edit</a>
+                @endcan
             </div>
         </div>
     </div>

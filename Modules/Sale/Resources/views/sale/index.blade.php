@@ -20,7 +20,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('sale:add')
                 <a href="{{ route('admin.sale.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -48,14 +50,20 @@
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Status</th>
-                                <th style="width: 274px">Action</th>
+                                @canany(['sale:approve', 'sale:edit', 'sale:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($sales as $key => $sale)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('sale:read')
                                     <td><a href="{{ route('admin.sale.show', $sale->id) }}">{{ $sale->name }}</a></td>
+                                    @else
+                                    <td>{{ $sale->name }}</td>
+                                    @endcan
                                     @if ($sale->user)
                                     <td><a href="{{ route('admin.user.show', $sale->user->id) }}">{{ $sale->user->fullname }}</a></td>
                                     @else
@@ -67,11 +75,19 @@
                                     <td>{{ $sale->start_datetime?->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $sale->end_datetime?->format('H:i:s d/m/Y') }}</td>
                                     <td>{!! generate_label($sale->status, new PromotionStatus) !!}</td>
-                                    <td style="text-align: right">
+                                    @canany(['sale:approve', 'sale:edit', 'sale:delete'])
+                                    <td style="text-align: right" class="nowrap">
+                                        @can('sale:approve')
                                         {!! generate_button_update_status($sale->status, new PromotionStatus, ['toggle' => 'modal', 'target' => '#modal-sale-update', 'id' => $sale->id, 'status' => PromotionStatus::getNextStatus($sale->status)]) !!}
+                                        @endcan
+                                        @can('sale:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.sale.edit', $sale->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('sale:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-sale-delete" data-id="{{ $sale->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>
