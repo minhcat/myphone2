@@ -20,7 +20,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('promotion:add')
                 <a href="{{ route('admin.promotion.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -44,34 +46,44 @@
                                 <th>Condition Type</th>
                                 <th>Discount Target</th>
                                 <th>Discount Type</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
                                 <th>Status</th>
                                 <th>Author</th>
-                                <th style="width: 273px">Action</th>
+                                @canany(['promotion:edit', 'promotion:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($promotions as $key => $promotion)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('promotion:read')
                                     <td><a href="{{ route('admin.promotion.show', $promotion->id) }}">{{ $promotion->name }}</a></td>
+                                    @else
+                                    <td>{{ $promotion->name }}</td>
+                                    @endcan
                                     <td>{!! generate_label($promotion->condition_type, new ConditionType) !!}</td>
                                     <td>{!! generate_label($promotion->discount_target, new DiscountTarget) !!}</td>
                                     <td>{!! generate_label($promotion->discount_type, new DiscountType) !!}</td>
-                                    <td>{{ $promotion->start_datetime?->format('H:i:s d/m/Y') }}</td>
-                                    <td>{{ $promotion->end_datetime?->format('H:i:s d/m/Y') }}</td>
                                     <td>{!! generate_label($promotion->status, new PromotionStatus) !!}</td>
                                     @if ($promotion->user)
                                     <td><a href="{{ route('admin.user.show', $promotion->user->id) }}">{{ $promotion->user->fullname }}</a></td>
                                     @else
                                     <td></td>
                                     @endif
-                                    <td style="text-align: right">
+                                    @canany(['promotion:edit', 'promotion:delete'])
+                                    <td style="text-align: right" class="nowrap">
+                                        @can('promotion:approve')
                                         {!! generate_button_update_status($promotion->status, new PromotionStatus, ['toggle' => 'modal', 'target' => '#modal-promotion-update', 'id' => $promotion->id, 'status' => PromotionStatus::getNextStatus($promotion->status)]) !!}
+                                        @endcan
+                                        @can('promotion:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.promotion.edit', $promotion->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('promotion:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-promotion-delete" data-id="{{ $promotion->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>

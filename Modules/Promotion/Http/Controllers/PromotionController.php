@@ -6,13 +6,17 @@ use App\Enums\ConditionType;
 use App\Enums\DiscountTarget;
 use App\Enums\DiscountType;
 use App\Enums\PromotionStatus;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Promotion\Repositories\PromotionRepository;
 
 class PromotionController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Promotion\Repositories\PromotionRepository */
     protected $promotionRepository;
 
@@ -32,10 +36,16 @@ class PromotionController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $promotions = $this->promotionRepository->paginate($search);
+        try {
+            $this->authorize('promotion:browse');
 
-        return view('promotion::index', compact('promotions'));
+            $search = $request->input('search');
+            $promotions = $this->promotionRepository->paginate($search);
+    
+            return view('promotion::index', compact('promotions'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin')->with('danger', __('notification.permission.fail', ['action' => 'browse promotion']));
+        }
     }
 
     /**
@@ -44,16 +54,22 @@ class PromotionController extends Controller
      */
     public function create()
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.promotion.store'),
-            'method'    => 'POST',
-        ];
-        $condition_types = ConditionType::getObject();
-        $discount_targets = DiscountTarget::getObject();
-        $discount_types = DiscountType::getObject();
+        try {
+            $this->authorize('promotion:add');
 
-        return view('promotion::create', compact('form', 'condition_types', 'discount_targets', 'discount_types'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.promotion.store'),
+                'method'    => 'POST',
+            ];
+            $condition_types = ConditionType::getObject();
+            $discount_targets = DiscountTarget::getObject();
+            $discount_types = DiscountType::getObject();
+    
+            return view('promotion::create', compact('form', 'condition_types', 'discount_targets', 'discount_types'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.promotion.index')->with('danger', __('notification.permission.fail', ['action' => 'add promotion']));
+        }
     }
 
     /**
@@ -63,13 +79,19 @@ class PromotionController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'      => 'required',
-        ]);
+        try {
+            $this->authorize('promotion:add');
 
-        $this->promotionRepository->create($request->all(), ['status' => PromotionStatus::PENDING]);
-
-        return redirect()->route('admin.promotion.index')->with('success', __('notification.create.success', ['model' => 'promotion']));
+            $request->validate([
+                'name'      => 'required',
+            ]);
+    
+            $this->promotionRepository->create($request->all(), ['status' => PromotionStatus::PENDING]);
+    
+            return redirect()->route('admin.promotion.index')->with('success', __('notification.create.success', ['model' => 'promotion']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.promotion.index')->with('danger', __('notification.permission.fail', ['action' => 'add promotion']));
+        }
     }
 
     /**
@@ -79,9 +101,15 @@ class PromotionController extends Controller
      */
     public function show($id)
     {
-        $promotion = $this->promotionRepository->find($id);
+        try {
+            $this->authorize('promotion:read');
 
-        return view('promotion::show', compact('promotion'));
+            $promotion = $this->promotionRepository->find($id);
+    
+            return view('promotion::show', compact('promotion'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.promotion.index')->with('danger', __('notification.permission.fail', ['action' => 'read promotion']));
+        }
     }
 
     /**
@@ -91,18 +119,24 @@ class PromotionController extends Controller
      */
     public function edit($id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.promotion.update', $id),
-            'method'    => 'PUT',
-        ];
+        try {
+            $this->authorize('promotion:edit');
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.promotion.update', $id),
+                'method'    => 'PUT',
+            ];
+    
+            $promotion = $this->promotionRepository->find($id);
+            $condition_types = ConditionType::getObject();
+            $discount_targets = DiscountTarget::getObject();
+            $discount_types = DiscountType::getObject();
+    
+            return view('promotion::edit', compact('form', 'promotion', 'condition_types', 'discount_targets', 'discount_types'));
 
-        $promotion = $this->promotionRepository->find($id);
-        $condition_types = ConditionType::getObject();
-        $discount_targets = DiscountTarget::getObject();
-        $discount_types = DiscountType::getObject();
-
-        return view('promotion::edit', compact('form', 'promotion', 'condition_types', 'discount_targets', 'discount_types'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.promotion.index')->with('danger', __('notification.permission.fail', ['action' => 'edit promotion']));
+        }
     }
 
     /**
@@ -113,9 +147,15 @@ class PromotionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->promotionRepository->update($id, $request->all());
+        try {
+            $this->authorize('promotion:edit');
 
-        return redirect()->route('admin.promotion.index')->with('success', __('notification.update.success', ['model' => 'promotion']));
+            $this->promotionRepository->update($id, $request->all());
+    
+            return redirect()->route('admin.promotion.index')->with('success', __('notification.update.success', ['model' => 'promotion']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.promotion.index')->with('danger', __('notification.permission.fail', ['action' => 'edit promotion']));
+        }
     }
 
     /**
@@ -125,8 +165,14 @@ class PromotionController extends Controller
      */
     public function destroy($id)
     {
-        $this->promotionRepository->delete($id);
+        try {
+            $this->authorize('promotion:delete');
 
-        return redirect()->route('admin.promotion.index')->with('success', __('notification.delete.success', ['model' => 'promotion']));
+            $this->promotionRepository->delete($id);
+    
+            return redirect()->route('admin.promotion.index')->with('success', __('notification.delete.success', ['model' => 'promotion']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.promotion.index')->with('danger', __('notification.permission.fail', ['action' => 'delete promotion']));
+        }
     }
 }

@@ -4,6 +4,9 @@ namespace Modules\Promotion\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\Promotion\Policies\PromotionPolicy;
 
 class PromotionServiceProvider extends ServiceProvider
 {
@@ -27,6 +30,7 @@ class PromotionServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +108,21 @@ class PromotionServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        Gate::define('promotion:browse', [PromotionPolicy::class, 'browse']);
+        Gate::define('promotion:read', [PromotionPolicy::class, 'read']);
+        Gate::define('promotion:add', [PromotionPolicy::class, 'add']);
+        Gate::define('promotion:edit', [PromotionPolicy::class, 'edit']);
+        Gate::define('promotion:delete', [PromotionPolicy::class, 'delete']);
+        Gate::define('promotion:approve', [PromotionPolicy::class, 'approve']);
     }
 }
