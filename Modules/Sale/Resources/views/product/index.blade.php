@@ -21,7 +21,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('sale_product:add')
                 <a href="{{ route('admin.sale.product.create', $sale_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
                 <a href="{{ route('admin.sale.index') }}" class="btn btn-default pull-right mr-1"><i class="fa fa-arrow-left"></i> Back</a>
             </div>
             <div class="box-body">
@@ -53,7 +55,9 @@
                                 <th>Discount Minimum</th>
                                 <th>Discount Maximum</th>
                                 <th>Author</th>
-                                <th style="width: 175px">Action</th>
+                                @canany(['sale_product:edit', 'sale_product:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
@@ -74,10 +78,16 @@
                                     @else
                                     <td></td>
                                     @endif
-                                    <td style="text-align: right">
+                                    @canany(['sale_product:edit', 'sale_product:delete'])
+                                    <td style="text-align: right" class="nowrap">
+                                        @can('sale_product:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.sale.product.edit', ['sale_id' => $sale_id, 'id' => $sale_product->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('sale_product:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-sale-product-delete" data-id="{{ $sale_product->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>

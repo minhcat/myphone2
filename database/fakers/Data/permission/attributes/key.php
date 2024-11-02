@@ -107,7 +107,7 @@ return [
         ],
         [
             'value'                 => 'sale_product',
-            'max'                   => 5,
+            'max'                   => 4,
         ],
         [
             'value'                 => 'specification',
@@ -173,7 +173,10 @@ return [
                     'withs'         => [
                         [
                             'type'  => FakerConditionType::NOT_EQUAL,
-                            'value' => ['area_detail', 'cart_detail', 'gift_product', 'gift_product_item', 'invoice_detail', 'order_detail'],
+                            'value' => [
+                                'area_detail', 'cart_detail', 'gift_product', 'gift_product_item',
+                                'invoice_detail', 'order_detail', 'sale_product'
+                            ],
                             'rate'  => 1,
                         ],
                     ]

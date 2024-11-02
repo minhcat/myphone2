@@ -3,10 +3,10 @@
 namespace Modules\Sale\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Modules\Sale\Policies\SalePolicy;
+use Modules\Sale\Policies\SaleProductPolicy;
 
 class SaleServiceProvider extends ServiceProvider
 {
@@ -125,5 +125,11 @@ class SaleServiceProvider extends ServiceProvider
         Gate::define('sale:edit', [SalePolicy::class, 'edit']);
         Gate::define('sale:delete', [SalePolicy::class, 'delete']);
         Gate::define('sale:approve', [SalePolicy::class, 'approve']);
+        // Sale Product
+        Gate::define('sale_product:browse', [SaleProductPolicy::class, 'browse']);
+        Gate::define('sale_product:read', [SaleProductPolicy::class, 'read']);
+        Gate::define('sale_product:add', [SaleProductPolicy::class, 'add']);
+        Gate::define('sale_product:edit', [SaleProductPolicy::class, 'edit']);
+        Gate::define('sale_product:delete', [SaleProductPolicy::class, 'delete']);
     }
 }
