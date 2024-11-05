@@ -21,7 +21,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('information:add')
                 <a href="{{ route('admin.specification.information.create', $specification_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
                 <a href="{{ route('admin.specification.index') }}" class="btn btn-default pull-right mr-1"><i class="fa fa-arrow-left"></i> Back</a>
             </div>
             <div class="box-body">
@@ -46,14 +48,20 @@
                                 <th>Author</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th style="width: 175px">Action</th>
+                                @canany(['information:edit', 'information:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($informations as $key => $information)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('information:read')
                                     <td><a href="{{ route('admin.specification.information.show', ['specification_id' => $specification_id, 'id' => $information->id]) }}">{{ $information->value }}</a></td>
+                                    @else
+                                    <td>{{ $information->value }}</td>
+                                    @endcan
                                     @if ($information->user)
                                     <td><a href="{{ route('admin.user.show', $information->user->id) }}">{{ $information->user->fullname }}</a></td>
                                     @else
@@ -61,10 +69,16 @@
                                     @endif
                                     <td>{{ $information->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $information->updated_at->format('H:i:s d/m/Y') }}</td>
-                                    <td>
+                                    @canany(['information:edit', 'information:delete'])
+                                    <td class="nowrap">
+                                        @can('information:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.specification.information.edit', ['specification_id' => $specification_id, 'id' => $information->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('information:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-information-delete" data-id="{{ $information->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>

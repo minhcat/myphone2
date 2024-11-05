@@ -5,6 +5,7 @@ namespace Modules\Specification\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
+use Modules\Specification\Policies\InformationPolicy;
 use Modules\Specification\Policies\SpecificationPolicy;
 
 class SpecificationServiceProvider extends ServiceProvider
@@ -123,5 +124,11 @@ class SpecificationServiceProvider extends ServiceProvider
         Gate::define('specification:add', [SpecificationPolicy::class, 'add']);
         Gate::define('specification:edit', [SpecificationPolicy::class, 'edit']);
         Gate::define('specification:delete', [SpecificationPolicy::class, 'delete']);
+        // Information
+        Gate::define('information:browse', [InformationPolicy::class, 'browse']);
+        Gate::define('information:read', [InformationPolicy::class, 'read']);
+        Gate::define('information:add', [InformationPolicy::class, 'add']);
+        Gate::define('information:edit', [InformationPolicy::class, 'edit']);
+        Gate::define('information:delete', [InformationPolicy::class, 'delete']);
     }
 }

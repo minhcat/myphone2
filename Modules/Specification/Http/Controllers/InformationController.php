@@ -2,13 +2,17 @@
 
 namespace Modules\Specification\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Specification\Repositories\InformationRepository;
 
 class InformationController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Specification\Repositories\InformationRepository */
     protected $informationRepository;
 
@@ -28,10 +32,18 @@ class InformationController extends Controller
      */
     public function index(Request $request, $specification_id)
     {
-        $search = $request->input('search');
-        $informations = $this->informationRepository->paginateBySpecificationId($specification_id, $search);
+        try {
+            $this->authorize('information:browse');
 
-        return view('specification::information.index', compact('informations', 'specification_id'));
+            $search = $request->input('search');
+            $informations = $this->informationRepository->paginateBySpecificationId($specification_id, $search);
+    
+            return view('specification::information.index', compact('informations', 'specification_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.specification.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'browse information']));
+        }
     }
 
     /**
@@ -40,13 +52,21 @@ class InformationController extends Controller
      */
     public function create($specification_id)
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.specification.information.store', $specification_id),
-            'method'    => 'POST',
-        ];
+        try {
+            $this->authorize('information:add');
 
-        return view('specification::information.create', compact('form', 'specification_id'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.specification.information.store', $specification_id),
+                'method'    => 'POST',
+            ];
+    
+            return view('specification::information.create', compact('form', 'specification_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.specification.information.index', $specification_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'add information']));
+        }
     }
 
     /**
@@ -56,13 +76,21 @@ class InformationController extends Controller
      */
     public function store(Request $request, $specification_id)
     {
-        $request->validate([
-            'value'     => 'required'
-        ]);
+        try {
+            $this->authorize('information:add');
 
-        $this->informationRepository->create($request->all(), ['specification_id' => $specification_id]);
-
-        return redirect()->route('admin.specification.information.index', $specification_id)->with('success', __('notification.create.success', ['model' => 'information']));
+            $request->validate([
+                'value'     => 'required'
+            ]);
+    
+            $this->informationRepository->create($request->all(), ['specification_id' => $specification_id]);
+    
+            return redirect()->route('admin.specification.information.index', $specification_id)->with('success', __('notification.create.success', ['model' => 'information']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.specification.information.index', $specification_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'add information']));
+        }
     }
 
     /**
@@ -72,9 +100,17 @@ class InformationController extends Controller
      */
     public function show($specification_id, $id)
     {
-        $information = $this->informationRepository->find($id);
+        try {
+            $this->authorize('information:read');
 
-        return view('specification::information.show', compact('information', 'specification_id'));
+            $information = $this->informationRepository->find($id);
+    
+            return view('specification::information.show', compact('information', 'specification_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.specification.information.index', $specification_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'read information']));
+        }
     }
 
     /**
@@ -84,15 +120,23 @@ class InformationController extends Controller
      */
     public function edit($specification_id, $id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.specification.information.update', ['specification_id' => $specification_id, 'id' => $id]),
-            'method'    => 'PUT',
-        ];
+        try {
+            $this->authorize('information:edit');
 
-        $information = $this->informationRepository->find($id);
-
-        return view('specification::information.edit', compact('form', 'information', 'specification_id'));
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.specification.information.update', ['specification_id' => $specification_id, 'id' => $id]),
+                'method'    => 'PUT',
+            ];
+    
+            $information = $this->informationRepository->find($id);
+    
+            return view('specification::information.edit', compact('form', 'information', 'specification_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.specification.information.index', $specification_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit information']));
+        }
     }
 
     /**
@@ -103,13 +147,21 @@ class InformationController extends Controller
      */
     public function update(Request $request, $specification_id, $id)
     {
-        $request->validate([
-            'value'     => 'required',
-        ]);
+        try {
+            $this->authorize('information:edit');
 
-        $this->informationRepository->update($id, $request->all(), ['specification_id' => $specification_id]);
-
-        return redirect()->route('admin.specification.information.index', $specification_id)->with('success', __('notification.update.success', ['model' => 'information']));
+            $request->validate([
+                'value'     => 'required',
+            ]);
+    
+            $this->informationRepository->update($id, $request->all(), ['specification_id' => $specification_id]);
+    
+            return redirect()->route('admin.specification.information.index', $specification_id)->with('success', __('notification.update.success', ['model' => 'information']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.specification.information.index', $specification_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit information']));
+        }
     }
 
     /**
@@ -119,8 +171,16 @@ class InformationController extends Controller
      */
     public function destroy($specification_id, $id)
     {
-        $this->informationRepository->delete($id);
+        try {
+            $this->authorize('information:delete');
 
-        return redirect()->route('admin.specification.information.index', $specification_id)->with('success', __('notification.delete.success', ['model' => 'information']));
+            $this->informationRepository->delete($id);
+    
+            return redirect()->route('admin.specification.information.index', $specification_id)->with('success', __('notification.delete.success', ['model' => 'information']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.specification.information.index', $specification_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'delete information']));
+        }
     }
 }
