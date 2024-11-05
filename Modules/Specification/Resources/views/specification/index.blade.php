@@ -20,7 +20,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('specification:add')
                 <a href="{{ route('admin.specification.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -45,14 +47,20 @@
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 <th>Informations</th>
-                                <th style="width: 175px">Action</th>
+                                @canany(['specification:edit', 'specification:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($specifications as $key => $specification)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('specification:read')
                                     <td><a href="{{ route('admin.specification.show', $specification->id) }}">{{ $specification->name }}</a></td>
+                                    @else
+                                    <td>{{ $specification->name }}</td>
+                                    @endcan
                                     @if ($specification->user)
                                     <td><a href="{{ route('admin.user.show', $specification->user->id) }}">{{ $specification->user->fullname }}</a></td>
                                     @else
@@ -61,10 +69,16 @@
                                     <td>{{ $specification->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $specification->updated_at->format('H:i:s d/m/Y') }}</td>
                                     <td><a href="{{ route('admin.specification.information.index', $specification->id) }}">list</a></td>
-                                    <td>
+                                    @canany(['specification:edit', 'specification:delete'])
+                                    <td class="nowrap">
+                                        @can('specification:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.specification.edit', $specification->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('specification:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-specification-delete" data-id="{{ $specification->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>

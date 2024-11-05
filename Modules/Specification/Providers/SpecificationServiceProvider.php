@@ -3,7 +3,9 @@
 namespace Modules\Specification\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\Specification\Policies\SpecificationPolicy;
 
 class SpecificationServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class SpecificationServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +107,21 @@ class SpecificationServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        // Specification
+        Gate::define('specification:browse', [SpecificationPolicy::class, 'browse']);
+        Gate::define('specification:read', [SpecificationPolicy::class, 'read']);
+        Gate::define('specification:add', [SpecificationPolicy::class, 'add']);
+        Gate::define('specification:edit', [SpecificationPolicy::class, 'edit']);
+        Gate::define('specification:delete', [SpecificationPolicy::class, 'delete']);
     }
 }

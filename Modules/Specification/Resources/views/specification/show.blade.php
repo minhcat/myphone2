@@ -85,7 +85,9 @@
             </div>
             <div class="box-footer">
                 <a href="{{ route('admin.specification.index') }}" class="btn btn-default">Back</a>
+                @can('specification:edit')
                 <a href="{{ route('admin.specification.edit', $specification->id) }}" class="btn btn-primary">Edit</a>
+                @endcan
             </div>
         </div>
     </div>
