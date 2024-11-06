@@ -4,6 +4,9 @@ namespace Modules\Tag\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\Tag\Policies\TagPolicy;
 
 class TagServiceProvider extends ServiceProvider
 {
@@ -27,6 +30,7 @@ class TagServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +108,20 @@ class TagServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        Gate::define('tag:browse', [TagPolicy::class, 'browse']);
+        Gate::define('tag:read', [TagPolicy::class, 'read']);
+        Gate::define('tag:add', [TagPolicy::class, 'add']);
+        Gate::define('tag:edit', [TagPolicy::class, 'edit']);
+        Gate::define('tag:delete', [TagPolicy::class, 'delete']);
     }
 }

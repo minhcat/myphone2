@@ -20,7 +20,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('tag:add')
                 <a href="{{ route('admin.tag.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -44,14 +46,20 @@
                                 <th>Author</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th style="width: 175px">Action</th>
+                                @canany(['tag:edit', 'tag:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($tags as $key => $tag)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('tag:read')
                                     <td><a href="{{ route('admin.tag.show', $tag->id) }}">{{ $tag->name }}</a></td>
+                                    @else
+                                    <td>{{ $tag->name }}</td>
+                                    @endcan
                                     @if ($tag->user)
                                     <td><a href="{{ route('admin.user.show', $tag->user->id) }}">{{ $tag->user->fullname }}</a></td>
                                     @else
@@ -59,10 +67,16 @@
                                     @endif
                                     <td>{{ $tag->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $tag->updated_at->format('H:i:s d/m/Y') }}</td>
-                                    <td>
+                                    @canany(['tag:edit', 'tag:delete'])
+                                    <td class="nowrap">
+                                        @can('tag:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.tag.edit', $tag->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('tag:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-tag-delete" data-id="{{ $tag->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>

@@ -2,13 +2,17 @@
 
 namespace Modules\Tag\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Tag\Repositories\TagRepository;
 
 class TagController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Tag\Repositories\TagRepository */
     protected $tagRepository;
 
@@ -28,10 +32,16 @@ class TagController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $tags = $this->tagRepository->paginate($search);
+        try {
+            $this->authorize('tag:browse');
 
-        return view('tag::index', compact('tags'));
+            $search = $request->input('search');
+            $tags = $this->tagRepository->paginate($search);
+    
+            return view('tag::index', compact('tags'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin')->with('danger', __('notification.permission.fail', ['action' => 'browse tag']));
+        }
     }
 
     /**
@@ -40,13 +50,19 @@ class TagController extends Controller
      */
     public function create()
     {
-        $form = [
-            'url'       => route('admin.tag.store'),
-            'method'    => 'POST',
-            'title'     => 'Create'
-        ];
+        try {
+            $this->authorize('tag:add');
 
-        return view('tag::create', compact('form'));
+            $form = [
+                'url'       => route('admin.tag.store'),
+                'method'    => 'POST',
+                'title'     => 'Create'
+            ];
+    
+            return view('tag::create', compact('form'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.tag.index')->with('danger', __('notification.permission.fail', ['action' => 'add tag']));
+        }
     }
 
     /**
@@ -56,13 +72,19 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'  => 'required',
-        ]);
+        try {
+            $this->authorize('tag:add');
 
-        $this->tagRepository->create($request->all());
-
-        return redirect()->route('admin.tag.index')->with('success', __('notification.create.success', ['model' => 'tag']));
+            $request->validate([
+                'name'  => 'required',
+            ]);
+    
+            $this->tagRepository->create($request->all());
+    
+            return redirect()->route('admin.tag.index')->with('success', __('notification.create.success', ['model' => 'tag']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.tag.index')->with('danger', __('notification.permission.fail', ['action' => 'add tag']));
+        }
     }
 
     /**
@@ -72,9 +94,15 @@ class TagController extends Controller
      */
     public function show($id)
     {
-        $tag = $this->tagRepository->find($id);
+        try {
+            $this->authorize('tag:read');
 
-        return view('tag::show', compact('tag'));
+            $tag = $this->tagRepository->find($id);
+    
+            return view('tag::show', compact('tag'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.tag.index')->with('danger', __('notification.permission.fail', ['action' => 'read tag']));
+        }
     }
 
     /**
@@ -84,14 +112,20 @@ class TagController extends Controller
      */
     public function edit($id)
     {
-        $form = [
-            'url'       => route('admin.tag.update', $id),
-            'method'    => 'PUT',
-            'title'     => 'Edit'
-        ];
-        $tag = $this->tagRepository->find($id);
+        try {
+            $this->authorize('tag:edit');
 
-        return view('tag::edit', compact('tag', 'form'));
+            $form = [
+                'url'       => route('admin.tag.update', $id),
+                'method'    => 'PUT',
+                'title'     => 'Edit'
+            ];
+            $tag = $this->tagRepository->find($id);
+    
+            return view('tag::edit', compact('tag', 'form'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.tag.index')->with('danger', __('notification.permission.fail', ['action' => 'edit tag']));
+        }
     }
 
     /**
@@ -102,13 +136,19 @@ class TagController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name'  => 'required'
-        ]);
+        try {
+            $this->authorize('tag:edit');
 
-        $this->tagRepository->update($id, $request->all());
-
-        return redirect()->route('admin.tag.index')->with('success', __('notification.update.success', ['model' => 'tag']));
+            $request->validate([
+                'name'  => 'required'
+            ]);
+    
+            $this->tagRepository->update($id, $request->all());
+    
+            return redirect()->route('admin.tag.index')->with('success', __('notification.update.success', ['model' => 'tag']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.tag.index')->with('danger', __('notification.permission.fail', ['action' => 'edit tag']));
+        }
     }
 
     /**
@@ -118,8 +158,14 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        $this->tagRepository->delete($id);
+        try {
+            $this->authorize('tag:delete');
 
-        return redirect()->route('admin.tag.index')->with('success', __('notification.delete.success', ['model' => 'tag']));
+            $this->tagRepository->delete($id);
+    
+            return redirect()->route('admin.tag.index')->with('success', __('notification.delete.success', ['model' => 'tag']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.tag.index')->with('danger', __('notification.permission.fail', ['action' => 'delete tag']));
+        }
     }
 }
