@@ -86,7 +86,9 @@
             </div>
             <div class="box-footer">
                 <a href="{{ route('admin.transporter.case.index', $transporter_id) }}" class="btn btn-default">Back</a>
+                @can('transporter_case:edit')
                 <a href="{{ route('admin.transporter.case.edit', ['transporter_id' => $transporter_id, 'id' =>  $transporter_case->id]) }}" class="btn btn-primary">Edit</a>
+                @endcan
             </div>
         </div>
     </div>

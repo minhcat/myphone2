@@ -5,6 +5,7 @@ namespace Modules\Transporter\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
+use Modules\Transporter\Policies\TransporterCasePolicy;
 use Modules\Transporter\Policies\TransporterPolicy;
 
 class TransporterServiceProvider extends ServiceProvider
@@ -123,5 +124,11 @@ class TransporterServiceProvider extends ServiceProvider
         Gate::define('transporter:add', [TransporterPolicy::class, 'add']);
         Gate::define('transporter:edit', [TransporterPolicy::class, 'edit']);
         Gate::define('transporter:delete', [TransporterPolicy::class, 'delete']);
+        // Transporter Case
+        Gate::define('transporter_case:browse', [TransporterCasePolicy::class, 'browse']);
+        Gate::define('transporter_case:read', [TransporterCasePolicy::class, 'read']);
+        Gate::define('transporter_case:add', [TransporterCasePolicy::class, 'add']);
+        Gate::define('transporter_case:edit', [TransporterCasePolicy::class, 'edit']);
+        Gate::define('transporter_case:delete', [TransporterCasePolicy::class, 'delete']);
     }
 }

@@ -3,13 +3,17 @@
 namespace Modules\Transporter\Http\Controllers;
 
 use App\Enums\EstimateTimeType;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Transporter\Repositories\TransporterCaseRepository;
 
 class TransporterCaseController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Transporter\Repositories\TransporterCaseRepository */
     protected $transporterCaseRepository;
 
@@ -29,10 +33,18 @@ class TransporterCaseController extends Controller
      */
     public function index(Request $request, $transporter_id)
     {
-        $search = $request->input('search');
-        $transporter_cases = $this->transporterCaseRepository->paginateByTransporterId($transporter_id, $search);
+        try {
+            $this->authorize('transporter_case:browse');
 
-        return view('transporter::case.index', compact('transporter_cases', 'transporter_id'));
+            $search = $request->input('search');
+            $transporter_cases = $this->transporterCaseRepository->paginateByTransporterId($transporter_id, $search);
+    
+            return view('transporter::case.index', compact('transporter_cases', 'transporter_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.transporter.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'browse transporter case']));
+        }
     }
 
     /**
@@ -41,14 +53,22 @@ class TransporterCaseController extends Controller
      */
     public function create($transporter_id)
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.transporter.case.store', $transporter_id),
-            'method'    => 'POST'
-        ];
-        $estimate_time_types = EstimateTimeType::getObject();
+        try {
+            $this->authorize('transporter_case:add');
 
-        return view('transporter::case.create', compact('form', 'transporter_id', 'estimate_time_types'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.transporter.case.store', $transporter_id),
+                'method'    => 'POST'
+            ];
+            $estimate_time_types = EstimateTimeType::getObject();
+    
+            return view('transporter::case.create', compact('form', 'transporter_id', 'estimate_time_types'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.transporter.case.index', $transporter_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'add transporter case']));
+        }
     }
 
     /**
@@ -58,15 +78,23 @@ class TransporterCaseController extends Controller
      */
     public function store(Request $request, $transporter_id)
     {
-        $request->validate([
-            'name'  => 'required'
-        ]);
+        try {
+            $this->authorize('transporter_case:add');
 
-        $this->transporterCaseRepository->create($request->all(), ['transporter_id' => $transporter_id]);
-
-        return redirect()
-        ->route('admin.transporter.case.index', $transporter_id)
-        ->with('success', __('notification.create.success', ['model' => 'transporter case']));
+            $request->validate([
+                'name'  => 'required'
+            ]);
+    
+            $this->transporterCaseRepository->create($request->all(), ['transporter_id' => $transporter_id]);
+    
+            return redirect()
+            ->route('admin.transporter.case.index', $transporter_id)
+            ->with('success', __('notification.create.success', ['model' => 'transporter case']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.transporter.case.index', $transporter_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'add transporter case']));
+        }
     }
 
     /**
@@ -76,9 +104,17 @@ class TransporterCaseController extends Controller
      */
     public function show($transporter_id, $id)
     {
-        $transporter_case = $this->transporterCaseRepository->find($id);
+        try {
+            $this->authorize('transporter_case:read');
 
-        return view('transporter::case.show', compact('transporter_case', 'transporter_id'));
+            $transporter_case = $this->transporterCaseRepository->find($id);
+    
+            return view('transporter::case.show', compact('transporter_case', 'transporter_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.transporter.case.index', $transporter_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'read transporter case']));
+        }
     }
 
     /**
@@ -88,15 +124,23 @@ class TransporterCaseController extends Controller
      */
     public function edit($transporter_id, $id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.transporter.case.update', ['transporter_id' => $transporter_id, 'id' => $id]),
-            'method'    => 'PUT'
-        ];
-        $estimate_time_types = EstimateTimeType::getObject();
-        $transporter_case = $this->transporterCaseRepository->find($id);
+        try {
+            $this->authorize('transporter_case:edit');
 
-        return view('transporter::case.edit', compact('form', 'transporter_id', 'estimate_time_types', 'transporter_case'));
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.transporter.case.update', ['transporter_id' => $transporter_id, 'id' => $id]),
+                'method'    => 'PUT'
+            ];
+            $estimate_time_types = EstimateTimeType::getObject();
+            $transporter_case = $this->transporterCaseRepository->find($id);
+    
+            return view('transporter::case.edit', compact('form', 'transporter_id', 'estimate_time_types', 'transporter_case'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.transporter.case.index', $transporter_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit transporter case']));
+        }
     }
 
     /**
@@ -107,15 +151,23 @@ class TransporterCaseController extends Controller
      */
     public function update(Request $request, $transporter_id, $id)
     {
-        $request->validate([
-            'name'  => 'required'
-        ]);
+        try {
+            $this->authorize('transporter_case:edit');
 
-        $this->transporterCaseRepository->update($id, $request->all(), ['transporter_id' => $transporter_id]);
-
-        return redirect()
-        ->route('admin.transporter.case.index', $transporter_id)
-        ->with('success', __('notification.update.success', ['model' => 'transporter case']));
+            $request->validate([
+                'name'  => 'required'
+            ]);
+    
+            $this->transporterCaseRepository->update($id, $request->all(), ['transporter_id' => $transporter_id]);
+    
+            return redirect()
+            ->route('admin.transporter.case.index', $transporter_id)
+            ->with('success', __('notification.update.success', ['model' => 'transporter case']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.transporter.case.index', $transporter_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit transporter case']));
+        }
     }
 
     /**
@@ -125,10 +177,18 @@ class TransporterCaseController extends Controller
      */
     public function destroy($transporter_id, $id)
     {
-        $this->transporterCaseRepository->delete($id);
+        try {
+            $this->authorize('transporter_case:delete');
 
-        return redirect()
-        ->route('admin.transporter.case.index', $transporter_id)
-        ->with('success', __('notification.delete.success', ['model' => 'transporter case']));
+            $this->transporterCaseRepository->delete($id);
+    
+            return redirect()
+            ->route('admin.transporter.case.index', $transporter_id)
+            ->with('success', __('notification.delete.success', ['model' => 'transporter case']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.transporter.case.index', $transporter_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'delete transporter case']));
+        }
     }
 }
