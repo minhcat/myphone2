@@ -2,13 +2,17 @@
 
 namespace Modules\Transporter\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Transporter\Repositories\TransporterRepository;
 
 class TransporterController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Transporter\Repositories\TransporterRepository */
     protected $transporterRepository;
 
@@ -28,10 +32,18 @@ class TransporterController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $transporters = $this->transporterRepository->paginate($search);
+        try {
+            $this->authorize('transporter:browse');
 
-        return view('transporter::transporter.index', compact('transporters'));
+            $search = $request->input('search');
+            $transporters = $this->transporterRepository->paginate($search);
+    
+            return view('transporter::transporter.index', compact('transporters'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin')
+            ->with('danger', __('notification.permission.fail', ['action' => 'browse transporter']));
+        }
     }
 
     /**
@@ -40,13 +52,21 @@ class TransporterController extends Controller
      */
     public function create()
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.transporter.store'),
-            'method'    => 'POST'
-        ];
+        try {
+            $this->authorize('transporter:add');
 
-        return view('transporter::transporter.create', compact('form'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.transporter.store'),
+                'method'    => 'POST'
+            ];
+    
+            return view('transporter::transporter.create', compact('form'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.transporter.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'add transporter']));
+        }
     }
 
     /**
@@ -56,13 +76,23 @@ class TransporterController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'  => 'required',
-        ]);
-
-        $this->transporterRepository->create($request->all());
-
-        return redirect()->route('admin.transporter.index')->with('success', __('notification.create.success', ['model' => 'transporter']));
+        try {
+            $this->authorize('transporter:add');
+            
+            $request->validate([
+                'name'  => 'required',
+            ]);
+    
+            $this->transporterRepository->create($request->all());
+    
+            return redirect()
+            ->route('admin.transporter.index')
+            ->with('success', __('notification.create.success', ['model' => 'transporter']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.transporter.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'add transporter']));
+        }
     }
 
     /**
@@ -72,9 +102,17 @@ class TransporterController extends Controller
      */
     public function show($id)
     {
-        $transporter = $this->transporterRepository->find($id);
+        try {
+            $this->authorize('transporter:read');
 
-        return view('transporter::transporter.show', compact('transporter'));
+            $transporter = $this->transporterRepository->find($id);
+    
+            return view('transporter::transporter.show', compact('transporter'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.transporter.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'read transporter']));
+        }
     }
 
     /**
@@ -84,15 +122,23 @@ class TransporterController extends Controller
      */
     public function edit($id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.transporter.update', $id),
-            'method'    => 'PUT'
-        ];
+        try {
+            $this->authorize('transporter:edit');
 
-        $transporter = $this->transporterRepository->find($id);
-
-        return view('transporter::transporter.edit', compact('form', 'transporter'));
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.transporter.update', $id),
+                'method'    => 'PUT'
+            ];
+    
+            $transporter = $this->transporterRepository->find($id);
+    
+            return view('transporter::transporter.edit', compact('form', 'transporter'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.transporter.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit transporter']));
+        }
     }
 
     /**
@@ -103,13 +149,23 @@ class TransporterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name'  => 'required',
-        ]);
+        try {
+            $this->authorize('transporter:edit');
 
-        $this->transporterRepository->update($id, $request->all());
-
-        return redirect()->route('admin.transporter.index')->with('success', __('notification.update.success', ['model' => 'transporter']));
+            $request->validate([
+                'name'  => 'required',
+            ]);
+    
+            $this->transporterRepository->update($id, $request->all());
+    
+            return redirect()
+            ->route('admin.transporter.index')
+            ->with('success', __('notification.update.success', ['model' => 'transporter']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.transporter.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit transporter']));
+        }
     }
 
     /**
@@ -119,8 +175,18 @@ class TransporterController extends Controller
      */
     public function destroy($id)
     {
-        $this->transporterRepository->delete($id);
+        try {
+            $this->authorize('transporter:delete');
 
-        return redirect()->route('admin.transporter.index')->with('success', __('notification.delete.success', ['model' => 'transporter']));
+            $this->transporterRepository->delete($id);
+    
+            return redirect()
+            ->route('admin.transporter.index')
+            ->with('success', __('notification.delete.success', ['model' => 'transporter']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.transporter.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'delete transporter']));
+        }
     }
 }

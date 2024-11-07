@@ -3,7 +3,9 @@
 namespace Modules\Transporter\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\Transporter\Policies\TransporterPolicy;
 
 class TransporterServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class TransporterServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +107,21 @@ class TransporterServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        // Transporter
+        Gate::define('transporter:browse', [TransporterPolicy::class, 'browse']);
+        Gate::define('transporter:read', [TransporterPolicy::class, 'read']);
+        Gate::define('transporter:add', [TransporterPolicy::class, 'add']);
+        Gate::define('transporter:edit', [TransporterPolicy::class, 'edit']);
+        Gate::define('transporter:delete', [TransporterPolicy::class, 'delete']);
     }
 }

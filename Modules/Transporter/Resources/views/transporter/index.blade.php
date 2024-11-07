@@ -20,7 +20,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('transporter:add')
                 <a href="{{ route('admin.transporter.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -45,14 +47,20 @@
                                 <th>Cases</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th style="width: 175px">Action</th>
+                                @canany(['transporter:edit', 'transporter:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($transporters as $key => $transporter)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('transporter:read')
                                     <td><a href="{{ route('admin.transporter.show', $transporter->id) }}">{{ $transporter->name }}</a></td>
+                                    @else
+                                    <td>{{ $transporter->name }}</td>
+                                    @endcan
                                     @if ($transporter->user)
                                     <td><a href="{{ route('admin.user.show', $transporter->user->id) }}">{{ $transporter->user->fullname }}</a></td>
                                     @else
@@ -61,10 +69,16 @@
                                     <td><a href="{{ route('admin.transporter.case.index', $transporter->id) }}">list</a></td>
                                     <td>{{ $transporter->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $transporter->updated_at->format('H:i:s d/m/Y') }}</td>
-                                    <td>
+                                    @canany(['transporter:edit', 'transporter:delete'])
+                                    <td class="nowrap">
+                                        @can('transporter:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.transporter.edit', $transporter->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('transporter:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-transporter-delete" data-id="{{ $transporter->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>

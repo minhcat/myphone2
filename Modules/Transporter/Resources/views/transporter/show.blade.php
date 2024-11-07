@@ -75,7 +75,9 @@
             </div>
             <div class="box-footer">
                 <a href="{{ route('admin.transporter.index') }}" class="btn btn-default">Back</a>
+                @can('transporter:edit')
                 <a href="{{ route('admin.transporter.edit', $transporter->id) }}" class="btn btn-primary">Edit</a>
+                @endcan
             </div>
         </div>
     </div>
