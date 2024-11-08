@@ -3,7 +3,9 @@
 namespace Modules\Voucher\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\Voucher\Policies\VoucherPolicy;
 
 class VoucherServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class VoucherServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +107,22 @@ class VoucherServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        // Voucher
+        Gate::define('voucher:browse', [VoucherPolicy::class, 'browse']);
+        Gate::define('voucher:read', [VoucherPolicy::class, 'read']);
+        Gate::define('voucher:add', [VoucherPolicy::class, 'add']);
+        Gate::define('voucher:edit', [VoucherPolicy::class, 'edit']);
+        Gate::define('voucher:delete', [VoucherPolicy::class, 'delete']);
+        Gate::define('voucher:approve', [VoucherPolicy::class, 'approve']);
     }
 }

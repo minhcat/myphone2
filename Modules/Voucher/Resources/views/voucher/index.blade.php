@@ -20,7 +20,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('voucher:add')
                 <a href="{{ route('admin.voucher.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -48,14 +50,20 @@
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Status</th>
-                                <th style="width: 274px">Action</th>
+                                @canany(['voucher:approve', 'voucher:edit', 'voucher:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($vouchers as $key => $voucher)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('voucher:read')
                                     <td><a href="{{ route('admin.voucher.show', $voucher->id) }}">{{ $voucher->name }}</a></td>
+                                    @else
+                                    <td>{{ $voucher->name }}</td>
+                                    @endcan
                                     @if ($voucher->user)
                                     <td><a href="{{ route('admin.user.show', $voucher->user->id) }}">{{ $voucher->user->fullname }}</a></td>
                                     @else
@@ -67,11 +75,19 @@
                                     <td>{{ $voucher->start_datetime?->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $voucher->end_datetime?->format('H:i:s d/m/Y') }}</td>
                                     <td>{!! generate_label($voucher->status, new PromotionStatus) !!}</td>
-                                    <td style="text-align: right">
+                                    @canany(['voucher:approve', 'voucher:edit', 'voucher:delete'])
+                                    <td style="text-align: right" class="nowrap">
+                                        @can('voucher:approve')
                                         {!! generate_button_update_status($voucher->status, new PromotionStatus, ['toggle' => 'modal', 'target' => '#modal-voucher-update', 'id' => $voucher->id, 'status' => PromotionStatus::getNextStatus($voucher->status)]) !!}
+                                        @endcan
+                                        @can('voucher:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.voucher.edit', $voucher->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('voucher:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-voucher-delete" data-id="{{ $voucher->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>
