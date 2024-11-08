@@ -20,7 +20,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('transport_fee:add')
                 <a href="{{ route('admin.transport_fee.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -46,14 +48,20 @@
                                 <th>Case</th>
                                 <th>Total Range</th>
                                 <th>Cost</th>
-                                <th style="width: 175px">Action</th>
+                                @canany(['transport_fee:edit', 'transport_fee:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($transport_fees as $key => $transport_fee)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('transport_fee:read')
                                     <td><a href="{{ route('admin.transport_fee.show', $transport_fee->id) }}">{{ $transport_fee->name }}</a></td>
+                                    @else
+                                    <td>{{ $transport_fee->name }}</td>
+                                    @endcan
                                     @if ($transport_fee->user)
                                     <td><a href="{{ route('admin.user.show', $transport_fee->user->id) }}">{{ $transport_fee->user->fullname }}</a></td>
                                     @else
@@ -63,10 +71,16 @@
                                     <td><a href="{{ route('admin.transporter.case.show', ['transporter_id' => $transport_fee->case->transporter_id, 'id' => $transport_fee->case->id]) }}">{{ $transport_fee->case->name }}</a></td>
                                     <td>{{ $transport_fee->total_range }}</td>
                                     <td>{{ number_format($transport_fee->cost) }}</td>
-                                    <td>
+                                    @canany(['transport_fee:edit', 'transport_fee:delete'])
+                                    <td class="nowrap">
+                                        @can('transport_fee:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.transport_fee.edit', $transport_fee->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('transport_fee:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-transport_fee-delete" data-id="{{ $transport_fee->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>

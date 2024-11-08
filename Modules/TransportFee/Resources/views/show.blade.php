@@ -115,7 +115,9 @@
             </div>
             <div class="box-footer">
                 <a href="{{ route('admin.transport_fee.index') }}" class="btn btn-default">Back</a>
+                @can('transport_fee:edit')
                 <a href="{{ route('admin.transport_fee.edit', $transport_fee->id) }}" class="btn btn-primary">Edit</a>
+                @endcan
             </div>
         </div>
     </div>

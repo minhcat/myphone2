@@ -3,7 +3,9 @@
 namespace Modules\TransportFee\Http\Controllers;
 
 use App\Enums\TotalRangeType;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Area\Repositories\AreaRepository;
@@ -13,6 +15,8 @@ use Modules\TransportFee\Repositories\TransportFeeRepository;
 
 class TransportFeeController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\TransportFee\Repositories\TransportFeeRepository */
     protected $transportFeeRepository;
 
@@ -44,10 +48,18 @@ class TransportFeeController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $transport_fees = $this->transportFeeRepository->paginate($search);
+        try {
+            $this->authorize('transport_fee:browse');
 
-        return view('transportfee::index', compact('transport_fees'));
+            $search = $request->input('search');
+            $transport_fees = $this->transportFeeRepository->paginate($search);
+    
+            return view('transportfee::index', compact('transport_fees'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.transport_fee.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'browse transport fee']));
+        }
     }
 
     /**
@@ -56,17 +68,25 @@ class TransportFeeController extends Controller
      */
     public function create()
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.transport_fee.store'),
-            'method'    => 'POST'
-        ];
-        $total_range_types = TotalRangeType::getObject();
-        $areas = $this->areaRepository->all();
-        $transporters = $this->transporterRepository->all();
-        $transporter_cases = $this->transporterCaseRepository->all();
+        try {
+            $this->authorize('transport_fee:add');
 
-        return view('transportfee::create', compact('form', 'areas', 'total_range_types', 'transporters', 'transporter_cases'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.transport_fee.store'),
+                'method'    => 'POST'
+            ];
+            $total_range_types = TotalRangeType::getObject();
+            $areas = $this->areaRepository->all();
+            $transporters = $this->transporterRepository->all();
+            $transporter_cases = $this->transporterCaseRepository->all();
+    
+            return view('transportfee::create', compact('form', 'areas', 'total_range_types', 'transporters', 'transporter_cases'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.transport_fee.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'add transport fee']));
+        }
     }
 
     /**
@@ -76,21 +96,29 @@ class TransportFeeController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'                  => 'required',
-            'area_id'               => 'required|numeric',
-            'transporter_case_id'   => 'required|numeric',
-            'top_range_bottom_type' => 'numeric',
-            'top_range_bottom'      => 'numeric',
-            'top_range_top_type'    => 'numeric',
-            'top_range_top'         => 'numeric',
-        ]);
+        try {
+            $this->authorize('transport_fee:add');
 
-        $this->transportFeeRepository->create($request->all());
-
-        return redirect()
-        ->route('admin.transport_fee.index')
-        ->with('success', __('notification.create.success', ['model' => 'transport fee']));
+            $request->validate([
+                'name'                  => 'required',
+                'area_id'               => 'required|numeric',
+                'transporter_case_id'   => 'required|numeric',
+                'top_range_bottom_type' => 'numeric',
+                'top_range_bottom'      => 'numeric',
+                'top_range_top_type'    => 'numeric',
+                'top_range_top'         => 'numeric',
+            ]);
+    
+            $this->transportFeeRepository->create($request->all());
+    
+            return redirect()
+            ->route('admin.transport_fee.index')
+            ->with('success', __('notification.create.success', ['model' => 'transport fee']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.transport_fee.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'add transport fee']));
+        }
     }
 
     /**
@@ -100,9 +128,17 @@ class TransportFeeController extends Controller
      */
     public function show($id)
     {
-        $transport_fee = $this->transportFeeRepository->find($id);
+        try {
+            $this->authorize('transport_fee:read');
 
-        return view('transportfee::show', compact('transport_fee'));
+            $transport_fee = $this->transportFeeRepository->find($id);
+    
+            return view('transportfee::show', compact('transport_fee'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.transport_fee.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'read transport fee']));
+        }
     }
 
     /**
@@ -112,20 +148,28 @@ class TransportFeeController extends Controller
      */
     public function edit($id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.transport_fee.update', $id),
-            'method'    => 'PUT'
-        ];
-        $total_range_types = TotalRangeType::getObject();
-        $areas = $this->areaRepository->all();
-        $transporters = $this->transporterRepository->all();
-        $transporter_cases = $this->transporterCaseRepository->all();
-        $transport_fee = $this->transportFeeRepository->find($id);
+        try {
+            $this->authorize('transport_fee:edit');
 
-        return view('transportfee::edit', compact(
-            'form', 'areas', 'total_range_types', 'transporters', 'transporter_cases', 'transport_fee'
-        ));
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.transport_fee.update', $id),
+                'method'    => 'PUT'
+            ];
+            $total_range_types = TotalRangeType::getObject();
+            $areas = $this->areaRepository->all();
+            $transporters = $this->transporterRepository->all();
+            $transporter_cases = $this->transporterCaseRepository->all();
+            $transport_fee = $this->transportFeeRepository->find($id);
+    
+            return view('transportfee::edit', compact(
+                'form', 'areas', 'total_range_types', 'transporters', 'transporter_cases', 'transport_fee'
+            ));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.transport_fee.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit transport fee']));
+        }
     }
 
     /**
@@ -136,21 +180,29 @@ class TransportFeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name'                  => 'required',
-            'area_id'               => 'required|numeric',
-            'transporter_case_id'   => 'required|numeric',
-            'top_range_bottom_type' => 'numeric',
-            'top_range_bottom'      => 'numeric',
-            'top_range_top_type'    => 'numeric',
-            'top_range_top'         => 'numeric',
-        ]);
+        try {
+            $this->authorize('transport_fee:edit');
 
-        $this->transportFeeRepository->update($id, $request->all());
-
-        return redirect()
-        ->route('admin.transport_fee.index')
-        ->with('success', __('notification.update.success', ['model' => 'transport fee']));
+            $request->validate([
+                'name'                  => 'required',
+                'area_id'               => 'required|numeric',
+                'transporter_case_id'   => 'required|numeric',
+                'top_range_bottom_type' => 'numeric',
+                'top_range_bottom'      => 'numeric',
+                'top_range_top_type'    => 'numeric',
+                'top_range_top'         => 'numeric',
+            ]);
+    
+            $this->transportFeeRepository->update($id, $request->all());
+    
+            return redirect()
+            ->route('admin.transport_fee.index')
+            ->with('success', __('notification.update.success', ['model' => 'transport fee']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.transport_fee.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit transport fee']));
+        }
     }
 
     /**
@@ -160,6 +212,14 @@ class TransportFeeController extends Controller
      */
     public function destroy($id)
     {
+        try {
+            $this->authorize('transport_fee:delete');
+
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.transport_fee.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'delete transport fee']));
+        }
         $this->transportFeeRepository->delete($id);
 
         return redirect()

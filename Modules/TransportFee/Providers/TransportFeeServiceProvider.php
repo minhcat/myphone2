@@ -3,7 +3,9 @@
 namespace Modules\TransportFee\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\TransportFee\Policies\TransportFeePolicy;
 
 class TransportFeeServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class TransportFeeServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +107,20 @@ class TransportFeeServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        Gate::define('transport_fee:browse', [TransportFeePolicy::class, 'browse']);
+        Gate::define('transport_fee:read', [TransportFeePolicy::class, 'read']);
+        Gate::define('transport_fee:add', [TransportFeePolicy::class, 'add']);
+        Gate::define('transport_fee:edit', [TransportFeePolicy::class, 'edit']);
+        Gate::define('transport_fee:delete', [TransportFeePolicy::class, 'delete']);
     }
 }
