@@ -4,13 +4,17 @@ namespace Modules\Voucher\Http\Controllers;
 
 use App\Enums\DiscountTarget;
 use App\Enums\DiscountType;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Voucher\Repositories\VoucherCodeRepository;
 
 class VoucherCodeController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Voucher\Repositories\VoucherCodeRepository */
     protected $voucherCodeRepository;
 
@@ -30,10 +34,18 @@ class VoucherCodeController extends Controller
      */
     public function index(Request $request, $voucher_id)
     {
-        $search = $request->input('search');
-        $voucher_codes = $this->voucherCodeRepository->paginateByVoucherId($voucher_id, $search);
+        try {
+            $this->authorize('voucher_code:browse');
 
-        return view('voucher::code.index', compact('voucher_codes', 'voucher_id'));
+            $search = $request->input('search');
+            $voucher_codes = $this->voucherCodeRepository->paginateByVoucherId($voucher_id, $search);
+    
+            return view('voucher::code.index', compact('voucher_codes', 'voucher_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.voucher.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'browse voucher code']));
+        }
     }
 
     /**
@@ -42,16 +54,24 @@ class VoucherCodeController extends Controller
      */
     public function create($voucher_id)
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.voucher.code.store', $voucher_id),
-            'method'    => 'POST',
-        ];
+        try {
+            $this->authorize('voucher_code:add');
 
-        $discount_targets = DiscountTarget::getObject();
-        $discount_types = DiscountType::getObject();
-
-        return view('voucher::code.create', compact('form', 'discount_targets', 'discount_types', 'voucher_id'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.voucher.code.store', $voucher_id),
+                'method'    => 'POST',
+            ];
+    
+            $discount_targets = DiscountTarget::getObject();
+            $discount_types = DiscountType::getObject();
+    
+            return view('voucher::code.create', compact('form', 'discount_targets', 'discount_types', 'voucher_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.voucher.code.index', $voucher_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'add voucher code']));
+        }
     }
 
     /**
@@ -61,15 +81,23 @@ class VoucherCodeController extends Controller
      */
     public function store(Request $request, $voucher_id)
     {
-        $request->validate([
-            'code'  => 'required|unique:voucher_codes'
-        ]);
+        try {
+            $this->authorize('voucher_code:add');
 
-        $this->voucherCodeRepository->create($request->all(), ['voucher_id' => $voucher_id]);
-
-        return redirect()
-        ->route('admin.voucher.code.index', $voucher_id)
-        ->with('success', __('notification.create.success', ['model' => 'voucher code']));
+            $request->validate([
+                'code'  => 'required|unique:voucher_codes'
+            ]);
+    
+            $this->voucherCodeRepository->create($request->all(), ['voucher_id' => $voucher_id]);
+    
+            return redirect()
+            ->route('admin.voucher.code.index', $voucher_id)
+            ->with('success', __('notification.create.success', ['model' => 'voucher code']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.voucher.code.index', $voucher_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'add voucher code']));
+        }
     }
 
     /**
@@ -79,9 +107,17 @@ class VoucherCodeController extends Controller
      */
     public function show($voucher_id, $id)
     {
-        $voucher_code = $this->voucherCodeRepository->find($id);
+        try {
+            $this->authorize('voucher_code:read');
 
-        return view('voucher::code.show', compact('voucher_code', 'voucher_id'));
+            $voucher_code = $this->voucherCodeRepository->find($id);
+    
+            return view('voucher::code.show', compact('voucher_code', 'voucher_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.voucher.code.index', $voucher_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'read voucher code']));
+        }
     }
 
     /**
@@ -91,17 +127,25 @@ class VoucherCodeController extends Controller
      */
     public function edit($voucher_id, $id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.voucher.code.update', ['voucher_id' => $voucher_id, 'id' => $id]),
-            'method'    => 'PUT',
-        ];
+        try {
+            $this->authorize('voucher_code:edit');
 
-        $discount_targets = DiscountTarget::getObject();
-        $discount_types = DiscountType::getObject();
-        $voucher_code = $this->voucherCodeRepository->find($id);
-
-        return view('voucher::code.edit', compact('form', 'voucher_code', 'discount_targets', 'discount_types', 'voucher_id'));
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.voucher.code.update', ['voucher_id' => $voucher_id, 'id' => $id]),
+                'method'    => 'PUT',
+            ];
+    
+            $discount_targets = DiscountTarget::getObject();
+            $discount_types = DiscountType::getObject();
+            $voucher_code = $this->voucherCodeRepository->find($id);
+    
+            return view('voucher::code.edit', compact('form', 'voucher_code', 'discount_targets', 'discount_types', 'voucher_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.voucher.code.index', $voucher_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit voucher code']));
+        }
     }
 
     /**
@@ -112,15 +156,23 @@ class VoucherCodeController extends Controller
      */
     public function update(Request $request, $voucher_id, $id)
     {
-        $request->validate([
-            'code'  => 'required|unique:voucher_codes,code,'.$id
-        ]);
+        try {
+            $this->authorize('voucher_code:edit');
 
-        $this->voucherCodeRepository->update($id, $request->all());
-
-        return redirect()
-        ->route('admin.voucher.code.index', $voucher_id)
-        ->with('success', __('notification.update.success', ['model' => 'voucher code']));
+            $request->validate([
+                'code'  => 'required|unique:voucher_codes,code,'.$id
+            ]);
+    
+            $this->voucherCodeRepository->update($id, $request->all());
+    
+            return redirect()
+            ->route('admin.voucher.code.index', $voucher_id)
+            ->with('success', __('notification.update.success', ['model' => 'voucher code']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.voucher.code.index', $voucher_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit voucher code']));
+        }
     }
 
     /**
@@ -130,10 +182,18 @@ class VoucherCodeController extends Controller
      */
     public function destroy($voucher_id, $id)
     {
-        $this->voucherCodeRepository->delete($id);
+        try {
+            $this->authorize('voucher_code:delete');
 
-        return redirect()
-        ->route('admin.voucher.code.index', $voucher_id)
-        ->with('success', __('notification.delete.success', ['model' => 'voucher code']));
+            $this->voucherCodeRepository->delete($id);
+    
+            return redirect()
+            ->route('admin.voucher.code.index', $voucher_id)
+            ->with('success', __('notification.delete.success', ['model' => 'voucher code']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.voucher.code.index', $voucher_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'delete voucher code']));
+        }
     }
 }

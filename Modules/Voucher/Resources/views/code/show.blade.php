@@ -86,7 +86,9 @@
             </div>
             <div class="box-footer">
                 <a href="{{ route('admin.voucher.code.index', $voucher_id) }}" class="btn btn-default">Back</a>
+                @can('voucher_code:edit')
                 <a href="{{ route('admin.voucher.code.edit', ['voucher_id' => $voucher_id, 'id' => $voucher_code->id]) }}" class="btn btn-primary">Edit</a>
+                @endcan
             </div>
         </div>
     </div>

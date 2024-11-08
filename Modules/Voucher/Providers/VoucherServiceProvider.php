@@ -5,6 +5,7 @@ namespace Modules\Voucher\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
+use Modules\Voucher\Policies\VoucherCodePolicy;
 use Modules\Voucher\Policies\VoucherPolicy;
 
 class VoucherServiceProvider extends ServiceProvider
@@ -124,5 +125,11 @@ class VoucherServiceProvider extends ServiceProvider
         Gate::define('voucher:edit', [VoucherPolicy::class, 'edit']);
         Gate::define('voucher:delete', [VoucherPolicy::class, 'delete']);
         Gate::define('voucher:approve', [VoucherPolicy::class, 'approve']);
+        // Voucher Code
+        Gate::define('voucher_code:browse', [VoucherCodePolicy::class, 'browse']);
+        Gate::define('voucher_code:read', [VoucherCodePolicy::class, 'read']);
+        Gate::define('voucher_code:add', [VoucherCodePolicy::class, 'add']);
+        Gate::define('voucher_code:edit', [VoucherCodePolicy::class, 'edit']);
+        Gate::define('voucher_code:delete', [VoucherCodePolicy::class, 'delete']);
     }
 }

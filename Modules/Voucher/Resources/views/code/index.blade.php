@@ -21,7 +21,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('voucher_code:add')
                 <a href="{{ route('admin.voucher.code.create', $voucher_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
                 <a href="{{ route('admin.voucher.index') }}" class="btn btn-default pull-right mr-1"><i class="fa fa-arrow-left"></i> Back</a>
             </div>
             <div class="box-body">
@@ -35,22 +37,34 @@
                                 <th>Discount Value</th>
                                 <th>Discount Minimum</th>
                                 <th>Discount Maximum</th>
-                                <th style="width: 175px">Action</th>
+                                @canany(['voucher_code:edit', 'voucher_code:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($voucher_codes as $key => $voucher_code)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('voucher_code:read')
                                     <td><a href="{{ route('admin.voucher.code.show', ['voucher_id' => $voucher_id, 'id' => $voucher_code->id]) }}">{{ $voucher_code->code }}</a></td>
+                                    @else
+                                    <td>{{ $voucher_code->code }}</td>
+                                    @endcan
                                     <td>{!! generate_label($voucher_code->discount_type_show, new DiscountType) !!}</td>
                                     <td>{{ number_format($voucher_code->discount_value_show) }}</td>
                                     <td>{{ $voucher_code->discount_minimum_show }}</td>
                                     <td>{{ $voucher_code->discount_maximum_show }}</td>
-                                    <td style="text-align: right">
+                                    @canany(['voucher_code:edit', 'voucher_code:delete'])
+                                    <td style="text-align: right" class="nowrap">
+                                        @can('voucher_code:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.voucher.code.edit', ['voucher_id' => $voucher_id, 'id' => $voucher_code->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('voucher_code:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-voucher-code-delete" data-id="{{ $voucher_code->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>
