@@ -3,14 +3,17 @@
 namespace Modules\User\Http\Controllers;
 
 use App\Enums\Gender;
-use App\Repositories\AbstractRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\User\Repositories\UserRepository;
 
 class UserController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\User\Repositories\UserRepository */
     protected $userRepository;
 
@@ -30,10 +33,16 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $search   = $request->input('search');
-        $users = $this->userRepository->paginate($search);
+        try {
+            $this->authorize('user:browse');
 
-        return view('user::user.index', compact('users'));
+            $search   = $request->input('search');
+            $users = $this->userRepository->paginate($search);
+    
+            return view('user::user.index', compact('users'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin')->with('danger', __('notification.permission.fail', ['action' => 'browse user']));
+        }
     }
 
     /**
@@ -42,15 +51,21 @@ class UserController extends Controller
      */
     public function create()
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.user.store'),
-            'method'    => 'POST',
-        ];
+        try {
+            $this->authorize('user:add');
 
-        $genders = Gender::getObject();
-
-        return view('user::user.create', compact('form', 'genders'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.user.store'),
+                'method'    => 'POST',
+            ];
+    
+            $genders = Gender::getObject();
+    
+            return view('user::user.create', compact('form', 'genders'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.user.index')->with('danger', __('notification.permission.fail', ['action' => 'add user']));
+        }
     }
 
     /**
@@ -60,16 +75,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'account'       => 'required|unique:users',
-            'firstname'     => 'required',
-            'lastname'      => 'required',
-            'email'         => 'required|email|unique:users'
-        ]);
+        try {
+            $this->authorize('user:add');
 
-        $this->userRepository->create($request->all());
-
-        return redirect()->route('admin.user.index')->with('success', __('notification.create.success', ['model' => 'user']));
+            $request->validate([
+                'account'       => 'required|unique:users',
+                'firstname'     => 'required',
+                'lastname'      => 'required',
+                'email'         => 'required|email|unique:users'
+            ]);
+    
+            $this->userRepository->create($request->all());
+    
+            return redirect()->route('admin.user.index')->with('success', __('notification.create.success', ['model' => 'user']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.user.index')->with('danger', __('notification.permission.fail', ['action' => 'add user']));
+        }
     }
 
     /**
@@ -79,9 +100,15 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = $this->userRepository->find($id);
+        try {
+            $this->authorize('user:read');
 
-        return view('user::user.show', compact('user'));
+            $user = $this->userRepository->find($id);
+    
+            return view('user::user.show', compact('user'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.user.index')->with('danger', __('notification.permission.fail', ['action' => 'read user']));
+        }
     }
 
     /**
@@ -91,16 +118,22 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $form = [
-            'title'     => 'Update',
-            'url'       => route('admin.user.update', $id),
-            'method'    => 'PUT',
-        ];
+        try {
+            $this->authorize('user:edit');
 
-        $user = $this->userRepository->find($id);
-        $genders = Gender::getObject();
-
-        return view('user::user.edit', compact('form', 'user', 'genders'));
+            $form = [
+                'title'     => 'Update',
+                'url'       => route('admin.user.update', $id),
+                'method'    => 'PUT',
+            ];
+    
+            $user = $this->userRepository->find($id);
+            $genders = Gender::getObject();
+    
+            return view('user::user.edit', compact('form', 'user', 'genders'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.user.index')->with('danger', __('notification.permission.fail', ['action' => 'edit user']));
+        }
     }
 
     /**
@@ -111,16 +144,22 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'account'       => 'required|unique:users,account,'.$id,
-            'firstname'     => 'required',
-            'lastname'      => 'required',
-            'email'         => 'required|email|unique:users,email,'.$id
-        ]);
+        try {
+            $this->authorize('user:edit');
 
-        $this->userRepository->update($id, $request->all());
-
-        return redirect()->route('admin.user.index')->with('success', __('notification.update.success', ['model' => 'user']));
+            $request->validate([
+                'account'       => 'required|unique:users,account,'.$id,
+                'firstname'     => 'required',
+                'lastname'      => 'required',
+                'email'         => 'required|email|unique:users,email,'.$id
+            ]);
+    
+            $this->userRepository->update($id, $request->all());
+    
+            return redirect()->route('admin.user.index')->with('success', __('notification.update.success', ['model' => 'user']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.user.index')->with('danger', __('notification.permission.fail', ['action' => 'edit user']));
+        }
     }
 
     /**
@@ -130,8 +169,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $this->userRepository->delete($id);
+        try {
+            $this->authorize('user:delete');
 
-        return redirect()->route('admin.user.index')->with('success', __('notification.delete.success', ['model' => 'user']));
+            $this->userRepository->delete($id);
+    
+            return redirect()->route('admin.user.index')->with('success', __('notification.delete.success', ['model' => 'user']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.user.index')->with('danger', __('notification.permission.fail', ['action' => 'delete user']));
+        }
     }
 }

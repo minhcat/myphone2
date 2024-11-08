@@ -3,7 +3,9 @@
 namespace Modules\User\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\User\Policies\UserPolicy;
 
 class UserServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class UserServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +107,21 @@ class UserServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        // User
+        Gate::define('user:browse', [UserPolicy::class, 'browse']);
+        Gate::define('user:read', [UserPolicy::class, 'read']);
+        Gate::define('user:add', [UserPolicy::class, 'add']);
+        Gate::define('user:edit', [UserPolicy::class, 'edit']);
+        Gate::define('user:delete', [UserPolicy::class, 'delete']);
     }
 }

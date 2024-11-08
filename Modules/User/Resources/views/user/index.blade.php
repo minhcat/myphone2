@@ -20,7 +20,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('user:add')
                 <a href="{{ route('admin.user.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -47,24 +49,36 @@
                                 <th>Email</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th style="width: 175px">Action</th>
+                                @canany(['user:edit', 'user:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($users as $key => $user)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $user->id) }}">{{ $user->account }}</a></td>
+                                    @else
+                                    <td>{{ $user->account }}</td>
+                                    @endcan
                                     <td>{{ $user->fullname }}</td>
                                     <td>{!! generate_label($user->gender, new Gender) !!}</td>
                                     <td><a href="{{ route('admin.user.address.index', $user->id) }}">list</a></td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $user->updated_at->format('H:i:s d/m/Y') }}</td>
-                                    <td>
+                                    @canany(['user:edit', 'user:delete'])
+                                    <td class="nowrap">
+                                        @can('user:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.user.edit', $user->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('user:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-user-delete" data-id="{{ $user->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>

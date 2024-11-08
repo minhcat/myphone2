@@ -105,7 +105,9 @@
             </div>
             <div class="box-footer">
                 <a href="{{ route('admin.user.index') }}" class="btn btn-default">Back</a>
+                @can('user:edit')
                 <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-primary">Edit</a>
+                @endcan
             </div>
         </div>
     </div>
