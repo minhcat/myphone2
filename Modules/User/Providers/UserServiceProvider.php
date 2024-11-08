@@ -5,6 +5,7 @@ namespace Modules\User\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
+use Modules\User\Policies\AddressPolicy;
 use Modules\User\Policies\UserPolicy;
 
 class UserServiceProvider extends ServiceProvider
@@ -123,5 +124,11 @@ class UserServiceProvider extends ServiceProvider
         Gate::define('user:add', [UserPolicy::class, 'add']);
         Gate::define('user:edit', [UserPolicy::class, 'edit']);
         Gate::define('user:delete', [UserPolicy::class, 'delete']);
+        // Address
+        Gate::define('address:browse', [AddressPolicy::class, 'browse']);
+        Gate::define('address:read', [AddressPolicy::class, 'read']);
+        Gate::define('address:add', [AddressPolicy::class, 'add']);
+        Gate::define('address:edit', [AddressPolicy::class, 'edit']);
+        Gate::define('address:delete', [AddressPolicy::class, 'delete']);
     }
 }

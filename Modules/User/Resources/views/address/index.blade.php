@@ -21,7 +21,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('address:add')
                 <a href="{{ route('admin.user.address.create', $user_id) }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
                 <a href="{{ route('admin.user.index') }}" class="btn btn-default pull-right mr-1"><i class="fa fa-arrow-left"></i> Back</a>
             </div>
             <div class="box-body">
@@ -46,21 +48,33 @@
                                 <th>Territory</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th style="width: 175px">Action</th>
+                                @canany(['address:edit', 'address:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($addresses as $key => $address)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('address:read')
                                     <td><a href="{{ route('admin.user.address.show', ['user_id' => $user_id, 'id' => $address->id]) }}">{{ $address->content }}</a></td>
+                                    @else
+                                    <td>{{ $address->content }}</td>
+                                    @endcan
                                     <td>{{ $address->ward->name_more }}</td>
                                     <td>{{ $address->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $address->updated_at->format('H:i:s d/m/Y') }}</td>
-                                    <td>
+                                    @canany(['address:edit', 'address:delete'])
+                                    <td class="nowrap">
+                                        @can('address:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.user.address.edit', ['user_id' => $user_id, 'id' => $address->id]) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('address:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-user-address-delete" data-id="{{ $address->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>

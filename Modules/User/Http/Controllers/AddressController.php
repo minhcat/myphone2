@@ -2,7 +2,9 @@
 
 namespace Modules\User\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\City\Repositories\CityRepository;
@@ -12,6 +14,8 @@ use Modules\User\Repositories\AddressRepository;
 
 class AddressController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\User\Repositories\AddressRepository */
     protected $addressRepository;
 
@@ -43,10 +47,18 @@ class AddressController extends Controller
      */
     public function index(Request $request, $user_id)
     {
-        $search = $request->input('search');
-        $addresses = $this->addressRepository->paginateByUserId($user_id, $search);
+        try {
+            $this->authorize('address:browse');
 
-        return view('user::address.index', compact('addresses', 'user_id'));
+            $search = $request->input('search');
+            $addresses = $this->addressRepository->paginateByUserId($user_id, $search);
+    
+            return view('user::address.index', compact('addresses', 'user_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.user.index')
+            ->with('danger', __('notification.permission.fail', ['action' => 'browse address']));
+        }
     }
 
     /**
@@ -55,16 +67,24 @@ class AddressController extends Controller
      */
     public function create($user_id)
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.user.address.store', $user_id),
-            'method'    => 'POST'
-        ];
-        $cities = $this->cityRepository->all();
-        $districts = $this->districtRepository->all();
-        $wards = $this->wardRepository->all();
+        try {
+            $this->authorize('address:add');
 
-        return view('user::address.create', compact('form', 'user_id', 'cities', 'districts', 'wards'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.user.address.store', $user_id),
+                'method'    => 'POST'
+            ];
+            $cities = $this->cityRepository->all();
+            $districts = $this->districtRepository->all();
+            $wards = $this->wardRepository->all();
+    
+            return view('user::address.create', compact('form', 'user_id', 'cities', 'districts', 'wards'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.user.address.index', $user_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'add address']));
+        }
     }
 
     /**
@@ -74,14 +94,24 @@ class AddressController extends Controller
      */
     public function store(Request $request, $user_id)
     {
-        $request->validate([
-            'content'   => 'required',
-            'ward_id'   => 'required|numeric',
-        ]);
+        try {
+            $this->authorize('address:add');
 
-        $this->addressRepository->create($request->all(), ['author_id' => $user_id]);
-
-        return redirect()->route('admin.user.address.index', $user_id)->with('success', __('notification.create.success', ['model' => 'address']));
+            $request->validate([
+                'content'   => 'required',
+                'ward_id'   => 'required|numeric',
+            ]);
+    
+            $this->addressRepository->create($request->all(), ['author_id' => $user_id]);
+    
+            return redirect()
+            ->route('admin.user.address.index', $user_id)
+            ->with('success', __('notification.create.success', ['model' => 'address']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.user.address.index', $user_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'add address']));
+        }
     }
 
     /**
@@ -91,9 +121,17 @@ class AddressController extends Controller
      */
     public function show($user_id, $id)
     {
-        $address = $this->addressRepository->find($id);
+        try {
+            $this->authorize('address:read');
 
-        return view('user::address.show', compact('address', 'user_id'));
+            $address = $this->addressRepository->find($id);
+    
+            return view('user::address.show', compact('address', 'user_id'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.user.address.index', $user_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'read address']));
+        }
     }
 
     /**
@@ -103,17 +141,25 @@ class AddressController extends Controller
      */
     public function edit($user_id, $id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.user.address.update', ['user_id' => $user_id, 'id' => $id]),
-            'method'    => 'PUT'
-        ];
-        $cities = $this->cityRepository->all();
-        $districts = $this->districtRepository->all();
-        $wards = $this->wardRepository->all();
-        $address = $this->addressRepository->find($id);
+        try {
+            $this->authorize('address:edit');
 
-        return view('user::address.create', compact('form', 'address', 'user_id', 'cities', 'districts', 'wards'));
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.user.address.update', ['user_id' => $user_id, 'id' => $id]),
+                'method'    => 'PUT'
+            ];
+            $cities = $this->cityRepository->all();
+            $districts = $this->districtRepository->all();
+            $wards = $this->wardRepository->all();
+            $address = $this->addressRepository->find($id);
+    
+            return view('user::address.create', compact('form', 'address', 'user_id', 'cities', 'districts', 'wards'));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.user.address.index', $user_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit address']));
+        }
     }
 
     /**
@@ -124,14 +170,24 @@ class AddressController extends Controller
      */
     public function update(Request $request, $user_id, $id)
     {
-        $request->validate([
-            'content'   => 'required',
-            'ward_id'   => 'required|numeric',
-        ]);
+        try {
+            $this->authorize('address:edit');
 
-        $this->addressRepository->update($id, $request->all());
-
-        return redirect()->route('admin.user.address.index', $user_id)->with('success', __('notification.update.success', ['model' => 'address']));
+            $request->validate([
+                'content'   => 'required',
+                'ward_id'   => 'required|numeric',
+            ]);
+    
+            $this->addressRepository->update($id, $request->all());
+    
+            return redirect()
+            ->route('admin.user.address.index', $user_id)
+            ->with('success', __('notification.update.success', ['model' => 'address']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.user.address.index', $user_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'edit address']));
+        }
     }
 
     /**
@@ -141,8 +197,18 @@ class AddressController extends Controller
      */
     public function destroy($user_id, $id)
     {
-        $this->addressRepository->delete($id);
+        try {
+            $this->authorize('address:delete');
 
-        return redirect()->route('admin.user.address.index', $user_id)->with('success', __('notification.delete.success', ['model' => 'address']));
+            $this->addressRepository->delete($id);
+    
+            return redirect()
+            ->route('admin.user.address.index', $user_id)
+            ->with('success', __('notification.delete.success', ['model' => 'address']));
+        } catch (AuthorizationException $exception) {
+            return redirect()
+            ->route('admin.user.address.index', $user_id)
+            ->with('danger', __('notification.permission.fail', ['action' => 'delete address']));
+        }
     }
 }
