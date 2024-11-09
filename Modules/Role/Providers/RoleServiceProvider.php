@@ -4,6 +4,9 @@ namespace Modules\Role\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\Role\Policies\RolePolicy;
 
 class RoleServiceProvider extends ServiceProvider
 {
@@ -27,6 +30,7 @@ class RoleServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +108,20 @@ class RoleServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        Gate::define('role:browse', [RolePolicy::class, 'browse']);
+        Gate::define('role:read', [RolePolicy::class, 'read']);
+        Gate::define('role:add', [RolePolicy::class, 'add']);
+        Gate::define('role:edit', [RolePolicy::class, 'edit']);
+        Gate::define('role:delete', [RolePolicy::class, 'delete']);
     }
 }

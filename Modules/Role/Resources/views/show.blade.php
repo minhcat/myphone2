@@ -75,7 +75,9 @@
             </div>
             <div class="box-footer">
                 <a href="{{ route('admin.role.index') }}" class="btn btn-default">Back</a>
+                @can('role:edit')
                 <a href="{{ route('admin.role.edit', $role->id) }}" class="btn btn-primary">Edit</a>
+                @endcan
             </div>
         </div>
     </div>

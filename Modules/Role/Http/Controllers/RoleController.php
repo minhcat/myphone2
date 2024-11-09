@@ -2,7 +2,9 @@
 
 namespace Modules\Role\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Permission\Repositories\PermissionRepository;
@@ -10,6 +12,8 @@ use Modules\Role\Repositories\RoleRepository;
 
 class RoleController extends Controller
 {
+    use AuthorizesRequests;
+
     /** @var \Modules\Role\Repositories\RoleRepository */
     protected $roleRepository;
 
@@ -33,10 +37,16 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $roles = $this->roleRepository->paginate($search);
+        try {
+            $this->authorize('role:browse');
 
-        return view('role::index', compact('roles'));
+            $search = $request->input('search');
+            $roles = $this->roleRepository->paginate($search);
+    
+            return view('role::index', compact('roles'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin')->with('danger', __('notification.permission.fail', ['action' => 'browse role']));
+        }
     }
 
     /**
@@ -45,13 +55,19 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $form = [
-            'title'     => 'Create',
-            'url'       => route('admin.role.store'),
-            'method'    => 'POST'
-        ];
+        try {
+            $this->authorize('role:add');
 
-        return view('role::create', compact('form'));
+            $form = [
+                'title'     => 'Create',
+                'url'       => route('admin.role.store'),
+                'method'    => 'POST'
+            ];
+    
+            return view('role::create', compact('form'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.role.index')->with('danger', __('notification.permission.fail', ['action' => 'add role']));
+        }
     }
 
     /**
@@ -61,13 +77,19 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'      => 'required'
-        ]);
+        try {
+            $this->authorize('role:add');
 
-        $this->roleRepository->create($request->all());
-
-        return redirect()->route('admin.role.index')->with('success', __('notification.create.success', ['model' => 'role']));
+            $request->validate([
+                'name'      => 'required'
+            ]);
+    
+            $this->roleRepository->create($request->all());
+    
+            return redirect()->route('admin.role.index')->with('success', __('notification.create.success', ['model' => 'role']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.role.index')->with('danger', __('notification.permission.fail', ['action' => 'add role']));
+        }
     }
 
     /**
@@ -77,9 +99,15 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $role = $this->roleRepository->find($id);
+        try {
+            $this->authorize('role:read');
 
-        return view('role::show', compact('role'));
+            $role = $this->roleRepository->find($id);
+    
+            return view('role::show', compact('role'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.role.index')->with('danger', __('notification.permission.fail', ['action' => 'read role']));
+        }
     }
 
     /**
@@ -89,15 +117,21 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $form = [
-            'title'     => 'Edit',
-            'url'       => route('admin.role.update', $id),
-            'method'    => 'PUT'
-        ];
+        try {
+            $this->authorize('role:edit');
 
-        $role = $this->roleRepository->find($id);
-
-        return view('role::edit', compact('form', 'role'));
+            $form = [
+                'title'     => 'Edit',
+                'url'       => route('admin.role.update', $id),
+                'method'    => 'PUT'
+            ];
+    
+            $role = $this->roleRepository->find($id);
+    
+            return view('role::edit', compact('form', 'role'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.role.index')->with('danger', __('notification.permission.fail', ['action' => 'edit role']));
+        }
     }
 
     /**
@@ -108,13 +142,19 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name'      => 'required'
-        ]);
+        try {
+            $this->authorize('role:edit');
 
-        $this->roleRepository->update($id, $request->all());
-
-        return redirect()->route('admin.role.index')->with('success', __('notification.update.success', ['model' => 'role']));
+            $request->validate([
+                'name'      => 'required'
+            ]);
+    
+            $this->roleRepository->update($id, $request->all());
+    
+            return redirect()->route('admin.role.index')->with('success', __('notification.update.success', ['model' => 'role']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.role.index')->with('danger', __('notification.permission.fail', ['action' => 'edit role']));
+        }
     }
 
     /**
@@ -124,9 +164,15 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        $this->roleRepository->delete($id);
+        try {
+            $this->authorize('role:delete');
 
-        return redirect()->route('admin.role.index')->with('success', __('notification.delete.success', ['model' => 'role']));
+            $this->roleRepository->delete($id);
+    
+            return redirect()->route('admin.role.index')->with('success', __('notification.delete.success', ['model' => 'role']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.role.index')->with('danger', __('notification.permission.fail', ['action' => 'delete role']));
+        }
     }
 
     /**
@@ -136,10 +182,16 @@ class RoleController extends Controller
      */
     public function editPermission($id)
     {
-        $role = $this->roleRepository->find($id);
-        $permission_groups = $this->permissionRepository->all()->groupBy('table');
+        try {
+            $this->authorize('role:edit');
 
-        return view('role::permission', compact('role', 'permission_groups'));
+            $role = $this->roleRepository->find($id);
+            $permission_groups = $this->permissionRepository->all()->groupBy('table');
+    
+            return view('role::permission', compact('role', 'permission_groups'));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.role.index')->with('danger', __('notification.permission.fail', ['action' => 'edit role']));
+        }
     }
 
     /**
@@ -150,8 +202,14 @@ class RoleController extends Controller
      */
     public function updatePermission(Request $request, $id)
     {
-        $this->roleRepository->updatePermission($id, $request->input('permission'));
+        try {
+            $this->authorize('role:edit');
 
-        return redirect()->route('admin.role.edit_permission', $id)->with('success', __('notification.update.success', ['model' => 'role']));
+            $this->roleRepository->updatePermission($id, $request->input('permission'));
+    
+            return redirect()->route('admin.role.edit_permission', $id)->with('success', __('notification.update.success', ['model' => 'role']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.role.index')->with('danger', __('notification.permission.fail', ['action' => 'edit role']));
+        }
     }
 }

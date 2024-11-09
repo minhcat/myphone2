@@ -20,7 +20,9 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
+                @can('role:add')
                 <a href="{{ route('admin.role.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New</a>
+                @endcan
             </div>
             <div class="box-body">
                 <div class="table-header">
@@ -44,14 +46,20 @@
                                 <th>Author</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th style="width: 273px">Action</th>
+                                @canany(['role:edit', 'role:delete'])
+                                <th style="width: 1px">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($roles as $key => $role)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    @can('role:read')
                                     <td><a href="{{ route('admin.role.show', $role->id) }}">{{ $role->name }}</a></td>
+                                    @else
+                                    <td>{{ $role->name }}</td>
+                                    @endcan
                                     @if ($role->user)
                                     <td><a href="{{ route('admin.user.show', $role->user->id) }}">{{ $role->user->fullname }}</a></td>
                                     @else
@@ -59,11 +67,17 @@
                                     @endif
                                     <td>{{ $role->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $role->updated_at->format('H:i:s d/m/Y') }}</td>
-                                    <td style="text-align: right">
+                                    @canany(['role:edit', 'role:delete'])
+                                    <td style="text-align: right" class="nowrap">
+                                        @can('role:edit')
                                         <a class="btn btn-success" href="{{ route('admin.role.edit_permission', $role->id) }}"><i class="fa fa-edit"></i> Permission</a>
                                         <a class="btn btn-primary" href="{{ route('admin.role.edit', $role->id) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('role:delete')
                                         <button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#modal-role-delete" data-id="{{ $role->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
+                                    @endcanany
                                 </tr>
                             @endforeach
                         </tbody>
