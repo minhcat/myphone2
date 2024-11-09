@@ -115,6 +115,54 @@
 @push('script')
 <script>
     $(function() {
+        function init_input_action_all() {
+            let actions = ['order', 'approve', 'browse', 'read', 'add', 'edit', 'delete']
+            actions.forEach(action => {
+                let check_action_all = true
+                $('input.action-'+action+':not(.group-all)').each(function() {
+                    if (!this.checked) {
+                        check_action_all = false
+                        return false
+                    }
+                })
+                $('input.group-all.action-'+action).prop('checked', check_action_all)
+            });
+        }
+        init_input_action_all()
+
+        function init_input_group_all() {
+            let groups = [
+                'area', 'area_detail', 'attribute', 'attribute_option', 'brand', 'cart', 'cart_detail',
+                'category', 'city', 'city_district', 'city_district_ward', 'gift', 'gift_product', 'gift_product_item',
+                'invoice', 'invoice_detail', 'order', 'order_detail', 'permission', 'product', 'product_detail', 'product_variation',
+                'promotion', 'role', 'sale', 'sale_product', 'specification', 'specification_information', 'tag',
+                'transporter', 'transporter_case', 'transport_fee', 'user', 'user_address', 'voucher', 'voucher_code'
+            ]
+            groups.forEach(group => {
+                let check_group_all = true
+                $('input.group-'+group+':not(.action-all)').each(function() {
+                    if (!this.checked) {
+                        check_group_all = false
+                        return false
+                    }
+                })
+                $('input.action-all.group-'+group).prop('checked', check_group_all)
+            });
+        }
+        init_input_group_all()
+
+        function init_input_all() {
+            let check_all = true
+            $('table input:not(.action-all.group-all)').each(function() {
+                if (!this.checked) {
+                    check_all = false
+                    return false
+                }
+            })
+            $('input.group-all.action-all').prop('checked', check_all)
+        }
+        init_input_all()
+
         $('input.group-all.action-all').change(function() {
             $('input').prop('checked', this.checked)
         })
@@ -156,42 +204,6 @@
             })
             $('input.group-all.action-all').prop('checked', check_all)
         })
-
-        function init_input_action_all() {
-            let actions = ['order', 'approve', 'browse', 'read', 'edit', 'delete']
-            actions.forEach(action => {
-                let check_action_all = true
-                $('input.action-'+action+':not(.group-all)').each(function() {
-                    if (!this.checked) {
-                        check_action_all = false
-                        return false
-                    }
-                })
-                $('input.group-all.action-'+action).prop('checked', check_action_all)
-            });
-        }
-        init_input_action_all()
-
-        function init_input_group_all() {
-            let groups = [
-                'area', 'area_detail', 'attribute', 'attribute_option', 'brand', 'cart', 'cart_detail',
-                'category', 'city', 'city_district', 'city_district_ward', 'gift', 'gift_product', 'gift_product_item',
-                'invoice', 'invoice_detail', 'order', 'order_detail', 'permission', 'product', 'product_detail', 'product_variation',
-                'promotion', 'role', 'sale', 'sale_product', 'specification', 'specification_information', 'tag',
-                'transporter', 'transporter_case', 'transport_fee', 'user', 'user_address', 'voucher', 'voucher_code'
-            ]
-            groups.forEach(group => {
-                let check_group_all = true
-                $('input.group-'+group+':not(.action-all)').each(function() {
-                    if (!this.checked) {
-                        check_group_all = false
-                        return false
-                    }
-                })
-                $('input.action-all.group-'+group).prop('checked', check_group_all)
-            });
-        }
-        init_input_group_all()
     })
 </script>
 @endpush
