@@ -160,7 +160,6 @@
         function init_input_action_all() {
             let actions = ['order', 'approve', 'browse', 'read', 'edit', 'delete']
             actions.forEach(action => {
-                // debugger
                 let check_action_all = true
                 $('input.action-'+action+':not(.group-all)').each(function() {
                     if (!this.checked) {
@@ -175,15 +174,13 @@
 
         function init_input_group_all() {
             let groups = [
-                'area', 'area_detail', 'attribute', 'attribute_option', 'brand', 'cart',
-                'cart_detail', 'category', 'city', 'city_district', 'city_district_ward',
-                'gift', 'gift_product', 'gift_product_item', 'invoice', 'invoice_detail',
-                'order', 'order_detail', 'permission', 'product', 'product_detail', 'product_variation',
-                'promotion', 'role', 'sale', 'sale_product', 'specification', 'specification_information',
-                'tag', 'transporter', 'transporter_case', 'transport_fee', 'user', 'user_address', 'voucher'
+                'area', 'area_detail', 'attribute', 'attribute_option', 'brand', 'cart', 'cart_detail',
+                'category', 'city', 'city_district', 'city_district_ward', 'gift', 'gift_product', 'gift_product_item',
+                'invoice', 'invoice_detail', 'order', 'order_detail', 'permission', 'product', 'product_detail', 'product_variation',
+                'promotion', 'role', 'sale', 'sale_product', 'specification', 'specification_information', 'tag',
+                'transporter', 'transporter_case', 'transport_fee', 'user', 'user_address', 'voucher', 'voucher_code'
             ]
             groups.forEach(group => {
-                // debugger
                 let check_group_all = true
                 $('input.group-'+group+':not(.action-all)').each(function() {
                     if (!this.checked) {
@@ -195,74 +192,6 @@
             });
         }
         init_input_group_all()
-        // $('input.group-all').change(function() {
-        //     let action = $(this).data('action');
-        //     $('input.action-'+action).prop('checked', this.checked)
-        //     if (action == 'all') {
-        //         $('input.action-all').each(function() {
-        //             let group = $(this).data('group')
-        //             $('input.group-'+group).prop('checked', this.checked)
-        //         })
-        //         return
-        //     }
-
-        //     $('input.action-'+action+':not(.action-all)').each(function() {
-        //         let group = $(this).data('group')
-        //         let check_group_all = true
-        //         $('input.group-'+group+':not(.action-all)').each(function() {
-        //             if (!this.checked) {
-        //                 check_group_all = false
-        //                 return false
-        //             }
-        //         })
-        //         $('input.action-all.group-'+group).prop('checked', check_group_all)
-        //     })
-        // })
-        // $('input.action-all').change(function() {
-        //     let group = $(this).data('group')
-        //     $('input.group-'+group).prop('checked', this.checked)
-        // })
-        // $('input:not(.group-all)').change(function() {
-        //     update_checkbox_group_all(this)
-        // })
-
-        // function update_checkbox_group_all(checkbox_change) {
-        //     let action = $(checkbox_change).data('action')
-        //     if (action == 'all') {
-        //         let check_action_all = true
-        //         $('input.action-'+action+':not(.group-all)').each(function() {
-        //             if (!this.checked) {
-        //                 check_action_all = false
-        //                 return false
-        //             }
-        //         })
-        //         $('input.group-all.action-'+action).prop('checked', check_action_all)
-
-        //         let group = $(checkbox_change).data('group')
-        //         $('input.group-'+group+':not(.action-all)').each(function() {
-        //             update_checkbox_group_all(this)
-        //         })
-        //     } else {
-        //         let check_action_all = true
-        //         $('input.action-'+action+':not(.group-all)').each(function() {
-        //             if (!this.checked) {
-        //                 check_action_all = false
-        //                 return false
-        //             }
-        //         })
-        //         $('input.group-all.action-'+action).prop('checked', check_action_all)
-    
-        //         let group = $(checkbox_change).data('group')
-        //         let check_group_all = true
-        //         $('input.group-'+group+':not(.action-all)').each(function() {
-        //             if (!this.checked) {
-        //                 check_group_all = false
-        //                 return false
-        //             }
-        //         })
-        //         $('input.action-all.group-'+group).prop('checked', check_group_all)
-        //     }
-        // }
     })
 </script>
 @endpush
