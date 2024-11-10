@@ -46,7 +46,9 @@
                                 <th>Author</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
+                                @can('information:browse')
                                 <th>Informations</th>
+                                @endcan
                                 @canany(['specification:edit', 'specification:delete'])
                                 <th style="width: 1px">Action</th>
                                 @endcanany
@@ -62,13 +64,19 @@
                                     <td>{{ $specification->name }}</td>
                                     @endcan
                                     @if ($specification->user)
+                                    @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $specification->user->id) }}">{{ $specification->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $specification->user->fullname }}</td>
+                                    @endcan
                                     @else
                                     <td></td>
                                     @endif
                                     <td>{{ $specification->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $specification->updated_at->format('H:i:s d/m/Y') }}</td>
+                                    @can('information:browse')
                                     <td><a href="{{ route('admin.specification.information.index', $specification->id) }}">list</a></td>
+                                    @endcan
                                     @canany(['specification:edit', 'specification:delete'])
                                     <td class="nowrap">
                                         @can('specification:edit')

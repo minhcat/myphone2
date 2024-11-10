@@ -44,7 +44,9 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Author</th>
+                                @can('gift_product:browse')
                                 <th>Products</th>
+                                @endcan
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Status</th>
@@ -63,11 +65,17 @@
                                     <td>{{ $gift->name }}</td>
                                     @endcan
                                     @if ($gift->user)
+                                    @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $gift->user->id) }}">{{ $gift->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $gift->user->fullname }}</td>
+                                    @endcan
                                     @else
                                     <td></td>
                                     @endif
+                                    @can('gift_product:browse')
                                     <td><a href="{{ route('admin.gift.product.index', $gift->id) }}">list</a></td>
+                                    @endcan
                                     <td>{{ $gift->start_datetime?->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $gift->end_datetime?->format('H:i:s d/m/Y') }}</td>
                                     <td>{!! generate_label($gift->status, new PromotionStatus) !!}</td>

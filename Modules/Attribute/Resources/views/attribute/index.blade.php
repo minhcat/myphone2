@@ -46,7 +46,9 @@
                                 <th>Author</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
+                                @can('attribute_option:browse')
                                 <th>Options</th>
+                                @endcan
                                 @canany(['attribute:edit', 'attribute:delete'])
                                 <th style="width: 1px">Action</th>
                                 @endcanany
@@ -61,10 +63,20 @@
                                     @else
                                     <td>{{ $attribute->name }}</td>
                                     @endcan
-                                    <td>@if (!is_null($attribute->user)) <a href="{{ route('admin.user.show', $attribute->user->id) }}">{{ $attribute->user->fullname }}</a>@endif</td>
+                                    @if ($attribute->user)
+                                    @can('user:read')
+                                    <td><a href="{{ route('admin.user.show', $attribute->user->id) }}">{{ $attribute->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $attribute->user->fullname }}</td>
+                                    @endcan
+                                    @else
+                                    <td></td>
+                                    @endif
                                     <td>{{ $attribute->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $attribute->updated_at->format('H:i:s d/m/Y') }}</td>
+                                    @can('attribute_option:browse')
                                     <td><a href="{{ route('admin.attribute.option.index', $attribute->id) }}">list</a></td>
+                                    @endcan
                                     @canany(['attribute:edit', 'attribute:delete'])
                                     <td class="nowrap">
                                         @can('attribute:edit')

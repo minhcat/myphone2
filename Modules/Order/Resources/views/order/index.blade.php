@@ -41,7 +41,9 @@
                                 <th>#</th>
                                 <th>Code</th>
                                 <th>User</th>
+                                @can('order_detail:browse')
                                 <th>Details</th>
+                                @endcan
                                 <th>Quantity</th>
                                 <th>Subtotal</th>
                                 <th>Transport Fee</th>
@@ -63,11 +65,17 @@
                                     <td>{{ $order->code }}</td>
                                     @endcan
                                     @if ($order->user)
+                                    @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $order->user->id) }}">{{ $order->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $order->user->fullname }}</td>
+                                    @endcan
                                     @else
                                     <td></td>
                                     @endif
+                                    @can('order_detail:browse')
                                     <td><a href="{{ route('admin.order.detail.index', $order->id) }}">list</a></td>
+                                    @endcan
                                     <td>{{ $order->quantity }}</td>
                                     <td>{{ number_format($order->subtotal) }}</td>
                                     <td>{{ number_format($order->transport_fee) }}</td>

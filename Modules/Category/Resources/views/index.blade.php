@@ -69,7 +69,15 @@
                                     @else
                                     <td>{{ optional($category->parent)->name }}</td>
                                     @endcan
-                                    <td>@if (!is_null($category->user)) <a href="{{ route('admin.user.show', $category->user->id) }}">{{ $category->user->fullname }}</a>@endif</td>
+                                    @if($category->user)
+                                    @can('user:read')
+                                    <td><a href="{{ route('admin.user.show', $category->user->id) }}">{{ $category->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $category->user->fullname }}</td>
+                                    @endcan
+                                    @else
+                                    <td></td>
+                                    @endif
                                     <td>{{ $category->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $category->updated_at->format('H:i:s d/m/Y') }}</td>
                                     @canany(['category:edit', 'category:delete'])

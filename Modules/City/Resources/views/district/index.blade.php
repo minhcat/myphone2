@@ -46,7 +46,9 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Author</th>
+                                @can('ward:browse')
                                 <th>Wards</th>
+                                @endcan
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 @canany(['district:edit', 'district:delete'])
@@ -64,11 +66,17 @@
                                     <td>{{ $district->name }}</td>
                                     @endcan
                                     @if ($district->user)
+                                    @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $district->user->id) }}">{{ $district->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $district->user->fullname }}</td>
+                                    @endcan
                                     @else
                                     <td></td>
                                     @endif
+                                    @can('ward:browse')
                                     <td><a href="{{ route('admin.city.district.ward.index', ['city_id' => $city_id, 'district_id' => $district->id]) }}">list</a></td>
+                                    @endcan
                                     <td>{{ $district->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $district->updated_at->format('H:i:s d/m/Y') }}</td>
                                     @canany(['district:edit', 'district:delete'])

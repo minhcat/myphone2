@@ -33,6 +33,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Code</th>
+                                <th>Author</th>
                                 <th>Discount Type</th>
                                 <th>Discount Value</th>
                                 <th>Discount Minimum</th>
@@ -51,6 +52,15 @@
                                     @else
                                     <td>{{ $voucher_code->code }}</td>
                                     @endcan
+                                    @if ($voucher_code->user)
+                                    @can('user:read')
+                                    <td><a href="{{ route('admin.user.show', $voucher_code->user->id) }}">{{ $voucher_code->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $voucher_code->user->fullname }}</td>
+                                    @endcan
+                                    @else
+                                    <td></td>
+                                    @endif
                                     <td>{!! generate_label($voucher_code->discount_type_show, new DiscountType) !!}</td>
                                     <td>{{ number_format($voucher_code->discount_value_show) }}</td>
                                     <td>{{ $voucher_code->discount_minimum_show }}</td>

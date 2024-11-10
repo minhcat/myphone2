@@ -41,7 +41,9 @@
                                 <th>#</th>
                                 <th>Code</th>
                                 <th>Author</th>
+                                @can('invoice_detail:browse')
                                 <th>Details</th>
+                                @endcan
                                 <th>Quantity</th>
                                 <th>Subtotal</th>
                                 <th>Transport Fee</th>
@@ -59,8 +61,18 @@
                                     @else
                                     <td>{{ $invoice->code }}</td>
                                     @endcan
-                                    <td>@if (!is_null($invoice->user)) <a href="{{ route('admin.user.show', $invoice->user->id) }}">{{ $invoice->user->fullname }}</a>@endif</td>
+                                    @if($invoice->user)
+                                    @can('user:read')
+                                    <td><a href="{{ route('admin.user.show', $invoice->user->id) }}">{{ $invoice->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $invoice->user->fullname }}</td>
+                                    @endif
+                                    @else
+                                    <td></td>
+                                    @endif
+                                    @can('invoice_detail:browse')
                                     <td><a href="{{ route('admin.invoice.detail.index', $invoice->id) }}">list</a></td>
+                                    @endcan
                                     <td>{{ $invoice->quantity }}</td>
                                     <td>{{ number_format($invoice->subtotal) }}</td>
                                     <td>{{ number_format($invoice->transport_fee) }}</td>

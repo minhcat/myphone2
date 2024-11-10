@@ -64,7 +64,11 @@
                                     <td>{{ $ward->name }}</td>
                                     @endcan
                                     @if ($ward->user)
+                                    @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $ward->user->id) }}">{{ $ward->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $ward->user->fullname }}</td>
+                                    @endcan
                                     @else
                                     <td></td>
                                     @endif

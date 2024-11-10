@@ -44,7 +44,9 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Author</th>
+                                @can('sale_product:browse')
                                 <th>Products</th>
+                                @endcan
                                 <th>Discount Type</th>
                                 <th>Discount Value</th>
                                 <th>Start Date</th>
@@ -65,11 +67,17 @@
                                     <td>{{ $sale->name }}</td>
                                     @endcan
                                     @if ($sale->user)
+                                    @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $sale->user->id) }}">{{ $sale->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $sale->user->fullname }}</td>
+                                    @endcan
                                     @else
                                     <td></td>
                                     @endif
+                                    @can('sale_product:browse')
                                     <td><a href="{{ route('admin.sale.product.index', $sale->id) }}">list</a></td>
+                                    @endcan
                                     <td>{!! generate_label($sale->discount_type, new DiscountType) !!}</td>
                                     <td>{{ number_format($sale->discount_value) }}</td>
                                     <td>{{ $sale->start_datetime?->format('H:i:s d/m/Y') }}</td>

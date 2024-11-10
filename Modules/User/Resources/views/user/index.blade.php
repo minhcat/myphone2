@@ -45,7 +45,9 @@
                                 <th>Account</th>
                                 <th>Fullname</th>
                                 <th>Gender</th>
+                                @can('address:browse')
                                 <th>Addresses</th>
+                                @endcan
                                 <th>Email</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
@@ -65,7 +67,9 @@
                                     @endcan
                                     <td>{{ $user->fullname }}</td>
                                     <td>{!! generate_label($user->gender, new Gender) !!}</td>
+                                    @can('address:browse')
                                     <td><a href="{{ route('admin.user.address.index', $user->id) }}">list</a></td>
+                                    @endcan
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $user->updated_at->format('H:i:s d/m/Y') }}</td>

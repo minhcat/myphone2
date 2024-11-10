@@ -47,8 +47,12 @@
                                 <th>Category</th>
                                 <th>Price</th>
                                 <th>Author</th>
+                                @can('product_variation:browse')
                                 <th>Variations</th>
+                                @endcan
+                                @can('product_detail:read')
                                 <th>Detail</th>
+                                @endcan
                                 @canany(['product:edit', 'product:delete'])
                                 <th style="width: 1px">Action</th> 
                                 @endcanany
@@ -75,12 +79,20 @@
                                     </td>
                                     <td>{{ $product->price_format }} vnđ</td>
                                     @if ($product->user)
+                                    @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $product->user->id) }}">{{ $product->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $product->user->fullname }}</td>
+                                    @endcan
                                     @else
                                     <td></td>
                                     @endif
+                                    @can('product_variation:browse')
                                     <td><a href="{{ route('admin.product.variation.index', $product->id) }}">list</a></td>
+                                    @endcan
+                                    @can('product_detail:read')
                                     <td><a href="{{ route('admin.product.detail.index', $product->id) }}">view</a></td>
+                                    @endcan
                                     @canany(['product:edit', 'product:delete'])
                                     <td class="nowrap">
                                         @can('product:edit')

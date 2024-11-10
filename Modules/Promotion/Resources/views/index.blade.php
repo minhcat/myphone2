@@ -67,7 +67,11 @@
                                     <td>{!! generate_label($promotion->discount_type, new DiscountType) !!}</td>
                                     <td>{!! generate_label($promotion->status, new PromotionStatus) !!}</td>
                                     @if ($promotion->user)
+                                    @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $promotion->user->id) }}">{{ $promotion->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $promotion->user->fullname }}</td>
+                                    @endcan
                                     @else
                                     <td></td>
                                     @endif

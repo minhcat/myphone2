@@ -43,7 +43,9 @@
                                 <th>User</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
+                                @can('cart_detail:browse')
                                 <th>Details</th>
+                                @endcan
                                 <th>Quantity</th>
                                 <th>Total</th>
                                 @can('cart:order')
@@ -61,13 +63,19 @@
                                     <td>{{ $cart->code }}</td>
                                     @endcan
                                     @if ($cart->user)
+                                    @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $cart->user->id) }}">{{ $cart->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $cart->user->fullname }}</td>
+                                    @endcan
                                     @else
                                     <td></td>
                                     @endif
                                     <td>{{ $cart->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $cart->updated_at->format('H:i:s d/m/Y') }}</td>
+                                    @can('cart_detail:browse')
                                     <td><a href="{{ route('admin.cart.detail.index', $cart->id) }}">list</a></td>
+                                    @endcan
                                     <td>{{ $cart->quantity }}</td>
                                     <td>{{ number_format($cart->total) }}</td>
                                     @can('cart:order')

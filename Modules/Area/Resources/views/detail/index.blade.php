@@ -65,7 +65,11 @@
                                     <td><a href="{{ route('admin.city.district.ward.show', ['city_id' => $detail->territory->district->city->id, 'district_id' => $detail->territory->district->id, 'id' => $detail->territory_id]) }}">{{ $detail->territory->name }}</a></td>
                                     @endif
                                     @if ($detail->user)
+                                    @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $detail->user->id) }}">{{ $detail->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $detail->user->fullname }}</td>
+                                    @endcan
                                     @else
                                     <td></td>
                                     @endif

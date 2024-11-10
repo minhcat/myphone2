@@ -67,7 +67,15 @@
                                     @else
                                     <td><a href="{{ route('admin.product.variation.show', ['product_id' => $detail->target->product_id, 'id' => $detail->target_id]) }}">{{ $detail->target->name }}</a></td>
                                     @endif
+                                    @if($detail->user)
+                                    @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $detail->author_id) }}">{{ $detail->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $detail->user->fullname }}</td>
+                                    @endcan
+                                    @else
+                                    <td></td>
+                                    @endif
                                     <td>{{ $detail->quantity }}</td>
                                     <td>{{ number_format($detail->price) }}</td>
                                     <td>{{ number_format($detail->price * $detail->quantity) }}</td>

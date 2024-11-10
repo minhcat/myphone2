@@ -64,7 +64,15 @@
                                     @else
                                     <td><a href="{{ route('admin.product.variation.show', ['product_id' => $gift_product_item->target->product_id, 'id' => $gift_product_item->target_id]) }}">{{ $gift_product_item->target->name }}</a></td>
                                     @endif
+                                    @if ($gift_product_item->user)
+                                    @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $gift_product_item->user->id) }}">{{ $gift_product_item->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $gift_product_item->user->fullname }}</td>
+                                    @endcan
+                                    @else
+                                    <td></td>
+                                    @endif
                                     <td>{{ $gift_product_item->quantity === null ? '#' : $gift_product_item->quantity }}</td>
                                     <td>{{ $gift_product_item->created_at->format('H:i:s d-m-Y') }}</td>
                                     <td>{{ $gift_product_item->updated_at->format('H:i:s d-m-Y') }}</td>

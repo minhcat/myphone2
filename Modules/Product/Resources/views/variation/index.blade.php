@@ -52,7 +52,15 @@
                                     @else
                                     <td>{{ $variation->code }}</td>
                                     @endcan
+                                    @if ($variation->user)
+                                    @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $variation->author_id) }}">{{ $variation->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $variation->user->fullname }}</td>
+                                    @endcan
+                                    @else
+                                    <td></td>
+                                    @endif
                                     <td>{{ $variation->price }}</td>
                                     @foreach($attributes as $attribute)
                                         <td>

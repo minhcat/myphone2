@@ -62,7 +62,15 @@
                                     @else
                                     <td>{{ $option->value }}</td>
                                     @endcan
-                                    <td>@if (!is_null($option->user)) <a href="{{ route('admin.user.show', $option->user->id) }}">{{ $option->user->fullname }}</a>@endif</td>
+                                    @if ($option->user)
+                                    @can('user:read')
+                                    <td><a href="{{ route('admin.user.show', $option->user->id) }}">{{ $option->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $option->user->fullname }}</td>
+                                    @endcan
+                                    @else
+                                    <td></td>
+                                    @endif
                                     <td>{{ $option->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $option->updated_at->format('H:i:s d/m/Y') }}</td>
                                     @canany(['attribute_option:edit', 'attribute_option:delete'])

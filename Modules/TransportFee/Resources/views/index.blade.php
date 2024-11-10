@@ -63,12 +63,24 @@
                                     <td>{{ $transport_fee->name }}</td>
                                     @endcan
                                     @if ($transport_fee->user)
+                                    @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $transport_fee->user->id) }}">{{ $transport_fee->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $transport_fee->user->fullname }}</td>
+                                    @endcan
                                     @else
                                     <td></td>
                                     @endif
+                                    @can('area:read')
                                     <td><a href="{{ route('admin.area.show', $transport_fee->area_id) }}">{{ $transport_fee->area->name }}</a></td>
+                                    @else
+                                    <td>{{ $transport_fee->area->name }}</td>
+                                    @endcan
+                                    @can('transporter_case:read')
                                     <td><a href="{{ route('admin.transporter.case.show', ['transporter_id' => $transport_fee->case->transporter_id, 'id' => $transport_fee->case->id]) }}">{{ $transport_fee->case->name }}</a></td>
+                                    @else
+                                    <td>{{ $transport_fee->case->name }}</td>
+                                    @endcan
                                     <td>{{ $transport_fee->total_range }}</td>
                                     <td>{{ number_format($transport_fee->cost) }}</td>
                                     @canany(['transport_fee:edit', 'transport_fee:delete'])

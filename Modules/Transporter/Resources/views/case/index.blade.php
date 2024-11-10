@@ -64,7 +64,11 @@
                                     <td>{{ $transporter_case->name }}</td>
                                     @endcan
                                     @if ($transporter_case->user)
+                                    @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $transporter_case->user->id) }}">{{ $transporter_case->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $transporter_case->user->fullname }}</td>
+                                    @endcan
                                     @else
                                     <td></td>
                                     @endif

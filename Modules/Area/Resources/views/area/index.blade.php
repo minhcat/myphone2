@@ -44,7 +44,9 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Author</th>
+                                @can('area_detail:browse')
                                 <th>Details</th>
+                                @endcan
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 @canany(['area:edit', 'area:delete'])
@@ -62,11 +64,17 @@
                                     <td>{{ $area->name }}</td>
                                     @endcan
                                     @if ($area->user)
+                                    @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $area->user->id) }}">{{ $area->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $area->user->fullname }}</td>
+                                    @endcan
                                     @else
                                     <td></td>
                                     @endif
+                                    @can('area_detail:browse')
                                     <td><a href="{{ route('admin.area.detail.index', $area->id) }}">list</a></td>
+                                    @endcan
                                     <td>{{ $area->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $area->updated_at->format('H:i:s d/m/Y') }}</td>
                                     @canany(['area:edit', 'area:delete'])

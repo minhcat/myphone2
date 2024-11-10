@@ -46,7 +46,9 @@
                                 <th>#</th>
                                 <th>Product</th>
                                 <th>Author</th>
+                                @can('gift_product_item:browse')
                                 <th>Items</th>
+                                @endcan
                                 <th>Quantity</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
@@ -64,8 +66,18 @@
                                     @else
                                     <td><a href="{{ route('admin.product.variation.show', ['product_id' => $gift_product->target->product_id, 'id' => $gift_product->target_id]) }}">{{ $gift_product->target->name }}</a></td>
                                     @endif
+                                    @if($gift_product->user)
+                                    @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $gift_product->user->id) }}">{{ $gift_product->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $gift_product->user->fullname }}</td>
+                                    @endcan
+                                    @else
+                                    <td></td>
+                                    @endif
+                                    @can('gift_product_item:browse')
                                     <td><a href="{{ route('admin.gift.product.item.index', ['gift_id' => $gift_id, 'gift_product_id' => $gift_product->id]) }}">list</a></td>
+                                    @endcan
                                     <td>{{ $gift_product->quantity === null ? '#' : $gift_product->quantity }}</td>
                                     <td>{{ $gift_product->created_at->format('H:i:s d-m-Y') }}</td>
                                     <td>{{ $gift_product->updated_at->format('H:i:s d-m-Y') }}</td>

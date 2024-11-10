@@ -44,7 +44,9 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Author</th>
+                                @can('voucher_code:browse')
                                 <th>Codes</th>
+                                @endcan
                                 <th>Discount Target</th>
                                 <th>Discount Type</th>
                                 <th>Start Date</th>
@@ -65,11 +67,17 @@
                                     <td>{{ $voucher->name }}</td>
                                     @endcan
                                     @if ($voucher->user)
+                                    @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $voucher->user->id) }}">{{ $voucher->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $voucher->user->fullname }}</td>
+                                    @endcan
                                     @else
                                     <td></td>
                                     @endif
+                                    @can('voucher_code:browse')
                                     <td><a href="{{ route('admin.voucher.code.index', $voucher->id) }}">list</a></td>
+                                    @endcan
                                     <td>{!! generate_label($voucher->discount_target, new DiscountTarget) !!}</td>
                                     <td>{!! generate_label($voucher->discount_type, new DiscountType) !!}</td>
                                     <td>{{ $voucher->start_datetime?->format('H:i:s d/m/Y') }}</td>

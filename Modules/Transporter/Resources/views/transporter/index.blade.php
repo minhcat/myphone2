@@ -44,7 +44,9 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Author</th>
+                                @can('transporter_case:browse')
                                 <th>Cases</th>
+                                @endcan
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 @canany(['transporter:edit', 'transporter:delete'])
@@ -62,11 +64,17 @@
                                     <td>{{ $transporter->name }}</td>
                                     @endcan
                                     @if ($transporter->user)
+                                    @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $transporter->user->id) }}">{{ $transporter->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $transporter->user->fullname }}</td>
+                                    @endcan
                                     @else
                                     <td></td>
                                     @endif
+                                    @can('transporter_case:browse')
                                     <td><a href="{{ route('admin.transporter.case.index', $transporter->id) }}">list</a></td>
+                                    @endcan
                                     <td>{{ $transporter->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $transporter->updated_at->format('H:i:s d/m/Y') }}</td>
                                     @canany(['transporter:edit', 'transporter:delete'])

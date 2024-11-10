@@ -61,7 +61,11 @@
                                     <td>{{ $tag->name }}</td>
                                     @endcan
                                     @if ($tag->user)
+                                    @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $tag->user->id) }}">{{ $tag->user->fullname }}</a></td>
+                                    @else
+                                    <td>{{ $tag->user->fullname }}</td>
+                                    @endcan
                                     @else
                                     <td></td>
                                     @endif
