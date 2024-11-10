@@ -13,27 +13,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
-        // $this->call(BrandSeeder::class);
-        // $this->call(ProductSeeder::class);
-        // $this->call(AttributeSeeder::class);
-        // $this->call(VariationSeeder::class);
-        // $this->call(SpecificationSeeder::class);
-        // $this->call(DetailSeeder::class);
-        // $this->call(CategorySeeder::class);
-        // $this->call(TagSeeder::class);
-        // $this->call(CartSeeder::class);
-        // $this->call(OrderSeeder::class);
-        // $this->call(InvoiceSeeder::class);
-        // $this->call(PromotionSeeder::class);
-        // $this->call(SaleSeeder::class);
-        // $this->call(VoucherSeeder::class);
-        // $this->call(GiftSeeder::class);
-        // $this->call(CitySeeder::class);
-        // $this->call(AreaSeeder::class);
-        // $this->call(TransporterSeeder::class);
-        // $this->call(TransportFeeSeeder::class);
-        // $this->call(RoleSeeder::class);
+        $this->call(UserSeeder::class);
+        $this->call(BrandSeeder::class);
+        $this->call(ProductSeeder::class);
+        $this->call(AttributeSeeder::class);
+        $this->call(VariationSeeder::class);
+        $this->call(SpecificationSeeder::class);
+        $this->call(DetailSeeder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(TagSeeder::class);
+        $this->call(CartSeeder::class);
+        $this->call(OrderSeeder::class);
+        $this->call(InvoiceSeeder::class);
+        $this->call(PromotionSeeder::class);
+        $this->call(SaleSeeder::class);
+        $this->call(VoucherSeeder::class);
+        $this->call(GiftSeeder::class);
+        $this->call(CitySeeder::class);
+        $this->call(AreaSeeder::class);
+        $this->call(TransporterSeeder::class);
+        $this->call(TransportFeeSeeder::class);
+        $this->call(RoleSeeder::class);
         $this->call(PermissionSeeder::class);
     }
 }

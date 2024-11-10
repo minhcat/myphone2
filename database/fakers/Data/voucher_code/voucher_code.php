@@ -8,6 +8,7 @@ return [
     'attributes'        => [
         require database_path().'\fakers\Data\voucher_code\attributes\code.php',
         require database_path().'\fakers\Data\voucher_code\attributes\voucher_id.php',
+        require database_path().'\fakers\Data\voucher_code\attributes\author_id.php',
         require database_path().'\fakers\Data\voucher_code\attributes\quantity.php',
         require database_path().'\fakers\Data\voucher_code\attributes\discount_type.php',
         require database_path().'\fakers\Data\voucher_code\attributes\discount_value.php',

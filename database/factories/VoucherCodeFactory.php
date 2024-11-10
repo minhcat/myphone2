@@ -25,6 +25,7 @@ class VoucherCodeFactory extends Factory
         return [
             'code'              => $voucher_code->code,
             'voucher_id'        => $voucher_code->voucher_id,
+            'author_id'         => $voucher_code->author_id,
             'quantity'          => $voucher_code->quantity,
             'discount_type'     => $voucher_code->discount_type,
             'discount_value'    => $voucher_code->discount_value,

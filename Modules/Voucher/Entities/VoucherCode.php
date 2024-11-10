@@ -6,6 +6,7 @@ use Database\Factories\VoucherCodeFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\User\Entities\User;
 
 class VoucherCode extends Model
 {
@@ -26,6 +27,11 @@ class VoucherCode extends Model
     public function Voucher()
     {
         return $this->belongsTo(Voucher::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     public function discountTypeShow() : Attribute
