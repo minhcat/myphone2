@@ -178,3 +178,9 @@ table.table-fix tr td{
 .nowrap {
     white-space: nowrap;
 }
+
+/******   Page  ******/
+.btn-block.btn-success {
+    border: 1px solid #008d4c;
+    border-radius: 3px;
+}

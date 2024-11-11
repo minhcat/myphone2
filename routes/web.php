@@ -18,5 +18,8 @@ Route::get('/', function () {
 });
 
 Route::get('/admin', function () {
+    if (session()->get('auth_role') === null) {
+        return redirect()->route('admin.login.get_role');
+    }
     return view('themes.adminlte.master');
 })->name('admin')->middleware('auth');

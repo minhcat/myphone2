@@ -80,6 +80,7 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
+        session()->forget('auth_role');
 
         return redirect()->route('admin.login.index');
     }
@@ -119,6 +120,18 @@ class LoginController extends Controller
         $this->userRepository->create($request->all(), ['is_admin' => true]);
 
         return redirect()->route('admin.login.index')->with('success', __('notification.register.success'));
+    }
+
+    public function getRole()
+    {
+        $user = Auth::user();
+        return view('login::set-role', compact('user'));
+    }
+
+    public function setRole(Request $request)
+    {
+        session()->put('auth_role', $request->input('role'));
+        return redirect()->route('admin')->with('success', __('notification.login.success'));
     }
 }
     
