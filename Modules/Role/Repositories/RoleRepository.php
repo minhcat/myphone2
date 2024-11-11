@@ -7,6 +7,8 @@ use Modules\Role\Entities\Role;
 
 class RoleRepository extends AbstractRepository
 {
+    protected $orderType = 'asc';
+
     function getModel()
     {
         return new Role();

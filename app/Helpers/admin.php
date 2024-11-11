@@ -203,10 +203,13 @@ if (!function_exists('array_flatten')) {
 
 if (!function_exists('check_permission')) {
     function check_permission($user, $permission_key) {
+        $role_id = intval(session()->get('auth_role'));
         foreach ($user->roles as $role) {
-            foreach ($role->permissions as $permission) {
-                if ($permission->key === $permission_key) {
-                    return true;
+            if ($role->id === $role_id) {
+                foreach ($role->permissions as $permission) {
+                    if ($permission->key === $permission_key) {
+                        return true;
+                    }
                 }
             }
         }

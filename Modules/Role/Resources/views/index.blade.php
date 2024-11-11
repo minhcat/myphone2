@@ -46,7 +46,7 @@
                                 <th>Author</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                @canany(['role:edit', 'role:delete'])
+                                @canany(['role:read', 'role:edit', 'role:delete'])
                                 <th style="width: 1px">Action</th>
                                 @endcanany
                             </tr>
@@ -71,10 +71,14 @@
                                     @endif
                                     <td>{{ $role->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $role->updated_at->format('H:i:s d/m/Y') }}</td>
-                                    @canany(['role:edit', 'role:delete'])
+                                    @canany(['role:read', 'role:edit', 'role:delete'])
                                     <td style="text-align: right" class="nowrap">
-                                        @can('role:edit')
+                                        @can('role:read')
                                         <a class="btn btn-success" href="{{ route('admin.role.edit_permission', $role->id) }}"><i class="fa fa-edit"></i> Permission</a>
+                                        @else
+                                        <button></button>
+                                        @endcan
+                                        @can('role:edit')
                                         <a class="btn btn-primary" href="{{ route('admin.role.edit', $role->id) }}"><i class="fa fa-edit"></i> Edit</a>
                                         @endcan
                                         @can('role:delete')

@@ -104,7 +104,9 @@
                 </div>
                 <div class="box-footer">
                     <a href="{{ route('admin.role.index') }}" class="btn btn-default">Back</a>
+                    @can('role:edit')
                     <button class="btn btn-primary" type="submit">Save</button>
+                    @endcan
                 </div>
             </form>
         </div>

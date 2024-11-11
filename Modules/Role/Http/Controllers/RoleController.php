@@ -183,7 +183,7 @@ class RoleController extends Controller
     public function editPermission($id)
     {
         try {
-            $this->authorize('role:edit');
+            $this->authorize('role:read');
 
             $role = $this->roleRepository->find($id);
             $permission_groups = $this->permissionRepository->all()->groupBy('table');
@@ -209,7 +209,7 @@ class RoleController extends Controller
     
             return redirect()->route('admin.role.edit_permission', $id)->with('success', __('notification.update.success', ['model' => 'role']));
         } catch (AuthorizationException $exception) {
-            return redirect()->route('admin.role.index')->with('danger', __('notification.permission.fail', ['action' => 'edit role']));
+            return redirect()->route('admin.role.edit_permission', $id)->with('danger', __('notification.permission.fail', ['action' => 'edit role']));
         }
     }
 }
