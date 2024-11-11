@@ -341,7 +341,19 @@ return [
     ], ['timestamp', 'description']),
     'role'                  => update_seeder([
         [
+            'name'          => 'super admin',
+            'author_id'     => 1,
+        ],
+        [
             'name'          => 'admin',
+            'author_id'     => 1,
+        ],
+        [
+            'name'          => 'creator',
+            'author_id'     => 1,
+        ],
+        [
+            'name'          => 'reviewer',
             'author_id'     => 1,
         ],
         [
@@ -349,7 +361,7 @@ return [
             'author_id'     => 1,
         ],
         [
-            'name'          => 'creator',
+            'name'          => 'vip viewer',
             'author_id'     => 1,
         ],
     ], ['timestamp', 'description']),

@@ -36,7 +36,7 @@ class RoleUserFaker extends AbstractFaker
 
     private function genereateRoleId()
     {
-        reset_session('role_user_role_id', 3);
+        reset_session('role_user_role_id', 6);
         $this->role_id = $this->getResourceId($this->roleRepository, 'role_user_role_id');
     }
 }
