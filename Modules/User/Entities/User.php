@@ -5,6 +5,7 @@ namespace Modules\User\Entities;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Role\Entities\Role;
 
 class User extends Model
 {
@@ -37,5 +38,15 @@ class User extends Model
     public static function newFactory()
     {
         return new UserFactory();
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function getRolesListAttribute()
+    {
+        return implode(', ', $this->roles->pluck('name')->toArray());
     }
 }

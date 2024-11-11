@@ -74,13 +74,15 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="">Admin</label>
+                                <label for="">Role</label>
+                                @foreach($roles as $role)
                                 <div class="checkbox">
-                                    <label for="is_admin">
-                                        <input type="checkbox" name="is_admin" id="is_admin" {{ $user->is_admin ? 'checked' : '' }}>
-                                        check
-                                    </label>
+                                    <label for="is_admin_{{ $role->id }}">
+                                        <input type="checkbox" name="role[{{ $role->id }}]" id="is_admin_{{ $role->id }}" {{ !is_null($user->roles) && in_array($role->id, $user->roles->pluck('id')->toArray()) ? 'checked' : '' }}>
+                                        {{ $role->name }}
+                                    </label> 
                                 </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

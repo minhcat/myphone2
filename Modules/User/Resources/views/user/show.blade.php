@@ -75,10 +75,10 @@
                 <div class="field-group">
                     <div class="row">
                         <div class="col-lg-2">
-                            <p><strong>Admin</strong></p>
+                            <p><strong>Role</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ $user->is_admin ? 'true' : 'false' }}</p>
+                            <p>{{ $user->roles_list }}</p>
                         </div>
                     </div>
                 </div>

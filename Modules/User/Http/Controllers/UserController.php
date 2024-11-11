@@ -8,6 +8,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Role\Repositories\RoleRepository;
 use Modules\User\Repositories\UserRepository;
 
 class UserController extends Controller
@@ -17,12 +18,16 @@ class UserController extends Controller
     /** @var \Modules\User\Repositories\UserRepository */
     protected $userRepository;
 
+    /** @var \Modules\User\Repositories\UserRepository */
+    protected $roleRepository;
+
     /**
      * Create a new user controller instance.
      */
     public function __construct()
     {
         $this->userRepository = new UserRepository();
+        $this->roleRepository = new RoleRepository();
 
         view()->share('menu', ['group' => 'user', 'active' => 'user']);
     }
@@ -61,8 +66,9 @@ class UserController extends Controller
             ];
     
             $genders = Gender::getObject();
+            $roles = $this->roleRepository->all();
     
-            return view('user::user.create', compact('form', 'genders'));
+            return view('user::user.create', compact('form', 'genders', 'roles'));
         } catch (AuthorizationException $exception) {
             return redirect()->route('admin.user.index')->with('danger', __('notification.permission.fail', ['action' => 'add user']));
         }
@@ -85,7 +91,8 @@ class UserController extends Controller
                 'email'         => 'required|email|unique:users'
             ]);
     
-            $this->userRepository->create($request->all());
+            $user = $this->userRepository->create($request->all());
+            $this->userRepository->updateRole($user, $request->input('role'));
     
             return redirect()->route('admin.user.index')->with('success', __('notification.create.success', ['model' => 'user']));
         } catch (AuthorizationException $exception) {
@@ -126,11 +133,12 @@ class UserController extends Controller
                 'url'       => route('admin.user.update', $id),
                 'method'    => 'PUT',
             ];
-    
+            
             $user = $this->userRepository->find($id);
             $genders = Gender::getObject();
+            $roles = $this->roleRepository->all();
     
-            return view('user::user.edit', compact('form', 'user', 'genders'));
+            return view('user::user.edit', compact('form', 'user', 'genders', 'roles'));
         } catch (AuthorizationException $exception) {
             return redirect()->route('admin.user.index')->with('danger', __('notification.permission.fail', ['action' => 'edit user']));
         }
@@ -154,7 +162,8 @@ class UserController extends Controller
                 'email'         => 'required|email|unique:users,email,'.$id
             ]);
     
-            $this->userRepository->update($id, $request->all());
+            $user = $this->userRepository->update($id, $request->all());
+            $this->userRepository->updateRole($user, $request->input('role'));
     
             return redirect()->route('admin.user.index')->with('success', __('notification.update.success', ['model' => 'user']));
         } catch (AuthorizationException $exception) {
