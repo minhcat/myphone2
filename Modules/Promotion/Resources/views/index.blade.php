@@ -68,9 +68,9 @@
                                     <td>{!! generate_label($promotion->status, new PromotionStatus) !!}</td>
                                     @if ($promotion->user)
                                     @can('user:read')
-                                    <td><a href="{{ route('admin.user.show', $promotion->user->id) }}">{{ $promotion->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $promotion->user->id) }}">{{ $promotion->user->account }}</a></td>
                                     @else
-                                    <td>{{ $promotion->user->fullname }}</td>
+                                    <td>{{ $promotion->user->account }}</td>
                                     @endcan
                                     @else
                                     <td></td>

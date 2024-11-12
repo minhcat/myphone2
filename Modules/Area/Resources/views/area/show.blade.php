@@ -48,7 +48,9 @@
                             <p><strong>Author</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ $area->user->fullname }}</p>
+                            @if ($area->user)
+                            <p>{{ $area->user->fullname }} ({{ $area->user->account }})</p>
+                            @endif
                         </div>
                     </div>
                 </div>

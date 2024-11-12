@@ -48,7 +48,9 @@
                             <p><strong>Author</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ $transport_fee->user->fullname }}</p>
+                            @if ($transport_fee->user)
+                            <p>{{ $transport_fee->user->fullname }} ({{ $transport_fee->user->account }})</p>
+                            @endif
                         </div>
                     </div>
                 </div>

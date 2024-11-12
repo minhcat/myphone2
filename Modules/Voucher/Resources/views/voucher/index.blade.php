@@ -68,9 +68,9 @@
                                     @endcan
                                     @if ($voucher->user)
                                     @can('user:read')
-                                    <td><a href="{{ route('admin.user.show', $voucher->user->id) }}">{{ $voucher->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $voucher->user->id) }}">{{ $voucher->user->account }}</a></td>
                                     @else
-                                    <td>{{ $voucher->user->fullname }}</td>
+                                    <td>{{ $voucher->user->account }}</td>
                                     @endcan
                                     @else
                                     <td></td>

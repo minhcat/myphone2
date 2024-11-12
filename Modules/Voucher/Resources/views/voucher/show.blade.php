@@ -45,6 +45,18 @@
                 <div class="field-group">
                     <div class="row">
                         <div class="col-lg-2">
+                            <p><strong>Author</strong></p>
+                        </div>
+                        <div class="col-lg-10">
+                            @if ($voucher->user)
+                            <p>{{ $voucher->user->fullname }} ({{ $voucher->user->account }})</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <div class="row">
+                        <div class="col-lg-2">
                             <p><strong>Discount Target</strong></p>
                         </div>
                         <div class="col-lg-10">
@@ -119,16 +131,6 @@
                         </div>
                         <div class="col-lg-10">
                             <p>{!! generate_label($voucher->status, new PromotionStatus) !!}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="field-group">
-                    <div class="row">
-                        <div class="col-lg-2">
-                            <p><strong>Author</strong></p>
-                        </div>
-                        <div class="col-lg-10">
-                            <p>{{ $voucher->user->fullname }}</p>
                         </div>
                     </div>
                 </div>

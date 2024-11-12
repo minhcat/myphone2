@@ -66,9 +66,9 @@
                                     <td>{{ $permission->table }}</td>
                                     @if ($permission->user)
                                     @can('user:read')
-                                    <td><a href="{{ route('admin.user.show', $permission->user->id) }}">{{ $permission->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $permission->user->id) }}">{{ $permission->user->account }}</a></td>
                                     @else
-                                    <td>{{ $permission->user->fullname }}</td>
+                                    <td>{{ $permission->user->account }}</td>
                                     @endcan
                                     @else
                                     <td></td>

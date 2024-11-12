@@ -34,10 +34,10 @@
                                 <th>#</th>
                                 <th>Code</th>
                                 <th>Author</th>
-                                <th>Price</th>
                                 @foreach($attributes as $attribute)
-                                    <th>{{ $attribute->name }}</th>
+                                    <th>{{ ucfirst($attribute->name) }}</th>
                                 @endforeach
+                                <th>Price</th>
                                 @canany(['product_variation:edit', 'product_variation:delete'])
                                 <th style="width: 1px">Action</th>
                                 @endcanany
@@ -47,21 +47,20 @@
                             @foreach ($variations as $key => $variation)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    @can('product_varition:read')
+                                    @can('product_variation:read')
                                     <td><a href="{{ route('admin.product.variation.show', ['product_id' => $product_id, 'id' => $variation->id]) }}">{{ $variation->code }}</a></td>
                                     @else
                                     <td>{{ $variation->code }}</td>
                                     @endcan
                                     @if ($variation->user)
                                     @can('user:read')
-                                    <td><a href="{{ route('admin.user.show', $variation->author_id) }}">{{ $variation->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $variation->author_id) }}">{{ $variation->user->account }}</a></td>
                                     @else
-                                    <td>{{ $variation->user->fullname }}</td>
+                                    <td>{{ $variation->user->account }}</td>
                                     @endcan
                                     @else
                                     <td></td>
                                     @endif
-                                    <td>{{ $variation->price }}</td>
                                     @foreach($attributes as $attribute)
                                         <td>
                                             @foreach($variation->options as $option)
@@ -71,6 +70,7 @@
                                             @endforeach
                                         </td>
                                     @endforeach
+                                    <td>{{ $variation->price }}</td>
                                     @canany(['product_variation:edit', 'product_variation:delete'])
                                     <td class="nowrap">
                                         @can('product_variation:edit')

@@ -38,7 +38,9 @@
                             <p><strong>Author</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ $brand->user->fullname }}</p>
+                            @if ($brand->user)
+                            <p>{{ $brand->user->fullname }} ({{ $brand->user->account }})</p>
+                            @endif
                         </div>
                     </div>
                 </div>

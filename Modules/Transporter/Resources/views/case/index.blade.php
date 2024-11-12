@@ -3,7 +3,7 @@
 @section('title-page', 'Transporter Case')
 
 @section('small-info')
-<small>List of transporter_cases ({{ $transporter_cases->total() }})</small>
+<small>List of transporter cases ({{ $transporter_cases->total() }})</small>
 @endsection
 
 @section('breakcumb')
@@ -65,9 +65,9 @@
                                     @endcan
                                     @if ($transporter_case->user)
                                     @can('user:read')
-                                    <td><a href="{{ route('admin.user.show', $transporter_case->user->id) }}">{{ $transporter_case->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $transporter_case->user->id) }}">{{ $transporter_case->user->account }}</a></td>
                                     @else
-                                    <td>{{ $transporter_case->user->fullname }}</td>
+                                    <td>{{ $transporter_case->user->account }}</td>
                                     @endcan
                                     @else
                                     <td></td>

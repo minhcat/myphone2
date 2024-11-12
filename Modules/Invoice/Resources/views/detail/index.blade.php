@@ -62,9 +62,9 @@
                                     <td>{{ $detail->price * $detail->quantity }}</td>
                                     @if ($detail->user)
                                     @can('user:read')
-                                    <td><a href="{{ route('admin.user.show', $detail->user->id) }}">{{ $detail->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $detail->user->id) }}">{{ $detail->user->account }}</a></td>
                                     @else
-                                    <td>{{ $detail->user->fullname }}</td>
+                                    <td>{{ $detail->user->account }}</td>
                                     @endcan
                                     @else
                                     <td></td>

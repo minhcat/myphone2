@@ -68,9 +68,9 @@
                                     @endif
                                     @if($gift_product->user)
                                     @can('user:read')
-                                    <td><a href="{{ route('admin.user.show', $gift_product->user->id) }}">{{ $gift_product->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $gift_product->user->id) }}">{{ $gift_product->user->account }}</a></td>
                                     @else
-                                    <td>{{ $gift_product->user->fullname }}</td>
+                                    <td>{{ $gift_product->user->account }}</td>
                                     @endcan
                                     @else
                                     <td></td>

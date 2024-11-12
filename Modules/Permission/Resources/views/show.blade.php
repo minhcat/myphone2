@@ -68,7 +68,9 @@
                             <p><strong>Author</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ $permission->user->fullname }}</p>
+                            @if ($permission->user)
+                            <p>{{ $permission->user->fullname }} ({{ $permission->user->account }})</p>
+                            @endif
                         </div>
                     </div>
                 </div>

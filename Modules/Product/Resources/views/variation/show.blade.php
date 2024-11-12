@@ -43,6 +43,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="field-group">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <p><strong>Author</strong></p>
+                        </div>
+                        <div class="col-lg-10">
+                            @if ($variation->user)
+                            <p>{{ $variation->user->fullname }} ({{ $variation->user->account }})</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
                 @foreach($attributes as $attribute)
                     <div class="field-group">
                         <div class="row">

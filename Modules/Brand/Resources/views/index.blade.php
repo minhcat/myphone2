@@ -64,9 +64,9 @@
                                     <td>{{ $brand->country }}</td>
                                     @if ($brand->user)
                                     @can('user:read')
-                                    <td><a href="{{ route('admin.user.show', $brand->user->id) }}">{{ $brand->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $brand->user->id) }}">{{ $brand->user->account }}</a></td>
                                     @else
-                                    <td>{{ $brand->user->fullname }}</td>
+                                    <td>{{ $brand->user->account }}</td>
                                     @endcan
                                     @else
                                     <td></td>

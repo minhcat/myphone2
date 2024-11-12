@@ -75,9 +75,9 @@
                                     <td>{{ $sale_product->discount_maximum_show }}</td>
                                     @if ($sale_product->user)
                                     @can('user:read')
-                                    <td><a href="{{ route('admin.user.show', $sale_product->user->id) }}">{{ $sale_product->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $sale_product->user->id) }}">{{ $sale_product->user->account }}</a></td>
                                     @else
-                                    <td>{{ $sale_product->user->fullname }}</td>
+                                    <td>{{ $sale_product->user->account }}</td>
                                     @endcan
                                     @else
                                     <td></td>

@@ -80,9 +80,9 @@
                                     <td>{{ $product->price_format }} vnđ</td>
                                     @if ($product->user)
                                     @can('user:read')
-                                    <td><a href="{{ route('admin.user.show', $product->user->id) }}">{{ $product->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $product->user->id) }}">{{ $product->user->account }}</a></td>
                                     @else
-                                    <td>{{ $product->user->fullname }}</td>
+                                    <td>{{ $product->user->account }}</td>
                                     @endcan
                                     @else
                                     <td></td>

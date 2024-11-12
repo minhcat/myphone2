@@ -46,20 +46,22 @@
                 <div class="field-group">
                     <div class="row">
                         <div class="col-lg-2">
-                            <p><strong>Estimate Time</strong></p>
+                            <p><strong>Author</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ $transporter_case->estimate_time_text }}</p>
+                            @if ($transporter_case->user)
+                            <p>{{ $transporter_case->user->fullname }} ({{ $transporter_case->user->account }})</p>
+                            @endif
                         </div>
                     </div>
                 </div>
                 <div class="field-group">
                     <div class="row">
                         <div class="col-lg-2">
-                            <p><strong>Author</strong></p>
+                            <p><strong>Estimate Time</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ $transporter_case->user->fullname }}</p>
+                            <p>{{ $transporter_case->estimate_time_text }}</p>
                         </div>
                     </div>
                 </div>

@@ -50,7 +50,9 @@
                             <p><strong>Author</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ $ward->user->fullname }}</p>
+                            @if ($ward->user)
+                            <p>{{ $ward->user->fullname }} ({{ $ward->user->account }})</p>
+                            @endif
                         </div>
                     </div>
                 </div>

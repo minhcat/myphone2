@@ -63,9 +63,9 @@
                                     @endcan
                                     @if($invoice->user)
                                     @can('user:read')
-                                    <td><a href="{{ route('admin.user.show', $invoice->user->id) }}">{{ $invoice->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $invoice->user->id) }}">{{ $invoice->user->account }}</a></td>
                                     @else
-                                    <td>{{ $invoice->user->fullname }}</td>
+                                    <td>{{ $invoice->user->account }}</td>
                                     @endif
                                     @else
                                     <td></td>

@@ -71,9 +71,9 @@
                                     @endcan
                                     @if($category->user)
                                     @can('user:read')
-                                    <td><a href="{{ route('admin.user.show', $category->user->id) }}">{{ $category->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $category->user->id) }}">{{ $category->user->account }}</a></td>
                                     @else
-                                    <td>{{ $category->user->fullname }}</td>
+                                    <td>{{ $category->user->account }}</td>
                                     @endcan
                                     @else
                                     <td></td>

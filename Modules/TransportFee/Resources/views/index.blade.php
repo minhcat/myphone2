@@ -64,9 +64,9 @@
                                     @endcan
                                     @if ($transport_fee->user)
                                     @can('user:read')
-                                    <td><a href="{{ route('admin.user.show', $transport_fee->user->id) }}">{{ $transport_fee->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $transport_fee->user->id) }}">{{ $transport_fee->user->account }}</a></td>
                                     @else
-                                    <td>{{ $transport_fee->user->fullname }}</td>
+                                    <td>{{ $transport_fee->user->account }}</td>
                                     @endcan
                                     @else
                                     <td></td>

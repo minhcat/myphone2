@@ -48,7 +48,9 @@
                             <p><strong>Author</strong></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{ $transporter->user->fullname }}</p>
+                            @if ($transporter->user)
+                            <p>{{ $transporter->user->fullname }} ({{ $transporter->user->account }})</p>
+                            @endif
                         </div>
                     </div>
                 </div>

@@ -65,9 +65,9 @@
                                     @endcan
                                     @if ($attribute->user)
                                     @can('user:read')
-                                    <td><a href="{{ route('admin.user.show', $attribute->user->id) }}">{{ $attribute->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $attribute->user->id) }}">{{ $attribute->user->account }}</a></td>
                                     @else
-                                    <td>{{ $attribute->user->fullname }}</td>
+                                    <td>{{ $attribute->user->account }}</td>
                                     @endcan
                                     @else
                                     <td></td>

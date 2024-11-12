@@ -67,9 +67,9 @@
                                     @endcan
                                     @if ($district->user)
                                     @can('user:read')
-                                    <td><a href="{{ route('admin.user.show', $district->user->id) }}">{{ $district->user->fullname }}</a></td>
+                                    <td><a href="{{ route('admin.user.show', $district->user->id) }}">{{ $district->user->account }}</a></td>
                                     @else
-                                    <td>{{ $district->user->fullname }}</td>
+                                    <td>{{ $district->user->account }}</td>
                                     @endcan
                                     @else
                                     <td></td>

@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 abstract class AbstractRepository implements RepositoryInterface
 {
-    const TAKE_DEFAULT = 5;
+    const TAKE_DEFAULT = 10;
     const PAGE_DEFAULT = 1;
     const SKIP_DEFAULT = 0;
 

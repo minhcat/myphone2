@@ -45,6 +45,18 @@
                 <div class="field-group">
                     <div class="row">
                         <div class="col-lg-2">
+                            <p><strong>Author</strong></p>
+                        </div>
+                        <div class="col-lg-10">
+                            @if ($promotion->user)
+                            <p>{{ $promotion->user->fullname }} ({{ $promotion->user->account }})</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <div class="row">
+                        <div class="col-lg-2">
                             <p><strong>Condition Type</strong></p>
                         </div>
                         <div class="col-lg-10">
@@ -139,16 +151,6 @@
                         </div>
                         <div class="col-lg-10">
                             <p>{!! generate_label($promotion->status, new PromotionStatus) !!}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="field-group">
-                    <div class="row">
-                        <div class="col-lg-2">
-                            <p><strong>Author</strong></p>
-                        </div>
-                        <div class="col-lg-10">
-                            <p>{{ $promotion->user->fullname }}</p>
                         </div>
                     </div>
                 </div>
