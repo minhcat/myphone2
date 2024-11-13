@@ -2,6 +2,4 @@ add country brand to setting
 make quality, payment method to transporter and order
 check todo comment
 job update product tab - schedule cron job
-
-set height td table index view(table-fix:app.css)
 make change status method to module has approve

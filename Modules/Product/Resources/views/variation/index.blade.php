@@ -28,7 +28,7 @@
             </div>
             <div class="box-body">
                 <div class="table-body">
-                    <table class="table table-bordered table-striped mt-3">
+                    <table class="table table-bordered table-striped table-fix mt-3">
                         <thead>
                             <tr>
                                 <th>#</th>
