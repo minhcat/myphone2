@@ -62,9 +62,17 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     @if ($gift_product->target_type === TargetType::PRODUCT)
+                                    @can('product:read')
                                     <td><a href="{{ route('admin.product.show', $gift_product->target_id) }}">{{ $gift_product->target->name }}</a></td>
                                     @else
+                                    <td>{{ $gift_product->target->name }}</td>
+                                    @endcan
+                                    @else
+                                    @can('product_variation:read')
                                     <td><a href="{{ route('admin.product.variation.show', ['product_id' => $gift_product->target->product_id, 'id' => $gift_product->target_id]) }}">{{ $gift_product->target->name }}</a></td>
+                                    @else
+                                    <td>{{ $gift_product->target->name }}</td>
+                                    @endcan
                                     @endif
                                     @if($gift_product->user)
                                     @can('user:read')

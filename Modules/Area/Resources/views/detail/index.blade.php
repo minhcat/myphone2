@@ -58,11 +58,23 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     @if ($detail->territory_type === TerritoryType::CITY)
+                                    @can('city:read')
                                     <td><a href="{{ route('admin.city.show', $detail->territory_id) }}">{{ $detail->territory->name }}</a></td>
+                                    @else
+                                    <td>{{ $detail->territory->name }}</td>
+                                    @endcan
                                     @elseif ($detail->territory_type === TerritoryType::DISTRICT)
+                                    @can('district:read')
                                     <td><a href="{{ route('admin.city.district.show', ['city_id' => $detail->territory->city->id, 'id' => $detail->territory_id]) }}">{{ $detail->territory->name }}</a></td>
                                     @else
+                                    <td>{{ $detail->territory->name }}</td>
+                                    @endcan
+                                    @else
+                                    @can('ward:read')
                                     <td><a href="{{ route('admin.city.district.ward.show', ['city_id' => $detail->territory->district->city->id, 'district_id' => $detail->territory->district->id, 'id' => $detail->territory_id]) }}">{{ $detail->territory->name }}</a></td>
+                                    @else
+                                    <td>{{ $detail->territory->name }}</td>
+                                    @endcan
                                     @endif
                                     @if ($detail->user)
                                     @can('user:read')

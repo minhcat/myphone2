@@ -65,9 +65,17 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     @if ($sale_product->target_type === TargetType::PRODUCT)
+                                    @can('product:read')
                                     <td><a href="{{ route('admin.product.show', $sale_product->target_id) }}">{{ $sale_product->target->name }}</a></td>
                                     @else
+                                    <td>{{ $sale_product->target->name }}</td>
+                                    @endcan
+                                    @else
+                                    @can('product_variation:read')
                                     <td><a href="{{ route('admin.product.variation.show', ['product_id' => $sale_product->target->product_id, 'id' => $sale_product->target_id]) }}">{{ $sale_product->target->name }}</a></td>
+                                    @else
+                                    <td>{{ $sale_product->target->name }}</td>
+                                    @endcan
                                     @endif
                                     <td>{!! generate_label($sale_product->discount_type_show, new DiscountType) !!}</td>
                                     <td>{{ number_format($sale_product->discount_value_show) }}</td>
