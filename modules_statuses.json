@@ -19,5 +19,6 @@
     "TransportFee": true,
     "Login": true,
     "Role": true,
-    "Permission": true
+    "Permission": true,
+    "Theme": true
 }
