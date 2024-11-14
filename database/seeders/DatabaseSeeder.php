@@ -35,5 +35,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TransportFeeSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(PermissionSeeder::class);
+        $this->call(ThemeSeeder::class);
     }
 }
