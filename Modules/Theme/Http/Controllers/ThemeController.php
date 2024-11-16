@@ -3,18 +3,37 @@
 namespace Modules\Theme\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Theme\Repositories\ThemeRepository;
 
 class ThemeController extends Controller
 {
+    use AuthorizesRequests;
+
+    /** @var \Modules\Theme\Repositories\ThemeRepository */
+    protected $themeRepository;
+
+    /**
+     * Create a new tag controller instance.
+     */
+    public function __construct()
+    {
+        $this->themeRepository = new ThemeRepository();
+
+        view()->share('menu', ['group' => 'theme', 'active' => 'themes']);
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
     public function index()
     {
-        return view('theme::index');
+        $themes = $this->themeRepository->all();
+
+        return view('theme::index', compact('themes'));
     }
 
     /**
