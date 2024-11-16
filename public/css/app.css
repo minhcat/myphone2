@@ -185,9 +185,23 @@ table.table-fix tr td{
 .justify-space-between {
     justify-content: space-between;
 }
+.flex-wrap {
+    flex-wrap: wrap;
+}
+.align-space-between {
+    align-content: space-between;
+}
+.text-center {
+    text-align: center !important;
+}
 
 /******   Page  ******/
 .btn-block.btn-success {
     border: 1px solid #008d4c;
     border-radius: 3px;
 }
+
+/****** Boostrap ******/
+/* .modal.modal-lg .modal-dialog {
+    width: 800px;
+} */

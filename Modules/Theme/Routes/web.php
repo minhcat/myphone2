@@ -11,6 +11,12 @@
 |
 */
 
-Route::prefix('theme')->group(function() {
-    Route::get('/', 'ThemeController@index');
+use Illuminate\Support\Facades\Route;
+use Modules\Theme\Http\Controllers\ThemeController;
+
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
+    Route::prefix('themes')->name('theme.')->group(function() {
+        Route::get('/', [ThemeController::class, 'index'])->name('index');
+        Route::put('/{id}/update', [ThemeController::class, 'update'])->name('update');
+    });
 });
