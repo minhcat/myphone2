@@ -219,6 +219,7 @@ return [
         'TerritoryType'     => App\Enums\TerritoryType::class,
         'EstimateTimeType'  => App\Enums\EstimateTimeType::class,
         'TotalRangeType'    => App\Enums\TotalRangeType::class,
+        'ThemeStatus'       => App\Enums\ThemeStatus::class,
     ])->toArray(),
 
 ];
