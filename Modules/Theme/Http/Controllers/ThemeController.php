@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Theme\Repositories\ThemeRepository;
+use Modules\Theme\Repositories\ThemeSettingRepository;
 
 class ThemeController extends Controller
 {
@@ -15,12 +16,16 @@ class ThemeController extends Controller
     /** @var \Modules\Theme\Repositories\ThemeRepository */
     protected $themeRepository;
 
+    /** @var \Modules\Theme\Repositories\ThemeSettingRepository */
+    protected $themeSettingRepository;
+
     /**
      * Create a new tag controller instance.
      */
     public function __construct()
     {
         $this->themeRepository = new ThemeRepository();
+        $this->themeSettingRepository = new ThemeSettingRepository();
 
         view()->share('menu', ['group' => 'theme', 'active' => 'themes']);
     }
@@ -37,42 +42,29 @@ class ThemeController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('theme::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Show the specified resource.
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function setting($id)
     {
-        return view('theme::show');
-    }
+        $setting = $this->themeRepository->find($id)->setting;
+        $theme_id = $id;
 
+        return view('theme::setting', compact('setting', 'theme_id'));
+    }
+    
     /**
-     * Show the form for editing the specified resource.
+     * Update the specified resource in storage.
+     * @param Request $request
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function updateSetting(Request $request, $id)
     {
-        return view('theme::edit');
+        $this->themeSettingRepository->update($id, $request->all());
+
+        return redirect()->route('admin.theme.setting', $id)->with('success', __('notification.update.success', ['model' => 'Theme Setting']));
     }
 
     /**
@@ -83,16 +75,13 @@ class ThemeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        $request->validate([
+            'is_active'     => 'required'
+        ]);
+        // dd($request->all());
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        $this->themeRepository->update($id, $request->only('is_active'));
+
+        return redirect()->route('admin.theme.index')->with('success', __('notification.update.success', ['model' => 'Theme']));
     }
 }

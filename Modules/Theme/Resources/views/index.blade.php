@@ -3,7 +3,7 @@
 @section('title-page', 'Themes')
 
 @section('small-info')
-<small>List of Themes ({{ $themes->total() }})</small>
+<small>List of Themes ({{ $themes->count() }})</small>
 @endsection
 
 @section('breakcumb')
@@ -43,14 +43,14 @@
                     <div class="flex justify-space-between {{ ThemeStatus::checkActive($theme->is_active) ? 'active' : '' }}" id="button-theme">
                         @if (!ThemeStatus::checkActive($theme->is_active))
                         <div class="flex-item">
-                            <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#modal-theme-active" data-id="{{ $theme->id }}">Active</button>
+                            <button class="btn btn-block btn-primary btn-active" data-toggle="modal" data-target="#modal-theme-active" data-id="{{ $theme->id }}">Active</button>
                         </div>
                         @endif
                         <div class="flex-item">
                             <button class="btn btn-block btn-info" data-toggle="modal" data-target="#modal-theme-info-{{ $theme->id }}">Info</button>
                         </div>
                         <div class="flex-item">
-                            <button class="btn btn-block btn-default">Setting</button>
+                            <a href="{{ route('admin.theme.setting', $theme->id) }}" class="btn btn-block btn-default">Setting</a>
                         </div>
                     </div>
                 </div>
@@ -61,18 +61,23 @@
 @endsection
 
 @include('theme::layouts.modal', [
-    'modal'             => [
-        'id'            => 'modal-theme-active',
-        'title'         => 'Active This Theme',
-        'message'       => 'Are you sure to active this theme!',
-        'form'          => [
-            'url'       => route('admin.theme.update', ':id'),
-            'method'    => 'PUT',
-            'inputs'    => []
+    'modal'                 => [
+        'id'                => 'modal-theme-active',
+        'title'             => 'Active This Theme',
+        'message'           => 'Are you sure to active this theme!',
+        'form'              => [
+            'url'           => route('admin.theme.update', ':id'),
+            'method'        => 'PUT',
+            'inputs'        => [
+                [
+                    'name'  => 'is_active',
+                    'value' => ThemeStatus::ACTIVE, 
+                ]
+            ]
         ],
-        'buttons'       => [
-            'primary'   => [
-                'text'  => 'Delete'
+        'buttons'           => [
+            'primary'       => [
+                'text'      => 'Active'
             ]
         ],
     ]
@@ -144,14 +149,14 @@
 @push('script')
 <script>
     $(function() {
-        let url_active = $('#modal-tag-active form').attr('action');
-        $('.btn-delete').click(function() {
+        let url_active = $('#modal-theme-active form').attr('action');
+        $('.btn-active').click(function() {
             let id = $(this).data('id');
             let url = url_active.replace(':id', id)
-            $('#modal-tag-active form').attr('action', url);
+            $('#modal-theme-active form').attr('action', url);
         })
-        $('#modal-tag-active').on('hide.bs.modal', function() {
-            $('#modal-tag-active form').attr('action', url_active);
+        $('#modal-theme-active').on('hide.bs.modal', function() {
+            $('#modal-theme-active form').attr('action', url_active);
         })
 
         let next_button_click = false

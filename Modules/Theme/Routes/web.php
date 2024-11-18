@@ -18,5 +18,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
     Route::prefix('themes')->name('theme.')->group(function() {
         Route::get('/', [ThemeController::class, 'index'])->name('index');
         Route::put('/{id}/update', [ThemeController::class, 'update'])->name('update');
+        Route::get('/{id}/setting', [ThemeController::class, 'setting'])->name('setting');
+        Route::put('/{id}/setting', [ThemeController::class, 'updateSetting'])->name('setting.update');
     });
 });

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ThemeStatus;
 use Faker\Provider\Lorem;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -34,7 +35,7 @@ class ThemeSeeder extends Seeder
                     <p>AdminLTE has been carefully coded with clear comments in all of its JS, SCSS and HTML files. SCSS has been used to increase code customizability.</p>
                     <br/>',
                 'author_id'     => 1,
-                'is_active'     => 0,
+                'is_active'     => ThemeStatus::ACTIVE,
                 'created_at'    => now()->format('Y-m-d H:i:s'),
                 'updated_at'    => now()->format('Y-m-d H:i:s'),
             ],
@@ -53,9 +54,28 @@ class ThemeSeeder extends Seeder
                     <p>Don\'t worry about getting started – we\'ve documented how to get started using this dashboard template and utilizing the available components and plugins, making it easy to leverage the full potential of Kaiadmin Bootstrap 5 Admin Dashboard.</p>
                     <br/>',
                 'author_id'     => 1,
-                'is_active'     => 1,
+                'is_active'     => ThemeStatus::UNACTIVE,
                 'created_at'    => now()->format('Y-m-d H:i:s'),
                 'updated_at'    => now()->format('Y-m-d H:i:s'),
+            ],
+        ]);
+
+        DB::table('theme_settings')->truncate();
+
+        DB::table('theme_settings')->insert([
+            [
+                'theme_id'          => 1,
+                'author_id'         => 1,
+                'sidebar_collapse'  => false,
+                'menu_skin'         => 'blue',
+                'sidebar_skin'      => 'black'
+            ],
+            [
+                'theme_id'          => 2,
+                'author_id'         => 1,
+                'sidebar_collapse'  => false,
+                'menu_skin'         => 'blue',
+                'sidebar_skin'      => 'black'
             ],
         ]);
     }
