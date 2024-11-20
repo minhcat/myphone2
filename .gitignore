@@ -17,3 +17,4 @@ composer.lock
 /.fleet
 /.idea
 /.vscode
+/resources/kaiadmin-lite-1.2.0

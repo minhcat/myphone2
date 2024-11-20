@@ -1,9 +1,11 @@
 <?php
 
 use App\Enums\OrderStatus;
+use App\Enums\ThemeStatus;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\ViewErrorBag;
 use Modules\Order\Entities\Order;
+use Modules\Theme\Entities\Theme;
 
 if (!function_exists('flatten')) {
     function flatten(array $array) {
@@ -214,5 +216,11 @@ if (!function_exists('check_permission')) {
             }
         }
         return false;
+    }
+}
+
+if (!function_exists('get_admin_active_theme')) {
+    function get_admin_active_theme() {
+        return Theme::where('is_active', ThemeStatus::ACTIVE)->first();
     }
 }

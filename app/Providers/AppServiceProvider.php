@@ -29,5 +29,7 @@ class AppServiceProvider extends ServiceProvider
     {
         User::observe(UserObserver::class);
         Order::observe(OrderObserver::class);
+
+        view()->share('admin_active_theme', get_admin_active_theme());
     }
 }
