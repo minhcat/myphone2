@@ -41,6 +41,7 @@
     </div>
 
     @include('themes.kaiadmin.script')
+    @stack('script')
 
     <script>
         $(function() {

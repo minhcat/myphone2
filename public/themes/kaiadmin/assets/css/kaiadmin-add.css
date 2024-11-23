@@ -542,3 +542,6 @@
     color: #97a0b3;
   }
 }
+.hidden {
+  display: none !important;
+}

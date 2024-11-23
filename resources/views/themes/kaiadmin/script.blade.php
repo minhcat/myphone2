@@ -2,6 +2,7 @@
 <script src="{{ asset('themes/kaiadmin/assets/js/core/jquery-3.7.1.min.js') }}"></script>
 <script src="{{ asset('themes/kaiadmin/assets/js/core/popper.min.js') }}"></script>
 <script src="{{ asset('themes/kaiadmin/assets/js/core/bootstrap.min.js') }}"></script>
+<script src="{{ asset('themes/kaiadmin/assets/js/core/bootstrap-modal.js') }}"></script>
 
 <!-- jQuery Scrollbar -->
 <script src="{{ asset('themes/kaiadmin/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
