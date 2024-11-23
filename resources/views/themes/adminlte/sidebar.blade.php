@@ -29,7 +29,7 @@
       'promotion:browse', 'sale:browse', 'voucher:browse', 'gift:browse',
       'transporter:browse', 'transport_fee:browse', 'area:browse', 'city:browse'
     ])
-    <li class="header">CONTENT</li>
+    <li class="header">MODULES</li>
     @endcanany
 
     <!-- Optionally, you can add icons to the links -->
