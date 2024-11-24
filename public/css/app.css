@@ -324,3 +324,16 @@ input:checked + .slider:before {
 .has-error span.help-block {
     color: #f25961;
 }
+
+.text-red {
+    color: #f25961;
+}
+
+.btn.btn-default {
+    border: 1px solid;
+    border-color: #ddd;
+}
+
+.btn.btn-default:hover {
+    border-color: #e7e7e7;
+}
