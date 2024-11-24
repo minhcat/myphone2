@@ -320,3 +320,7 @@ input:checked + .slider:before {
     border-color: #467fcf;
     box-shadow: 0 0 0 2px rgba(70,127,207,.25)
 }
+
+.has-error span.help-block {
+    color: #f25961;
+}

@@ -31,3 +31,7 @@
 
 <!-- Kaiadmin JS -->
 <script src="{{ asset('themes/kaiadmin/assets/js/kaiadmin.min.js') }}"></script>
+
+<!-- Common script -->
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/form.js') }}"></script>
