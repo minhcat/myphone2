@@ -224,3 +224,9 @@ if (!function_exists('get_admin_active_theme')) {
         return Theme::where('is_active', ThemeStatus::ACTIVE)->first();
     }
 }
+
+if (!function_exists('get_admin_theme_extend')) {
+    function get_admin_theme_extend($theme, $file_name) {
+        return 'themes.'.strtolower($theme->name).'.'.$file_name;
+    }
+}
