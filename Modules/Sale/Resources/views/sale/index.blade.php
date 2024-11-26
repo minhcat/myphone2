@@ -49,8 +49,10 @@
                                 @endcan
                                 <th>Discount Type</th>
                                 <th>Discount Value</th>
+                                @if (!is_kaiadmin($admin_active_theme))
                                 <th>Start Date</th>
                                 <th>End Date</th>
+                                @endif
                                 <th>Status</th>
                                 @canany(['sale:approve', 'sale:edit', 'sale:delete'])
                                 <th style="width: 1px">Action</th>
@@ -80,8 +82,10 @@
                                     @endcan
                                     <td>{!! generate_label($sale->discount_type, new DiscountType) !!}</td>
                                     <td>{{ number_format($sale->discount_value) }}</td>
+                                    @if (!is_kaiadmin($admin_active_theme))
                                     <td>{{ $sale->start_datetime?->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $sale->end_datetime?->format('H:i:s d/m/Y') }}</td>
+                                    @endif
                                     <td>{!! generate_label($sale->status, new PromotionStatus) !!}</td>
                                     @canany(['sale:approve', 'sale:edit', 'sale:delete'])
                                     <td style="text-align: right" class="nowrap">

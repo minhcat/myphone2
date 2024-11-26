@@ -49,8 +49,10 @@
                                 @endcan
                                 <th>Discount Target</th>
                                 <th>Discount Type</th>
+                                @if (!is_kaiadmin($admin_active_theme))
                                 <th>Start Date</th>
                                 <th>End Date</th>
+                                @endif
                                 <th>Status</th>
                                 @canany(['voucher:approve', 'voucher:edit', 'voucher:delete'])
                                 <th style="width: 1px">Action</th>
@@ -80,8 +82,10 @@
                                     @endcan
                                     <td>{!! generate_label($voucher->discount_target, new DiscountTarget) !!}</td>
                                     <td>{!! generate_label($voucher->discount_type, new DiscountType) !!}</td>
+                                    @if (!is_kaiadmin($admin_active_theme))
                                     <td>{{ $voucher->start_datetime?->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $voucher->end_datetime?->format('H:i:s d/m/Y') }}</td>
+                                    @endif
                                     <td>{!! generate_label($voucher->status, new PromotionStatus) !!}</td>
                                     @canany(['voucher:approve', 'voucher:edit', 'voucher:delete'])
                                     <td style="text-align: right" class="nowrap">

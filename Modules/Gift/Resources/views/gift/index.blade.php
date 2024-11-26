@@ -47,8 +47,10 @@
                                 @can('gift_product:browse')
                                 <th>Products</th>
                                 @endcan
+                                @if (!is_kaiadmin($admin_active_theme))
                                 <th>Start Date</th>
                                 <th>End Date</th>
+                                @endif
                                 <th>Status</th>
                                 @canany(['gift:approve', 'gift:edit', 'gift:delete'])
                                 <th style="width: 1px">Action</th>
@@ -76,8 +78,10 @@
                                     @can('gift_product:browse')
                                     <td><a href="{{ route('admin.gift.product.index', $gift->id) }}">list</a></td>
                                     @endcan
+                                    @if (!is_kaiadmin($admin_active_theme))
                                     <td>{{ $gift->start_datetime?->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $gift->end_datetime?->format('H:i:s d/m/Y') }}</td>
+                                    @endif
                                     <td>{!! generate_label($gift->status, new PromotionStatus) !!}</td>
                                     @canany(['gift:approve', 'gift:edit', 'gift:delete'])
                                     <td style="text-align: right" class="nowrap">

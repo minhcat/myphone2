@@ -45,9 +45,11 @@
                                 <th>Details</th>
                                 @endcan
                                 <th>Quantity</th>
+                                @if (!is_kaiadmin($admin_active_theme))
                                 <th>Subtotal</th>
                                 <th>Transport Fee</th>
                                 <th>Discount</th>
+                                @endif
                                 <th>Total</th>
                                 <th>Status</th>
                                 @can('order:approve')
@@ -77,9 +79,11 @@
                                     <td><a href="{{ route('admin.order.detail.index', $order->id) }}">list</a></td>
                                     @endcan
                                     <td>{{ $order->quantity }}</td>
+                                    @if (!is_kaiadmin($admin_active_theme))
                                     <td>{{ number_format($order->subtotal) }}</td>
                                     <td>{{ number_format($order->transport_fee) }}</td>
                                     <td>{{ number_format($order->discount) }}</td>
+                                    @endif
                                     <td>{{ number_format($order->total) }}</td>
                                     <td>{!! generate_label($order->status, new OrderStatus) !!}</td>
                                     @can('order:approve')

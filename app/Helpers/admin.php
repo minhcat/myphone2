@@ -230,3 +230,9 @@ if (!function_exists('get_admin_theme_extend')) {
         return 'themes.'.strtolower($theme->name).'.'.$file_name;
     }
 }
+
+if (!function_exists('is_kaiadmin')) {
+    function is_kaiadmin($theme) {
+        return $theme->name === 'KaiAdmin';
+    }
+}

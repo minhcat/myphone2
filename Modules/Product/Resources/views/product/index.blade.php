@@ -45,7 +45,9 @@
                                 <th>Name</th>
                                 <th>Brand</th>
                                 <th>Category</th>
+                                @if (!is_kaiadmin($admin_active_theme))
                                 <th>Price</th>
+                                @endif
                                 <th>Author</th>
                                 @can('product_variation:browse')
                                 <th>Variations</th>
@@ -77,7 +79,9 @@
                                             @endif
                                         @endforeach
                                     </td>
+                                    @if (!is_kaiadmin($admin_active_theme))
                                     <td>{{ $product->price_format }} vnđ</td>
+                                    @endif
                                     @if ($product->user)
                                     @can('user:read')
                                     <td><a href="{{ route('admin.user.show', $product->user->id) }}">{{ $product->user->account }}</a></td>

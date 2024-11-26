@@ -48,9 +48,11 @@
                                 @can('address:browse')
                                 <th>Addresses</th>
                                 @endcan
+                                @if (!is_kaiadmin($admin_active_theme))
                                 <th>Email</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
+                                @endif
                                 @canany(['user:edit', 'user:delete'])
                                 <th style="width: 1px">Action</th>
                                 @endcanany
@@ -70,9 +72,11 @@
                                     @can('address:browse')
                                     <td><a href="{{ route('admin.user.address.index', $user->id) }}">list</a></td>
                                     @endcan
+                                    @if (!is_kaiadmin($admin_active_theme))
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->created_at->format('H:i:s d/m/Y') }}</td>
                                     <td>{{ $user->updated_at->format('H:i:s d/m/Y') }}</td>
+                                    @endif
                                     @canany(['user:edit', 'user:delete'])
                                     <td class="nowrap">
                                         @can('user:edit')
