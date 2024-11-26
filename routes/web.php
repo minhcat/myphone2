@@ -21,5 +21,6 @@ Route::get('/admin', function () {
     if (session()->get('auth_role') === null) {
         return redirect()->route('admin.login.get_role');
     }
-    return view('themes.adminlte.master');
+    $theme = get_admin_active_theme();
+    return view(get_admin_theme_extend($theme, 'master'));
 })->name('admin')->middleware('auth');

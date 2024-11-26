@@ -1,3 +1,7 @@
+@php
+  $menu = isset($menu) ? $menu : ['group' => '', 'active' => ''];
+@endphp
+
 <div class="sidebar" data-background-color="dark">
     <div class="sidebar-logo">
         <!-- Logo Header -->
