@@ -483,11 +483,11 @@
     color: #444;
   }
 
-  /*
+/*
  * Component: Main Header
  * ----------------------
  */
- .page-header {
+.page-header {
   position: relative;
   padding: 15px 15px 0 15px;
 }

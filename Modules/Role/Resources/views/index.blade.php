@@ -94,7 +94,7 @@
                 <div class="table-footer mt-3">
                     <div class="row">
                         <div class="col-lg-12">
-                            {{ $roles->appends($_GET)->links('themes.adminlte.paginate') }}
+                            {{ $roles->appends($_GET)->links(get_admin_theme_extend($admin_active_theme, 'paginate')) }}
                         </div>
                     </div>
                 </div>

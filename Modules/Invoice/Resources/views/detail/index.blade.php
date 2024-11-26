@@ -85,7 +85,7 @@
                 <div class="table-footer mt-3">
                     <div class="row">
                         <div class="col-lg-12">
-                            {{ $details->appends($_GET)->links('themes.adminlte.paginate') }}
+                            {{ $details->appends($_GET)->links(get_admin_theme_extend($admin_active_theme, 'paginate')) }}
                         </div>
                     </div>
                 </div>
