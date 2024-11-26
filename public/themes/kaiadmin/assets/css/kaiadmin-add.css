@@ -291,7 +291,7 @@
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
     border-top: 1px solid #f4f4f4;
-    padding: 10px;
+    padding: 1rem 1.25rem;
     background-color: #ffffff;
   }
   .chart-legend {
@@ -592,4 +592,27 @@ hr {
 }
 .label.label-warning {
   background-color: #ffad46;
+}
+
+.bg-blue {
+  background-color: #1572e8;
+}
+.bg-purple {
+  background-color: #6861ce;
+}
+.bg-green {
+  background-color: #31ce36;
+}
+.bg-red {
+  background-color: #f25961;
+}
+.bg-yellow {
+  background-color: #ffad46;
+}
+
+.text-right {
+  text-align: right;
+}
+.text-left {
+  text-align: left;
 }
