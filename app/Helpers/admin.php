@@ -65,9 +65,9 @@ if (!function_exists('generate_button_orderstatus')) {
         }
         $label = OrderStatus::getLabel($status + 1);
         if ($status == OrderStatus::COMPLETED || $status == OrderStatus::CANCELLED) {
-            return '<button class="btn btn-danger btn-delete w100" data-toggle="modal" data-target="#modal-order-delete" data-id="'.$order_id.'"><i class="fa fa-trash"></i> '.$btnname.'</button>';
+            return '<button class="btn btn-danger btn-delete btn-status" data-toggle="modal" data-target="#modal-order-delete" data-id="'.$order_id.'"><i class="fa fa-trash"></i> '.$btnname.'</button>';
         }
-        return '<button class="btn btn-'.$label.' btn-update w100" data-toggle="modal" data-target="#modal-order-update" data-id="'.$order_id.'" data-status="'.$sts.'"><i class="fa fa-'.$icon.'"></i> '.$btnname.'</button> <button class="btn btn-default btn-update" data-toggle="modal" data-target="#modal-order-update" data-id="'.$order_id.'" data-status="5"><i class="fa fa-ban"></i> Cancel</button>';
+        return '<button class="btn btn-'.$label.' btn-update btn-status" data-toggle="modal" data-target="#modal-order-update" data-id="'.$order_id.'" data-status="'.$sts.'"><i class="fa fa-'.$icon.'"></i> '.$btnname.'</button> <button class="btn btn-default btn-update" data-toggle="modal" data-target="#modal-order-update" data-id="'.$order_id.'" data-status="5"><i class="fa fa-ban"></i> Cancel</button>';
     }
 }
 
@@ -82,7 +82,7 @@ if (!function_exists('generate_button_update_status')) {
             $dataAttr .= 'data-'.$name.'="'.$value.'" ';
         }
         if ($nextStatus !== null) {
-            return '<button class="btn btn-'.$label.' btn-update w108" '.$dataAttr.'><i class="'.$icon.'"></i> '.$action.'</button>';
+            return '<button class="btn btn-'.$label.' btn-update btn-status2" '.$dataAttr.'><i class="'.$icon.'"></i> '.$action.'</button>';
         }
         return '';
     }

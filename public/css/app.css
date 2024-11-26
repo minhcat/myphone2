@@ -203,6 +203,12 @@ table.table-fix tr td{
     border: 1px solid #008d4c;
     border-radius: 3px;
 }
+.btn.btn-status {
+    width: 100px;
+}
+.btn.btn-status2 {
+    width: 108px;
+}
 
 /****** Boostrap ******/
 

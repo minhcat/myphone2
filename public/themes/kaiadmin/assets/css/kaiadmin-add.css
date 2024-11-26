@@ -545,3 +545,13 @@
 .hidden {
   display: none !important;
 }
+
+hr {
+  border-top: 2px solid #c3c3c3;
+}
+.btn.btn-status {
+  width: 125px;
+}
+.btn.btn-status2 {
+  width: 125px;
+}

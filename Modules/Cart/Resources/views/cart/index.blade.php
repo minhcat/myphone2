@@ -106,6 +106,12 @@
 
 @endsection
 
+@if (is_kaiadmin($admin_active_theme))
+    @section('style')
+        <link rel="stylesheet" href="{{ asset('themes/kaiadmin/modules/cart/modal.css') }}">
+    @endsection
+@endif
+
 @push('script')
 <script>
     $(function() {
