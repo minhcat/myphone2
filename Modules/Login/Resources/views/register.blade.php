@@ -14,7 +14,7 @@
 @section('body-class', 'login-page')
 
 @section('content')
-<div class="login-box" style="margin: 4% auto">
+<div class="login-box" style="margin: 4% auto; {{ is_kaiadmin($admin_active_theme) ? 'width:420px' : '' }}">
     <div class="login-logo">
         <a href="{{ route('admin') }}"><b>Register</b></a>
     </div>
@@ -82,16 +82,22 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group has-feedback">
-                <label for="password" class="control-label">Password</label>
-                <input type="password" class="form-control" placeholder="Password" name="password" id="password">
-            </div>
-            <div class="form-group has-feedback">
-                <label for="password_confirmation" class="control-label">Repassword</label>
-                <input type="password" class="form-control" placeholder="Retype Password" name="password_confirmation" id="password_confirmation">
-            </div>
             <div class="row">
-                <div class="col-xs-8">
+                <div class="col-lg-6">
+                    <div class="form-group has-feedback">
+                        <label for="password" class="control-label">Password</label>
+                        <input type="password" class="form-control" placeholder="Password" name="password" id="password">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group has-feedback">
+                        <label for="password_confirmation" class="control-label">Repassword</label>
+                        <input type="password" class="form-control" placeholder="Retype Password" name="password_confirmation" id="password_confirmation">
+                    </div>
+                </div>
+            </div>
+            <div class="row  {{ is_kaiadmin($admin_active_theme) ? 'mx-0 py-3' : '' }}">
+                <div class="col-lg-8">
                     <div class="checkbox icheck">
                     <label>
                         <input type="checkbox" name="agree_terms">  I agree to the terms
@@ -99,14 +105,14 @@
                     </div>
                 </div>
                 <!-- /.col -->
-                <div class="col-xs-4">
+                <div class="col-lg-4">
                     <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
                 </div>
                 <!-- /.col -->
             </div>
         </form>
     
-        <a href="{{ route('admin.login.index') }}" class="text-center">I already have a membership</a>
+        <a href="{{ route('admin.login.index') }}" class="text-center {{ is_kaiadmin($admin_active_theme) ? 'mx-2' : '' }}">I already have a membership</a>
   
     </div>
     <!-- /.login-box-body -->

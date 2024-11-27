@@ -51,8 +51,8 @@
                 <input type="password" class="form-control" placeholder="Password" name="password">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
-            <div class="row">
-                <div class="col-xs-8">
+            <div class="row {{ is_kaiadmin($admin_active_theme) ? 'mx-0' : '' }}">
+                <div class="col-lg-8">
                     <div class="checkbox icheck">
                     <label>
                         <input type="checkbox" name="remember"> Remember Me
@@ -60,14 +60,14 @@
                     </div>
                 </div>
                 <!-- /.col -->
-                <div class="col-xs-4">
+                <div class="col-lg-4">
                     <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
                 </div>
                 <!-- /.col -->
             </div>
         </form>
     
-        <a href="{{ route('admin.login.register') }}" class="text-center">Register a new admin</a>
+        <a href="{{ route('admin.login.register') }}" class="text-center {{ is_kaiadmin($admin_active_theme) ? 'mx-2' : '' }}">Register a new admin</a>
   
     </div>
     <!-- /.login-box-body -->

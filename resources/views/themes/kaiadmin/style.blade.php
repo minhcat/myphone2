@@ -21,9 +21,9 @@
 </script>
 
 <!-- CSS Files -->
-<link rel="stylesheet" href="{{ asset('css/grid.css') }}" />
 <link rel="stylesheet" href="{{ asset('themes/kaiadmin/assets/css/bootstrap.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('themes/kaiadmin/assets/css/bootstrap.modals.css') }}" />
+<link rel="stylesheet" href="{{ asset('themes/kaiadmin/assets/css/bootstrap.utility.css') }}" />
 <link rel="stylesheet" href="{{ asset('themes/kaiadmin/assets/css/plugins.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('themes/kaiadmin/assets/css/kaiadmin.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('themes/kaiadmin/assets/css/kaiadmin-add.css') }}" />

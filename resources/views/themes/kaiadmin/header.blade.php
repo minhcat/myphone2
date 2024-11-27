@@ -74,9 +74,9 @@
                             <li>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">My Profile</a>
-                                <a class="dropdown-item" href="#">Role Setting</a>
+                                <a class="dropdown-item" href="{{ route('admin.login.set_role') }}">Role Setting</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Logout</a>
+                                <a class="dropdown-item" href="{{ route('admin.login.logout') }}">Logout</a>
                             </li>
                         </div>
                     </ul>
