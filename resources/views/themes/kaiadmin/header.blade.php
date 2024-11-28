@@ -8,6 +8,7 @@
                 alt="navbar brand"
                 class="navbar-brand"
                 height="20"
+                data-light-src="{{ asset('themes/kaiadmin/assets/img/kaiadmin/logo_light.svg') }}"
                 />
             </a>
             <div class="nav-toggle">

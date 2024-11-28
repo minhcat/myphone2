@@ -35,7 +35,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini @yield('body-class') {{ get_adminlte_skin($admin_active_theme) }} {{ $admin_active_theme->setting->sidebar_collapse ? 'sidebar-collapse' : '' }}">
+<body class="hold-transition sidebar-mini @yield('body-class') {{ get_adminlte_skin($admin_active_theme) }} {{ $admin_active_theme->setting->sidebar_collapse ? 'sidebar-collapse' : '' }}" data-theme="{{ $admin_active_theme->name }}" data-sidebar-color="dark" data-menu-color="{{ get_adminlte_skin($admin_active_theme) }}">
 <div class="wrapper">
 
   @include('themes.adminlte.header')
