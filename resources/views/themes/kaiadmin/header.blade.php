@@ -1,7 +1,7 @@
 <div class="main-header">
     <div class="main-header-logo">
         <!-- Logo Header -->
-        <div class="logo-header" data-background-color="dark">
+        <div class="logo-header" data-background-color="{{ get_kaiadmin_logo_header_background($admin_active_theme) }}">
             <a href="index.html" class="logo">
                 <img
                 src="{{ asset('themes/kaiadmin/assets/img/kaiadmin/logo_light.svg') }}"
@@ -25,9 +25,9 @@
         <!-- End Logo Header -->
     </div>
     <!-- Navbar Header -->
-    <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
+    <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom" data-background-color="{{ get_kaiadmin_navbar_header_background($admin_active_theme) }}">
         <div class="container-fluid">
-            <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
+            <nav class="navbar navbar-header-left navbar-header-title navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
                 <h5>Myphone Admin</h5>
             </nav>
 

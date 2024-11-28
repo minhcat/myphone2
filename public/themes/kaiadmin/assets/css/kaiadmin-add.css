@@ -675,3 +675,6 @@ hr {
 .navbar .navbar-nav .topbar-user .profile-pic.show {
   display: flex !important;
 }
+.main-header .navbar-header[data-background-color]:not([data-background-color="white"]) .navbar-header-title h5{
+  color: #fff;
+}

@@ -219,6 +219,9 @@ if (!function_exists('check_permission')) {
     }
 }
 
+/* 
+ * Admin Theme
+ */
 if (!function_exists('get_admin_active_theme')) {
     function get_admin_active_theme() {
         return Theme::where('is_active', ThemeStatus::ACTIVE)->first();
@@ -234,5 +237,72 @@ if (!function_exists('get_admin_theme_extend')) {
 if (!function_exists('is_kaiadmin')) {
     function is_kaiadmin($theme) {
         return $theme->name === 'KaiAdmin';
+    }
+}
+
+if (!function_exists('get_kaiadmin_logo_header_background')) {
+    function get_kaiadmin_logo_header_background($theme) {
+        switch ($theme->setting->sidebar_skin) {
+            case 'black': return 'dark';
+            case 'white': return 'white';
+            default: return 'dark';
+        }
+    }
+}
+
+if (!function_exists('get_kaiadmin_navbar_header_background')) {
+    function get_kaiadmin_navbar_header_background($theme) {
+        switch ($theme->setting->menu_skin) {
+            case 'blue': return 'blue';
+            case 'purple': return 'purple';
+            case 'red': return 'red';
+            case 'yellow': return 'orange';
+            case 'white': return 'white';
+            default: return 'dark';
+        }
+    }
+}
+
+if (!function_exists('get_kaiadmin_sidebar_background')) {
+    function get_kaiadmin_sidebar_background($theme) {
+        switch ($theme->setting->sidebar_skin) {
+            case 'black': return 'dark';
+            case 'white': return 'white';
+            default: return 'dark';
+        }
+    }
+}
+
+if (!function_exists('get_kaiadmin_logo')) {
+    function get_kaiadmin_logo($theme) {
+        switch ($theme->setting->sidebar_skin) {
+            case 'black': return 'logo_light.svg';
+            case 'white': return 'logo_dark.svg';
+            default: return 'dark';
+        }
+    }
+}
+
+if (!function_exists('get_adminlte_skin')) {
+    function get_adminlte_skin($theme) {
+        if ($theme->setting->sidebar_skin == 'black') {
+            switch ($theme->setting->menu_skin) {
+                case 'blue': return 'skin-blue';
+                case 'purple': return 'skin-purple';
+                case 'red': return 'skin-red';
+                case 'yellow': return 'skin-yellow';
+                case 'white': return 'skin-black';
+                default: return 'skin-blue';
+            }
+        } else {
+            switch ($theme->setting->menu_skin) {
+                case 'blue': return 'skin-blue-light';
+                case 'purple': return 'skin-purple-light';
+                case 'red': return 'skin-red-light';
+                case 'yellow': return 'skin-yellow-light';
+                case 'white': return 'skin-black-light';
+                default: return 'skin-blue-light';
+            }
+        }
     }
 }

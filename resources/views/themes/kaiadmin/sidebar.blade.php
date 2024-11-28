@@ -2,13 +2,13 @@
   $menu = isset($menu) ? $menu : ['group' => '', 'active' => ''];
 @endphp
 
-<div class="sidebar" data-background-color="dark">
+<div class="sidebar" data-background-color="{{ get_kaiadmin_sidebar_background($admin_active_theme) }}">
     <div class="sidebar-logo">
         <!-- Logo Header -->
-        <div class="logo-header" data-background-color="dark">
+        <div class="logo-header" data-background-color="{{ get_kaiadmin_logo_header_background($admin_active_theme) }}">
             <a href="index.html" class="logo">
                 <img
-                src="{{ asset('themes/kaiadmin/assets/img/kaiadmin/logo_light.svg') }}"
+                src="{{ asset('themes/kaiadmin/assets/img/kaiadmin/'.get_kaiadmin_logo($admin_active_theme)) }}"
                 alt="navbar brand"
                 class="navbar-brand"
                 height="20"

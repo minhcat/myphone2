@@ -40,25 +40,25 @@
                 </div>
                 <div class="col-lg-6 text-right">
                     <div class="flex justify-flex-end">
-                        <div class="flex-item ml-2">
+                        <div class="flex-item ml-2 ms-2">
                             <label class="mycolorinput">
                                 <input type="radio" class="mycolorinput-input" name="menu_skin" value="blue" {{ $setting->menu_skin == 'blue' ? 'checked' : '' }}>
                                 <span class="mycolorinput-color bg-blue"></span>
                             </label>
                         </div>
-                        <div class="flex-item ml-2">
+                        <div class="flex-item ml-2 ms-2">
                             <label class="mycolorinput">
                                 <input type="radio" class="mycolorinput-input" name="menu_skin" value="purple" {{ $setting->menu_skin == 'purple' ? 'checked' : '' }}>
                                 <span class="mycolorinput-color bg-purple"></span>
                             </label>
                         </div>
-                        <div class="flex-item ml-2">
+                        <div class="flex-item ml-2 ms-2">
                             <label class="mycolorinput">
                                 <input type="radio" class="mycolorinput-input" name="menu_skin" value="red" {{ $setting->menu_skin == 'red' ? 'checked' : '' }}>
                                 <span class="mycolorinput-color bg-red"></span>
                             </label>
                         </div>
-                        <div class="flex-item ml-2">
+                        <div class="flex-item ml-2 ms-2">
                             <label class="mycolorinput">
                                 <input type="radio" class="mycolorinput-input" name="menu_skin" value="yellow" {{ $setting->menu_skin == 'yellow' ? 'checked' : '' }}>
                                 <span class="mycolorinput-color bg-yellow"></span>
@@ -73,13 +73,13 @@
                 </div>
                 <div class="col-lg-6 text-right">
                     <div class="flex justify-flex-end">
-                        <div class="flex-item ml-2">
+                        <div class="flex-item ml-2 ms-2">
                             <label class="mycolorinput">
                                 <input type="radio" class="mycolorinput-input" name="sidebar_skin" {{ $setting->sidebar_skin == 'black' ? 'checked' : '' }} value="black">
                                 <span class="mycolorinput-color bg-black"></span>
                             </label>
                         </div>
-                        <div class="flex-item ml-2">
+                        <div class="flex-item ml-2 ms-2">
                             <label class="mycolorinput">
                                 <input type="radio" class="mycolorinput-input" name="sidebar_skin" {{ $setting->sidebar_skin == 'white' ? 'checked' : '' }} value="white">
                                 <span class="mycolorinput-color bg-white"></span>

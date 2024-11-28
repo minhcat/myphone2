@@ -12,7 +12,7 @@
     @yield('style')
 </head>
 <body>
-    <div class="wrapper">
+    <div class="wrapper {{ $admin_active_theme->setting->sidebar_collapse ? 'sidebar_minimize' : '' }}">
         <!-- Sidebar -->
         @include('themes.kaiadmin.sidebar')
         <!-- End Sidebar -->
