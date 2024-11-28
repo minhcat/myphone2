@@ -18,4 +18,9 @@ class ThemeSetting extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function theme()
+    {
+        return $this->belongsTo(Theme::class);
+    }
 }

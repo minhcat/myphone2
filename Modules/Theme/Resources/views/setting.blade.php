@@ -17,7 +17,7 @@
 @section('content')
 <div class="box box-primary">
     <div class="box-header with-border">
-        <div class="box-title">AdminLTE Setting</div>
+        <div class="box-title">{{ $setting->theme->name }} Setting</div>
     </div>
     <form action="{{ route('admin.theme.setting.update', $theme_id) }}" method="POST">
         @method('put')
