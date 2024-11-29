@@ -1,3 +1,7 @@
+.modal-dialog {
+    max-width: unset !important;
+}
+
 .modal-theme-info .flex {
     height: 325px;
 }
@@ -6,4 +10,11 @@
 }
 .modal-theme-info-image .flex img {
     width: 100%;
+}
+.modal-theme-info-image .modal-footer .btn {
+    margin: 0;
+}
+
+body.kaiadmin .modal-theme-info-image .modal-footer .btn {
+    width: 100px !important;
 }

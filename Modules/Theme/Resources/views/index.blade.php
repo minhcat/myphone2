@@ -122,7 +122,7 @@
                     <button class="close" type="button" data-dismiss="modal">
                         <span aria-hidden="true">x</span>
                     </button>
-                    <h4 class="modal-title">AdminLTE Theme Info</h4>
+                    <h4 class="modal-title">{{ $theme->name }} Theme Info</h4>
                 </div>
                 <div class="modal-body">
                     <div class="flex flex-wrap full-width justify-space-between align-space-between">
@@ -133,11 +133,11 @@
                 </div>
                 <div class="modal-footer text-center">
                     @if (!$loop->first)
-                    <button class="btn btn-default btn-previous w75" type="button" data-id="{{ $theme->id }}" data-image="{{ $key - 1 }}" data-dismiss="modal">Previous</button>
+                    <button class="btn btn-default btn-previous w75" type="button" data-id="{{ $theme->id }}" data-image="{{ $key - 1 }}">Previous</button>
                     @endif
-                    <button class="btn btn-primary btn-close w75" type="button" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary btn-close-modal w75" type="button" data-dismiss="modal">Close</button>
                     @if (!$loop->last)
-                    <button class="btn btn-default btn-next w75" type="button" data-id="{{ $theme->id }}" data-image="{{ $key + 1 }}" data-dismiss="modal">Next</button>
+                    <button class="btn btn-default btn-next w75" type="button" data-id="{{ $theme->id }}" data-image="{{ $key + 1 }}">Next</button>
                     @endif
                 </div>
             </div>
@@ -163,11 +163,11 @@
         $('.theme-image').click(function() {
             let id = $(this).data('id')
             let img = $(this).data('image')
-            $('#modal-theme-info-image-' + id + '-' + img).modal()
+            $('#modal-theme-info-image-' + id + '-' + img).modal('show')
         })
         $('.modal-theme-info-image').on('hidden.bs.modal', function() {
             if (!next_button_click) {
-                $('#modal-theme-info').modal()
+                $('#modal-theme-info').modal('show')
             }
             next_button_click = false
         })
@@ -176,7 +176,11 @@
             event.preventDefault()
             let id = $(this).data('id')
             let img = $(this).data('image')
-            $('#modal-theme-info-image-' + id + '-' + img).modal()
+            $('.modal-theme-info-image').modal('hide')
+            $('#modal-theme-info-image-' + id + '-' + img).modal('show')
+        })
+        $('.modal-theme-info-image [data-dismiss="modal"]').click(function() {
+            $('.modal-theme-info-image').modal('hide')
         })
     })
 </script>
