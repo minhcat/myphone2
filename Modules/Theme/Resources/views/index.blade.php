@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="{{ asset('modules/theme/app.css') }}">
 <style>
     #button-theme .flex-item {
-        width: 32%;
+        width: 49%;
     }
     #button-theme.active .flex-item {
         width: 49%;
@@ -49,9 +49,11 @@
                         <div class="flex-item">
                             <button class="btn btn-block btn-info" data-toggle="modal" data-target="#modal-theme-info-{{ $theme->id }}">Info</button>
                         </div>
+                        @if (ThemeStatus::checkActive($theme->is_active))
                         <div class="flex-item">
                             <a href="{{ route('admin.theme.setting', $theme->id) }}" class="btn btn-block btn-default">Setting</a>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
