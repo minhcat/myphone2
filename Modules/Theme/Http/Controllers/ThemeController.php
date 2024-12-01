@@ -27,7 +27,7 @@ class ThemeController extends Controller
         $this->themeRepository = new ThemeRepository();
         $this->themeSettingRepository = new ThemeSettingRepository();
 
-        view()->share('menu', ['group' => 'theme', 'active' => 'themes']);
+        view()->share('menu', ['group' => 'theme', 'active' => 'theme']);
     }
 
     /**

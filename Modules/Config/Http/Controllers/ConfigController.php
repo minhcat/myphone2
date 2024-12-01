@@ -5,9 +5,23 @@ namespace Modules\Config\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Category\Repositories\ConfigRepository;
 
 class ConfigController extends Controller
 {
+    /** @var \Modules\Config\Repositories\ConfigRepository */
+    protected $configRepository;
+
+    /**
+     * Create new category Controller instance.
+     */
+    public function __construct()
+    {
+        $this->configRepository = new ConfigRepository;
+
+        view()->share('menu', ['group' => 'config', 'active' => 'config']);
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable

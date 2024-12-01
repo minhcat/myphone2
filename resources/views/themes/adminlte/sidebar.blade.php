@@ -169,8 +169,8 @@
     </li>
     @endcanany
 
-    <li><a href="#"><i class="fa fa-gear"></i> <span>Config</span></a></li>
-    <li><a href="{{ route('admin.theme.index') }}"><i class="fa fa-paper-plane"></i> <span>Theme</span></a></li>
+    <li class="{{ $menu['active'] == 'config' ? 'active' : '' }}"><a href="{{ route('admin.config.index') }}"><i class="fa fa-gear"></i> <span>Config</span></a></li>
+    <li class="{{ $menu['active'] == 'theme' ? 'active' : '' }}"><a href="{{ route('admin.theme.index') }}"><i class="fa fa-paper-plane"></i> <span>Theme</span></a></li>
   </ul>
   <!-- /.sidebar-menu -->
 </section>

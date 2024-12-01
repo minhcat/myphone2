@@ -11,6 +11,17 @@
 |
 */
 
-Route::prefix('config')->group(function() {
-    Route::get('/', 'ConfigController@index');
+use Illuminate\Support\Facades\Route;
+use Modules\Config\Http\Controllers\ConfigController;
+
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
+    Route::prefix('configs')->name('config.')->group(function() {
+        Route::get('/', [ConfigController::class, 'index'])->name('index');
+        Route::get('/create', [ConfigController::class, 'create'])->name('create');
+        Route::post('/', [ConfigController::class, 'store'])->name('store');
+        Route::get('/{id}', [ConfigController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [ConfigController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [ConfigController::class, 'update'])->name('update');
+        Route::delete('/{id}', [ConfigController::class, 'destroy'])->name('delete');
+    });
 });
