@@ -16,6 +16,6 @@ class PermissionSeeder extends Seeder
     {
         Permission::truncate();
 
-        Permission::factory(164)->create();
+        Permission::factory(169)->create();
     }
 }

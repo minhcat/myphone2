@@ -50,6 +50,10 @@ return [
             'max'                   => 5,
         ],
         [
+            'value'                 => 'config',
+            'max'                   => 5,
+        ],
+        [
             'value'                 => 'gift',  //
             'max'                   => 6,
         ],
