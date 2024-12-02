@@ -3,7 +3,9 @@
 namespace Modules\Config\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\Config\Policies\ConfigPolicy;
 
 class ConfigServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class ConfigServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +107,20 @@ class ConfigServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        Gate::define('config:browse', [ConfigPolicy::class, 'browse']);
+        Gate::define('config:read', [ConfigPolicy::class, 'read']);
+        Gate::define('config:add', [ConfigPolicy::class, 'add']);
+        Gate::define('config:edit', [ConfigPolicy::class, 'edit']);
+        Gate::define('config:delete', [ConfigPolicy::class, 'delete']);
     }
 }
