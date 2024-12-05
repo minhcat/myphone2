@@ -170,7 +170,9 @@
     @endcanany
 
     <li><a href="#"><i class="fa fa-gear"></i> <span>Config</span></a></li>
+    @can('theme:browse')
     <li><a href="{{ route('admin.theme.index') }}"><i class="fa fa-paper-plane"></i> <span>Theme</span></a></li>
+    @endcan
   </ul>
   <!-- /.sidebar-menu -->
 </section>
