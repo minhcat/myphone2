@@ -20,5 +20,6 @@
     "Login": true,
     "Role": true,
     "Permission": true,
-    "Theme": true
+    "Theme": true,
+    "Config": true
 }

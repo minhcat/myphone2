@@ -169,9 +169,11 @@
     </li>
     @endcanany
 
-    <li><a href="#"><i class="fa fa-gear"></i> <span>Config</span></a></li>
+    @can('config:browse')
+    <li class="{{ $menu['active'] == 'config' ? 'active' : '' }}"><a href="{{ route('admin.config.index') }}"><i class="fa fa-gear"></i> <span>Config</span></a></li>
+    @endcan
     @can('theme:browse')
-    <li><a href="{{ route('admin.theme.index') }}"><i class="fa fa-paper-plane"></i> <span>Theme</span></a></li>
+    <li class="{{ $menu['active'] == 'theme' ? 'active' : '' }}"><a href="{{ route('admin.theme.index') }}"><i class="fa fa-paper-plane"></i> <span>Theme</span></a></li>
     @endcan
   </ul>
   <!-- /.sidebar-menu -->

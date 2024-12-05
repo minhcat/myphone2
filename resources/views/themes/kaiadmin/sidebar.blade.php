@@ -201,13 +201,13 @@
                 </li>
                 @endcanany
 
-                <li class="nav-item">
-                    <a href="#">
+                <li class="nav-item {{ $menu['group'] == 'config' ? 'active' : '' }}">
+                    <a href="{{ route('admin.config.index') }}">
                         <i class="fas fa-cog"></i>
                         <p>Config</p>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ $menu['group'] == 'theme' ? 'active' : '' }}">
                     <a href="{{ route('admin.theme.index') }}">
                         <i class="fas fa-paper-plane"></i>
                         <p>Theme</p>
