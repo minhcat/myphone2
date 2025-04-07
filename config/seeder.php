@@ -12,7 +12,7 @@ return [
             'gender'        => Gender::MALE,
             'job'           => 'developer',
             'email'         => 'minh.cat@myphone.com',
-            'password'      => '$2y$10$Wh5ZPGsyfW/IMIj3OlPEjubKEfu1VXLAu4ilPu/KYBlaA5H812swq',
+            'password'      => '$2y$10$Wh5ZPGsyfW/IMIj3OlPEjubKEfu1VXLAu4ilPu/KYBlaA5H812swq',  // 123456
             'is_admin'      => true,
         ],
         [
@@ -22,7 +22,7 @@ return [
             'gender'        => Gender::MALE,
             'job'           => 'developer',
             'email'         => 'binh.nguyen@myphone.com',
-            'password'      => '$2y$10$Wh5ZPGsyfW/IMIj3OlPEjubKEfu1VXLAu4ilPu/KYBlaA5H812swq',
+            'password'      => '$2y$10$Wh5ZPGsyfW/IMIj3OlPEjubKEfu1VXLAu4ilPu/KYBlaA5H812swq',  // 123456
             'is_admin'      => true,
         ],
     ], ['timestamp']),
