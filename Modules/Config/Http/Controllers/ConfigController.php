@@ -155,6 +155,24 @@ class ConfigController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     * @param int $id
+     * @return Renderable
+     */
+    public function reset($id)
+    {
+        try {
+            $this->authorize('config:edit');
+    
+            $this->configRepository->reset($id);
+    
+            return redirect()->route('admin.config.index')->with('success', __('notification.reset.success', ['model' => 'config']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.config.index')->with('danger', __('notification.permission.fail', ['action' => 'edit config']));
+        }
+    }
+
+    /**
      * Remove the specified resource from storage.
      * @param int $id
      * @return Renderable

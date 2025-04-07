@@ -17,6 +17,10 @@ return [
         'success'               => 'Build :model successfully',
         'fail'                  => 'Build :model unsuccessfully',
     ],
+    'reset'                    => [
+        'success'               => 'Reset :model successfully',
+        'fail'                  => 'Reset :model unsuccessfully',
+    ],
     'login'                     => [
         'success'               => 'Login successfully',
         'fail'                  => 'Email/account or password is not match',

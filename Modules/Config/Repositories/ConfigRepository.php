@@ -23,4 +23,13 @@ class ConfigRepository extends AbstractRepository
 
         return parent::convertDataCreate($data, $more);
     }
+
+    public function reset($id)
+    {
+        $config = $this->model->find($id);
+        $config->value = $config->default;
+        $config->save();
+
+        return $config;
+    }
 }

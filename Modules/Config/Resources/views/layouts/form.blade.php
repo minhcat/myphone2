@@ -51,6 +51,17 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
+                                <label for="default">Default</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="default" value="{{ $config->default }}" id="default">
+                                    <span class="input-group-addon"><input type="checkbox" name="default_null" {{ $form['title'] == 'Edit' && $config->default === null ? 'checked' : '' }}> null</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
                                 <label for="group">Group</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="group" value="{{ $config->group }}" id="group">
@@ -73,8 +84,13 @@
 @push('script')
 <script>
     $(function() {
-        $('#value,#group').change(function() {
+        $('#value,#group,#default').change(function() {
             $(this).parent().find('.input-group-addon input').prop('checked', false)
+        })
+        $('.input-group-addon input').change(function() {
+            if ($(this).is(':checked')) {
+                $(this).parent().parent().find('input.form-control').val('')
+            }
         })
     })
 </script>

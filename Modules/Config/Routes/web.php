@@ -22,6 +22,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
         Route::get('/{id}', [ConfigController::class, 'show'])->name('show');
         Route::get('/{id}/edit', [ConfigController::class, 'edit'])->name('edit');
         Route::put('/{id}', [ConfigController::class, 'update'])->name('update');
+        Route::put('/{id}/reset', [ConfigController::class, 'reset'])->name('reset');
         Route::delete('/{id}', [ConfigController::class, 'destroy'])->name('delete');
     });
 });

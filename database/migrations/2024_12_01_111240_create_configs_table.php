@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('type')->default('string');
             $table->string('value')->nullable();
+            $table->string('default')->nullable();
             $table->string('group')->nullable();
             $table->integer('author_id');
             $table->timestamps();

@@ -10,7 +10,7 @@ class Config extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'type', 'value', 'group', 'author_id', 'created_at', 'updated_at'];
+    protected $fillable = ['name', 'type', 'value', 'default', 'group', 'author_id', 'created_at', 'updated_at'];
 
     public function user()
     {

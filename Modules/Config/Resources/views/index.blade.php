@@ -45,6 +45,7 @@
                                 <th>Name</th>
                                 <th>Type</th>
                                 <th>Value</th>
+                                <th>Default</th>
                                 <th>Group</th>
                                 <th>Author</th>
                                 <th>Create At</th>
@@ -65,6 +66,7 @@
                                     @endcan
                                     <td>{{ $config->type }}</td>
                                     <td>{{ $config->value }}</td>
+                                    <td>{{ $config->default }}</td>
                                     <td>{{ $config->group }}</td>
                                     @if ($config->user)
                                     @can('user:read')
@@ -80,6 +82,11 @@
                                     @canany(['config:edit', 'config:delete'])
                                     <td class="nowrap">
                                         @can('config:edit')
+                                        <form action="{{ route('admin.config.reset', $config->id) }}" method="POST" class="hidden">
+                                            @method('put')
+                                            @csrf
+                                        </form>
+                                        <button class="btn btn-success btn-reset"><i class="fa fa-rotate-left"></i> Reset</button>
                                         <a class="btn btn-primary" href="{{ route('admin.config.edit', $config->id) }}"><i class="fa fa-edit"></i> Edit</a>
                                         @endcan
                                         @can('config:delete')
@@ -140,10 +147,12 @@
             let id = $(this).data('id');
             let url = url_delete.replace(':id', id)
             $('#modal-config-delete form').attr('action', url);
-            console.log(url)
         })
         $('#modal-config-delete').on('hide.bs.modal', function() {
             $('#modal-config-delete form').attr('action', url_delete);
+        })
+        $('.btn-reset').on('click', function() {
+            $(this).parent().find('form').submit()
         })
     })
 </script>
