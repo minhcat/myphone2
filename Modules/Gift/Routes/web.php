@@ -42,6 +42,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
         Route::get('/{id}/edit', [GiftController::class, 'edit'])->name('edit');
         Route::post('/', [GiftController::class, 'store'])->name('store');
         Route::put('/{id}', [GiftController::class, 'update'])->name('update');
+        Route::put('/{id}/status', [GiftController::class, 'updateStatus'])->name('update_status');
         Route::delete('/{id}', [GiftController::class, 'destroy'])->name('delete');
     });
 });

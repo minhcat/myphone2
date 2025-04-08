@@ -156,6 +156,29 @@ class SaleController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     * @param Request $request
+     * @param int $id
+     * @return Renderable
+     */
+    public function updateStatus(Request $request, $id)
+    {
+        try {
+            $this->authorize('sale:edit');
+
+            $request->validate([
+                'status'    => 'required'
+            ]);
+
+            $this->saleRepository->update($id, $request->only('status'));
+    
+            return redirect()->route('admin.sale.index')->with('success', __('notification.update.success', ['model' => 'sale']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.sale.index')->with('danger', __('notification.permission.fail', ['action' => 'edit sale']));
+        }
+    }
+
+    /**
      * Remove the specified resource from storage.
      * @param int $id
      * @return Renderable

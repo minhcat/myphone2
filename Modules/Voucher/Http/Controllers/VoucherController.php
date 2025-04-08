@@ -155,6 +155,29 @@ class VoucherController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     * @param Request $request
+     * @param int $id
+     * @return Renderable
+     */
+    public function updateStatus(Request $request, $id)
+    {
+        try {
+            $this->authorize('voucher:edit');
+
+            $request->validate([
+                'status'    => 'required'
+            ]);
+
+            $this->voucherRepository->update($id, $request->only('status'));
+    
+            return redirect()->route('admin.voucher.index')->with('success', __('notification.update.success', ['model' => 'voucher']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.voucher.index')->with('danger', __('notification.permission.fail', ['action' => 'edit voucher']));
+        }
+    }
+
+    /**
      * Remove the specified resource from storage.
      * @param int $id
      * @return Renderable

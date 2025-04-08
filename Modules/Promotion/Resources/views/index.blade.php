@@ -129,7 +129,7 @@
         'title'             => 'Update Status Promotion',
         'message'           => 'Are you sure to update status this promotion!',
         'form'              => [
-            'url'           => route('admin.promotion.update', ':id'),
+            'url'           => route('admin.promotion.update_status', ':id'),
             'method'        => 'PUT',
             'inputs'        => [
                 [

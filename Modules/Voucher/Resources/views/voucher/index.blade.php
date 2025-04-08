@@ -141,7 +141,7 @@
         'title'             => 'Update Status Voucher',
         'message'           => 'Are you sure to update status this voucher!',
         'form'              => [
-            'url'           => route('admin.voucher.update', ':id'),
+            'url'           => route('admin.voucher.update_status', ':id'),
             'method'        => 'PUT',
             'inputs'        => [
                 [

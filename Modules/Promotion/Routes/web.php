@@ -22,6 +22,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
         Route::get('/{id}/edit', [PromotionController::class, 'edit'])->name('edit');
         Route::post('/', [PromotionController::class, 'store'])->name('store');
         Route::put('/{id}', [PromotionController::class, 'update'])->name('update');
+        Route::put('/{id}/status', [PromotionController::class, 'updateStatus'])->name('update_status');
         Route::delete('/{id}', [PromotionController::class, 'destroy'])->name('delete');
     });
 });

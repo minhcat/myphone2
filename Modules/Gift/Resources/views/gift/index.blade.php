@@ -137,7 +137,7 @@
         'title'             => 'Update Status Gift',
         'message'           => 'Are you sure to update status this gift!',
         'form'              => [
-            'url'           => route('admin.gift.update', ':id'),
+            'url'           => route('admin.gift.update_status', ':id'),
             'method'        => 'PUT',
             'inputs'        => [
                 [

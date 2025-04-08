@@ -159,6 +159,29 @@ class PromotionController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     * @param Request $request
+     * @param int $id
+     * @return Renderable
+     */
+    public function updateStatus(Request $request, $id)
+    {
+        try {
+            $this->authorize('promotion:edit');
+
+            $request->validate([
+                'status'    => 'required'
+            ]);
+
+            $this->promotionRepository->update($id, $request->only('status'));
+    
+            return redirect()->route('admin.promotion.index')->with('success', __('notification.update.success', ['model' => 'promotion']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.promotion.index')->with('danger', __('notification.permission.fail', ['action' => 'edit promotion']));
+        }
+    }
+
+    /**
      * Remove the specified resource from storage.
      * @param int $id
      * @return Renderable

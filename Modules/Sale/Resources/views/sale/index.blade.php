@@ -141,7 +141,7 @@
         'title'             => 'Update Status Sale',
         'message'           => 'Are you sure to update status this sale!',
         'form'              => [
-            'url'           => route('admin.sale.update', ':id'),
+            'url'           => route('admin.sale.update_status', ':id'),
             'method'        => 'PUT',
             'inputs'        => [
                 [

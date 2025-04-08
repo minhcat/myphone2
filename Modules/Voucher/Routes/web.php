@@ -33,6 +33,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
         Route::get('/{id}/edit', [VoucherController::class, 'edit'])->name('edit');
         Route::post('/', [VoucherController::class, 'store'])->name('store');
         Route::put('/{id}', [VoucherController::class, 'update'])->name('update');
+        Route::put('/{id}/status', [VoucherController::class, 'updateStatus'])->name('update_status');
         Route::delete('/{id}', [VoucherController::class, 'destroy'])->name('delete');
     });
 });

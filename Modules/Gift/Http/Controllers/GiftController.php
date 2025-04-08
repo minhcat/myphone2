@@ -149,6 +149,29 @@ class GiftController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     * @param Request $request
+     * @param int $id
+     * @return Renderable
+     */
+    public function updateStatus(Request $request, $id)
+    {
+        try {
+            $this->authorize('gift:edit');
+
+            $request->validate([
+                'status'    => 'required'
+            ]);
+
+            $this->giftRepository->update($id, $request->only('status'));
+    
+            return redirect()->route('admin.gift.index')->with('success', __('notification.update.success', ['model' => 'gift']));
+        } catch (AuthorizationException $exception) {
+            return redirect()->route('admin.gift.index')->with('danger', __('notification.permission.fail', ['action' => 'edit gift']));
+        }
+    }
+
+    /**
      * Remove the specified resource from storage.
      * @param int $id
      * @return Renderable
