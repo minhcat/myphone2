@@ -125,6 +125,11 @@ class LoginController extends Controller
     public function getRole()
     {
         $user = Auth::user();
+        $roles = $user->roles;
+        if ($roles->count() == 1) {
+            session()->put('auth_role', $roles[0]->id);
+            return redirect()->route('admin');
+        }
         return view('login::set-role', compact('user'));
     }
 

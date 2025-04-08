@@ -21,7 +21,7 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
         Route::get('/register', [LoginController::class, 'register'])->name('register');
         Route::post('/register', [LoginController::class, 'store'])->name('store');
-        Route::get('/set-role', [LoginController::class, 'getRole'])->name('get_role');
+        Route::get('/get-role', [LoginController::class, 'getRole'])->name('get_role');
         Route::post('/set-role', [LoginController::class, 'setRole'])->name('set_role');
     });
 });

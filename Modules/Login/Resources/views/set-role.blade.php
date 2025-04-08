@@ -37,7 +37,6 @@
 $(function () {
     $('.btn-block').click(function() {
         $('input[name=role]').val($(this).data('value'))
-        console.log($(this).data('value'))
         $('form').submit()
     })
 });
