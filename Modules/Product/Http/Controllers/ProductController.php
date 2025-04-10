@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Brand\Repositories\BrandRepository;
 use Modules\Category\Repositories\CategoryRepository;
+use Modules\Product\Jobs\ProductNewJob;
+use Modules\Product\Jobs\ProductOldJob;
 use Modules\Product\Repositories\ProductRepository;
 use Modules\Tag\Repositories\TagRepository;
 
@@ -99,7 +101,10 @@ class ProductController extends Controller
                 'price'     => 'required|numeric'
             ]);
     
-            $this->productRepository->create($request->all());
+            $product = $this->productRepository->create($request->all());
+
+            ProductNewJob::dispatch($product->id);
+            ProductOldJob::dispatch($product->id)->delay(now()->addWeeks(2));
     
             return redirect()->route('admin.product.index')->with('success', __('notification.create.success', ['model' => 'product']));
         } catch (AuthorizationException $exception) {

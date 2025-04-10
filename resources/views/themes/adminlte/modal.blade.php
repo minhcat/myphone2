@@ -18,8 +18,8 @@
                     <p>{{ $modal['message'] }}</p>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-default" data-dismiss="modal" type="button">{{ $modal['buttons']['secondary']['text'] ?? 'Cancel' }}</button>
-                    <button class="btn btn-primary" type="submit">{{ $modal['buttons']['primary']['text'] ?? 'Cancel' }}</button>
+                    <button class="btn btn-default {{ $modal['buttons']['secondary']['class'] ?? '' }}" data-dismiss="modal" type="button">{{ $modal['buttons']['secondary']['text'] ?? 'Cancel' }}</button>
+                    <button class="btn btn-primary {{ $modal['buttons']['primary']['class'] ?? '' }}" type="submit">{{ $modal['buttons']['primary']['text'] ?? 'Cancel' }}</button>
                 </div>
             @isset ($modal['form'])
                 @foreach($modal['form']['inputs'] as $input)

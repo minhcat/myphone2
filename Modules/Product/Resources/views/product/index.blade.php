@@ -45,6 +45,7 @@
                                 <th>Name</th>
                                 <th>Brand</th>
                                 <th>Category</th>
+                                <th>Tag</th>
                                 @if (!is_kaiadmin($admin_active_theme))
                                 <th>Price</th>
                                 @endif
@@ -76,6 +77,15 @@
                                                 {{ $category->name }}
                                             @else
                                                 , {{ $category->name }}
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @foreach($product->tags as $tag)
+                                            @if ($loop->first)
+                                                {{ $tag->name }}
+                                            @else
+                                                , {{ $tag->name }}
                                             @endif
                                         @endforeach
                                     </td>

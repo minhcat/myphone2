@@ -10,6 +10,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Product\Jobs\ProductSaleOffJob;
 use Modules\Sale\Repositories\SaleRepository;
 
 class SaleController extends Controller
@@ -170,7 +171,9 @@ class SaleController extends Controller
                 'status'    => 'required'
             ]);
 
-            $this->saleRepository->update($id, $request->only('status'));
+            $sale = $this->saleRepository->update($id, $request->only('status'));
+
+            ProductSaleOffJob::dispatch($sale);
     
             return redirect()->route('admin.sale.index')->with('success', __('notification.update.success', ['model' => 'sale']));
         } catch (AuthorizationException $exception) {

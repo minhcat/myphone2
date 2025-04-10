@@ -316,6 +316,10 @@ return [
             'author_id'     => 1,
         ],
         [
+            'name'          => 'sale off',
+            'author_id'     => 1,
+        ],
+        [
             'name'          => 'hot',
             'author_id'     => 1,
         ],
