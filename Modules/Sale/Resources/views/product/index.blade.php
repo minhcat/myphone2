@@ -18,7 +18,7 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12">
-        <div class="box box-primary">
+        <div class="box box-primary box-main">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
                 @can('sale_product:add')
@@ -60,15 +60,20 @@
                                 @endcanany
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="tbody-loading">
+                            <tr>
+                                <td colspan="10"><i class="fa fa-spin fa-spinner fa-lg"></i></td>
+                            </tr>
+                        </tbody>
+                        <tbody class="tbody-data hidden">
                             @foreach ($sale_products as $key => $sale_product)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     @if ($sale_product->target_type === TargetType::PRODUCT)
                                     @can('product:read')
-                                    <td><a href="{{ route('admin.product.show', $sale_product->target_id) }}">{{ $sale_product->target->name }}</a></td>
+                                    <td><a href="{{ route('admin.product.show', $sale_product->target_id) }}">{{ $sale_product->target?->name }}</a></td>
                                     @else
-                                    <td>{{ $sale_product->target->name }}</td>
+                                    <td>{{ $sale_product->target?->name }}</td>
                                     @endcan
                                     @else
                                     @can('product_variation:read')
@@ -156,6 +161,9 @@
         $('#modal-sale-delete').on('hide.bs.modal', function() {
             $('#modal-sale-product-delete form').attr('action', url_delete);
         })
+
+        $('.box-main table .tbody-loading').addClass('hidden')
+        $('.box-main table .tbody-data').removeClass('hidden')
     })
 </script>
 @endpush

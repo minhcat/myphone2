@@ -17,7 +17,7 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12">
-        <div class="box box-primary">
+        <div class="box box-primary box-main">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
             </div>
@@ -52,7 +52,12 @@
                                 <th>Total</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="tbody-loading">
+                            <tr>
+                                <td colspan="10"><i class="fa fa-spin fa-spinner fa-lg"></i></td>
+                            </tr>
+                        </tbody>
+                        <tbody class="tbody-data hidden">
                             @foreach ($invoices as $key => $invoice)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
@@ -107,6 +112,9 @@
                 window.location.href = url;
             }
         })
+
+        $('.box-main table .tbody-loading').addClass('hidden')
+        $('.box-main table .tbody-data').removeClass('hidden')
     })
 </script>
 @endpush

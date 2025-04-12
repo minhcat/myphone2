@@ -17,7 +17,7 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12">
-        <div class="box box-primary">
+        <div class="box box-primary box-main">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
                 @can('role:add')
@@ -51,7 +51,12 @@
                                 @endcanany
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="tbody-loading">
+                            <tr>
+                                <td colspan="10"><i class="fa fa-spin fa-spinner fa-lg"></i></td>
+                            </tr>
+                        </tbody>
+                        <tbody class="tbody-data hidden">
                             @foreach ($roles as $key => $role)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
@@ -177,6 +182,9 @@
         $('#modal-role-update').on('hide.bs.modal', function() {
             $('#modalroler-update form').attr('action', url_update);
         })
+
+        $('.box-main table .tbody-loading').addClass('hidden')
+        $('.box-main table .tbody-data').removeClass('hidden')
     })
 </script>
 @endpush

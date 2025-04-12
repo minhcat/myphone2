@@ -17,7 +17,7 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12">
-        <div class="box box-primary">
+        <div class="box box-primary box-main">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
             </div>
@@ -53,7 +53,12 @@
                                 @endcan
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="tbody-loading">
+                            <tr>
+                                <td colspan="10"><i class="fa fa-spin fa-spinner fa-lg"></i></td>
+                            </tr>
+                        </tbody>
+                        <tbody class="tbody-data hidden">
                             @foreach ($carts as $key => $cart)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
@@ -186,7 +191,10 @@
         $('.modal-add-order .modal-footer .btn-primary').click(function() {
             let id = $(this).data('id');
             $('#modal-add-order-' + id + ' .modal-body form').submit()
-        });
+        })
+
+        $('.box-main table .tbody-loading').addClass('hidden')
+        $('.box-main table .tbody-data').removeClass('hidden')
     })
 </script>
 @endpush

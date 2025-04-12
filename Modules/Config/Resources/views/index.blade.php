@@ -17,7 +17,7 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12">
-        <div class="box box-primary">
+        <div class="box box-primary box-main">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
                 @can('config:add')
@@ -55,7 +55,12 @@
                                 @endcanany
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="tbody-loading">
+                            <tr>
+                                <td colspan="10"><i class="fa fa-spin fa-spinner fa-lg"></i></td>
+                            </tr>
+                        </tbody>
+                        <tbody class="tbody-data hidden">
                             @foreach($configs as $key => $config)                                
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
@@ -154,6 +159,9 @@
         $('.btn-reset').on('click', function() {
             $(this).parent().find('form').submit()
         })
+
+        $('.box-main table .tbody-loading').addClass('hidden')
+        $('.box-main table .tbody-data').removeClass('hidden')
     })
 </script>
 @endpush

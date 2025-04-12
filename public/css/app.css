@@ -343,3 +343,7 @@ input:checked + .slider:before {
 .btn.btn-default:hover {
     border-color: #e7e7e7;
 }
+
+.box-main table .tbody-loading tr td {
+    text-align: center;
+}

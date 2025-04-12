@@ -18,7 +18,7 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12">
-        <div class="box box-primary">
+        <div class="box box-primary box-main">
             <div class="box-header with-border">
                 <div class="box-title">List</div>
                 @can('address:add')
@@ -53,7 +53,12 @@
                                 @endcanany
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="tbody-loading">
+                            <tr>
+                                <td colspan="10"><i class="fa fa-spin fa-spinner fa-lg"></i></td>
+                            </tr>
+                        </tbody>
+                        <tbody class="tbody-data hidden">
                             @foreach($addresses as $key => $address)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
@@ -132,6 +137,9 @@
         $('#modal-user-address-delete').on('hide.bs.modal', function() {
             $('#modal-user-address-delete form').attr('action', url_delete);
         })
+
+        $('.box-main table .tbody-loading').addClass('hidden')
+        $('.box-main table .tbody-data').removeClass('hidden')
     })
 </script>
 @endpush
