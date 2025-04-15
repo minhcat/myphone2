@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Modules\Permission\Entities\Permission;
+use Modules\Permission\Entities\PermissionRole;
 
 class PermissionSeeder extends Seeder
 {
@@ -16,6 +17,10 @@ class PermissionSeeder extends Seeder
     {
         Permission::truncate();
 
-        Permission::factory(169)->create();
+        Permission::factory(174)->create();
+
+        PermissionRole::truncate();
+
+        PermissionRole::factory(591)->create();
     }
 }

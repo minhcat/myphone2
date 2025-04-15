@@ -137,7 +137,7 @@
                 'area', 'area_detail', 'attribute', 'attribute_option', 'brand', 'cart', 'cart_detail', 'config',
                 'category', 'city', 'city_district', 'city_district_ward', 'gift', 'gift_product', 'gift_product_item',
                 'invoice', 'invoice_detail', 'order', 'order_detail', 'permission', 'product', 'product_detail', 'product_variation',
-                'promotion', 'role', 'sale', 'sale_product', 'specification', 'specification_information', 'tag',
+                'promotion', 'role', 'sale', 'sale_product', 'specification', 'specification_information', 'tag', 'theme',
                 'transporter', 'transporter_case', 'transport_fee', 'user', 'user_address', 'voucher', 'voucher_code'
             ]
             groups.forEach(group => {

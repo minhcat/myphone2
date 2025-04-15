@@ -126,6 +126,10 @@ return [
             'max'                   => 5,
         ],
         [
+            'value'                 => 'theme',
+            'max'                   => 5,
+        ],
+        [
             'value'                 => 'transporter',
             'max'                   => 5,
         ],

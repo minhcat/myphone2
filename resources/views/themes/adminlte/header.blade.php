@@ -45,7 +45,7 @@
                 <a href="#" class="btn btn-default btn-flat">Profile</a>
               </div>
               <div class="flex-item">
-                <a href="{{ route('admin.login.set_role') }}" class="btn btn-default btn-flat">Select Role</a>
+                <a href="{{ route('admin.login.get_role') }}" class="btn btn-default btn-flat">Select Role</a>
               </div>
               <div class="flex-item">
                 <a href="{{ route('admin.login.logout') }}" class="btn btn-default btn-flat">Sign out</a>

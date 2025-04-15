@@ -29,9 +29,45 @@ abstract class AbstractRepository implements RepositoryInterface
         return $this->model->all();
     }
 
-    public function get($where = [], $skip = self::SKIP_DEFAULT, $take = self::TAKE_DEFAULT)
+    public function get($wheres = null, $skip = null, $take = null)
     {
-        return $this->model->where($where)->skip($skip)->take($take)->get();
+        $query = $this->model;
+
+        if ($wheres !== null) {
+            if (count($wheres) === 2 && !is_array($wheres[0])) {
+                $query = $query->where($wheres[0], $wheres[1]);
+            } else {
+                foreach ($wheres as $where) {
+                    if (count($where) === 3) {
+                        if ($where[0] === 'or') {
+                            $query = $query->orWhere($where[1], $where[2]);
+                        } elseif ($where[0] == 'in') {
+                            $query = $query->whereIn($where[1], $where[2]);
+                        } elseif ($where[0] == 'not') {
+                            $query = $query->where($where[1], '<>', $where[2]);
+                        } elseif ($where[0] == 'like') {
+                            $query = $query->where($where[1], 'LIKE', '%'.$where[2].'%');
+                        } elseif ($where[0] == 'not-like') {
+                            $query = $query->where($where[1], 'NOT LIKE', '%'.$where[2].'%');
+                        } elseif ($where[0] == 'or-like') {
+                            $query = $query->orWhere($where[1], 'LIKE', '%'.$where[2].'%');
+                        } elseif ($where[0] == 'or-not-like') {
+                            $query = $query->orWhere($where[1], 'NOT LIKE', '%'.$where[2].'%');
+                        }
+                    } else {
+                        $query = $query->where($where[0], $where[1]);
+                    }
+                }
+            }
+        }
+        if ($skip !== null) {
+            $query = $query->skip($skip);
+        }
+        if ($take !== null) {
+            $query = $query->take($take);
+        }
+
+        return $query->get();
     }
 
     public function first($where = [])

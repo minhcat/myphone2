@@ -2,4 +2,6 @@ add country brand to setting
 make quality, payment method to transporter and order
 get old value when fail create/update
 remove sale product when remove product
-add permission theme
+if child menu in group is 1 remove group menu
+check permission with sidebar (user, role)
+check theme html why link css into body

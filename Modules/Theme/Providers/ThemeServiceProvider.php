@@ -3,7 +3,9 @@
 namespace Modules\Theme\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\Theme\Policies\ThemePolicy;
 
 class ThemeServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class ThemeServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +107,20 @@ class ThemeServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+
+    private function registerPermission()
+    {
+        Gate::define('theme:browse', [ThemePolicy::class, 'browse']);
+        Gate::define('theme:read', [ThemePolicy::class, 'read']);
+        Gate::define('theme:add', [ThemePolicy::class, 'add']);
+        Gate::define('theme:edit', [ThemePolicy::class, 'edit']);
+        Gate::define('theme:delete', [ThemePolicy::class, 'delete']);
     }
 }

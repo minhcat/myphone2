@@ -22,5 +22,7 @@ class RoleSeeder extends Seeder
         RoleUser::truncate();
 
         RoleUser::factory(50)->create();
+
+        RoleUser::insert(config('seeder.role_user'));
     }
 }
