@@ -4,4 +4,3 @@ get old value when fail create/update
 remove sale product when remove product
 if child menu in group is 1 remove group menu
 check permission with sidebar (user, role)
-check theme html why link css into body

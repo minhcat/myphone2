@@ -27,40 +27,40 @@
 @endsection
 
 @section('content')
-    <div class="row">
-        @foreach($themes as $theme)
-        <div class="col-lg-3">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <div class="box-title">{{ $theme->name }} {{ ThemeStatus::checkActive($theme->is_active) ? '- Active' : '' }}</div>
+<div class="row">
+    @foreach($themes as $theme)
+    <div class="col-lg-3">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="box-title">{{ $theme->name }} {{ ThemeStatus::checkActive($theme->is_active) ? '- Active' : '' }}</div>
+            </div>
+            <div class="box-body">
+                <div>
+                    <img src="{{ asset('themes/'.$theme->path.'/img/'.$theme->primary_image) }}" alt="" style="width: 100%" data-toggle="modal" data-target="#modal-theme-info-{{ $theme->id }}">
                 </div>
-                <div class="box-body">
-                    <div>
-                        <img src="{{ asset('themes/'.$theme->path.'/img/'.$theme->primary_image) }}" alt="" style="width: 100%" data-toggle="modal" data-target="#modal-theme-info-{{ $theme->id }}">
+            </div>
+            <div class="box-footer">
+                <div class="flex justify-space-between {{ ThemeStatus::checkActive($theme->is_active) ? 'active' : '' }}" id="button-theme">
+                    @if (!ThemeStatus::checkActive($theme->is_active))
+                    <div class="flex-item">
+                        <button class="btn btn-block btn-primary btn-active" data-toggle="modal" data-target="#modal-theme-active" data-id="{{ $theme->id }}">Active</button>
                     </div>
-                </div>
-                <div class="box-footer">
-                    <div class="flex justify-space-between {{ ThemeStatus::checkActive($theme->is_active) ? 'active' : '' }}" id="button-theme">
-                        @if (!ThemeStatus::checkActive($theme->is_active))
-                        <div class="flex-item">
-                            <button class="btn btn-block btn-primary btn-active" data-toggle="modal" data-target="#modal-theme-active" data-id="{{ $theme->id }}">Active</button>
-                        </div>
-                        @endif
-                        <div class="flex-item">
-                            <button class="btn btn-block btn-info" data-toggle="modal" data-target="#modal-theme-info-{{ $theme->id }}">Info</button>
-                        </div>
-                        @if (ThemeStatus::checkActive($theme->is_active))
-                        <div class="flex-item">
-                            <a href="{{ route('admin.theme.setting', $theme->id) }}" class="btn btn-block btn-default">Setting</a>
-                        </div>
-                        @endif
+                    @endif
+                    <div class="flex-item">
+                        <button class="btn btn-block btn-info" data-toggle="modal" data-target="#modal-theme-info-{{ $theme->id }}">Info</button>
                     </div>
+                    @if (ThemeStatus::checkActive($theme->is_active))
+                    <div class="flex-item">
+                        <a href="{{ route('admin.theme.setting', $theme->id) }}" class="btn btn-block btn-default">Setting</a>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
-        @endforeach
     </div>
-@endsection
+    @endforeach
+</div>
+
 
 @include('theme::layouts.modal', [
     'modal'                 => [
@@ -147,6 +147,8 @@
     </div>
     @endforeach
 @endforeach
+
+@endsection
 
 @push('script')
 <script>
