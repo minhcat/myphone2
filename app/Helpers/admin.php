@@ -2,6 +2,7 @@
 
 use App\Enums\OrderStatus;
 use App\Enums\ThemeStatus;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\ViewErrorBag;
 use Modules\Order\Entities\Order;
@@ -215,6 +216,35 @@ if (!function_exists('check_permission')) {
                 }
             }
         }
+        return false;
+    }
+}
+
+if (!function_exists('check_permission_combine')) {
+    function check_permission_combine($allows, $denies) {
+        $allowCheck = Gate::allows($allows);
+        $denyCheck = false;
+
+        foreach ($denies as $deny) {
+            $denyCheck = $denyCheck || Gate::check($deny);
+        }
+
+        return $allowCheck && !$denyCheck;
+    }
+}
+
+if (!function_exists('check_permission_allow_many')) {
+    function check_permission_allow_many($abilities) {
+        $count = 0;
+        foreach ($abilities as $ability) {
+            $check = Gate::allows($ability);
+            if ($check && $count == 1) {
+                return true;
+            } elseif ($check) {
+                $count ++;
+            }
+        }
+
         return false;
     }
 }
