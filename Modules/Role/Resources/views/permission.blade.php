@@ -2,6 +2,10 @@
 
 @section('title-page', 'Roles')
 
+@section('style')
+<link rel="stylesheet" href="{{ asset('modules/role/style.css') }}">
+@endsection
+
 @section('small-info')
 <small>Edit Role Permission</small>
 @endsection
@@ -25,7 +29,7 @@
                 @method('put')
                 @csrf
                 <div class="box-body">
-                    <div class="table-body">
+                    <div class="table-body table-permission">
                         <table class="table table-bordered table-striped mt-3 fit-column">
                             <thead>
                                 <tr>
