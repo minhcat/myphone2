@@ -115,11 +115,28 @@ abstract class AbstractRepository implements RepositoryInterface
         return $model;
     }
 
+    public function updateWhere($where, $data, $more = [])
+    {
+        $data = $this->convertDataUpdate($data, $more);
+
+        $model = $this->model->where($where)->first();
+
+        $model->update($data);
+
+        return $model;
+    }
+
     public function delete($id)
     {
         $model = $this->model->find($id);
 
         return $model->delete();
+    }
+
+    public function deleteWhere($where = [])
+    {
+        // dd($where);
+        return $this->model->where($where)->delete();
     }
 
     protected function convertDataCreate($data, $more = [])

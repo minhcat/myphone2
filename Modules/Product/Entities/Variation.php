@@ -37,6 +37,10 @@ class Variation extends Model
         return Attribute::make(
             get: function (mixed $value, array $attributes) {
                 $product = $this->product;
+                if (!$product) {
+                    return 'product_not_exist';
+                }
+
                 $options = $this->options;
                 $option_name = '';
                 foreach ($options as $key => $option) {

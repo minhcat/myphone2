@@ -18,5 +18,9 @@ interface RepositoryInterface
 
     public function update($id, $data);
 
+    public function updateWhere($where, $data);
+
     public function delete($id);
+
+    public function deleteWhere($where);
 }

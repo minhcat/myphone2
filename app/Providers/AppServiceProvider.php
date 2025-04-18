@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use App\Observers\OrderObserver;
+use App\Observers\ProductObserver;
 use App\Observers\UserObserver;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Modules\Order\Entities\Order;
+use Modules\Product\Entities\Product;
 use Modules\User\Entities\User;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,9 +30,21 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->registerObserver();
+        $this->compileCustomDirective();
+        
+        view()->share('admin_active_theme', get_admin_active_theme());
+    }
+    
+    protected function registerObserver()
+    {
         User::observe(UserObserver::class);
         Order::observe(OrderObserver::class);
-
+        Product::observe(ProductObserver::class);
+    }
+    
+    protected function compileCustomDirective()
+    {
         Blade::directive('cancombine', function(string $expression) {
             return "<?php if (check_permission_combine({$expression})): ?>";
         });
@@ -44,7 +58,5 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('endcanmany', function() {
             return "<?php endif ?>";
         });
-
-        view()->share('admin_active_theme', get_admin_active_theme());
     }
 }

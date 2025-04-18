@@ -26,6 +26,11 @@ class VariationRepository extends AbstractRepository
         return $query->where('product_id', $product_id)->where($this->searchFieldName, 'LIKE', "%$search%")->paginate($take);
     }
 
+    public function getByProductId($product_id)
+    {
+        return $this->model->where('product_id', $product_id)->get();
+    }
+
     public function create($data, $more = [])
     {
         $variation = parent::create($data, $more);

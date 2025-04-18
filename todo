@@ -1,5 +1,4 @@
 add country brand to setting
 make quality, payment method to transporter and order
 get old value when fail create/update
-remove sale product when remove product
 check permission with sidebar (user, role)
