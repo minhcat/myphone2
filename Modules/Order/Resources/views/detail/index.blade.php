@@ -1,6 +1,6 @@
 @extends('order::detail.layouts.master')
 
-@section('title-page', 'Orders')
+@section('title-page', 'Order Detail')
 
 @section('small-info')
 <small>List of detail order ({{ $details->total() }})</small>

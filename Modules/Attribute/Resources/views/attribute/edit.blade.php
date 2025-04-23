@@ -1,6 +1,6 @@
 @extends('attribute::attribute.layouts.master')
 
-@section('title-page', 'Attributes')
+@section('title-page', 'Attribute')
 
 @section('small-info')
 <small>Edit Attribute</small>

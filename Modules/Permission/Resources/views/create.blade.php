@@ -1,6 +1,6 @@
 @extends('permission::layouts.master')
 
-@section('title-page', 'Permissions')
+@section('title-page', 'Permission')
 
 @section('small-info')
 <small>Add Permission</small>

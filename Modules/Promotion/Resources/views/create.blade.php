@@ -1,6 +1,6 @@
 @extends('promotion::layouts.master')
 
-@section('title-page', 'Promotions')
+@section('title-page', 'Promotion')
 
 @section('small-info')
 <small>Add Promotion</small>

@@ -1,6 +1,6 @@
 @extends('user::address.layouts.master')
 
-@section('title-page', 'Addresses')
+@section('title-page', 'Address')
 
 @section('small-info')
 <small>Address Detail</small>

@@ -1,6 +1,6 @@
 @extends('brand::layouts.master')
 
-@section('title-page', 'Brands')
+@section('title-page', 'Brand')
 
 @section('small-info')
 <small>Add Brand</small>

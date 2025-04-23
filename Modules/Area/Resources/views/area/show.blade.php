@@ -1,6 +1,6 @@
 @extends('area::area.layouts.master')
 
-@section('title-page', 'Areas')
+@section('title-page', 'Area')
 
 @section('small-info')
 <small>Area Detail</small>

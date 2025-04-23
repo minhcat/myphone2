@@ -1,6 +1,6 @@
 @extends('invoice::invoice.layouts.master')
 
-@section('title-page', 'Invoices')
+@section('title-page', 'Invoice')
 
 @section('small-info')
 <small>Invoice Detail</small>

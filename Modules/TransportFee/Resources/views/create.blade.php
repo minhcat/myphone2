@@ -1,6 +1,6 @@
 @extends('transportfee::layouts.master')
 
-@section('title-page', 'Transport Fees')
+@section('title-page', 'Transport Fee')
 
 @section('small-info')
 <small>Add Transport fee</small>

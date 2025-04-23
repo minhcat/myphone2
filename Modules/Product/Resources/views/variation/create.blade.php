@@ -1,6 +1,6 @@
 @extends('product::variation.layouts.master')
 
-@section('title-page', 'Variations')
+@section('title-page', 'Variation')
 
 @section('small-info')
 <small>Add Variation</small>

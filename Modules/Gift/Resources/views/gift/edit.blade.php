@@ -1,6 +1,6 @@
 @extends('gift::gift.layouts.master')
 
-@section('title-page', 'Gifts')
+@section('title-page', 'Gift')
 
 @section('small-info')
 <small>Edit Gift</small>

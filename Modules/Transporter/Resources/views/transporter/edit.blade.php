@@ -1,6 +1,6 @@
 @extends('transporter::transporter.layouts.master')
 
-@section('title-page', 'Transporters')
+@section('title-page', 'Transporter')
 
 @section('small-info')
 <small>Edit Transporter</small>

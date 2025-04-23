@@ -1,6 +1,6 @@
 @extends('config::layouts.master')
 
-@section('title-page', 'Configs')
+@section('title-page', 'Config')
 
 @section('small-info')
 <small>Edit Config</small>

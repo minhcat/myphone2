@@ -1,6 +1,6 @@
 @extends('user::address.layouts.master')
 
-@section('title-page', 'User Addresses')
+@section('title-page', 'Address')
 
 @section('small-info')
 <small>List of addresses ({{ $addresses->total() }})</small>

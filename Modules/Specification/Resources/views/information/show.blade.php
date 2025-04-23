@@ -1,6 +1,6 @@
 @extends('specification::information.layouts.master')
 
-@section('title-page', 'Informations')
+@section('title-page', 'Information')
 
 @section('small-info')
 <small>Information Detail</small>

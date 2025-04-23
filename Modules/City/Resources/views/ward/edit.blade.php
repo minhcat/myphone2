@@ -1,6 +1,6 @@
 @extends('city::ward.layouts.master')
 
-@section('title-page', 'Wards')
+@section('title-page', 'Ward')
 
 @section('small-info')
 <small>Edit Ward</small>

@@ -1,6 +1,6 @@
 @extends('product::product.layouts.master')
 
-@section('title-page', 'Products')
+@section('title-page', 'Product')
 
 @section('small-info')
 <small>List of products ({{ $products->total() }})</small>

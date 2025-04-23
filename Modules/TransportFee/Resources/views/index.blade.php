@@ -1,6 +1,6 @@
 @extends('transportfee::layouts.master')
 
-@section('title-page', 'Transporter')
+@section('title-page', 'Transport Fee')
 
 @section('small-info')
 <small>List of transport fees ({{ $transport_fees->total() }})</small>

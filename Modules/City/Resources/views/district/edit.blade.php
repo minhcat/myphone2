@@ -1,6 +1,6 @@
 @extends('city::district.layouts.master')
 
-@section('title-page', 'Districts')
+@section('title-page', 'District')
 
 @section('small-info')
 <small>Edit District</small>

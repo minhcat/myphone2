@@ -1,6 +1,6 @@
 @extends('voucher::code.layouts.master')
 
-@section('title-page', 'Voucher Codes')
+@section('title-page', 'Voucher Code')
 
 @section('small-info')
 <small>Voucher Codes Detail</small>

@@ -1,6 +1,6 @@
 @extends('cart::detail.layouts.master')
 
-@section('title-page', 'Details')
+@section('title-page', 'Cart Detail')
 
 @section('small-info')
 <small>Edit Detail</small>

@@ -1,6 +1,6 @@
 @extends('theme::layouts.master')
 
-@section('title-page', 'Themes')
+@section('title-page', 'Theme')
 
 @section('small-info')
 <small>List of Themes ({{ $themes->count() }})</small>

@@ -1,6 +1,6 @@
 @extends('user::user.layouts.master')
 
-@section('title-page', 'Users')
+@section('title-page', 'User')
 
 @section('small-info')
 <small>User Detail</small>

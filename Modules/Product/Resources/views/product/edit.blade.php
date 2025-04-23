@@ -1,6 +1,6 @@
 @extends('product::product.layouts.master')
 
-@section('title-page', 'Products')
+@section('title-page', 'Product')
 
 @section('style')
 <link rel="stylesheet" href="{{ asset('modules/product/app.css') }}">

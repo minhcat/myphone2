@@ -1,6 +1,6 @@
 @extends('order::order.layouts.master')
 
-@section('title-page', 'Orders')
+@section('title-page', 'Order')
 
 @section('small-info')
 <small>Order Detail</small>

@@ -1,6 +1,6 @@
 @extends('sale::sale.layouts.master')
 
-@section('title-page', 'Sale')
+@section('title-page', 'Sale Off')
 
 @section('small-info')
 <small>List of sales ({{ $sales->total() }})</small>

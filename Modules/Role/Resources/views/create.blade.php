@@ -1,6 +1,6 @@
 @extends('role::layouts.master')
 
-@section('title-page', 'Roles')
+@section('title-page', 'Role')
 
 @section('small-info')
 <small>Add Role</small>

@@ -1,6 +1,6 @@
 @extends('category::layouts.master')
 
-@section('title-page', 'Categories')
+@section('title-page', 'Category')
 
 @section('small-info')
 <small>Edit Category</small>

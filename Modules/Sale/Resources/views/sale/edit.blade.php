@@ -1,6 +1,6 @@
 @extends('sale::sale.layouts.master')
 
-@section('title-page', 'Sales')
+@section('title-page', 'Sale Off')
 
 @section('small-info')
 <small>Edit Sale</small>

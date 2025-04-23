@@ -1,6 +1,6 @@
 @extends('transporter::case.layouts.master')
 
-@section('title-page', 'Transporter Cases')
+@section('title-page', 'Transporter Case')
 
 @section('small-info')
 <small>Add Transporter Case</small>

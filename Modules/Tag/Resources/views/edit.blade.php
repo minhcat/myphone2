@@ -1,6 +1,6 @@
 @extends('tag::layouts.master')
 
-@section('title-page', 'Tags')
+@section('title-page', 'Tag')
 
 @section('small-info')
 <small>Edit Tag</small>

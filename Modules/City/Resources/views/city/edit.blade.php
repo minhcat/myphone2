@@ -1,6 +1,6 @@
 @extends('city::city.layouts.master')
 
-@section('title-page', 'Cities')
+@section('title-page', 'City')
 
 @section('small-info')
 <small>Edit City</small>

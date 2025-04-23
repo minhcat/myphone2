@@ -1,6 +1,6 @@
 @extends('role::layouts.master')
 
-@section('title-page', 'Roles')
+@section('title-page', 'Role')
 
 @section('style')
 <link rel="stylesheet" href="{{ asset('modules/role/style.css') }}">

@@ -1,6 +1,6 @@
 @extends('cart::cart.layouts.master')
 
-@section('title-page', 'Carts')
+@section('title-page', 'Cart')
 
 @section('small-info')
 <small>Cart Detail</small>
