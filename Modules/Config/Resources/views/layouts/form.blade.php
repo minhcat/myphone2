@@ -17,7 +17,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="name">Name <span class="text-red">*</span></label>
-                                <input type="text" class="form-control input-required" name="name" value="{{ $config->name }}">
+                                <input type="text" class="form-control input-required" name="name" value="{{ old('name', $config->name) }}">
                                 <span class="help-block require hidden">Name is required</span>
                             </div>
                         </div>
@@ -28,11 +28,11 @@
                                 <label for="">Type</label>
                                 <select class="form-control" aria-placeholder="not select" name="type">
                                     <option disabled selected>-- choose type --</option>
-                                    <option value="boolean" {{ $config->type == 'boolean' ? 'selected' : '' }}>Boolean</option>
-                                    <option value="integer" {{ $config->type == 'integer' ? 'selected' : '' }}>Integer</option>
-                                    <option value="float"   {{ $config->type == 'float'   ? 'selected' : '' }}>Float</option>
-                                    <option value="string"  {{ $config->type == 'string'  ? 'selected' : '' }}>String</option>
-                                    <option value="json"    {{ $config->type == 'json'    ? 'selected' : '' }}>Json</option>
+                                    <option value="boolean" {{ old('type') == 'boolean' || $config->type == 'boolean' ? 'selected' : '' }}>Boolean</option>
+                                    <option value="integer" {{ old('type') == 'integer' || $config->type == 'integer' ? 'selected' : '' }}>Integer</option>
+                                    <option value="float"   {{ old('type') == 'float'   || $config->type == 'float'   ? 'selected' : '' }}>Float</option>
+                                    <option value="string"  {{ old('type') == 'string'  || $config->type == 'string'  ? 'selected' : '' }}>String</option>
+                                    <option value="json"    {{ old('type') == 'json'    || $config->type == 'json'    ? 'selected' : '' }}>Json</option>
                                 </select>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                             <div class="form-group">
                                 <label for="value">Value</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="value" value="{{ $config->value }}" id="value">
+                                    <input type="text" class="form-control" name="value" value="{{ old('value', $config->value) }}" id="value">
                                     <span class="input-group-addon"><input type="checkbox" name="value_null" {{ $form['title'] == 'Edit' && $config->value === null ? 'checked' : '' }}> null</span>
                                 </div>
                             </div>
@@ -53,7 +53,7 @@
                             <div class="form-group">
                                 <label for="default">Default</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="default" value="{{ $config->default }}" id="default">
+                                    <input type="text" class="form-control" name="default" value="{{ old('default', $config->default) }}" id="default">
                                     <span class="input-group-addon"><input type="checkbox" name="default_null" {{ $form['title'] == 'Edit' && $config->default === null ? 'checked' : '' }}> null</span>
                                 </div>
                             </div>
@@ -64,7 +64,7 @@
                             <div class="form-group">
                                 <label for="group">Group</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="group" value="{{ $config->group }}" id="group">
+                                    <input type="text" class="form-control" name="group" value="{{ old('group', $config->group) }}" id="group">
                                     <span class="input-group-addon"><input type="checkbox" name="group_null" {{ $form['title'] == 'Edit' && $config->group === null ? 'checked' : '' }}> null</span>
                                 </div>
                             </div>

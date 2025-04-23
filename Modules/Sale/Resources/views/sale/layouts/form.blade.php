@@ -17,7 +17,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="name">Name <span class="text-red">*</span></label>
-                                <input id="name" type="text" class="form-control input-required" name="name" value="{{ $sale->name }}" autocomplete="name">
+                                <input id="name" type="text" class="form-control input-required" name="name" value="{{ old('name', $sale->name) }}" autocomplete="name">
                                 <span class="help-block require hidden">Name is required</span>
                             </div>
                         </div>
@@ -26,7 +26,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea id="description" class="form-control" rows="4" name="description">{{ $sale->description }}</textarea>
+                                <textarea id="description" class="form-control" rows="4" name="description">{{ old('description', $sale->description) }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                                 <select id="discount_type" class="form-control" aria-placeholder="not select" name="discount_type">
                                     <option disabled selected>-- choose discount type --</option>
                                     @foreach($discount_types as $discount_type)
-                                        <option value="{{ $discount_type->code }}" {{ $sale->discount_type === $discount_type->code ? 'selected' : '' }}>{{ $discount_type->name }}</option>
+                                        <option value="{{ $discount_type->code }}" {{ old('discount_type') == $discount_type->code || $sale->discount_type === $discount_type->code ? 'selected' : '' }}>{{ $discount_type->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -45,7 +45,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="discount_value">Discount Value</label>
-                                <input id="discount_value" type="number" class="form-control" name="discount_value" value="{{ $sale->discount_value }}" autocomplete="discount_value">
+                                <input id="discount_value" type="number" class="form-control" name="discount_value" value="{{ old('discount_value', $sale->discount_value) }}" autocomplete="discount_value">
                             </div>
                         </div>
                     </div>
@@ -53,13 +53,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="discount_minimum">Discount Minimum</label>
-                                <input id="discount_minimum" type="number" class="form-control" name="discount_minimum" value="{{ $sale->discount_minimum }}" autocomplete="discount_minimum">
+                                <input id="discount_minimum" type="number" class="form-control" name="discount_minimum" value="{{ old('discount_minimum', $sale->discount_minimum) }}" autocomplete="discount_minimum">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="discount_maximum">Discount Maximum</label>
-                                <input id="discount_maximum" type="number" class="form-control" name="discount_maximum" value="{{ $sale->discount_maximum }}" autocomplete="discount_maximum">
+                                <input id="discount_maximum" type="number" class="form-control" name="discount_maximum" value="{{ old('discount_maximum', $sale->discount_maximum) }}" autocomplete="discount_maximum">
                             </div>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-clock-o"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right" id="start_time" name="start_time" value="{{ $sale->starttime }}">
+                                            <input type="text" class="form-control pull-right" id="start_time" name="start_time" value="{{ old('start_time', $sale->starttime) }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -81,7 +81,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right" id="start_date" name="start_date" value="{{ $sale->startdate }}">
+                                            <input type="text" class="form-control pull-right" id="start_date" name="start_date" value="{{ old('start_date', $sale->startdate) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -96,7 +96,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-clock-o"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right" id="end_time" name="end_time" value="{{ $sale->endtime }}">
+                                            <input type="text" class="form-control pull-right" id="end_time" name="end_time" value="{{ old('end_time', $sale->endtime) }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -104,7 +104,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right" id="end_date" name="end_date" value="{{ $sale->enddate }}">
+                                            <input type="text" class="form-control pull-right" id="end_date" name="end_date" value="{{ old('end_date', $sale->enddate) }}">
                                         </div>
                                     </div>
                                 </div>

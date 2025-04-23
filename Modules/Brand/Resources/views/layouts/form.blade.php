@@ -17,7 +17,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="name">Name <span class="text-red">*</span></label>
-                                <input type="text" class="form-control input-required" name="name" value="{{ $brand->name }}">
+                                <input type="text" class="form-control input-required" name="name" value="{{ old('name', $brand->name) }}">
                                 <span class="help-block require hidden">Name is required</span>
                             </div>
                         </div>
@@ -28,11 +28,11 @@
                                 <label for="">Country</label>
                                 <select class="form-control" aria-placeholder="not select" name="country">
                                     <option disabled selected>-- choose country --</option>
-                                    <option value="usa"     {{ $brand->country == 'usa' ? 'selected' : '' }}>USA</option>
-                                    <option value="japan"   {{ $brand->country == 'japan' ? 'selected' : '' }}>Japan</option>
-                                    <option value="korea"   {{ $brand->country == 'korea' ? 'selected' : '' }}>Korea</option>
-                                    <option value="china"   {{ $brand->country == 'china' ? 'selected' : '' }}>China</option>
-                                    <option value="vietnam" {{ $brand->country == 'vietnam' ? 'selected' : '' }}>Vietnam</option>
+                                    <option value="usa"     {{ old('country') == 'usa' || $brand->country == 'usa' ? 'selected' : '' }}>USA</option>
+                                    <option value="japan"   {{ old('country') == 'japan' || $brand->country == 'japan' ? 'selected' : '' }}>Japan</option>
+                                    <option value="korea"   {{ old('country') == 'korea' || $brand->country == 'korea' ? 'selected' : '' }}>Korea</option>
+                                    <option value="china"   {{ old('country') == 'china' || $brand->country == 'china' ? 'selected' : '' }}>China</option>
+                                    <option value="vietnam" {{ old('country') == 'vietnam' || $brand->country == 'vietnam' ? 'selected' : '' }}>Vietnam</option>
                                 </select>
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Description</label>
-                                <textarea class="form-control" rows="4" name="description">{{ $brand->description }}</textarea>
+                                <textarea class="form-control" rows="4" name="description">{{ old('description', $brand->description) }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Note <span class="fa fa-fw fa-question-circle" data-toggle="tooltip" title="Admin Note"></span></label>
-                                <input type="text" class="form-control" name="note" value="{{ $brand->note }}">
+                                <input type="text" class="form-control" name="note" value="{{ old('note', $brand->note) }}">
                             </div>
                         </div>
                     </div>

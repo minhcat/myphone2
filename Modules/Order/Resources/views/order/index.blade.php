@@ -59,7 +59,7 @@
                         </thead>
                         <tbody class="tbody-loading">
                             <tr>
-                                <td colspan="10"><i class="fa fa-spin fa-spinner fa-lg"></i></td>
+                                <td colspan="11"><i class="fa fa-spin fa-spinner fa-lg"></i></td>
                             </tr>
                         </tbody>
                         <tbody class="tbody-data hidden">

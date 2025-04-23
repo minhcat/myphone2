@@ -17,7 +17,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="code">Code <span class="text-red">*</span></label>
-                                <input id="code" type="text" class="form-control input-required" name="code" value="{{ $voucher_code->code }}" autocomplete="code">
+                                <input id="code" type="text" class="form-control input-required" name="code" value="{{ old('code', $voucher_code->code) }}" autocomplete="code">
                                 <span class="help-block require hidden">Code is require</span>
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                                 <select id="discount_type" class="form-control" aria-placeholder="not select" name="discount_type">
                                     <option disabled selected>-- choose discount type --</option>
                                     @foreach($discount_types as $discount_type)
-                                        <option value="{{ $discount_type->code }}" {{ $voucher_code->discount_type === $discount_type->code ? 'selected' : '' }}>{{ $discount_type->name }}</option>
+                                        <option value="{{ $discount_type->code }}" {{ old('discount_type') == $discount_type->code || $voucher_code->discount_type === $discount_type->code ? 'selected' : '' }}>{{ $discount_type->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -39,7 +39,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="discount_value">Discount Value</label>
-                                <input id="discount_value" type="number" class="form-control" name="discount_value" value="{{ $voucher_code->discount_value }}" autocomplete="discount_value">
+                                <input id="discount_value" type="number" class="form-control" name="discount_value" value="{{ old('discount_value', $voucher_code->discount_value) }}" autocomplete="discount_value">
                             </div>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="discount_minimum">Discount Minimum</label>
-                                <input id="discount_minimum" type="number" class="form-control" name="discount_minimum" value="{{ $voucher_code->discount_minimum }}" autocomplete="discount_minimum">
+                                <input id="discount_minimum" type="number" class="form-control" name="discount_minimum" value="{{ old('discount_minimum', $voucher_code->discount_minimum) }}" autocomplete="discount_minimum">
                             </div>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="discount_maximum">Discount Maximum</label>
-                                <input id="discount_maximum" type="number" class="form-control" name="discount_maximum" value="{{ $voucher_code->discount_maximum }}" autocomplete="discount_maximum">
+                                <input id="discount_maximum" type="number" class="form-control" name="discount_maximum" value="{{ old('discount_maximum', $voucher_code->discount_maximum) }}" autocomplete="discount_maximum">
                             </div>
                         </div>
                     </div>

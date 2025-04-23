@@ -25,7 +25,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="attribute">Price <span class="text-red">*</span></label>
-                                <input id="attribute" type="number" class="form-control input-required" name="price" value="{{ $variation->price }}">
+                                <input id="attribute" type="number" class="form-control input-required" name="price" value="{{ old('price', $variation->price) }}">
                                 <span class="help-block require hidden">Price is required</span>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea id="description" class="form-control" rows="4" name="description">{{ $variation->description }}</textarea>
+                                <textarea id="description" class="form-control" rows="4" name="description">{{ old('description', $variation->description) }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                                                     name="option[{{ $key }}]"
                                                     class="option a{{ $key }}"
                                                     value="{{ $option->id }}"
-                                                    {{ in_array($option->id, Arr::pluck($variation->options, 'id')) ? 'checked' : '' }}>
+                                                    {{ in_array($option->id, old('option', [])) || in_array($option->id, Arr::pluck($variation->options, 'id')) ? 'checked' : '' }}>
                                                 {{ $option->value }}
                                             </label>
                                         </div>
@@ -63,7 +63,7 @@
                                                 name="option[{{ $key }}]"
                                                 class="option a{{ $key }}"
                                                 value="0"
-                                                {{ count(array_diff(Arr::pluck($variation->options, 'id'), array_diff(Arr::pluck($variation->options, 'id'), Arr::pluck($attribute->options, 'id')))) == 0 ? 'checked' : '' }}
+                                                {{ count(array_diff(Arr::pluck($attribute->options, 'id'), old('option', []))) == 0 && count(array_diff(Arr::pluck($variation->options, 'id'), array_diff(Arr::pluck($variation->options, 'id'), Arr::pluck($attribute->options, 'id')))) == 0 ? 'checked' : '' }}
                                                 >
                                             none
                                         </label>

@@ -15,7 +15,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Account <span class="text-red">*</span></label>
-                                <input type="text" class="form-control input-required" placeholder="input account" name="account" value="{{ $user->account }}">
+                                <input type="text" class="form-control input-required" placeholder="input account" name="account" value="{{ old('account', $user->account) }}">
                                 <span class="help-block require hidden">Account is require</span>
                             </div>
                         </div>
@@ -24,7 +24,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Email <span class="text-red">*</span></label>
-                                <input type="text" class="form-control input-required input-email" placeholder="input email" name="email" value="{{ $user->email }}">
+                                <input type="text" class="form-control input-required input-email" placeholder="input email" name="email" value="{{ old('email', $user->email) }}">
                                 <span class="help-block require hidden">Email is require</span>
                                 <span class="help-block email hidden">Email is invalid</span>
                             </div>
@@ -34,7 +34,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Firstname <span class="text-red">*</span></label>
-                                <input id="firstname" type="text" class="form-control input-required" placeholder="input firstname" name="firstname" value="{{ $user->firstname }}">
+                                <input id="firstname" type="text" class="form-control input-required" placeholder="input firstname" name="firstname" value="{{ old('firstname', $user->firstname) }}">
                                 <span class="help-block require hidden">Firstname is require</span>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="lastname">Lastname <span class="text-red">*</span></label>
-                                <input id="lastname" type="text" class="form-control input-required" placeholder="input lastname" name="lastname" value="{{ $user->lastname }}">
+                                <input id="lastname" type="text" class="form-control input-required" placeholder="input lastname" name="lastname" value="{{ old('lastname', $user->lastname) }}">
                                 <span class="help-block require hidden">Lastname is require</span>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                                 @foreach($genders as $key => $gender)
                                 <div class="radio">
                                     <label for="gender{{ $key }}">
-                                        <input type="radio" name="gender" id="gender1" value="{{ $gender->code }}" {{ $user->gender === $gender->code ? 'checked' : '' }}>
+                                        <input type="radio" name="gender" id="gender{{ $key }}" value="{{ $gender->code }}" {{ old('gender') == $gender->code || $user->gender === $gender->code ? 'checked' : '' }}>
                                         {{ $gender->name }}
                                     </label>
                                 </div>
@@ -67,7 +67,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Job</label>
-                                <input type="text" class="form-control" placeholder="input job" name="job" value="{{ $user->job }}">
+                                <input type="text" class="form-control" placeholder="input job" name="job" value="{{ old('job', $user->job) }}">
                             </div>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                                 @foreach($roles as $role)
                                 <div class="checkbox">
                                     <label for="is_admin_{{ $role->id }}">
-                                        <input type="checkbox" name="role[{{ $role->id }}]" id="is_admin_{{ $role->id }}" {{ !is_null($user->roles) && in_array($role->id, $user->roles->pluck('id')->toArray()) ? 'checked' : '' }}>
+                                        <input type="checkbox" name="role[{{ $role->id }}]" id="is_admin_{{ $role->id }}" {{ isset(old('role')[$role->id]) || (!is_null($user->roles) && in_array($role->id, $user->roles->pluck('id')->toArray())) ? 'checked' : '' }}>
                                         {{ $role->name }}
                                     </label> 
                                 </div>

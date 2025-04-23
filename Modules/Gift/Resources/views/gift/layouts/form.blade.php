@@ -17,7 +17,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="name">Name <span class="text-red">*</span></label>
-                                <input id="name" type="text" class="form-control input-required" name="name" value="{{ $gift->name }}" autocomplete="name">
+                                <input id="name" type="text" class="form-control input-required" name="name" value="{{ old('name', $gift->name) }}" autocomplete="name">
                                 <span class="help-block require hidden">Name is required</span>
                             </div>
                         </div>
@@ -26,7 +26,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea id="description" class="form-control" rows="4" name="description">{{ $gift->description }}</textarea>
+                                <textarea id="description" class="form-control" rows="4" name="description">{{ old('description', $gift->description) }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-clock-o"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right" id="start_time" name="start_time" value="{{ $gift->starttime }}">
+                                            <input type="text" class="form-control pull-right" id="start_time" name="start_time" value="{{ old('start_time', $gift->starttime) }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -48,7 +48,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right" id="start_date" name="start_date" value="{{ $gift->startdate }}">
+                                            <input type="text" class="form-control pull-right" id="start_date" name="start_date" value="{{ old('start_date', $gift->startdate) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-clock-o"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right" id="end_time" name="end_time" value="{{ $gift->endtime }}">
+                                            <input type="text" class="form-control pull-right" id="end_time" name="end_time" value="{{ old('end_time', $gift->endtime) }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -71,7 +71,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right" id="end_date" name="end_date" value="{{ $gift->enddate }}">
+                                            <input type="text" class="form-control pull-right" id="end_date" name="end_date" value="{{ old('end_date', $gift->enddate) }}">
                                         </div>
                                     </div>
                                 </div>

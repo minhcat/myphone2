@@ -17,7 +17,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Value <span class="text-red">*</span></label>
-                                <input type="text" class="form-control input-required" name="value" value="{{ $option->value }}">
+                                <input type="text" class="form-control input-required" name="value" value="{{ old('name', $option->value) }}">
                                 <span class="help-block require hidden">Name is required</span>
                             </div>
                         </div>
@@ -26,7 +26,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Description</label>
-                                <textarea class="form-control" rows="4" name="description">{{ $option->description }}</textarea>
+                                <textarea class="form-control" rows="4" name="description">{{ old('description', $option->description) }}</textarea>
                             </div>
                         </div>
                     </div>

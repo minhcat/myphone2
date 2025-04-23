@@ -1,7 +1,7 @@
 @foreach($items as $item)
     <li class="checkbox">
         <label for="cate_{{ $item->id }}">
-            <input id="cate_{{ $item->id }}" type="checkbox" name="categories[{{ $item->id }}]" @if (in_array($item->id, $checked_list)) checked @endif> {{ $item->name }}
+            <input id="cate_{{ $item->id }}" type="checkbox" name="categories[{{ $item->id }}]" @if (isset(old('categories')[$item->id]) || in_array($item->id, $checked_list)) checked @endif> {{ $item->name }}
         </label>
         @if ($item->children()->exists())
             <ul class="form-group list-child">

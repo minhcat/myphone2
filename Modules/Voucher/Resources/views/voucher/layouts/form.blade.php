@@ -17,7 +17,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="name">Name <span class="text-red">*</span></label>
-                                <input id="name" type="text" class="form-control input-required" name="name" value="{{ $voucher->name }}" autocomplete="name">
+                                <input id="name" type="text" class="form-control input-required" name="name" value="{{ old('name', $voucher->name) }}" autocomplete="name">
                                 <span class="help-block require hidden">Name is require</span>
                             </div>
                         </div>
@@ -26,7 +26,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea id="description" class="form-control" rows="4" name="description">{{ $voucher->description }}</textarea>
+                                <textarea id="description" class="form-control" rows="4" name="description">{{ old('description', $voucher->description) }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                                 <select id="discount_type" class="form-control" aria-placeholder="not select" name="discount_type">
                                     <option disabled selected>-- choose discount type --</option>
                                     @foreach($discount_types as $discount_type)
-                                        <option value="{{ $discount_type->code }}" {{ $voucher->discount_type === $discount_type->code ? 'selected' : '' }}>{{ $discount_type->name }}</option>
+                                        <option value="{{ $discount_type->code }}" {{ old('discount_type') == $discount_type->code || $voucher->discount_type === $discount_type->code ? 'selected' : '' }}>{{ $discount_type->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -45,7 +45,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="discount_value">Discount Value</label>
-                                <input id="discount_value" type="number" class="form-control" name="discount_value" value="{{ $voucher->discount_value }}" autocomplete="discount_value">
+                                <input id="discount_value" type="number" class="form-control" name="discount_value" value="{{ old('discount_value', $voucher->discount_value) }}" autocomplete="discount_value">
                             </div>
                         </div>
                     </div>
@@ -53,13 +53,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="discount_minimum">Discount Minimum</label>
-                                <input id="discount_minimum" type="number" class="form-control" name="discount_minimum" value="{{ $voucher->discount_minimum }}" autocomplete="discount_minimum">
+                                <input id="discount_minimum" type="number" class="form-control" name="discount_minimum" value="{{ old('discount_minimum', $voucher->discount_minimum) }}" autocomplete="discount_minimum">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="discount_maximum">Discount Maximum</label>
-                                <input id="discount_maximum" type="number" class="form-control" name="discount_maximum" value="{{ $voucher->discount_maximum }}" autocomplete="discount_maximum">
+                                <input id="discount_maximum" type="number" class="form-control" name="discount_maximum" value="{{ old('discount_maximum', $voucher->discount_maximum) }}" autocomplete="discount_maximum">
                             </div>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-clock-o"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right" id="start_time" name="start_time" value="{{ $voucher->starttime }}">
+                                            <input type="text" class="form-control pull-right" id="start_time" name="start_time" value="{{ old('start_time', $voucher->starttime) }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -81,7 +81,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right" id="start_date" name="start_date" value="{{ $voucher->startdate }}">
+                                            <input type="text" class="form-control pull-right" id="start_date" name="start_date" value="{{ old('start_date', $voucher->startdate) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -96,7 +96,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-clock-o"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right" id="end_time" name="end_time" value="{{ $voucher->endtime }}">
+                                            <input type="text" class="form-control pull-right" id="end_time" name="end_time" value="{{ old('end_time', $voucher->endtime) }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -104,7 +104,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right" id="end_date" name="end_date" value="{{ $voucher->enddate }}">
+                                            <input type="text" class="form-control pull-right" id="end_date" name="end_date" value="{{ old('end_date', $voucher->enddate) }}">
                                         </div>
                                     </div>
                                 </div>

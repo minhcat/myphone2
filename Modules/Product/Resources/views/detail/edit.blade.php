@@ -32,8 +32,8 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="">Product Name</label>
-                                <input type="text" class="form-control" value="{{ $product_name }}" disabled>
+                                <label for="name">Product Name</label>
+                                <input type="text" id="name" class="form-control" value="{{ $product_name }}" disabled autocomplete="name">
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label for="">{{ $specification->name }}</label>
+                                    <label>{{ $specification->name }}</label>
                                     @foreach($specification->informations as $information)
                                         <div class="radio">
                                             <label>
@@ -49,12 +49,18 @@
                                                 type="radio"
                                                 name="information[{{ $key }}]"
                                                 class="info a{{ $key }}"
-                                                value="{{ $information->id }}" 
-                                                @foreach($details as $detail)
-                                                    @if ($detail->specification_id == $specification->id && $detail->information_id == $information->id)
+                                                value="{{ $information->id }}"
+                                                @if ($details->count() > 0)
+                                                    @foreach($details as $detail)
+                                                        @if ($detail->specification_id == $specification->id && (old('information')[$key] == $information->id || $detail->information_id == $information->id))
+                                                            checked
+                                                        @endif
+                                                    @endforeach
+                                                @else
+                                                    @if (old('information')[$key] == $information->id)
                                                         checked
                                                     @endif
-                                                @endforeach
+                                                @endif
                                                 >
                                                 {{ $information->value }}
                                             </label>

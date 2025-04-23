@@ -17,7 +17,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="name">Name <span class="text-red">*</span></label>
-                                <input id="name" type="text" class="form-control input-required" name="name" value="{{ $promotion->name }}" autocomplete="name">
+                                <input id="name" type="text" class="form-control input-required" name="name" value="{{ old('name', $promotion->name) }}" autocomplete="name">
                                 <span class="help-block require hidden">Name is required</span>
                             </div>
                         </div>
@@ -26,7 +26,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea id="description" class="form-control" rows="4" name="description">{{ $promotion->description }}</textarea>
+                                <textarea id="description" class="form-control" rows="4" name="description">{{ old('description', $promotion->description) }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                                 <select id="condition_type" class="form-control" aria-placeholder="not select" name="condition_type">
                                     <option disabled selected>-- choose condition --</option>
                                     @foreach($condition_types as $condition_type)
-                                        <option value="{{ $condition_type->code }}" {{ $promotion->condition_type === $condition_type->code ? 'selected' : '' }}>{{ $condition_type->name }}</option>
+                                        <option value="{{ $condition_type->code }}" {{ old('condition_type') == $condition_type->code || $promotion->condition_type === $condition_type->code ? 'selected' : '' }}>{{ $condition_type->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -45,7 +45,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="condition_value">Condition Value</label>
-                                <input id="condition_value" type="number" class="form-control" name="condition_value" value="{{ $promotion->condition_value }}" autocomplete="condition_value">
+                                <input id="condition_value" type="number" class="form-control" name="condition_value" value="{{ old('condition_value', $promotion->condition_value) }}" autocomplete="condition_value">
                             </div>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                                 <select id="discount_target" class="form-control" aria-placeholder="not select" name="discount_target">
                                     <option disabled selected>-- choose discount target --</option>
                                     @foreach($discount_targets as $discount_target)
-                                        <option value="{{ $discount_target->code }}" {{ $promotion->discount_target === $discount_target->code ? 'selected' : '' }}>{{ $discount_target->name }}</option>
+                                        <option value="{{ $discount_target->code }}" {{ old('discount_target') == $discount_target->code || $promotion->discount_target === $discount_target->code ? 'selected' : '' }}>{{ $discount_target->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -67,7 +67,7 @@
                                 <select id="discount_type" class="form-control" aria-placeholder="not select" name="discount_type">
                                     <option disabled selected>-- choose discount type --</option>
                                     @foreach($discount_types as $discount_type)
-                                        <option value="{{ $discount_type->code }}" {{ $promotion->discount_type === $discount_type->code ? 'selected' : '' }}>{{ $discount_type->name }}</option>
+                                        <option value="{{ $discount_type->code }}" {{ old('discount_type') == $discount_type->code || $promotion->discount_type === $discount_type->code ? 'selected' : '' }}>{{ $discount_type->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -77,19 +77,19 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="discount_value">Discount Value</label>
-                                <input id="discount_value" type="number" class="form-control" name="discount_value" value="{{ $promotion->discount_value }}" autocomplete="discount_value">
+                                <input id="discount_value" type="number" class="form-control" name="discount_value" value="{{ old('discount_value', $promotion->discount_value) }}" autocomplete="discount_value">
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div class="form-group">
                                 <label for="discount_minimum">Discount Minimum</label>
-                                <input id="discount_minimum" type="number" class="form-control" name="discount_minimum" value="{{ $promotion->discount_minimum }}" autocomplete="discount_minimum">
+                                <input id="discount_minimum" type="number" class="form-control" name="discount_minimum" value="{{ old('discount_minimum', $promotion->discount_minimum) }}" autocomplete="discount_minimum">
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div class="form-group">
                                 <label for="discount_maximum">Discount Maximum</label>
-                                <input id="discount_maximum" type="number" class="form-control" name="discount_maximum" value="{{ $promotion->discount_maximum }}" autocomplete="discount_maximum">
+                                <input id="discount_maximum" type="number" class="form-control" name="discount_maximum" value="{{ old('discount_maximum', $promotion->discount_maximum) }}" autocomplete="discount_maximum">
                             </div>
                         </div>
                     </div>
@@ -103,7 +103,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-clock-o"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right" id="start_time" name="start_time" value="{{ $promotion->starttime }}">
+                                            <input type="text" class="form-control pull-right" id="start_time" name="start_time" value="{{ old('start_time', $promotion->starttime) }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -111,7 +111,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right" id="start_date" name="start_date" value="{{ $promotion->startdate }}">
+                                            <input type="text" class="form-control pull-right" id="start_date" name="start_date" value="{{ old('start_date', $promotion->startdate) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -126,7 +126,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-clock-o"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right" id="end_time" name="end_time" value="{{ $promotion->endtime }}">
+                                            <input type="text" class="form-control pull-right" id="end_time" name="end_time" value="{{ old('end_time', $promotion->endtime) }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -134,7 +134,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right" id="end_date" name="end_date" value="{{ $promotion->enddate }}">
+                                            <input type="text" class="form-control pull-right" id="end_date" name="end_date" value="{{ old('end_date', $promotion->enddate) }}">
                                         </div>
                                     </div>
                                 </div>

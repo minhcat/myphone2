@@ -18,7 +18,7 @@
                                 <select id="brand_id" class="form-control" aria-placeholder="not select" name="brand_id">
                                     <option disabled selected>-- choose brand --</option>
                                     @foreach($brands as $brand)
-                                        <option value="1" {{ $product->brand_id == $brand->id ? 'selected' : '' }}>{{ $brand->name }}</option>
+                                        <option value="1" {{ old('brand_id') == $brand->id || $product->brand_id == $brand->id ? 'selected' : '' }}>{{ $brand->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -28,7 +28,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="name">Name <span class="text-red">*</span></label>
-                                <input id="name" type="text" class="form-control input-required" placeholder="input name" name="name" value="{{ $product->name ?? '' }}" autocomplete="phone">
+                                <input id="name" type="text" class="form-control input-required" placeholder="input name" name="name" value="{{ old('name', $product->name) }}" autocomplete="phone">
                                 <span class="help-block hidden require">Name is require</span>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="price">Price <span class="text-red">*</span></label>
-                                <input id="price" type="text" class="form-control input-required" placeholder="input price" name="price" value="{{ $product->price ?? '' }}">
+                                <input id="price" type="text" class="form-control input-required" placeholder="input price" name="price" value="{{ old('price', $product->price) }}">
                                 <span class="help-block hidden require">Price is require</span>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea id="description" class="form-control" name="description" rows="4">{{ $product->description }}</textarea>
+                                <textarea id="description" class="form-control" name="description" rows="4">{{ old('description', $product->description) }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="note">Note <span class="fa fa-fw fa-question-circle" data-toggle="tooltip" title="Admin Note"></span></label>
-                                <input id="note" type="text" class="form-control" name="note" value="{{ $product->note }}">
+                                <input id="note" type="text" class="form-control" name="note" value="{{ old('note', $product->note) }}">
                             </div>
                         </div>
                     </div>
@@ -89,6 +89,7 @@
                     <div class="group">
                         @php
                             $highlight_tags = $product->tags->pluck('id')->toArray();
+                            $highlight_tags = array_merge($highlight_tags, json_decode(old('tags', '[]')));
                         @endphp
 
                         @foreach($tags as $tag)

@@ -17,7 +17,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="name">Name <span class="text-red">*</span></label>
-                                <input id="name" type="text" class="form-control input-required" name="name" value="{{ $district->name }}" autocomplete="name">
+                                <input id="name" type="text" class="form-control input-required" name="name" value="{{ old('name', $district->name) }}" autocomplete="name">
                                 <span class="help-block require hidden">Name is required</span>
                             </div>
                         </div>
@@ -26,7 +26,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea id="description" class="form-control" rows="4" name="description">{{ $district->description }}</textarea>
+                                <textarea id="description" class="form-control" rows="4" name="description">{{ old('description', $district->description) }}</textarea>
                             </div>
                         </div>
                     </div>

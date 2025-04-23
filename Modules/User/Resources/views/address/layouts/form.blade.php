@@ -15,7 +15,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="content">Content <span class="text-red">*</span></label>
-                                <input type="text" class="form-control input-required" placeholder="input content" name="content" value="{{ $address->content }}">
+                                <input type="text" class="form-control input-required" placeholder="input content" name="content" value="{{ old('content', $address->content) }}">
                                 <span class="help-block require hidden">Content is require</span>
                             </div>
                         </div>
@@ -27,7 +27,7 @@
                                 <select id="ward_id" class="form-control select-required" aria-placeholder="not select" name="ward_id">
                                     <option disabled selected value="0">-- choose ward --</option>
                                     @foreach($wards as $ward)
-                                        @if ($address->ward_id === $ward->id)
+                                        @if (old('ward_id') == $ward->id || $address->ward_id === $ward->id)
                                         <option value="{{ $ward->id }}" selected>{{ $ward->name_more }}</option>
                                         @else
                                         <option value="{{ $ward->id }}">{{ $ward->name_more }}</option>
@@ -44,7 +44,7 @@
                                     <select id="district_ward_id_{{ $district->id }}" class="form-control select-required" aria-placeholder="not select" name="ward_id">
                                         <option disabled selected value="0">-- choose ward --</option>
                                         @foreach($district->wards as $district_ward)
-                                            <option value="{{ $district_ward->id }}">{{ $district_ward->name_more }}</option>
+                                            <option value="{{ $district_ward->id }}" {{ old('ward_id') == $district_ward->id ? 'selected' : '' }}>{{ $district_ward->name_more }}</option>
                                         @endforeach
                                     </select>
                                     <span class="help-block require hidden">Ward is required</span>
@@ -57,7 +57,7 @@
                                 <select id="district_id_2" class="form-control" aria-placeholder="not select" name="district_id">
                                     <option disabled selected value="0">-- choose district --</option>
                                     @foreach($districts as $district)
-                                        <option value="{{ $district->id }}">{{ $district->name_more }}</option>
+                                        <option value="{{ $district->id }}" {{ old('district_id') == $district->id ? 'selected' : '' }}>{{ $district->name_more }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -69,7 +69,7 @@
                                     <select id="city_ward_id_{{ $city->id }}" class="form-control select-required" aria-placeholder="not select" name="ward_id">
                                         <option disabled selected value="0">-- choose ward --</option>
                                         @foreach($city->wards as $city_ward)
-                                            <option value="{{ $city_ward->id }}">{{ $city_ward->name_more }}</option>
+                                            <option value="{{ $city_ward->id }}" {{ old('ward_id') == $city_ward->id ? 'selected' : '' }}>{{ $city_ward->name_more }}</option>
                                         @endforeach
                                     </select>
                                     <span class="help-block require hidden">Ward is required</span>
@@ -82,7 +82,7 @@
                                         <select id="city_district_ward_id_{{ $city_district->id }}" class="form-control select-required" aria-placeholder="not select" name="ward_id">
                                             <option disabled selected value="0">-- choose ward --</option>
                                             @foreach($city_district->wards as $city_district_ward)
-                                                <option value="{{ $city_district_ward->id }}">{{ $city_district_ward->name }}</option>
+                                                <option value="{{ $city_district_ward->id }}" {{ old('ward_id') == $city_district_ward->id ? 'selected' : '' }}>{{ $city_district_ward->name }}</option>
                                             @endforeach
                                         </select>
                                         <span class="help-block require hidden">Ward is required</span>
@@ -95,7 +95,7 @@
                                     <select id="city_district_id_{{ $city->id }}" class="form-control district_id" aria-placeholder="not select" name="district_id">
                                         <option disabled selected value="0">-- choose district --</option>
                                         @foreach($city->districts as $city_district)
-                                            <option value="{{ $city_district->id }}">{{ $city_district->name_more }}</option>
+                                            <option value="{{ $city_district->id }}"{{ old('district_id') == $city_district->id ? 'selected' : '' }}>{{ $city_district->name_more }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -107,7 +107,7 @@
                                 <select id="city_id" class="form-control" aria-placeholder="not select" name="city_id">
                                     <option disabled selected value="0">-- choose city --</option>
                                     @foreach($cities as $city)
-                                        <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                        <option value="{{ $city->id }}" {{ old('city_id') == $city->id ? 'selected' : '' }}>{{ $city->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -126,6 +126,29 @@
 @push('script')
     <script>
         $(function() {
+            function updateCityGroupInput() {
+                let city_id = $('select#city_id').val()
+                if (city_id !== null) {
+                    $('.ward-row .ward-col').addClass('hidden')
+                    $('.ward-row .district-col').addClass('hidden')
+                    $('.ward-row .district-col.district-col-city'+city_id).removeClass('hidden')
+
+                    let district_id = $('select#city_district_id_'+city_id).val()
+                    if (district_id !== null) {
+                        $('.ward-row .ward-col-city'+city_id+'.ward-col-district'+district_id).removeClass('hidden')
+                    } else {
+                        $('.ward-row .ward-col.ward-col-city'+city_id+':not(.ward-district-city-col)').removeClass('hidden')
+                    }
+                } else {
+                    let district_id = $('select#district_id_2').val()
+                    if (district_id !== null) {
+                        $('.ward-row .ward-col').addClass('hidden')
+                        $('.ward-row .ward-col.ward-district-col.ward-col-district'+district_id).removeClass('hidden')
+                    }
+                }
+            }
+            updateCityGroupInput()
+
             // ward row
             $('select#city_id').change(function() {
                 let value = $(this).val()

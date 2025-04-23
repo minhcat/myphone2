@@ -17,7 +17,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Name <span class="text-red">*</span></label>
-                                <input type="text" class="form-control input-required" name="name" value="{{ $category->name }}">
+                                <input type="text" class="form-control input-required" name="name" value="{{ old('name', $category->name) }}">
                                 <span class="help-block require hidden">Name is required</span>
                             </div>
                         </div>
@@ -26,7 +26,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Description</label>
-                                <textarea class="form-control" rows="4" name="description">{{ $category->description }}</textarea>
+                                <textarea class="form-control" rows="4" name="description">{{ old('description', $category->description) }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="">Note <span class="fa fa-fw fa-question-circle" data-toggle="tooltip" title="Admin Note"></span></label>
-                                <input type="text" class="form-control" name="note" value="{{ $category->note }}">
+                                <input type="text" class="form-control" name="note" value="{{ old('note', $category->note) }}">
                             </div>
                         </div>
                     </div>
