@@ -10,6 +10,7 @@ return [
         require database_path().'\fakers\Data\invoice\attributes\author_id.php',
         require database_path().'\fakers\Data\invoice\attributes\address_id.php',
         require database_path().'\fakers\Data\invoice\attributes\transporter_case_id.php',
+        require database_path().'\fakers\Data\invoice\attributes\payment_method.php',
         require database_path().'\fakers\Data\invoice\attributes\status.php',
     ]
 ];

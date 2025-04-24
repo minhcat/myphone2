@@ -3,6 +3,7 @@
 namespace Modules\Cart\Http\Controllers;
 
 use App\Enums\OrderStatus;
+use App\Enums\PaymentMethod;
 use App\Enums\TargetType;
 use App\Events\CreateOrderEvent;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -78,8 +79,9 @@ class CartController extends Controller
             $carts  = $this->cartRepository->paginate($search);
             $transporters = $this->transporterRepository->all();
             $cases = $this->transporterCaseRepository->all();
+            $payments = PaymentMethod::getObject();
     
-            return view('cart::cart.index', compact('carts', 'transporters', 'cases'));
+            return view('cart::cart.index', compact('carts', 'transporters', 'cases', 'payments'));
         } catch (AuthorizationException $exception) {
             return redirect()->route('admin')->with('danger', __('notification.permission.fail', ['action' => 'browse cart']));
         }
@@ -119,7 +121,7 @@ class CartController extends Controller
     
             $cart = $this->cartRepository->find($id);
             $order = $this->orderRepository->create([
-                'user_id'               => $cart->user->id,
+                'author_id'             => $cart->user->id,
                 'address_id'            => $request->input('address_id'),
                 'transporter_case_id'   => $request->input('transporter_case_id'),
                 'voucher_code'          => $request->input('voucher_code'),
@@ -138,6 +140,7 @@ class CartController extends Controller
                 }
                 $this->orderDetailRepository->create([
                     'order_id'      => $order->id,
+                    'author_id'     => $cart->user->id,
                     'target_type'   => $data['target_type'],
                     'target_id'     => $target_id,
                     'quantity'      => $data['quantity'],

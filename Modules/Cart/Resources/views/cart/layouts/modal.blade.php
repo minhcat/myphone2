@@ -60,6 +60,17 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
+                            <label for="payment_method">Payment Method</label>
+                            <select name="payment_method" id="payment_method" class="form-control">
+                                <option value="0" disabled selected>-- choose method --</option>
+                                @foreach($payments as $payment)
+                                    <option value="{{ $payment->code }}">{{ $payment->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="address_id">Address</label>
                                 <select name="address_id" id="address_id" class="form-control">

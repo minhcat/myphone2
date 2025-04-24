@@ -19,6 +19,8 @@ class Invoice extends Model
         'address_id',
         'subtotal',
         'transport_fee',
+        'transporter_case_id',
+        'payment_method',
         'discount',
         'tax',
         'total',

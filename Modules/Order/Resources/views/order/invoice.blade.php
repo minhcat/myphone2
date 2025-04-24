@@ -2,6 +2,10 @@
 
 @section('title-page', 'Order')
 
+@section('style')
+<link rel="stylesheet" href="{{ asset('modules/common/app.css') }}">
+@endsection
+
 @section('small-info')
 <small>Order Detail (Invoice Type)</small>
 @endsection
@@ -27,7 +31,6 @@
                         <p class="px-2"><strong>Order {{ $order->code }}</strong></p>
                         <p class="px-2"><strong>Date Create:</strong> {{ $order->created_at->format('d/m/Y') }}</p>
                         <p class="px-2"><strong>Status:</strong> {{ OrderStatus::getName($order->status) }}</p>
-                        <p class="px-2"><strong>Note:</strong> {{ $order->note }}</p>
                     </div>
                     <div class="col-lg-3">
                         <p class="px-2"><strong>User:</strong> {{ $order->user->fullname }}</p>
@@ -43,9 +46,8 @@
                     </div>
                     <div class="col-lg-3">
                         <p class="px-2"><strong>Transporter:</strong> {{ $order->case->transporter->name }}</p>
-                        <p class="px-2"><strong>Quality:</strong> Best - todo</p>
                         <p class="px-2"><strong>Shipping Option:</strong> {{ $order->case->name }}</p>
-                        <p class="px-2"><strong>Payment Method:</strong> Cash on Delivery - todo</p>
+                        <p class="px-2"><strong>Payment Method:</strong> {{ PaymentMethod::getName($order->payment_method) }}</p>
                     </div>
                 </div>
                 <table class="table table-bordered table-striped mt-4">
@@ -71,7 +73,11 @@
                     </tbody>
                 </table>
                 <div class="row mt-4 text-4 order-invoice-footer">
-                    <div class="col-lg-4 col-lg-offset-8">
+                    <div class="col-lg-4">
+                        <label for="note">Note:</label>
+                        <textarea class="form-control full-width note-box" id="note">{{ $order->note }}</textarea>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-4">
                         <table class="table">
                             <tr class="">
                                 <td><strong>Subtotal:</strong></td>

@@ -2,6 +2,7 @@
 
 namespace Database\Fakers;
 
+use App\Enums\PaymentMethod;
 use Modules\Transporter\Repositories\TransporterCaseRepository;
 use Modules\User\Repositories\AddressRepository;
 use Modules\User\Repositories\UserRepository;
@@ -32,6 +33,7 @@ class OrderFaker extends AbstractFaker
         $this->generateAuthorId();
         $this->generateAddressId();
         $this->generateTransporterCaseId();
+        $this->generatePaymentMethod();
     }
 
     private function generateAuthorId()
@@ -55,5 +57,11 @@ class OrderFaker extends AbstractFaker
         $code = session()->get('order.code.value', 1000);
         $this->code = '#' . ($code + 1);
         session()->put('order.code.value', $code + 1);
+    }
+
+    private function generatePaymentMethod()
+    {
+        $this->payment_method = session('order.payment.value', PaymentMethod::ONLINE);
+        session()->put('order.payment.value', $this->payment_method == PaymentMethod::ONLINE ? PaymentMethod::CASH_ON_DELIVERY : PaymentMethod::ONLINE);
     }
 }

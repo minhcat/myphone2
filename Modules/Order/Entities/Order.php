@@ -19,6 +19,7 @@ class Order extends Model
         'author_id',
         'address_id',
         'transporter_case_id',
+        'payment_method',
         'voucher_code',
         'status',
         'note',

@@ -14,3 +14,9 @@ table.table.fit-column tr td.fit-width {
 .min-width-40px {
     min-width: 40px !important;
 }
+
+.note-box {
+    height: 169px !important;
+    border-radius: 5px;
+    border-color: #f4f4f4;
+}

@@ -138,4 +138,14 @@ return [
             'not_equal'         => 'success',
         ],
     ],
+    'payment_method'            => [
+        'name'                  => [
+            'online'            => 'online',
+            'cash_on_delivery'  => 'cash on delivery'
+        ],
+        'label'                 => [
+            'online'            => 'primary',
+            'cash_on_delivery'  => 'success'
+        ],
+    ],
 ];

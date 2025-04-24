@@ -77,6 +77,16 @@
                 <div class="field-group">
                     <div class="row">
                         <div class="col-lg-2">
+                            <p><strong>Payment Method</strong></p>
+                        </div>
+                        <div class="col-lg-10">
+                            <p>{!! generate_label($invoice->payment_method, new PaymentMethod) !!}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <div class="row">
+                        <div class="col-lg-2">
                             <p><strong>Discount</strong></p>
                         </div>
                         <div class="col-lg-10">

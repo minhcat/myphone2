@@ -31,6 +31,7 @@ class OrderFactory extends Factory
             'transporter_case_id'   => $order->transporter_case_id,
             'voucher_code'          => null,
             'status'                => OrderStatus::PENDING,
+            'payment_method'        => $order->payment_method,
             'subtotal'              => 0,
             'transport_fee'         => 0,
             'discount'              => 0,

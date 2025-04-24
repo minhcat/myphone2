@@ -27,6 +27,7 @@ class InvoiceFactory extends Factory
             'author_id'             => $invoice->author_id,
             'address_id'            => $invoice->address_id,
             'transporter_case_id'   => $invoice->transporter_case_id,
+            'payment_method'        => $invoice->payment_method,
             'subtotal'              => 0,
             'transport_fee'         => 0,
             'discount'              => 0,
