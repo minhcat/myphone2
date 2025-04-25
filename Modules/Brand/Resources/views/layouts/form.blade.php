@@ -28,11 +28,9 @@
                                 <label for="">Country</label>
                                 <select class="form-control" aria-placeholder="not select" name="country">
                                     <option disabled selected>-- choose country --</option>
-                                    <option value="usa"     {{ old('country') == 'usa' || $brand->country == 'usa' ? 'selected' : '' }}>USA</option>
-                                    <option value="japan"   {{ old('country') == 'japan' || $brand->country == 'japan' ? 'selected' : '' }}>Japan</option>
-                                    <option value="korea"   {{ old('country') == 'korea' || $brand->country == 'korea' ? 'selected' : '' }}>Korea</option>
-                                    <option value="china"   {{ old('country') == 'china' || $brand->country == 'china' ? 'selected' : '' }}>China</option>
-                                    <option value="vietnam" {{ old('country') == 'vietnam' || $brand->country == 'vietnam' ? 'selected' : '' }}>Vietnam</option>
+                                    @foreach(config('country') as $value => $country)
+                                        <option value="{{ $value }}" {{ old('country') == $value || $brand->country == $value ? 'selected' : '' }}>{{ $country }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
