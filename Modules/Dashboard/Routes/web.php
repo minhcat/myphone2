@@ -11,6 +11,11 @@
 |
 */
 
-Route::prefix('dashboard')->group(function() {
-    Route::get('/', 'DashboardController@index');
+use Illuminate\Support\Facades\Route;
+use Modules\Dashboard\Http\Controllers\DashboardController;
+
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
+    Route::prefix('dashboard')->name('dashboard.')->group(function() {
+        Route::get('/', [DashboardController::class, 'index'])->name('index');
+    });
 });

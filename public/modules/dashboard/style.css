@@ -1,0 +1,33 @@
+.small-box-footer {
+    height: 2rem;
+}
+.small-box h3, .small-box p {
+    margin-bottom: 1rem;
+}
+.p3 {
+    padding: 2rem;
+}
+table.table-fix tr td {
+    height: 57.5px;
+}
+.box-profit {
+    border-radius: 50%;
+    padding: 1rem;
+    aspect-ratio : 1 / 1;
+}
+.box-item {
+    flex-grow: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+}
+.d-flex {
+    display: flex;
+}
+.gap-2 {
+    gap: 1rem;
+}
+.justify-between {
+    justify-content: space-between;
+}
