@@ -29,8 +29,10 @@
       'promotion:browse', 'sale:browse', 'voucher:browse', 'gift:browse',
       'transporter:browse', 'transport_fee:browse', 'area:browse', 'city:browse'
     ])
-    <li class="header">MODULES</li>
+    <li class="header">MAIN</li>
     @endcanany
+
+    <li class="{{ $menu['active'] == 'dashboard' ? 'active' : '' }}"><a href="{{ route('admin.dashboard.index') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 
     <!-- Optionally, you can add icons to the links -->
     @canany(['product:browse', 'attribute:browse', 'specification:browse', 'brand:browse'])
