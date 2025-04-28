@@ -32,7 +32,9 @@
     <li class="header">MAIN</li>
     @endcanany
 
+    @can('dashboard:browse')
     <li class="{{ $menu['active'] == 'dashboard' ? 'active' : '' }}"><a href="{{ route('admin.dashboard.index') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    @endcan
 
     <!-- Optionally, you can add icons to the links -->
     @canany(['product:browse', 'attribute:browse', 'specification:browse', 'brand:browse'])

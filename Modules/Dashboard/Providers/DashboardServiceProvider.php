@@ -3,7 +3,9 @@
 namespace Modules\Dashboard\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
+use Modules\Dashboard\Policies\DashboardPolicy;
 
 class DashboardServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class DashboardServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerPermission();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -104,11 +107,16 @@ class DashboardServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
         return $paths;
+    }
+    
+    private function registerPermission()
+    {
+        Gate::define('dashboard:browse', [DashboardPolicy::class, 'browse']);
     }
 }

@@ -139,7 +139,7 @@
         function init_input_group_all() {
             let groups = [
                 'area', 'area_detail', 'attribute', 'attribute_option', 'brand', 'cart', 'cart_detail', 'config',
-                'category', 'city', 'city_district', 'city_district_ward', 'gift', 'gift_product', 'gift_product_item',
+                'category', 'city', 'city_district', 'city_district_ward', 'dashboard', 'gift', 'gift_product', 'gift_product_item',
                 'invoice', 'invoice_detail', 'order', 'order_detail', 'permission', 'product', 'product_detail', 'product_variation',
                 'promotion', 'role', 'sale', 'sale_product', 'specification', 'specification_information', 'tag', 'theme',
                 'transporter', 'transporter_case', 'transport_fee', 'user', 'user_address', 'voucher', 'voucher_code'
