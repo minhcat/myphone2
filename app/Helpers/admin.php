@@ -254,7 +254,11 @@ if (!function_exists('check_permission_allow_many')) {
  */
 if (!function_exists('get_admin_active_theme')) {
     function get_admin_active_theme() {
-        return Theme::where('is_active', ThemeStatus::ACTIVE)->first();
+        try {
+            return Theme::where('is_active', ThemeStatus::ACTIVE)->first();
+        } catch (Exception $e) {
+            return new Theme();
+        }
     }
 }
 
