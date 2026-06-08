@@ -4,9 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Modules\User\Entities\Address;
-use Modules\User\Entities\User;
 
-class UserSeeder extends Seeder
+class AddressSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,10 +14,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
+        Address::truncate();
 
-        User::insert(config('seeder.user'));
-
-        User::factory(48)->create();
+        Address::factory(100)->create();
     }
 }
